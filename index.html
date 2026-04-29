@@ -310,11 +310,13 @@
     .hero-logo img { width: clamp(92px, 12vw, 138px); height: auto; filter: drop-shadow(0 22px 44px rgba(0,0,0,.45)); }
     .hero-logo strong { font-size: clamp(1.9rem, 4vw, 3.4rem); letter-spacing: -.055em; }
     .hero p { margin-top: 22px; }
+    .hero .lead { max-width: 860px; margin-left: auto; margin-right: auto; }
     .path-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 16px;
-      margin-top: 38px;
+      margin: 38px auto 0;
+      max-width: 1040px;
     }
     .path-card {
       position: relative;
@@ -552,6 +554,8 @@
       .nav-links a { padding: 13px 14px; }
       .hero::before { inset: 82px 16px 18px; border-radius: 30px; }
       .path-grid, .cards-3, .section-head.split, .feature-card, .about-grid, .yt-buttons { grid-template-columns: 1fr; }
+      .path-grid { width: 100%; max-width: 100%; }
+      .path-card { min-width: 0; }
       .stats { grid-template-columns: repeat(2, 1fr); }
       .section-art { display: none; }
       .section { padding: 82px 0; }
