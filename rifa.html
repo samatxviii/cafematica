@@ -193,6 +193,27 @@
       font-weight: 850;
     }
 
+    .btn-draw {
+      width: 100%;
+      border-color: rgba(31, 214, 122, 0.58);
+      background:
+        linear-gradient(135deg, rgba(31, 214, 122, 0.96), rgba(15, 143, 77, 0.92));
+      color: #ffffff;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 16px 36px rgba(31, 214, 122, 0.2);
+    }
+
+    .btn-draw:hover {
+      background:
+        linear-gradient(135deg, rgba(42, 232, 137, 0.98), rgba(17, 160, 86, 0.94));
+    }
+
+    .draw-action {
+      margin-bottom: 18px;
+    }
+
     .btn-ghost {
       color: var(--muted);
     }
@@ -648,6 +669,182 @@
       overflow-wrap: anywhere;
     }
 
+    .draw-modal {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .draw-stage {
+      position: relative;
+      min-height: 300px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+      padding: 22px;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(255, 209, 102, 0.16), transparent 34%),
+        rgba(255, 255, 255, 0.045);
+    }
+
+    .fireworks {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    .firework-spark {
+      position: absolute;
+      left: var(--x);
+      top: var(--y);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: hsl(var(--hue), 100%, 65%);
+      box-shadow: 0 0 14px hsl(var(--hue), 100%, 65%);
+      transform: translate(-50%, -50%) rotate(var(--angle)) translateY(0);
+      animation: fireworkSpark 960ms ease-out forwards;
+    }
+
+    @keyframes fireworkSpark {
+      to {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(var(--angle)) translateY(calc(-1 * var(--distance))) scale(0.65);
+      }
+    }
+
+    .draw-reel {
+      position: relative;
+      z-index: 2;
+      min-width: 180px;
+      text-align: center;
+      color: #ffffff;
+      font-size: clamp(4.2rem, 18vw, 8.2rem);
+      line-height: 1;
+      font-weight: 950;
+      letter-spacing: -0.08em;
+      text-shadow: 0 20px 50px rgba(0, 0, 0, 0.58);
+    }
+
+    .draw-reel.spinning {
+      animation: numberPulse 0.18s linear infinite;
+    }
+
+    @keyframes numberPulse {
+      50% {
+        transform: scale(1.04);
+      }
+    }
+
+    .draw-result {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 0.72fr 1.28fr;
+      gap: 18px;
+      align-items: center;
+      animation: drawResultIn 0.48s ease both;
+    }
+
+    @keyframes drawResultIn {
+      from {
+        opacity: 0;
+        transform: translateY(12px) scale(0.98);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .draw-final-number {
+      min-height: 190px;
+      display: grid;
+      place-items: center;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background:
+        linear-gradient(135deg, rgba(255, 59, 59, 0.86), rgba(185, 21, 21, 0.86));
+      color: #ffffff;
+      font-size: clamp(4rem, 17vw, 7.8rem);
+      line-height: 1;
+      font-weight: 950;
+      letter-spacing: -0.08em;
+      box-shadow: 0 20px 55px rgba(255, 59, 59, 0.2);
+    }
+
+    .draw-details {
+      min-width: 0;
+      padding: 18px;
+      border-radius: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(0, 0, 0, 0.36);
+      backdrop-filter: blur(8px);
+    }
+
+    .draw-label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--yellow);
+      font-size: 0.72rem;
+      font-weight: 900;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+    }
+
+    .draw-details strong {
+      display: block;
+      color: #ffffff;
+      font-size: clamp(1.85rem, 7vw, 3rem);
+      line-height: 1.02;
+      letter-spacing: -0.055em;
+      overflow-wrap: anywhere;
+      margin-bottom: 18px;
+    }
+
+    .draw-buyer {
+      color: var(--green);
+      font-size: 1.2rem;
+      line-height: 1.18;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .draw-phone {
+      display: inline-block;
+      margin-top: 7px;
+      color: var(--blue);
+      font-size: 1rem;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+
+    .draw-phone:hover {
+      text-decoration: underline;
+    }
+
+    .draw-note {
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.45;
+      margin: 12px 0 0;
+    }
+
+    @media (max-width: 560px) {
+      .draw-result {
+        grid-template-columns: 1fr;
+      }
+
+      .draw-final-number {
+        min-height: 130px;
+      }
+    }
+
     .toast {
       position: fixed;
       left: 50%;
@@ -826,6 +1023,10 @@
       </section>
 
       <aside class="panel" aria-labelledby="peopleTitle">
+        <div class="draw-action">
+          <button class="btn btn-draw" type="button" id="drawBtn">SORTEAR</button>
+        </div>
+
         <div class="panel-header">
           <div>
             <h3 id="peopleTitle">Cadastrados</h3>
@@ -912,6 +1113,40 @@
     </div>
   </dialog>
 
+  <dialog id="drawDialog">
+    <div class="modal draw-modal">
+      <div class="modal-head">
+        <div>
+          <h2>Sorteio</h2>
+          <p>O sistema sorteia apenas entre os números que já têm comprador cadastrado.</p>
+        </div>
+        <button class="close-btn" type="button" data-close-dialog="drawDialog" aria-label="Fechar">×</button>
+      </div>
+
+      <div class="draw-stage" id="drawStage">
+        <div class="fireworks" id="fireworksLayer" aria-hidden="true"></div>
+        <div class="draw-reel" id="drawReel">00</div>
+
+        <div class="draw-result hidden" id="drawResult">
+          <div class="draw-final-number" id="drawFinalNumber">00</div>
+
+          <div class="draw-details">
+            <span class="draw-label">Nome da rifa sorteado</span>
+            <strong id="drawRaffleName">--</strong>
+
+            <span class="draw-label">Comprador</span>
+            <div class="draw-buyer" id="drawBuyer">--</div>
+            <a class="draw-phone" id="drawPhone" href="#" target="_blank" rel="noopener noreferrer">--</a>
+          </div>
+        </div>
+      </div>
+
+      <p class="draw-note">
+        A animação dos números é apenas visual. O número vencedor é escolhido por uma função comentada no código, a partir da lista de rifas preenchidas.
+      </p>
+    </div>
+  </dialog>
+
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script>
@@ -946,6 +1181,18 @@
     const logDialog = document.getElementById("logDialog");
     const logList = document.getElementById("logList");
     const toast = document.getElementById("toast");
+    const drawBtn = document.getElementById("drawBtn");
+    const drawDialog = document.getElementById("drawDialog");
+    const drawReel = document.getElementById("drawReel");
+    const drawResult = document.getElementById("drawResult");
+    const drawFinalNumber = document.getElementById("drawFinalNumber");
+    const drawRaffleName = document.getElementById("drawRaffleName");
+    const drawBuyer = document.getElementById("drawBuyer");
+    const drawPhone = document.getElementById("drawPhone");
+    const fireworksLayer = document.getElementById("fireworksLayer");
+    let drawAnimationTimer = null;
+    let fireworksTimer = null;
+    let isDrawing = false;
 
     function loadState() {
       const fallback = {
@@ -1258,6 +1505,193 @@
       }, 1900);
     }
 
+    function getAssignedRaffleIndexes() {
+      /*
+        REGRA DO SORTEIO
+        ----------------
+        O sorteio NÃO considera todos os números de 1 a 100.
+        Ele considera apenas os números que já têm comprador cadastrado.
+
+        Internamente, a rifa usa índices de 0 a 99.
+        Por isso, o número 1 da rifa fica salvo no índice 0,
+        o número 2 no índice 1, e assim por diante.
+
+        A filtragem abaixo garante três coisas:
+        1. o índice precisa estar dentro da lista de 100 nomes;
+        2. o índice precisa ter algum comprador salvo em state.assignments;
+        3. esse comprador precisa ainda existir na lista state.people.
+
+        Assim, se uma pessoa for excluída, os números ligados a ela
+        deixam automaticamente de participar do sorteio.
+      */
+      return Object.keys(state.assignments)
+        .map(Number)
+        .filter(index => {
+          const isValidIndex = Number.isInteger(index) && index >= 0 && index < raffleNames.length;
+          const hasExistingBuyer = Boolean(getPersonById(state.assignments[index]));
+          return isValidIndex && hasExistingBuyer;
+        });
+    }
+
+    function randomIntegerBelow(max) {
+      /*
+        RANDOMIZAÇÃO
+        -------------
+        Esta função retorna um número inteiro de 0 até max - 1.
+
+        Preferencialmente usamos window.crypto.getRandomValues(),
+        que é o gerador aleatório criptográfico disponível no navegador.
+        Ele é mais adequado para sorteios do que Math.random(),
+        porque é menos previsível.
+
+        Também usamos "rejection sampling" para evitar viés de módulo.
+        Sem isso, alguns resultados poderiam ter uma chance ligeiramente
+        maior quando o tamanho do intervalo não divide exatamente 2^32.
+
+        Caso o navegador não tenha suporte a crypto.getRandomValues(),
+        o código usa Math.random() como alternativa de compatibilidade.
+      */
+      if (!Number.isInteger(max) || max <= 0) return 0;
+
+      if (window.crypto && typeof window.crypto.getRandomValues === "function") {
+        const randomValues = new Uint32Array(1);
+        const possibleValues = 0x100000000;
+        const unbiasedLimit = possibleValues - (possibleValues % max);
+        let value;
+
+        do {
+          window.crypto.getRandomValues(randomValues);
+          value = randomValues[0];
+        } while (value >= unbiasedLimit);
+
+        return value % max;
+      }
+
+      return Math.floor(Math.random() * max);
+    }
+
+    function chooseDrawWinnerIndex() {
+      /*
+        ESCOLHA DO VENCEDOR
+        -------------------
+        Primeiro montamos a lista dos números válidos, ou seja,
+        apenas os números com comprador cadastrado.
+
+        Depois sorteamos uma posição dentro dessa lista.
+        Exemplo: se apenas os números 4, 10 e 52 estiverem preenchidos,
+        a lista terá 3 opções, e cada uma terá a mesma chance.
+
+        A animação exibida na tela NÃO participa desta escolha.
+        Ela é apenas efeito visual.
+      */
+      const assignedIndexes = getAssignedRaffleIndexes();
+      if (!assignedIndexes.length) return null;
+
+      const randomPosition = randomIntegerBelow(assignedIndexes.length);
+      return assignedIndexes[randomPosition];
+    }
+
+    function resetDrawModal() {
+      clearInterval(drawAnimationTimer);
+      clearInterval(fireworksTimer);
+      drawAnimationTimer = null;
+      fireworksTimer = null;
+      fireworksLayer.innerHTML = "";
+      drawResult.classList.add("hidden");
+      drawReel.classList.remove("hidden");
+      drawReel.classList.add("spinning");
+      drawReel.textContent = "00";
+    }
+
+    function createFireworkBurst() {
+      /*
+        Estes números aleatórios são usados apenas para o efeito visual
+        dos fogos de artifício. Eles NÃO interferem no resultado do sorteio.
+      */
+      const x = 15 + Math.random() * 70;
+      const y = 12 + Math.random() * 58;
+      const hue = Math.floor(Math.random() * 360);
+      const sparks = 22;
+
+      for (let i = 0; i < sparks; i += 1) {
+        const spark = document.createElement("span");
+        spark.className = "firework-spark";
+        spark.style.setProperty("--x", `${x}%`);
+        spark.style.setProperty("--y", `${y}%`);
+        spark.style.setProperty("--hue", String((hue + i * 12) % 360));
+        spark.style.setProperty("--angle", `${(360 / sparks) * i}deg`);
+        spark.style.setProperty("--distance", `${54 + Math.random() * 58}px`);
+        fireworksLayer.appendChild(spark);
+
+        spark.addEventListener("animationend", () => {
+          spark.remove();
+        });
+      }
+    }
+
+    function startFireworks() {
+      createFireworkBurst();
+      fireworksTimer = setInterval(createFireworkBurst, 360);
+    }
+
+    function showDrawWinner(index) {
+      const person = getPersonById(state.assignments[index]);
+      if (!person) return;
+
+      const raffleNumber = String(index + 1).padStart(2, "0");
+
+      drawReel.classList.remove("spinning");
+      drawReel.classList.add("hidden");
+      drawFinalNumber.textContent = raffleNumber;
+      drawRaffleName.textContent = raffleNames[index];
+      drawBuyer.textContent = person.name;
+      drawPhone.href = whatsappHref(person.phone);
+      drawPhone.textContent = displayPhone(person.phone);
+      drawResult.classList.remove("hidden");
+      startFireworks();
+
+      addLog(
+        "Sorteio realizado",
+        `Número ${raffleNumber} (${raffleNames[index]}) foi sorteado para ${person.name} (${displayPhone(person.phone)}).`
+      );
+      saveState();
+    }
+
+    function runDraw() {
+      if (isDrawing) return;
+
+      const winnerIndex = chooseDrawWinnerIndex();
+      if (winnerIndex === null) {
+        showToast("Cadastre compradores antes de sortear.");
+        return;
+      }
+
+      isDrawing = true;
+      resetDrawModal();
+      drawDialog.showModal();
+
+      let ticks = 0;
+      const totalTicks = 58;
+
+      drawAnimationTimer = setInterval(() => {
+        /*
+          A sequência abaixo é só a animação visual de números passando.
+          Ela mostra qualquer número de 1 a 100, mas NÃO decide o vencedor.
+          O vencedor já foi escolhido por chooseDrawWinnerIndex().
+        */
+        const visualNumber = String(Math.floor(Math.random() * raffleNames.length) + 1).padStart(2, "0");
+        drawReel.textContent = visualNumber;
+        ticks += 1;
+
+        if (ticks >= totalTicks) {
+          clearInterval(drawAnimationTimer);
+          drawAnimationTimer = null;
+          showDrawWinner(winnerIndex);
+          isDrawing = false;
+        }
+      }, 42);
+    }
+
     async function exportData() {
       function loadXlsxLibrary() {
         if (window.XLSX) return Promise.resolve();
@@ -1410,6 +1844,17 @@
     });
 
     document.getElementById("exportBtn").addEventListener("click", exportData);
+
+    drawBtn.addEventListener("click", runDraw);
+
+    drawDialog.addEventListener("close", () => {
+      clearInterval(drawAnimationTimer);
+      clearInterval(fireworksTimer);
+      drawAnimationTimer = null;
+      fireworksTimer = null;
+      isDrawing = false;
+      drawReel.classList.remove("spinning");
+    });
 
     document.getElementById("openLogBtn").addEventListener("click", () => {
       renderLog();
