@@ -1,0 +1,1455 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Rifa Cafemática</title>
+  <meta name="description" content="Sistema simples de rifa do Cafemática com cadastro de participantes e salvamento local.">
+
+  <style>
+    :root {
+      --bg: #080808;
+      --bg-soft: #111111;
+      --card: rgba(255, 255, 255, 0.055);
+      --card-strong: rgba(255, 255, 255, 0.09);
+      --line: rgba(255, 255, 255, 0.14);
+      --line-strong: rgba(255, 255, 255, 0.24);
+      --text: #f6f6f6;
+      --muted: #b8b8b8;
+      --muted-2: #898989;
+      --red: #ff3b3b;
+      --red-dark: #b91515;
+      --green: #1fd67a;
+      --green-dark: #0f8f4d;
+      --blue: #35a7ff;
+      --yellow: #ffd166;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+      --radius-xl: 26px;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255, 59, 59, 0.18), transparent 28%),
+        radial-gradient(circle at 80% 0%, rgba(53, 167, 255, 0.18), transparent 28%),
+        radial-gradient(circle at 60% 100%, rgba(31, 214, 122, 0.13), transparent 30%),
+        linear-gradient(135deg, #050505 0%, #111111 48%, #050505 100%);
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.2;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent 90%);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .page {
+      width: min(var(--max), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 56px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 16px 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: rgba(10, 10, 10, 0.64);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 14px;
+      z-index: 20;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      color: #ffffff;
+      font-weight: 950;
+      letter-spacing: -0.06em;
+      background:
+        linear-gradient(135deg, rgba(255, 59, 59, 0.9), rgba(255, 59, 59, 0.32)),
+        #171717;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 10px 28px rgba(255, 59, 59, 0.16);
+      flex: 0 0 auto;
+    }
+
+    .brand-text {
+      min-width: 0;
+    }
+
+    .brand-text strong {
+      display: block;
+      font-size: 1rem;
+      line-height: 1.1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .brand-text span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .top-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn {
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 10px 15px;
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.07);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      text-decoration: none;
+      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      user-select: none;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.36);
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      border-color: rgba(255, 59, 59, 0.45);
+      background: linear-gradient(135deg, rgba(255, 59, 59, 0.96), rgba(185, 21, 21, 0.92));
+      box-shadow: 0 14px 34px rgba(255, 59, 59, 0.18);
+    }
+
+    .btn-green {
+      border-color: rgba(31, 214, 122, 0.42);
+      background: linear-gradient(135deg, rgba(31, 214, 122, 0.86), rgba(15, 143, 77, 0.82));
+      color: #06150d;
+      font-weight: 850;
+    }
+
+    .btn-ghost {
+      color: var(--muted);
+    }
+
+    .btn-danger {
+      border-color: rgba(255, 59, 59, 0.38);
+      color: #ffb3b3;
+      background: rgba(255, 59, 59, 0.08);
+    }
+
+    .hero {
+      padding: 64px 0 28px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.22fr) minmax(280px, 0.78fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .hero-card,
+    .stats-card,
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-xl);
+      background: rgba(15, 15, 15, 0.68);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card {
+      padding: clamp(26px, 5vw, 48px);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 340px;
+      height: 340px;
+      border-radius: 50%;
+      right: -140px;
+      bottom: -170px;
+      background: rgba(255, 59, 59, 0.14);
+      filter: blur(4px);
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      color: var(--yellow);
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-size: 0.74rem;
+      font-weight: 850;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 760px;
+      font-size: clamp(2.15rem, 7vw, 5.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.075em;
+    }
+
+    .hero p {
+      color: var(--muted);
+      max-width: 680px;
+      margin: 20px 0 0;
+      font-size: clamp(1rem, 2vw, 1.16rem);
+      line-height: 1.62;
+    }
+
+    .stats-card {
+      padding: 22px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .stat {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 2.05rem;
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    .stat span {
+      color: var(--muted);
+      display: block;
+      margin-top: 7px;
+      font-size: 0.9rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 22px;
+      align-items: start;
+    }
+
+    .panel {
+      padding: 22px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .panel-header h2,
+    .panel-header h3 {
+      margin: 0;
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+    }
+
+    .panel-header p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .search-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      margin: 0 0 18px;
+    }
+
+    .field {
+      width: 100%;
+      min-height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.32);
+      color: var(--text);
+      outline: none;
+      padding: 0 15px;
+    }
+
+    .field:focus {
+      border-color: rgba(255, 59, 59, 0.65);
+      box-shadow: 0 0 0 4px rgba(255, 59, 59, 0.12);
+    }
+
+    .raffle-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .raffle-item {
+      min-height: 156px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      padding: 13px;
+      background: rgba(255, 255, 255, 0.045);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+      overflow: hidden;
+    }
+
+    .raffle-item:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.065);
+    }
+
+    .raffle-name {
+      color: #ffffff;
+      font-size: 1rem;
+      line-height: 1.12;
+      font-weight: 850;
+      letter-spacing: -0.035em;
+      min-height: 2.26em;
+      display: flex;
+      align-items: center;
+    }
+
+    .raffle-assignment {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      padding: 11px;
+      border-radius: 14px;
+      background: rgba(0, 0, 0, 0.24);
+      border: 1px dashed rgba(255, 255, 255, 0.13);
+      min-width: 0;
+    }
+
+    .assignment-empty {
+      color: var(--muted-2);
+      font-size: 0.86rem;
+      text-align: center;
+    }
+
+    .assigned-name {
+      font-weight: 850;
+      color: var(--green);
+      overflow-wrap: anywhere;
+      line-height: 1.15;
+    }
+
+    .assigned-phone {
+      color: var(--blue);
+      font-size: 0.9rem;
+      overflow-wrap: anywhere;
+      text-decoration: none;
+    }
+
+    .assigned-phone:hover {
+      text-decoration: underline;
+    }
+
+    .item-actions {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .plus-btn {
+      width: 100%;
+      min-height: 40px;
+      border: 1px solid rgba(31, 214, 122, 0.35);
+      border-radius: 999px;
+      color: var(--green);
+      background: rgba(31, 214, 122, 0.08);
+      font-size: 1.1rem;
+      font-weight: 950;
+      transition: transform 0.18s ease, background 0.18s ease;
+    }
+
+    .plus-btn:hover {
+      background: rgba(31, 214, 122, 0.14);
+      transform: translateY(-1px);
+    }
+
+    .mini-btn {
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--muted);
+      min-height: 40px;
+      padding: 0 11px;
+    }
+
+    .mini-btn:hover {
+      color: var(--text);
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .side-list {
+      display: grid;
+      gap: 10px;
+      max-height: 520px;
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .person-card {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.045);
+      min-width: 0;
+    }
+
+    .person-card strong {
+      display: block;
+      line-height: 1.18;
+      overflow-wrap: anywhere;
+    }
+
+    .person-card a,
+    .person-card span {
+      color: var(--blue);
+      display: block;
+      margin-top: 4px;
+      font-size: 0.88rem;
+      overflow-wrap: anywhere;
+    }
+
+    .person-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .empty-state {
+      color: var(--muted);
+      padding: 18px;
+      border: 1px dashed var(--line-strong);
+      border-radius: var(--radius-lg);
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    dialog {
+      width: min(560px, calc(100% - 28px));
+      border: 1px solid var(--line-strong);
+      border-radius: 26px;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(255, 59, 59, 0.12), transparent 30%),
+        #111111;
+      box-shadow: 0 30px 90px rgba(0, 0, 0, 0.68);
+      padding: 0;
+    }
+
+    dialog::backdrop {
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(5px);
+    }
+
+    .modal {
+      padding: 22px;
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .modal-head h2 {
+      margin: 0;
+      letter-spacing: -0.04em;
+    }
+
+    .modal-head p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .close-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text);
+      font-size: 1.2rem;
+      flex: 0 0 auto;
+    }
+
+    .form-grid {
+      display: grid;
+      gap: 12px;
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .input,
+    .select {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid var(--line);
+      border-radius: 15px;
+      background: rgba(0, 0, 0, 0.28);
+      color: var(--text);
+      outline: none;
+      padding: 0 13px;
+    }
+
+    .select option {
+      color: #111111;
+      background: #ffffff;
+    }
+
+    .input:focus,
+    .select:focus {
+      border-color: rgba(255, 59, 59, 0.65);
+      box-shadow: 0 0 0 4px rgba(255, 59, 59, 0.12);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 18px;
+      flex-wrap: wrap;
+    }
+
+    .notice {
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.48;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 209, 102, 0.2);
+      background: rgba(255, 209, 102, 0.06);
+    }
+
+    .log-list {
+      display: grid;
+      gap: 10px;
+      max-height: min(62vh, 540px);
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .log-item {
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 12px;
+      background: rgba(255, 255, 255, 0.045);
+    }
+
+    .log-item strong {
+      display: block;
+      line-height: 1.25;
+      color: #ffffff;
+      overflow-wrap: anywhere;
+    }
+
+    .log-item time {
+      display: block;
+      margin-top: 5px;
+      color: var(--yellow);
+      font-size: 0.82rem;
+      font-weight: 800;
+    }
+
+    .log-item span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      line-height: 1.42;
+      font-size: 0.9rem;
+      overflow-wrap: anywhere;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translateX(-50%) translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      color: #07150d;
+      background: var(--green);
+      border-radius: 999px;
+      padding: 12px 16px;
+      font-weight: 850;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.38);
+      z-index: 80;
+      transition: opacity 0.22s ease, transform 0.22s ease;
+      text-align: center;
+      max-width: calc(100% - 28px);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 980px) {
+      .hero,
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .raffle-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        width: min(100% - 20px, var(--max));
+        padding-top: 10px;
+      }
+
+      .topbar {
+        align-items: stretch;
+        flex-direction: column;
+        top: 8px;
+        border-radius: 20px;
+      }
+
+      .top-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .top-actions .btn {
+        width: 100%;
+        padding-inline: 11px;
+      }
+
+      .hero {
+        padding-top: 30px;
+      }
+
+      .panel,
+      .stats-card,
+      .hero-card {
+        border-radius: 20px;
+      }
+
+      .panel-header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .search-row {
+        grid-template-columns: 1fr;
+      }
+
+      .raffle-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .raffle-item {
+        min-height: 164px;
+        padding: 11px;
+      }
+
+      .raffle-name {
+        font-size: 0.95rem;
+      }
+
+      .modal-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .modal-actions .btn {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .raffle-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .top-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand" aria-label="Cafemática">
+        <div class="brand-mark">C</div>
+        <div class="brand-text">
+          <strong>Cafemática</strong>
+          <span>Sistema de rifa</span>
+        </div>
+      </div>
+
+      <div class="top-actions">
+        <button class="btn btn-primary" type="button" id="openRegisterBtn">Cadastrar</button>
+        <button class="btn" type="button" id="exportBtn">Exportar</button>
+        <button class="btn" type="button" id="openLogBtn">Log</button>
+        <button class="btn btn-danger" type="button" id="clearAllBtn">Limpar tudo</button>
+      </div>
+    </header>
+
+    <section class="hero" aria-labelledby="pageTitle">
+      <div class="hero-card">
+        <div class="eyebrow">Rifa organizada com clareza</div>
+        <h1 id="pageTitle">Controle sua rifa sem perder os dados.</h1>
+        <p>
+          Cadastre as pessoas uma única vez, escolha quem ficou com cada nome da rifa e mantenha tudo salvo neste navegador automaticamente.
+        </p>
+      </div>
+
+      <aside class="stats-card" aria-label="Resumo da rifa">
+        <div class="stat">
+          <strong id="totalAssigned">0</strong>
+          <span>nomes preenchidos</span>
+        </div>
+        <div class="stat">
+          <strong id="totalAvailable">100</strong>
+          <span>nomes disponíveis</span>
+        </div>
+        <div class="stat">
+          <strong id="totalPeople">0</strong>
+          <span>pessoas cadastradas</span>
+        </div>
+      </aside>
+    </section>
+
+    <main class="layout">
+      <section class="panel" aria-labelledby="raffleTitle">
+        <div class="panel-header">
+          <div>
+            <h2 id="raffleTitle">Nomes da rifa</h2>
+            <p>Clique no botão <strong>+</strong> para escolher uma pessoa cadastrada.</p>
+          </div>
+        </div>
+
+        <div class="search-row">
+          <input class="field" id="searchInput" type="search" placeholder="Buscar nome da rifa ou comprador..." autocomplete="off">
+          <button class="btn btn-ghost" type="button" id="showAllBtn">Mostrar todos</button>
+        </div>
+
+        <div class="raffle-grid" id="raffleGrid" aria-live="polite"></div>
+      </section>
+
+      <aside class="panel" aria-labelledby="peopleTitle">
+        <div class="panel-header">
+          <div>
+            <h3 id="peopleTitle">Cadastrados</h3>
+            <p>Essas pessoas aparecerão na lista de escolha.</p>
+          </div>
+        </div>
+
+        <div class="side-list" id="peopleList"></div>
+      </aside>
+    </main>
+  </div>
+
+  <dialog id="registerDialog">
+    <form class="modal" id="registerForm" method="dialog">
+      <div class="modal-head">
+        <div>
+          <h2>Cadastrar pessoa</h2>
+          <p>Informe nome e telefone. O telefone será usado no link do WhatsApp.</p>
+        </div>
+        <button class="close-btn" type="button" data-close-dialog="registerDialog" aria-label="Fechar">×</button>
+      </div>
+
+      <div class="form-grid">
+        <label>
+          Nome
+          <input class="input" id="personName" type="text" placeholder="Ex.: Caroline Ledur de Ávila" required>
+        </label>
+
+        <label>
+          Telefone
+          <input class="input" id="personPhone" type="tel" placeholder="Ex.: 67999999999" required>
+        </label>
+      </div>
+
+      <div class="notice">
+        Dica: pode digitar com ou sem parênteses, espaços e traços. O sistema limpa o número automaticamente para montar o link do WhatsApp.
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-ghost" type="button" data-close-dialog="registerDialog">Cancelar</button>
+        <button class="btn btn-green" type="submit">Confirmar cadastro</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="assignDialog">
+    <form class="modal" id="assignForm" method="dialog">
+      <div class="modal-head">
+        <div>
+          <h2>Escolher comprador</h2>
+          <p id="assignSubtitle">Selecione uma pessoa cadastrada para este nome da rifa.</p>
+        </div>
+        <button class="close-btn" type="button" data-close-dialog="assignDialog" aria-label="Fechar">×</button>
+      </div>
+
+      <label>
+        Pessoa cadastrada
+        <select class="select" id="personSelect"></select>
+      </label>
+
+      <div class="modal-actions">
+        <button class="btn btn-ghost" type="button" data-close-dialog="assignDialog">Cancelar</button>
+        <button class="btn btn-green" type="submit">Confirmar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <dialog id="logDialog">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h2>Log de ações</h2>
+          <p>Registro em ordem decrescente das alterações feitas nesta rifa.</p>
+        </div>
+        <button class="close-btn" type="button" data-close-dialog="logDialog" aria-label="Fechar">×</button>
+      </div>
+
+      <div class="log-list" id="logList"></div>
+
+      <div class="modal-actions">
+        <button class="btn btn-danger" type="button" id="clearLogsBtn">Excluir todos os logs</button>
+        <button class="btn btn-ghost" type="button" data-close-dialog="logDialog">Fechar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const STORAGE_KEY = "cafematica-rifa-v1";
+
+    const raffleNames = [
+      "Aurora", "Bernardo", "Cecília", "Davi", "Elisa", "Felipe", "Gabriela", "Heitor", "Isadora", "João",
+      "Kiara", "Leonardo", "Marina", "Nicolas", "Olívia", "Pedro", "Quitéria", "Rafael", "Sofia", "Thiago",
+      "Úrsula", "Valentina", "Wagner", "Xavier", "Yasmin", "Zeca", "Amélia", "Bruno", "Clara", "Daniel",
+      "Eduarda", "Fernando", "Giovana", "Henrique", "Iara", "Júlia", "Kevin", "Larissa", "Miguel", "Natália",
+      "Otávio", "Paula", "Raquel", "Samuel", "Tainá", "Vinícius", "Alice", "Bento", "Camila", "Diego",
+      "Estela", "Fábio", "Helena", "Ícaro", "Janaína", "Luana", "Murilo", "Nicole", "Pietro", "Rosa",
+      "Sara", "Tomás", "Vitória", "Alex", "Bianca", "Caio", "Débora", "Enzo", "Flávia", "Gustavo",
+      "Heloísa", "Inácio", "Joaquim", "Lívia", "Marcelo", "Noemi", "Priscila", "Renato", "Simone", "Talita",
+      "Vera", "Adriana", "Benício", "Carolina", "Douglas", "Emanuel", "Francisca", "Gilberto", "Hugo", "Ivone",
+      "Jonas", "Lorenzo", "Maitê", "Neusa", "Patrícia", "Rogério", "Selma", "Tereza", "Violeta", "Wilson"
+    ];
+
+    const state = loadState();
+    sortPeopleByName();
+    let currentRaffleIndex = null;
+
+    const raffleGrid = document.getElementById("raffleGrid");
+    const peopleList = document.getElementById("peopleList");
+    const registerDialog = document.getElementById("registerDialog");
+    const assignDialog = document.getElementById("assignDialog");
+    const registerForm = document.getElementById("registerForm");
+    const assignForm = document.getElementById("assignForm");
+    const personSelect = document.getElementById("personSelect");
+    const assignSubtitle = document.getElementById("assignSubtitle");
+    const searchInput = document.getElementById("searchInput");
+    const logDialog = document.getElementById("logDialog");
+    const logList = document.getElementById("logList");
+    const toast = document.getElementById("toast");
+
+    function loadState() {
+      const fallback = {
+        people: [],
+        assignments: {},
+        logs: []
+      };
+
+      try {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        if (!saved || typeof saved !== "object") return fallback;
+        return {
+          people: Array.isArray(saved.people) ? saved.people : [],
+          assignments: saved.assignments && typeof saved.assignments === "object" ? saved.assignments : {},
+          logs: Array.isArray(saved.logs) ? saved.logs : []
+        };
+      } catch (error) {
+        return fallback;
+      }
+    }
+
+    function saveState() {
+      sortPeopleByName();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      updateStats();
+    }
+
+    function createId() {
+      return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
+    }
+
+    function onlyDigits(value) {
+      return String(value || "").replace(/\D/g, "");
+    }
+
+    function normalizePhone(value) {
+      const digits = onlyDigits(value);
+      if (!digits) return "";
+      if (digits.startsWith("55")) return digits;
+      return `55${digits}`;
+    }
+
+    function displayPhone(value) {
+      const digits = onlyDigits(value);
+      if (!digits) return "";
+      return digits;
+    }
+
+    function whatsappHref(phone) {
+      const clean = normalizePhone(phone);
+      return `https://wa.me/${clean}`;
+    }
+
+    function getPersonById(id) {
+      return state.people.find(person => person.id === id) || null;
+    }
+
+    function sortPeopleByName() {
+      state.people.sort((a, b) => {
+        return a.name.localeCompare(b.name, "pt-BR", {
+          sensitivity: "base",
+          ignorePunctuation: true
+        });
+      });
+    }
+
+    function formatDateTime(isoDate) {
+      return new Intl.DateTimeFormat("pt-BR", {
+        dateStyle: "short",
+        timeStyle: "medium"
+      }).format(new Date(isoDate));
+    }
+
+    function addLog(action, details = "") {
+      state.logs.unshift({
+        id: createId(),
+        action,
+        details,
+        createdAt: new Date().toISOString()
+      });
+
+      if (state.logs.length > 1000) {
+        state.logs = state.logs.slice(0, 1000);
+      }
+    }
+
+    function renderLog() {
+      logList.innerHTML = "";
+
+      if (!state.logs.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.textContent = "Nenhuma ação registrada ainda.";
+        logList.appendChild(empty);
+        return;
+      }
+
+      state.logs.forEach(log => {
+        const item = document.createElement("article");
+        item.className = "log-item";
+
+        const action = document.createElement("strong");
+        action.textContent = log.action;
+
+        const time = document.createElement("time");
+        time.dateTime = log.createdAt;
+        time.textContent = formatDateTime(log.createdAt);
+
+        item.append(action, time);
+
+        if (log.details) {
+          const details = document.createElement("span");
+          details.textContent = log.details;
+          item.appendChild(details);
+        }
+
+        logList.appendChild(item);
+      });
+    }
+
+    function renderRaffle() {
+      const query = searchInput.value.trim().toLowerCase();
+      raffleGrid.innerHTML = "";
+
+      raffleNames.forEach((raffleName, index) => {
+        const person = getPersonById(state.assignments[index]);
+        const searchable = `${raffleName} ${person ? `${person.name} ${person.phone}` : ""}`.toLowerCase();
+
+        if (query && !searchable.includes(query)) return;
+
+        const item = document.createElement("article");
+        item.className = "raffle-item";
+
+        const name = document.createElement("div");
+        name.className = "raffle-name";
+        name.textContent = `${String(index + 1).padStart(2, "0")}. ${raffleName}`;
+
+        const assignment = document.createElement("div");
+        assignment.className = "raffle-assignment";
+
+        if (person) {
+          const assignedName = document.createElement("div");
+          assignedName.className = "assigned-name";
+          assignedName.textContent = person.name;
+
+          const assignedPhone = document.createElement("a");
+          assignedPhone.className = "assigned-phone";
+          assignedPhone.href = whatsappHref(person.phone);
+          assignedPhone.target = "_blank";
+          assignedPhone.rel = "noopener noreferrer";
+          assignedPhone.textContent = displayPhone(person.phone);
+
+          assignment.append(assignedName, assignedPhone);
+        } else {
+          const empty = document.createElement("div");
+          empty.className = "assignment-empty";
+          empty.textContent = "Sem comprador";
+          assignment.appendChild(empty);
+        }
+
+        const actions = document.createElement("div");
+        actions.className = "item-actions";
+
+        const addButton = document.createElement("button");
+        addButton.className = "plus-btn";
+        addButton.type = "button";
+        addButton.textContent = person ? "Trocar" : "+";
+        addButton.setAttribute("aria-label", `Escolher comprador para ${raffleName}`);
+        addButton.addEventListener("click", () => openAssignDialog(index));
+
+        const clearButton = document.createElement("button");
+        clearButton.className = person ? "mini-btn" : "mini-btn hidden";
+        clearButton.type = "button";
+        clearButton.textContent = "Limpar";
+        clearButton.addEventListener("click", () => clearAssignment(index));
+
+        actions.append(addButton, clearButton);
+        item.append(name, assignment, actions);
+        raffleGrid.appendChild(item);
+      });
+
+      if (!raffleGrid.children.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.style.gridColumn = "1 / -1";
+        empty.textContent = "Nenhum resultado encontrado para essa busca.";
+        raffleGrid.appendChild(empty);
+      }
+    }
+
+    function renderPeople() {
+      peopleList.innerHTML = "";
+
+      if (!state.people.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.innerHTML = "Nenhuma pessoa cadastrada ainda.<br>Clique em <strong>Cadastrar</strong> para começar.";
+        peopleList.appendChild(empty);
+        return;
+      }
+
+      state.people.forEach(person => {
+        const card = document.createElement("article");
+        card.className = "person-card";
+
+        const name = document.createElement("strong");
+        name.textContent = person.name;
+
+        const phone = document.createElement("a");
+        phone.href = whatsappHref(person.phone);
+        phone.target = "_blank";
+        phone.rel = "noopener noreferrer";
+        phone.textContent = displayPhone(person.phone);
+
+        const actions = document.createElement("div");
+        actions.className = "person-actions";
+
+        const remove = document.createElement("button");
+        remove.className = "mini-btn";
+        remove.type = "button";
+        remove.textContent = "Excluir";
+        remove.addEventListener("click", () => removePerson(person.id));
+
+        actions.appendChild(remove);
+        card.append(name, phone, actions);
+        peopleList.appendChild(card);
+      });
+    }
+
+    function renderPersonSelect(selectedId = "") {
+      personSelect.innerHTML = "";
+
+      const emptyOption = document.createElement("option");
+      emptyOption.value = "";
+      emptyOption.textContent = "--";
+      personSelect.appendChild(emptyOption);
+
+      state.people.forEach(person => {
+        const option = document.createElement("option");
+        option.value = person.id;
+        option.textContent = `${person.name} — ${displayPhone(person.phone)}`;
+        personSelect.appendChild(option);
+      });
+
+      personSelect.value = selectedId || "";
+    }
+
+    function updateStats() {
+      const assigned = Object.values(state.assignments).filter(Boolean).length;
+      document.getElementById("totalAssigned").textContent = assigned;
+      document.getElementById("totalAvailable").textContent = raffleNames.length - assigned;
+      document.getElementById("totalPeople").textContent = state.people.length;
+    }
+
+    function openAssignDialog(index) {
+      currentRaffleIndex = index;
+      const selectedId = state.assignments[index] || "";
+      assignSubtitle.textContent = `Selecione uma pessoa cadastrada para “${raffleNames[index]}”.`;
+      renderPersonSelect(selectedId);
+      assignDialog.showModal();
+    }
+
+    function clearAssignment(index) {
+      const person = getPersonById(state.assignments[index]);
+      delete state.assignments[index];
+      addLog(
+        "Escolha removida",
+        person ? `${raffleNames[index]} deixou de estar ligado(a) a ${person.name}.` : `${raffleNames[index]} já estava sem comprador.`
+      );
+      saveState();
+      renderRaffle();
+      showToast("Escolha removida.");
+    }
+
+    function removePerson(personId) {
+      const person = getPersonById(personId);
+      if (!person) return;
+
+      const confirmed = confirm(`Excluir ${person.name}? As rifas ligadas a essa pessoa ficarão sem comprador.`);
+      if (!confirmed) return;
+
+      const linkedRaffles = Object.keys(state.assignments)
+        .filter(key => state.assignments[key] === personId)
+        .map(key => raffleNames[Number(key)]);
+
+      state.people = state.people.filter(item => item.id !== personId);
+
+      Object.keys(state.assignments).forEach(key => {
+        if (state.assignments[key] === personId) {
+          delete state.assignments[key];
+        }
+      });
+
+      addLog(
+        "Pessoa excluída",
+        `${person.name} (${displayPhone(person.phone)}) foi excluído(a). Rifas liberadas: ${linkedRaffles.length ? linkedRaffles.join(", ") : "nenhuma"}.`
+      );
+      saveState();
+      renderPeople();
+      renderRaffle();
+      showToast("Pessoa excluída.");
+    }
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(showToast.timer);
+      showToast.timer = setTimeout(() => {
+        toast.classList.remove("show");
+      }, 1900);
+    }
+
+    async function exportData() {
+      function loadXlsxLibrary() {
+        if (window.XLSX) return Promise.resolve();
+
+        return new Promise((resolve, reject) => {
+          const script = document.createElement("script");
+          script.src = "https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js";
+          script.onload = resolve;
+          script.onerror = () => reject(new Error("Não foi possível carregar a biblioteca de exportação."));
+          document.head.appendChild(script);
+        });
+      }
+
+      try {
+        await loadXlsxLibrary();
+
+        const rows = [["Nome da rifa", "Comprador", "Telefone"]];
+        const phoneLinks = [];
+
+        raffleNames.forEach((raffleName, index) => {
+          const person = getPersonById(state.assignments[index]);
+          const buyer = person ? person.name : "";
+          const phone = person ? displayPhone(person.phone) : "";
+
+          rows.push([raffleName, buyer, phone]);
+
+          if (person && phone) {
+            phoneLinks.push({
+              row: index + 2,
+              phone,
+              url: whatsappHref(person.phone)
+            });
+          }
+        });
+
+        const worksheet = XLSX.utils.aoa_to_sheet(rows);
+        worksheet["!cols"] = [
+          { wch: 24 },
+          { wch: 32 },
+          { wch: 22 }
+        ];
+
+        phoneLinks.forEach(item => {
+          const cellAddress = `C${item.row}`;
+          if (!worksheet[cellAddress]) return;
+
+          worksheet[cellAddress].t = "s";
+          worksheet[cellAddress].v = item.phone;
+          worksheet[cellAddress].l = {
+            Target: item.url,
+            Tooltip: "Abrir conversa no WhatsApp"
+          };
+          worksheet[cellAddress].s = {
+            font: {
+              color: { rgb: "0563C1" },
+              underline: true
+            }
+          };
+        });
+
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Rifa");
+        XLSX.writeFile(workbook, "rifa-cafematica.xlsx", { cellStyles: true });
+        showToast("Arquivo XLSX exportado.");
+      } catch (error) {
+        console.error(error);
+        showToast("Não foi possível exportar o XLSX.");
+      }
+    }
+
+    document.getElementById("openRegisterBtn").addEventListener("click", () => {
+      registerForm.reset();
+      registerDialog.showModal();
+      setTimeout(() => document.getElementById("personName").focus(), 80);
+    });
+
+    document.querySelectorAll("[data-close-dialog]").forEach(button => {
+      button.addEventListener("click", () => {
+        const dialog = document.getElementById(button.dataset.closeDialog);
+        if (dialog) dialog.close();
+      });
+    });
+
+    registerForm.addEventListener("submit", event => {
+      event.preventDefault();
+
+      const name = document.getElementById("personName").value.trim();
+      const phone = document.getElementById("personPhone").value.trim();
+
+      if (!name || !onlyDigits(phone)) {
+        showToast("Preencha nome e telefone.");
+        return;
+      }
+
+      const normalizedPhone = normalizePhone(phone);
+
+      state.people.push({
+        id: createId(),
+        name,
+        phone: normalizedPhone
+      });
+
+      addLog("Pessoa cadastrada", `${name} (${displayPhone(normalizedPhone)}) foi adicionado(a) à lista de cadastrados.`);
+      saveState();
+      renderPeople();
+      renderRaffle();
+      registerDialog.close();
+      showToast("Pessoa cadastrada.");
+    });
+
+    assignForm.addEventListener("submit", event => {
+      event.preventDefault();
+
+      if (currentRaffleIndex === null) return;
+
+      const selected = personSelect.value;
+
+      const previousPerson = getPersonById(state.assignments[currentRaffleIndex]);
+      const selectedPerson = getPersonById(selected);
+      const raffleName = raffleNames[currentRaffleIndex];
+
+      if (!selected) {
+        delete state.assignments[currentRaffleIndex];
+        addLog(
+          "Rifa deixada vazia",
+          previousPerson ? `${raffleName} deixou de estar ligado(a) a ${previousPerson.name}.` : `${raffleName} permaneceu sem comprador.`
+        );
+      } else {
+        state.assignments[currentRaffleIndex] = selected;
+        addLog(
+          previousPerson ? "Comprador trocado" : "Comprador escolhido",
+          previousPerson
+            ? `${raffleName}: ${previousPerson.name} foi substituído(a) por ${selectedPerson.name}.`
+            : `${raffleName} foi ligado(a) a ${selectedPerson.name} (${displayPhone(selectedPerson.phone)}).`
+        );
+      }
+
+      saveState();
+      renderRaffle();
+      assignDialog.close();
+      showToast(selected ? "Escolha salva." : "Rifa deixada vazia.");
+      currentRaffleIndex = null;
+    });
+
+    searchInput.addEventListener("input", renderRaffle);
+
+    document.getElementById("showAllBtn").addEventListener("click", () => {
+      searchInput.value = "";
+      renderRaffle();
+    });
+
+    document.getElementById("exportBtn").addEventListener("click", exportData);
+
+    document.getElementById("openLogBtn").addEventListener("click", () => {
+      renderLog();
+      logDialog.showModal();
+    });
+
+    document.getElementById("clearLogsBtn").addEventListener("click", () => {
+      if (!state.logs.length) {
+        showToast("Não há logs para excluir.");
+        return;
+      }
+
+      const confirmed = confirm("Tem certeza que deseja excluir todos os logs? Essa ação não apaga os cadastros nem as escolhas da rifa.");
+      if (!confirmed) return;
+
+      state.logs = [];
+      saveState();
+      renderLog();
+      showToast("Logs excluídos.");
+    });
+
+    document.getElementById("clearAllBtn").addEventListener("click", () => {
+      const confirmed = confirm("Tem certeza que deseja apagar todos os cadastros e todas as escolhas desta rifa?");
+      if (!confirmed) return;
+
+      const peopleCount = state.people.length;
+      const assignedCount = Object.values(state.assignments).filter(Boolean).length;
+
+      state.people = [];
+      state.assignments = {};
+      addLog("Tudo foi apagado", `${peopleCount} pessoa(s) e ${assignedCount} escolha(s) foram removidas da rifa.`);
+      saveState();
+      renderPeople();
+      renderRaffle();
+      showToast("Tudo foi apagado.");
+    });
+
+    renderPeople();
+    renderRaffle();
+    updateStats();
+  </script>
+</body>
+</html>
