@@ -1,0 +1,499 @@
+/* =========================================================
+       DESIGN SYSTEM / VARIÁVEIS
+       Aqui ficam as cores, espaçamentos e sombras principais.
+       Alterar estes valores muda a identidade visual do site inteiro.
+       ========================================================= */
+    :root {
+      --bg: #0e0f11;
+      --bg-2: #14161a;
+      --panel: rgba(255,255,255,.055);
+      --panel-strong: rgba(255,255,255,.085);
+      --line: rgba(255,255,255,.13);
+      --line-soft: rgba(255,255,255,.08);
+      --text: #f6f2ea;
+      --muted: #c8c1b6;
+      --soft: #928a7d;
+      --coffee: #b7824f;
+      --coffee-2: #d2a36f;
+      --math: #8f1d2a;
+      --math-2: #c64654;
+      --latex: #116b4f;
+      --latex-2: #2aa67d;
+      --tech: #155a8a;
+      --tech-2: #3c9bd5;
+      --radius: 24px;
+      --radius-sm: 16px;
+      --max: 1160px;
+      --shadow: 0 26px 80px rgba(0,0,0,.35);
+      --shadow-soft: 0 16px 44px rgba(0,0,0,.22);
+      --header-h: 76px;
+      color-scheme: dark;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+    }
+
+    /* Fundo quadriculado: remete à Matemática sem competir com o conteúdo. */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -3;
+      background:
+        linear-gradient(rgba(255,255,255,.034) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.034) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: radial-gradient(circle at top, rgba(0,0,0,.95), rgba(0,0,0,.22) 62%, transparent 100%);
+    }
+
+    /* Brilhos discretos: ajudam o site a parecer moderno sem ficar chamativo. */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: -20% -10% auto -10%;
+      height: 70vh;
+      pointer-events: none;
+      z-index: -2;
+      background:
+        radial-gradient(circle at 50% 10%, rgba(183,130,79,.22), transparent 44%),
+        radial-gradient(circle at 16% 32%, rgba(143,29,42,.16), transparent 34%),
+        radial-gradient(circle at 85% 35%, rgba(21,90,138,.13), transparent 34%);
+      filter: blur(26px);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    button { font: inherit; }
+
+    .container { width: min(100% - 36px, var(--max)); margin: 0 auto; }
+    .section { padding: 106px 0; position: relative; scroll-margin-top: calc(var(--header-h) + 22px); }
+    .section.compact { padding: 84px 0; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 12px;
+      border: 1px solid var(--line-soft);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,.035);
+      font-size: .9rem;
+      letter-spacing: .02em;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--coffee-2);
+      box-shadow: 0 0 24px var(--coffee-2);
+    }
+
+    h1, h2, h3 { line-height: 1.08; margin: 0; letter-spacing: -.045em; }
+    h1 { font-size: clamp(2.6rem, 7vw, 6.4rem); max-width: 1040px; margin: 0 auto; }
+    h2 { font-size: clamp(2rem, 4.6vw, 4.25rem); }
+    h3 { font-size: clamp(1.25rem, 2.2vw, 1.65rem); letter-spacing: -.025em; }
+    p { margin: 0; color: var(--muted); }
+
+    .lead { font-size: clamp(1.05rem, 2vw, 1.32rem); max-width: 760px; }
+    .center { text-align: center; }
+    .center .lead { margin-left: auto; margin-right: auto; }
+    .section-head { display: grid; gap: 18px; margin-bottom: 38px; }
+    .section-head.split { grid-template-columns: 1.05fr .95fr; align-items: end; gap: 28px; }
+
+    /* =========================================================
+       BOTÕES
+       .btn recebe a base. As classes .math, .latex, .tech e .coffee
+       mudam apenas a cor de destaque conforme a área do site.
+       ========================================================= */
+    .btn {
+      --btn: var(--coffee);
+      --btn-2: var(--coffee-2);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      min-height: 48px;
+      padding: 13px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: linear-gradient(135deg, var(--btn), color-mix(in srgb, var(--btn-2) 65%, #000));
+      color: #fff;
+      font-weight: 700;
+      letter-spacing: -.01em;
+      box-shadow: 0 14px 34px color-mix(in srgb, var(--btn) 22%, transparent);
+      transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease, background .25s ease;
+      text-align: center;
+    }
+    .btn:hover, .btn:focus-visible {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.28);
+      box-shadow: 0 18px 42px color-mix(in srgb, var(--btn) 34%, transparent);
+    }
+    .btn.secondary {
+      background: rgba(255,255,255,.055);
+      color: var(--text);
+      box-shadow: none;
+    }
+    .btn.secondary:hover { background: rgba(255,255,255,.085); }
+    .btn.math { --btn: var(--math); --btn-2: var(--math-2); }
+    .btn.latex { --btn: var(--latex); --btn-2: var(--latex-2); }
+    .btn.tech { --btn: var(--tech); --btn-2: var(--tech-2); }
+    .btn.coffee { --btn: var(--coffee); --btn-2: var(--coffee-2); }
+
+    .button-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+    .button-row.centered { justify-content: center; }
+
+    /* =========================================================
+       MENU FIXO
+       No desktop, links horizontais. No celular, menu recolhido.
+       ========================================================= */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: var(--header-h);
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      background: rgba(14,15,17,.74);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: -.04em; font-size: 1.1rem; }
+    .brand img { width: 42px; height: 42px; object-fit: contain; filter: drop-shadow(0 8px 22px rgba(0,0,0,.35)); }
+    .nav-links { display: flex; align-items: center; gap: 6px; }
+    .nav-links a {
+      color: var(--muted);
+      font-weight: 650;
+      font-size: .94rem;
+      padding: 10px 12px;
+      border-radius: 999px;
+      transition: color .2s ease, background .2s ease;
+    }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); background: rgba(255,255,255,.065); }
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: rgba(255,255,255,.055);
+      color: var(--text);
+      cursor: pointer;
+    }
+    .menu-toggle span { display: block; width: 20px; height: 2px; background: currentColor; margin: 5px auto; border-radius: 4px; }
+
+    /* =========================================================
+       HERO / PRIMEIRA DOBRA
+       Apresenta o Cafemática e orienta o visitante para um dos três caminhos.
+       ========================================================= */
+    .hero {
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: calc(var(--header-h) + 64px) 0 86px;
+      text-align: center;
+      position: relative;
+      isolation: isolate;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 86px 8% 8%;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 44px;
+      background:
+        radial-gradient(circle at 50% 12%, rgba(183,130,79,.13), transparent 34%),
+        linear-gradient(180deg, rgba(255,255,255,.055), rgba(255,255,255,.02));
+      z-index: -1;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.06), var(--shadow);
+    }
+    .hero-logo { display: inline-flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 26px; }
+    .hero-logo img { width: clamp(92px, 12vw, 138px); height: auto; filter: drop-shadow(0 22px 44px rgba(0,0,0,.45)); }
+    .hero-logo strong { font-size: clamp(1.9rem, 4vw, 3.4rem); letter-spacing: -.055em; }
+    .hero p { margin-top: 22px; }
+    .hero .lead { max-width: 860px; margin-left: auto; margin-right: auto; }
+    .path-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin: 38px auto 0;
+      max-width: 1040px;
+    }
+    .path-card {
+      position: relative;
+      min-height: 164px;
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.038));
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+      transition: transform .28s ease, border-color .28s ease, background .28s ease;
+      text-align: left;
+    }
+    .path-card:hover { transform: translateY(-6px); border-color: rgba(255,255,255,.23); background: linear-gradient(180deg, rgba(255,255,255,.105), rgba(255,255,255,.05)); }
+    .path-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -30% -46% auto;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, color-mix(in srgb, var(--accent) 35%, transparent), transparent 68%);
+      pointer-events: none;
+    }
+    .path-card.math { --accent: var(--math-2); }
+    .path-card.latex { --accent: var(--latex-2); }
+    .path-card.tech { --accent: var(--tech-2); }
+    .icon {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border-radius: 15px;
+      background: color-mix(in srgb, var(--accent) 22%, transparent);
+      border: 1px solid color-mix(in srgb, var(--accent) 42%, transparent);
+      margin-bottom: 18px;
+    }
+    .icon svg { width: 24px; height: 24px; stroke: var(--text); stroke-width: 1.8; fill: none; stroke-linecap: round; stroke-linejoin: round; opacity: .92; }
+    .path-card h3 { margin-bottom: 8px; }
+    .path-card p { font-size: .98rem; }
+
+    /* =========================================================
+       CARDS E PAINÉIS REUTILIZÁVEIS
+       Usados nas seções de Matemática, LaTeX, Tecnologia e Atendimento.
+       ========================================================= */
+    .panel {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,.072), rgba(255,255,255,.035));
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+    .cards-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .card {
+      position: relative;
+      padding: 24px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line-soft);
+      background: rgba(255,255,255,.045);
+      overflow: hidden;
+      min-height: 100%;
+    }
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 3px;
+      background: var(--accent, var(--coffee));
+      opacity: .95;
+    }
+    .card h3 { margin-bottom: 10px; }
+    .card p { margin-bottom: 20px; font-size: .98rem; }
+    .card .btn { width: 100%; }
+    .math-accent { --accent: var(--math-2); }
+    .latex-accent { --accent: var(--latex-2); }
+    .tech-accent { --accent: var(--tech-2); }
+    .coffee-accent { --accent: var(--coffee-2); }
+
+    .section-art {
+      position: absolute;
+      inset: 16% auto auto 50%;
+      width: min(44vw, 520px);
+      height: 320px;
+      transform: translateX(18%);
+      opacity: .26;
+      pointer-events: none;
+      z-index: -1;
+      filter: blur(.1px);
+    }
+    .section-art svg { width: 100%; height: 100%; }
+
+    .channel-actions {
+      margin-top: 18px;
+      padding: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .feature-card {
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 22px;
+      align-items: center;
+      padding: 30px;
+    }
+    .course-highlight {
+      padding: 26px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(42,166,125,.34);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(42,166,125,.22), transparent 34%),
+        rgba(255,255,255,.05);
+    }
+
+    .tag-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+    .tag {
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.045);
+      color: var(--muted);
+      font-weight: 650;
+      font-size: .92rem;
+    }
+
+    /* =========================================================
+       SEÇÃO SOBRE
+       Usa a foto do Prof Fernando em um card moderno e sofisticado.
+       ========================================================= */
+    .about-grid {
+      display: grid;
+      grid-template-columns: .82fr 1.18fr;
+      gap: 34px;
+      align-items: center;
+    }
+    .portrait-card {
+      padding: 18px;
+      border-radius: 32px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(183,130,79,.18), transparent 42%),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035));
+      border: 1px solid rgba(255,255,255,.14);
+      box-shadow: var(--shadow);
+    }
+    .portrait-frame {
+      border-radius: 24px;
+      overflow: hidden;
+      background: #1a1b1e;
+      border: 1px solid rgba(255,255,255,.1);
+    }
+    .portrait-frame img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; object-position: center; }
+    .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 26px; }
+    .stat {
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      background: rgba(255,255,255,.045);
+      border: 1px solid var(--line-soft);
+      min-height: 82px;
+      display: grid;
+      align-content: center;
+    }
+    .stat strong { display: block; font-size: 1.05rem; line-height: 1.1; letter-spacing: -.02em; }
+    .stat span { display: block; margin-top: 6px; color: var(--soft); font-size: .88rem; }
+
+    /* =========================================================
+       CONTATO FINAL E RODAPÉ
+       O contato é propositalmente simples e focado no canal geral do WhatsApp.
+       ========================================================= */
+    .final-cta {
+      padding: 46px;
+      text-align: center;
+      border-radius: 34px;
+      border: 1px solid rgba(255,255,255,.13);
+      background:
+        radial-gradient(circle at 50% 0%, rgba(183,130,79,.22), transparent 40%),
+        linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.04));
+      box-shadow: var(--shadow);
+    }
+    .final-cta .lead { margin: 16px auto 26px; }
+    .yt-buttons { margin-top: 24px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .site-footer {
+      border-top: 1px solid rgba(255,255,255,.08);
+      padding: 28px 0;
+      color: var(--muted);
+    }
+    .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; }
+    .footer-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .footer-links a { color: var(--muted); }
+    .footer-links a:hover { color: var(--text); }
+    .footer-brand { display: grid; gap: 4px; }
+    .footer-brand strong { color: var(--text); }
+
+    /* =========================================================
+       ANIMAÇÕES
+       As classes .reveal são ativadas por JavaScript quando entram na tela.
+       O prefers-reduced-motion respeita usuários que preferem menos movimento.
+       ========================================================= */
+    .reveal { opacity: 0; transform: translateY(22px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.is-visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: .08s; }
+    .delay-2 { transition-delay: .16s; }
+    .delay-3 { transition-delay: .24s; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+
+    /* =========================================================
+       RESPONSIVIDADE
+       A página foi pensada em mobile-first na experiência, mas com grids
+       mais amplos para desktop.
+       ========================================================= */
+    @media (max-width: 920px) {
+      :root { --header-h: 70px; }
+      .menu-toggle { display: inline-block; }
+      .nav-links {
+        position: fixed;
+        top: var(--header-h);
+        left: 18px;
+        right: 18px;
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        background: rgba(14,15,17,.96);
+        box-shadow: var(--shadow);
+      }
+      .nav-links.is-open { display: flex; }
+      .nav-links a { padding: 13px 14px; }
+      .hero::before { inset: 82px 16px 18px; border-radius: 30px; }
+      .path-grid, .cards-3, .section-head.split, .feature-card, .about-grid, .yt-buttons { grid-template-columns: 1fr; }
+      .path-grid { width: 100%; max-width: 100%; }
+      .path-card { min-width: 0; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+      .section-art { display: none; }
+      .section { padding: 82px 0; }
+      .feature-card { padding: 22px; }
+      .final-cta { padding: 30px 20px; }
+    }
+
+    @media (max-width: 560px) {
+      .container { width: min(100% - 24px, var(--max)); }
+      .hero { padding-top: calc(var(--header-h) + 44px); }
+      h1 { font-size: clamp(2.25rem, 14vw, 3.4rem); }
+      h2 { font-size: clamp(1.82rem, 10vw, 2.75rem); }
+      .path-card { min-height: 148px; padding: 20px; }
+      .button-row, .channel-actions { flex-direction: column; align-items: stretch; }
+      .btn { width: 100%; }
+      .stats { grid-template-columns: 1fr; }
+      .footer-inner { align-items: flex-start; flex-direction: column; }
+    }
