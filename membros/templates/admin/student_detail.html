@@ -1,0 +1,38 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+<h1 class="h3">{{ student.full_name }}</h1>
+<div class="row g-4">
+  <div class="col-lg-6">
+    <div class="card card-body mb-3">
+      <h2 class="h5">Dados</h2>
+      <form method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="action" value="update">
+        <label class="form-label">Nome</label><input class="form-control mb-2" name="full_name" value="{{ student.full_name }}">
+        <label class="form-label">E-mail</label><input class="form-control mb-2" name="email" value="{{ student.email }}">
+        <label class="form-label">Telefone</label><input class="form-control mb-2" name="phone" value="{{ student.phone or '' }}">
+        <label class="form-label">CPF</label><input class="form-control mb-2" name="cpf" value="{{ student.cpf or '' }}">
+        <button class="btn btn-success">Salvar</button>
+      </form>
+    </div>
+    <div class="card card-body">
+      <h2 class="h5">Liberar curso</h2>
+      <form method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="action" value="enroll">
+        <select class="form-select mb-2" name="course_id">{% for c in courses %}<option value="{{ c.id }}">{{ c.title }}</option>{% endfor %}</select>
+        <label class="form-label">Expira em</label><input class="form-control mb-2" name="expires_at" type="datetime-local">
+        <button class="btn btn-success">Liberar acesso</button>
+      </form>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <h2 class="h5">Matrículas</h2>
+    <ul class="list-group mb-3">{% for e in enrollments %}<li class="list-group-item">{{ e.title }} — expira: {{ e.expires_at or "sem vencimento" }}</li>{% endfor %}</ul>
+    <h2 class="h5">Histórico de progresso</h2>
+    <ul class="list-group mb-3">{% for p in progress %}<li class="list-group-item">{{ p.course_title }} / {{ p.lesson_title }} — {{ p.seconds }}s — {% if p.completed %}concluída{% else %}em andamento{% endif %}</li>{% endfor %}</ul>
+    <h2 class="h5">Tickets</h2>
+    <ul class="list-group">{% for t in tickets %}<li class="list-group-item"><a href="{{ url_for('ticket_detail', ticket_id=t.id) }}">{{ t.title }}</a> — {{ t.status }}</li>{% endfor %}</ul>
+  </div>
+</div>
+{% endblock %}

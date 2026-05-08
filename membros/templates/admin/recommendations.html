@@ -1,0 +1,14 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+<h1 class="h3">Recomendações</h1>
+<form method="post" class="card card-body mb-3">
+  <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+  <label class="form-label">Quando o aluno tiver interesse/categoria</label>
+  <select class="form-select mb-2" name="source_category_id"><option value="">Geral</option>{% for cat in categories %}<option value="{{ cat.id }}">{{ cat.name }}</option>{% endfor %}</select>
+  <label class="form-label">Recomendar curso</label>
+  <select class="form-select mb-2" name="recommended_course_id">{% for c in courses %}<option value="{{ c.id }}">{{ c.title }}</option>{% endfor %}</select>
+  <input class="form-control mb-2" name="position" type="number" value="0">
+  <button class="btn btn-success">Adicionar</button>
+</form>
+<table class="table">{% for r in recs %}<tr><td>{{ r.category_name or "Geral" }}</td><td>{{ r.course_title }}</td><td>{{ r.position }}</td></tr>{% endfor %}</table>
+{% endblock %}

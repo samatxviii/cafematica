@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-start gap-3 flex-wrap mb-3">
+  <div>
+    <h1 class="h3">{{ course.title }}</h1>
+    <p class="text-muted">{{ course.description }}</p>
+  </div>
+  {% if last_pos %}
+    <a class="btn btn-success" href="{{ url_for('lesson_page', lesson_id=last_pos.lesson_id) }}?t={{ last_pos.seconds }}">Continuar de onde parei</a>
+  {% endif %}
+</div>
+
+<div class="mb-4">
+  <div class="d-flex justify-content-between small"><span>Progresso</span><strong>{{ percent }}%</strong></div>
+  <div class="progress"><div class="progress-bar bg-success" style="width: {{ percent }}%"></div></div>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-8">
+    <h2 class="h5">Aulas</h2>
+    <div class="list-group">
+      {% for l in lessons %}
+      <a class="list-group-item list-group-item-action d-flex justify-content-between" href="{{ url_for('lesson_page', lesson_id=l.id) }}">
+        <span>{{ l.position }}. {{ l.title }}</span>
+        {% if l.id in completed_ids %}<span class="badge text-bg-success">concluída</span>{% endif %}
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="col-lg-4">
+    <h2 class="h5">E-books e materiais</h2>
+    {% for e in ebooks %}
+      <div class="card mb-2"><div class="card-body">
+        <strong>{{ e.title }}</strong>
+        <div class="mt-2 d-grid gap-2">
+          <a class="btn btn-sm btn-outline-success" href="{{ url_for('download_ebook', ebook_id=e.id) }}">Baixar PDF personalizado</a>
+          <a class="btn btn-sm btn-outline-secondary" href="{{ url_for('download_ebook', ebook_id=e.id) }}" target="_blank">Ver pelo site</a>
+        </div>
+      </div></div>
+    {% else %}
+      <p class="text-muted">Nenhum e-book cadastrado.</p>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}

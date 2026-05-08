@@ -1,0 +1,35 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+<div class="d-flex justify-content-between mb-3">
+  <h1 class="h3">Alunos</h1>
+  <a class="btn btn-success" href="{{ url_for('admin_student_new') }}">Novo aluno</a>
+</div>
+
+<form class="row g-2 mb-3">
+  <div class="col-md-5">
+    <select class="form-select" name="course_id">
+      <option value="">Todos os cursos</option>
+      {% for c in courses %}<option value="{{ c.id }}" {% if selected_course == c.id|string %}selected{% endif %}>{{ c.title }}</option>{% endfor %}
+    </select>
+  </div>
+  <div class="col-md-4">
+    <select class="form-select" name="expiry">
+      <option value="">Qualquer vencimento</option>
+      <option value="30" {% if expiry == "30" %}selected{% endif %}>Vencendo nos próximos 30 dias</option>
+    </select>
+  </div>
+  <div class="col-md-3"><button class="btn btn-outline-success w-100">Filtrar</button></div>
+</form>
+
+<table class="table table-hover align-middle">
+  <thead><tr><th>Nome</th><th>E-mail</th><th>Cursos</th><th>Tickets</th><th></th></tr></thead>
+  <tbody>
+  {% for s in students %}
+    <tr>
+      <td>{{ s.full_name }}</td><td>{{ s.email }}</td><td>{{ s.course_count }}</td><td>{{ s.ticket_count }}</td>
+      <td><a class="btn btn-sm btn-outline-success" href="{{ url_for('admin_student_detail', user_id=s.id) }}">Abrir perfil</a></td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

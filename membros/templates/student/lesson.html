@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block content %}
+<a href="{{ url_for('course_page', slug=course.slug) }}">&larr; Voltar ao curso</a>
+<h1 class="h3 mt-2">{{ lesson.title }}</h1>
+
+<div class="ratio ratio-16x9 video-box mb-3">
+  {% if lesson.youtube_id %}
+    <iframe id="lessonFrame" src="https://www.youtube-nocookie.com/embed/{{ lesson.youtube_id }}?rel=0&modestbranding=1&enablejsapi=1" title="{{ lesson.title }}" allowfullscreen></iframe>
+  {% else %}
+    <div class="p-4">Aula sem vídeo cadastrado.</div>
+  {% endif %}
+</div>
+
+<p>{{ lesson.content }}</p>
+
+<div class="d-flex gap-2 mb-4">
+  <button class="btn btn-outline-success" onclick="saveProgress(true)">Marcar como concluída</button>
+  <form method="post" class="d-flex gap-2 align-items-center">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="action" value="rating">
+    <select name="stars" class="form-select form-select-sm">
+      <option value="5">5 estrelas</option><option value="4">4 estrelas</option><option value="3">3 estrelas</option><option value="2">2 estrelas</option><option value="1">1 estrela</option>
+    </select>
+    <button class="btn btn-sm btn-outline-warning">Avaliar aula</button>
+  </form>
+</div>
+
+<div class="card mb-4"><div class="card-body">
+  <h2 class="h5">Discussão</h2>
+  <form method="post" class="mb-3">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="action" value="comment">
+    <textarea class="form-control mb-2" name="body" rows="3" placeholder="Escreva um comentário..." required></textarea>
+    <button class="btn btn-success btn-sm">Publicar</button>
+  </form>
+
+  {% macro render_comment(c, level=0) %}
+    <div class="comment" style="margin-left: {{ level * 24 }}px">
+      <div class="small text-muted">{{ c.full_name }} · {{ c.created_at }}</div>
+      <div>{{ c.body }}</div>
+      <div class="d-flex gap-2 mt-1">
+        <form method="post" action="{{ url_for('like_comment', comment_id=c.id) }}">
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+          <button class="btn btn-sm btn-link p-0">Curtir ({{ c.likes }})</button>
+        </form>
+        <button class="btn btn-sm btn-link p-0" type="button" data-bs-toggle="collapse" data-bs-target="#reply{{ c.id }}">Responder</button>
+      </div>
+      <div class="collapse" id="reply{{ c.id }}">
+        <form method="post" class="mt-2">
+          <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="action" value="comment">
+          <input type="hidden" name="parent_id" value="{{ c.id }}">
+          <textarea class="form-control mb-2" name="body" rows="2"></textarea>
+          <button class="btn btn-sm btn-outline-success">Responder</button>
+        </form>
+      </div>
+    </div>
+  {% endmacro %}
+
+  {% for c in comments %}
+    {% if not c.parent_id %}
+      {{ render_comment(c, 0) }}
+      {% for r in comments %}
+        {% if r.parent_id == c.id %}
+          {{ render_comment(r, 1) }}
+          {% for rr in comments %}
+            {% if rr.parent_id == r.id %}
+              {{ render_comment(rr, 2) }}
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endfor %}
+</div></div>
+
+<button class="feedback-btn" onclick="location.href='{{ url_for('tickets') }}?page='+encodeURIComponent(location.href)">?</button>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const lessonId = {{ lesson.id }};
+let currentSeconds = Number(new URLSearchParams(location.search).get('t') || {{ current_progress.seconds if current_progress else 0 }});
+
+async function saveProgress(completed=false){
+  await fetch("{{ url_for('api_progress') }}", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({lesson_id: lessonId, seconds: currentSeconds, completed})
+  });
+  if(completed){ alert("Progresso salvo."); }
+}
+setInterval(() => { currentSeconds += 15; saveProgress(false); }, 15000);
+</script>
+{% endblock %}

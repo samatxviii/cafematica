@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row g-4">
+  <aside class="col-lg-3">
+    <div class="admin-menu">
+      <a href="{{ url_for('admin_dashboard') }}">Painel</a>
+      <a href="{{ url_for('admin_students') }}">Alunos</a>
+      <a href="{{ url_for('admin_courses') }}">Cursos</a>
+      <a href="{{ url_for('admin_categories') }}">Categorias</a>
+      <a href="{{ url_for('admin_recommendations') }}">Recomendações</a>
+      <a href="{{ url_for('admin_tickets') }}">Tickets</a>
+    </div>
+  </aside>
+  <section class="col-lg-9">
+    {% block admin_content %}{% endblock %}
+  </section>
+</div>
+{% endblock %}

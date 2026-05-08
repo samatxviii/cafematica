@@ -1,0 +1,12 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+<h1 class="h3">Tickets</h1>
+<div class="list-group">
+{% for t in tickets %}
+  <a class="list-group-item list-group-item-action" href="{{ url_for('ticket_detail', ticket_id=t.id) }}">
+    <strong>{{ t.full_name }}</strong> — {{ t.title }} <span class="badge text-bg-secondary">{{ t.status }}</span>
+    <div class="small text-muted">{{ t.email }} · {{ t.created_at }}</div>
+  </a>
+{% endfor %}
+</div>
+{% endblock %}

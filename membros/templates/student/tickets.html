@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<h1 class="h3">Suporte</h1>
+<div class="row g-4">
+  <div class="col-lg-5">
+    <div class="card"><div class="card-body">
+      <h2 class="h5">Abrir novo ticket</h2>
+      <form method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="page_url" value="{{ request.args.get('page','') }}">
+        <label class="form-label">Título</label>
+        <input class="form-control mb-2" name="title" required>
+        <label class="form-label">Mensagem</label>
+        <textarea class="form-control mb-2" name="message" rows="5" required></textarea>
+        <button class="btn btn-success">Enviar</button>
+      </form>
+    </div></div>
+  </div>
+  <div class="col-lg-7">
+    <h2 class="h5">Meus tickets</h2>
+    <div class="list-group">
+      {% for t in tickets %}
+      <a class="list-group-item list-group-item-action" href="{{ url_for('ticket_detail', ticket_id=t.id) }}">
+        <strong>{{ t.title }}</strong><br><span class="small text-muted">{{ t.status }} · {{ t.created_at }}</span>
+      </a>
+      {% else %}
+      <p class="text-muted">Nenhum ticket aberto.</p>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}

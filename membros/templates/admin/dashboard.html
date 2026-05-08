@@ -1,0 +1,16 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+<h1 class="h3">Painel do administrador</h1>
+<div class="row g-3 mb-4">
+  <div class="col-md-3"><div class="metric"><strong>{{ counts.students }}</strong><span>alunos</span></div></div>
+  <div class="col-md-3"><div class="metric"><strong>{{ counts.courses }}</strong><span>cursos</span></div></div>
+  <div class="col-md-3"><div class="metric"><strong>{{ counts.tickets }}</strong><span>tickets abertos</span></div></div>
+  <div class="col-md-3"><div class="metric"><strong>{{ counts.expiring }}</strong><span>vencendo</span></div></div>
+</div>
+<h2 class="h5">Tickets recentes</h2>
+<div class="list-group">
+{% for t in recent_tickets %}
+  <a class="list-group-item" href="{{ url_for('ticket_detail', ticket_id=t.id) }}">{{ t.full_name }} — {{ t.title }} <span class="badge text-bg-secondary">{{ t.status }}</span></a>
+{% endfor %}
+</div>
+{% endblock %}

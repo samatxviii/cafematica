@@ -1,0 +1,46 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+<h1 class="h3">{{ "Editar curso" if course else "Novo curso" }}</h1>
+<form method="post" class="card card-body mb-4">
+  <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+  <input type="hidden" name="action" value="course">
+  <label class="form-label">Título</label><input class="form-control mb-2" name="title" value="{{ course.title if course else '' }}" required>
+  <label class="form-label">Slug</label><input class="form-control mb-2" name="slug" value="{{ course.slug if course else '' }}" required>
+  <label class="form-label">Descrição</label><textarea class="form-control mb-2" name="description">{{ course.description if course else '' }}</textarea>
+  <label class="form-label">Categoria</label>
+  <select class="form-select mb-2" name="category_id"><option value="">Sem categoria</option>{% for cat in categories %}<option value="{{ cat.id }}" {% if course and course.category_id == cat.id %}selected{% endif %}>{{ cat.name }}</option>{% endfor %}</select>
+  <label class="form-label">Thumbnail URL</label><input class="form-control mb-2" name="thumbnail_url" value="{{ course.thumbnail_url if course else '' }}">
+  <label class="form-label">Preço</label><input class="form-control mb-2" name="price" value="{{ '%.2f'|format((course.price_cents or 0)/100) if course else '0.00' }}">
+  <label class="form-check mb-3"><input class="form-check-input" type="checkbox" name="is_active" {% if not course or course.is_active %}checked{% endif %}> Ativo</label>
+  <button class="btn btn-success">Salvar curso</button>
+</form>
+
+{% if course %}
+<div class="row g-4">
+  <div class="col-lg-6">
+    <h2 class="h5">Aulas</h2>
+    <ul class="list-group mb-3">{% for l in lessons %}<li class="list-group-item">{{ l.position }}. {{ l.title }} — {{ l.youtube_id }}</li>{% endfor %}</ul>
+    <form method="post" class="card card-body">
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="action" value="lesson">
+      <input class="form-control mb-2" name="lesson_title" placeholder="Título da aula">
+      <input class="form-control mb-2" name="youtube_id" placeholder="ID do YouTube">
+      <input class="form-control mb-2" name="position" placeholder="Ordem" type="number">
+      <textarea class="form-control mb-2" name="content" placeholder="Descrição da aula"></textarea>
+      <button class="btn btn-outline-success">Adicionar aula</button>
+    </form>
+  </div>
+  <div class="col-lg-6">
+    <h2 class="h5">E-books</h2>
+    <ul class="list-group mb-3">{% for e in ebooks %}<li class="list-group-item">{{ e.title }} — {{ e.source_pdf_path }}</li>{% endfor %}</ul>
+    <form method="post" class="card card-body">
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="action" value="ebook">
+      <input class="form-control mb-2" name="ebook_title" placeholder="Título do e-book">
+      <input class="form-control mb-2" name="source_pdf_path" placeholder="Caminho do PDF original">
+      <button class="btn btn-outline-success">Vincular e-book</button>
+    </form>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

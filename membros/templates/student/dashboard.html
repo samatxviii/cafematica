@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block title %}Meus cursos — Cafemática{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3">Olá, {{ g.user.full_name }}.</h1>
+
+{% for notice in renewal_notices %}
+<div class="alert alert-warning d-flex justify-content-between align-items-center">
+  <div>
+    Seu acesso ao produto <strong>{{ notice.course.title }}</strong> termina em
+    <strong>{{ notice.days_left }} dia(s)</strong>.
+  </div>
+  <div class="d-flex gap-2">
+    <a class="btn btn-sm btn-success" href="#">Renovar acesso</a>
+    <form method="post" action="{{ url_for('dismiss_notice') }}">
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+      <input type="hidden" name="notice_key" value="{{ notice.notice_key }}">
+      <button class="btn btn-sm btn-outline-dark">Fechar por hoje</button>
+    </form>
+  </div>
+</div>
+{% endfor %}
+
+<div class="row g-4">
+  <div class="col-lg-8">
+    <h2 class="h5">Cursos comprados</h2>
+    <div class="row g-3">
+      {% for e in enrollments %}
+      <div class="col-md-6">
+        <div class="card h-100 course-card">
+          {% if e.thumbnail_url %}<img src="{{ e.thumbnail_url }}" class="card-img-top" alt="">{% endif %}
+          <div class="card-body">
+            <span class="badge text-bg-secondary">{{ e.category_name or "Sem categoria" }}</span>
+            <h3 class="h5 mt-2">{{ e.title }}</h3>
+            <p class="small text-muted">{{ e.description }}</p>
+            {% if e.last_lesson_id %}
+              <a class="btn btn-outline-success btn-sm" href="{{ url_for('lesson_page', lesson_id=e.last_lesson_id) }}?t={{ e.last_seconds }}">Continuar de onde parei</a>
+            {% endif %}
+            <a class="btn btn-success btn-sm" href="{{ url_for('course_page', slug=e.slug) }}">Abrir curso</a>
+          </div>
+          <div class="card-footer small text-muted">Expira em: {{ e.expires_at or "sem vencimento" }}</div>
+        </div>
+      </div>
+      {% else %}
+      <p>Você ainda não possui cursos liberados.</p>
+      {% endfor %}
+    </div>
+  </div>
+  <aside class="col-lg-4">
+    <div class="sticky-side">
+      <h2 class="h5">Talvez você se interesse</h2>
+      {% for c in recommendations %}
+      <a class="recommendation" href="#">
+        {% if c.thumbnail_url %}<img src="{{ c.thumbnail_url }}" alt="">{% endif %}
+        <span>{{ c.title }}</span>
+      </a>
+      {% else %}
+      <p class="text-muted small">Nenhuma recomendação por enquanto.</p>
+      {% endfor %}
+    </div>
+  </aside>
+</div>
+{% endblock %}

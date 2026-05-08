@@ -1,0 +1,22 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+<h1 class="h3">Categorias</h1>
+<form method="post" class="d-flex gap-2 mb-3">
+  <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+  <input class="form-control" name="name" placeholder="Nova categoria">
+  <button class="btn btn-success">Adicionar</button>
+</form>
+<table class="table">
+{% for c in categories %}
+<tr>
+  <td>{{ c.name }}</td><td>{{ c.course_count }} curso(s)</td>
+  <td class="text-end">
+    <form method="post" action="{{ url_for('admin_category_delete', category_id=c.id) }}" onsubmit="return confirm('Excluir categoria sem excluir cursos/alunos?')">
+      <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+      <button class="btn btn-sm btn-outline-danger">Excluir</button>
+    </form>
+  </td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}

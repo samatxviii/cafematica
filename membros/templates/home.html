@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Cafemática — Área de membros{% endblock %}
+{% block content %}
+<section class="hero p-5 rounded-4 shadow-sm">
+  <p class="eyebrow">Área de membros</p>
+  <h1 class="display-5 fw-bold">Cafemática</h1>
+  <p class="lead">Esta página é apenas o ponto de entrada da plataforma. Seu site principal pode continuar exatamente como está.</p>
+  <a class="btn btn-success btn-lg" href="{{ url_for('login') }}">Entrar na área de membros</a>
+</section>
+{% endblock %}

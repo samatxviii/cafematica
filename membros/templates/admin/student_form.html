@@ -1,0 +1,13 @@
+{% extends "admin/layout.html" %}
+{% block admin_content %}
+<h1 class="h3">Novo aluno</h1>
+<form method="post" class="card card-body">
+  <input type="hidden" name="_csrf_token" value="{{ csrf_token() }}">
+  <label class="form-label">Nome completo</label><input class="form-control mb-2" name="full_name" required>
+  <label class="form-label">E-mail</label><input class="form-control mb-2" name="email" type="email" required>
+  <label class="form-label">Telefone</label><input class="form-control mb-2" name="phone">
+  <label class="form-label">CPF</label><input class="form-control mb-2" name="cpf">
+  <label class="form-label">Senha inicial</label><input class="form-control mb-3" name="password" value="Aluno@12345">
+  <button class="btn btn-success">Cadastrar</button>
+</form>
+{% endblock %}
