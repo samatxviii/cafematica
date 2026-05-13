@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <!-- =========================================================
+       AGENDA CAFEMÁTICA — ARQUIVO ÚNICO
+       Página estática em HTML, CSS e JavaScript.
+
+       IMPORTANTE:
+       Esta agenda salva compromissos no navegador usando localStorage.
+       Em hospedagens estáticas, como GitHub Pages, o JavaScript NÃO consegue
+       criar arquivos .txt diretamente no servidor. Por isso, a página permite
+       exportar/importar arquivos .txt com nomes padronizados.
+       ========================================================= -->
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Agenda | Cafemática</title>
+  <meta name="description" content="Agenda do Cafemática para organizar compromissos, aulas, consultorias e atividades com exportação em arquivos TXT.">
+  <meta name="author" content="Cafemática | Fernando Batista">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#111111">
+
+  <!-- Open Graph básico da página de agenda. Como a agenda é uma página de organização, deixei noindex e sem foco em compartilhamento público. -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="pt_BR">
+  <meta property="og:site_name" content="Cafemática">
+  <meta property="og:title" content="Agenda | Cafemática">
+  <meta property="og:description" content="Página de agenda para organização de compromissos do Cafemática.">
+  <meta property="og:url" content="https://www.cafematica.com.br/agenda.html">
+  <meta property="og:image" content="https://www.cafematica.com.br/og-cafematica.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <style>
+    /* =========================================================
+       VARIÁVEIS VISUAIS
+       Mantêm a identidade do Cafemática: fundo escuro/grafite,
+       quadriculado sutil, detalhes em café/caramelo e cores
+       específicas para tipos de compromisso.
+       ========================================================= */
+    :root {
+      --bg: #0d0f10;
+      --card: rgba(255,255,255,.055);
+      --line: rgba(255,255,255,.12);
+      --text: #f4f1ea;
+      --muted: #b8b4aa;
+      --muted-2: #8f8a82;
+      --coffee: #c49a5f;
+      --math: #7d1f28;
+      --latex: #1f6b45;
+      --tech: #1e4f7a;
+      --danger: #b44747;
+      --shadow: 0 24px 80px rgba(0,0,0,.38);
+      --radius-lg: 28px;
+      --radius-md: 18px;
+      --container: 1180px;
+      --header-h: 72px;
+      --font: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--bg); }
+
+    body {
+      margin: 0;
+      font-family: var(--font);
+      color: var(--text);
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(196,154,95,.13), transparent 28rem),
+        radial-gradient(circle at 80% 15%, rgba(30,79,122,.13), transparent 26rem),
+        linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px),
+        var(--bg);
+      background-size: auto, auto, 44px 44px, 44px 44px, auto;
+      line-height: 1.55;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, textarea, select { font: inherit; }
+    ::selection { background: rgba(196,154,95,.34); color: #fff; }
+
+    .skip-link {
+      position: fixed; left: 16px; top: -100px; z-index: 9999;
+      padding: 10px 14px; border-radius: 999px;
+      background: var(--coffee); color: #14110c; font-weight: 800;
+      transition: top .2s ease;
+    }
+    .skip-link:focus { top: 16px; }
+
+    /* =========================================================
+       CABEÇALHO FIXO
+       Mantém a navegação sempre acessível.
+       ========================================================= */
+    .site-header {
+      position: sticky; top: 0; z-index: 50; height: var(--header-h);
+      display: flex; align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(13,15,16,.78); backdrop-filter: blur(18px);
+    }
+    .header-inner {
+      width: min(var(--container), calc(100% - 32px)); margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 18px;
+    }
+    .brand { display: inline-flex; align-items: center; gap: 12px; min-width: 0; }
+    .brand-mark {
+      width: 42px; height: 42px; display: grid; place-items: center;
+      border: 1px solid rgba(255,255,255,.2); border-radius: 14px;
+      background: linear-gradient(135deg, rgba(255,255,255,.09), rgba(255,255,255,.02));
+      box-shadow: 0 10px 30px rgba(0,0,0,.25); font-weight: 900;
+    }
+    .brand-text { display: flex; flex-direction: column; line-height: 1.05; }
+    .brand-title { font-weight: 900; letter-spacing: -.04em; font-size: 1.1rem; }
+    .brand-subtitle { font-size: .78rem; color: var(--muted); margin-top: 4px; }
+    .nav { display: flex; align-items: center; gap: 10px; color: var(--muted); font-size: .93rem; }
+    .nav a { padding: 9px 12px; border-radius: 999px; transition: background .2s ease, color .2s ease; }
+    .nav a:hover, .nav a:focus-visible { color: var(--text); background: rgba(255,255,255,.08); outline: none; }
+    .mobile-toggle {
+      display: none; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,.14);
+      border-radius: 12px; color: var(--text); background: rgba(255,255,255,.05); cursor: pointer;
+    }
+
+    /* =========================================================
+       COMPONENTES GERAIS
+       Botões, cards, seções e etiquetas.
+       ========================================================= */
+    .container { width: min(var(--container), calc(100% - 32px)); margin: 0 auto; }
+    .section { padding: 72px 0; scroll-margin-top: calc(var(--header-h) + 22px); }
+    .section-sm { padding: 42px 0; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px;
+      border: 1px solid rgba(196,154,95,.22); border-radius: 999px;
+      color: #ead8b5; background: rgba(196,154,95,.08);
+      font-size: .82rem; font-weight: 700; letter-spacing: .02em; margin-bottom: 16px;
+    }
+    .section-title {
+      margin: 0; font-size: clamp(2rem, 5vw, 4.5rem);
+      letter-spacing: -.075em; line-height: .95; font-weight: 950;
+    }
+    .section-title.small { font-size: clamp(1.75rem, 4vw, 3.1rem); letter-spacing: -.055em; }
+    .lead { color: var(--muted); font-size: clamp(1rem, 1.8vw, 1.24rem); max-width: 760px; margin: 18px 0 0; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      min-height: 46px; padding: 12px 18px; border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px; color: var(--text); background: rgba(255,255,255,.06);
+      cursor: pointer; font-weight: 800; line-height: 1;
+      transition: transform .18s ease, background .18s ease, border-color .18s ease; white-space: nowrap;
+    }
+    .btn:hover, .btn:focus-visible { transform: translateY(-1px); background: rgba(255,255,255,.1); outline: none; }
+    .btn.primary { border-color: rgba(196,154,95,.45); color: #120f0a; background: linear-gradient(135deg, #e4c488, var(--coffee)); box-shadow: 0 16px 44px rgba(196,154,95,.18); }
+    .btn.math { background: linear-gradient(135deg, #a22e3b, var(--math)); }
+    .btn.latex { background: linear-gradient(135deg, #2b8a5a, var(--latex)); }
+    .btn.tech { background: linear-gradient(135deg, #2e6f9f, var(--tech)); }
+    .btn.danger { background: rgba(180,71,71,.14); color: #ffd0d0; border-color: rgba(180,71,71,.35); }
+    .btn.ghost { background: transparent; }
+    .btn.small { min-height: 38px; padding: 9px 13px; font-size: .9rem; }
+    .panel {
+      border: 1px solid var(--line); border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.035));
+      box-shadow: var(--shadow); overflow: hidden;
+    }
+    .panel-inner { padding: clamp(20px, 4vw, 34px); }
+    .grid { display: grid; gap: 18px; }
+    .grid.two { grid-template-columns: 1.1fr .9fr; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 7px; padding: 6px 10px;
+      border-radius: 999px; border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05); color: var(--muted); font-size: .78rem; font-weight: 800;
+    }
+    .muted { color: var(--muted); }
+
+    /* =========================================================
+       HERO DA AGENDA
+       Explica a função da página e da lógica de arquivos TXT.
+       ========================================================= */
+    .hero { min-height: calc(58vh - var(--header-h)); display: grid; align-items: center; padding: 74px 0 52px; position: relative; overflow: clip; }
+    .hero::before {
+      content: ""; position: absolute; inset: 8% -18% auto auto; width: 520px; height: 520px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(196,154,95,.14), transparent 62%); pointer-events: none;
+    }
+    .hero-layout { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: 28px; align-items: center; }
+    .hero-card {
+      padding: 22px; border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-lg);
+      background:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.035));
+      background-size: 28px 28px, 28px 28px, auto; box-shadow: var(--shadow);
+    }
+    .hero-card h2 { margin: 0 0 10px; font-size: 1.05rem; letter-spacing: -.02em; }
+    .hero-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+    .hero-list li { display: flex; align-items: flex-start; gap: 10px; color: var(--muted); font-size: .94rem; }
+    .hero-list strong { color: var(--text); font-weight: 850; }
+    .dot { width: 9px; height: 9px; border-radius: 99px; background: var(--coffee); margin-top: 7px; flex: 0 0 auto; box-shadow: 0 0 0 5px rgba(196,154,95,.12); }
+    .hero-actions, .form-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; align-items: center; }
+
+    /* =========================================================
+       FORMULÁRIO DE COMPROMISSOS
+       Ao editar, o nome do arquivo permanece travado.
+       ========================================================= */
+    .form-grid { display: grid; grid-template-columns: 210px 1fr; gap: 14px; }
+    .field { display: grid; gap: 7px; }
+    .field.full { grid-column: 1 / -1; }
+    label { color: var(--muted); font-size: .86rem; font-weight: 800; }
+    input, textarea, select {
+      width: 100%; border: 1px solid rgba(255,255,255,.14); border-radius: 14px;
+      color: var(--text); background: rgba(0,0,0,.26); padding: 12px 13px; outline: none;
+      transition: border-color .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+    input:focus, textarea:focus, select:focus { border-color: rgba(196,154,95,.55); box-shadow: 0 0 0 4px rgba(196,154,95,.12); background: rgba(0,0,0,.32); }
+    textarea { min-height: 150px; resize: vertical; }
+    .filename-preview {
+      display: inline-flex; align-items: center; gap: 8px; max-width: 100%; padding: 9px 12px;
+      border-radius: 999px; background: rgba(196,154,95,.09); border: 1px solid rgba(196,154,95,.22);
+      color: #ead8b5; font-size: .88rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .hint { margin: 10px 0 0; color: var(--muted-2); font-size: .88rem; }
+    code { display:inline-block; padding:3px 7px; border:1px solid rgba(255,255,255,.12); border-radius:8px; color:#ead8b5; background:rgba(0,0,0,.28); font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size:.88em; }
+
+    /* =========================================================
+       FILTROS E LISTA
+       Mostram os compromissos cadastrados no navegador.
+       ========================================================= */
+    .toolbar { display: grid; grid-template-columns: 1fr 170px 170px; gap: 12px; margin-top: 22px; }
+    .appointments { display: grid; gap: 14px; margin-top: 22px; }
+    .appointment { position: relative; padding: 18px; border: 1px solid rgba(255,255,255,.12); border-radius: var(--radius-md); background: rgba(255,255,255,.045); overflow: hidden; }
+    .appointment::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 4px; background: var(--coffee); }
+    .appointment.math::before { background: var(--math); }
+    .appointment.latex::before { background: var(--latex); }
+    .appointment.tech::before { background: var(--tech); }
+    .appointment.personal::before { background: var(--coffee); }
+    .appointment-top { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; }
+    .appointment h3 { margin: 0; font-size: 1.08rem; letter-spacing: -.02em; }
+    .appointment-meta, .appointment-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+    .appointment-body { margin: 14px 0 0; color: var(--muted); white-space: pre-wrap; overflow-wrap: anywhere; }
+    .empty { padding: 28px; text-align: center; color: var(--muted); border: 1px dashed rgba(255,255,255,.18); border-radius: var(--radius-md); background: rgba(255,255,255,.035); }
+
+    /* =========================================================
+       MODAL E TOAST
+       Confirma exclusões e exibe feedback rápido.
+       ========================================================= */
+    .modal-backdrop { position: fixed; inset: 0; display: none; align-items: center; justify-content: center; z-index: 100; padding: 20px; background: rgba(0,0,0,.62); backdrop-filter: blur(8px); }
+    .modal-backdrop.active { display: flex; }
+    .modal { width: min(460px, 100%); border: 1px solid rgba(255,255,255,.14); border-radius: var(--radius-lg); background: #121516; box-shadow: var(--shadow); padding: 22px; }
+    .modal h3 { margin: 0; font-size: 1.28rem; letter-spacing: -.03em; }
+    .modal p { color: var(--muted); margin: 10px 0 0; }
+    .modal-actions { display: flex; justify-content: flex-end; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
+    .toast { position: fixed; right: 18px; bottom: 18px; z-index: 120; width: min(420px, calc(100% - 36px)); transform: translateY(24px); opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease; border: 1px solid rgba(255,255,255,.14); border-radius: 18px; background: rgba(18,21,22,.94); box-shadow: var(--shadow); padding: 14px 16px; color: var(--text); }
+    .toast.active { transform: translateY(0); opacity: 1; }
+
+    /* =========================================================
+       ANIMAÇÕES SUAVES
+       Cards aparecem discretamente ao rolar a página.
+       ========================================================= */
+    .reveal { opacity: 0; transform: translateY(16px); transition: opacity .55s ease, transform .55s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } *, *::before, *::after { animation-duration:.001ms !important; transition-duration:.001ms !important; } .reveal { opacity:1; transform:none; } }
+
+    /* =========================================================
+       RESPONSIVIDADE
+       Layout confortável em celular e desktop.
+       ========================================================= */
+    @media (max-width: 980px) {
+      .nav { position: fixed; top: var(--header-h); left: 16px; right: 16px; display: none; flex-direction: column; align-items: stretch; padding: 14px; border: 1px solid rgba(255,255,255,.12); border-radius: 20px; background: rgba(18,21,22,.98); box-shadow: var(--shadow); }
+      .nav.active { display: flex; }
+      .nav a { padding: 13px 14px; }
+      .mobile-toggle { display: inline-grid; place-items: center; }
+      .hero-layout, .grid.two { grid-template-columns: 1fr; }
+      .toolbar { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      :root { --header-h: 68px; }
+      .brand-subtitle { display: none; }
+      .section { padding: 54px 0; }
+      .hero { padding: 54px 0 36px; min-height: auto; }
+      .form-grid { grid-template-columns: 1fr; }
+      .appointment-top { flex-direction: column; }
+      .btn { width: 100%; white-space: normal; }
+      .form-actions .btn, .appointment-actions .btn, .hero-actions .btn, .modal-actions .btn { width: auto; }
+      .filename-preview { border-radius: 14px; white-space: normal; }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- =========================================================
+       CABEÇALHO
+       Navegação fixa da agenda.
+       ========================================================= -->
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="brand" href="index.html" aria-label="Voltar para a página inicial do Cafemática">
+        <div class="brand-mark" aria-hidden="true">π</div>
+        <div class="brand-text"><span class="brand-title">Cafemática</span><span class="brand-subtitle">Agenda</span></div>
+      </a>
+      <nav class="nav" id="nav" aria-label="Navegação principal">
+        <a href="#novo">Novo compromisso</a><a href="#lista">Compromissos</a><a href="#comandos">Comandos</a><a href="#arquivos">Arquivos</a><a href="index.html">Site</a>
+      </nav>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
+    </div>
+  </header>
+
+  <main id="conteudo">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="container hero-layout">
+        <div class="reveal">
+          <span class="eyebrow">Agenda Cafemática</span>
+          <h1 class="section-title">Organize compromissos com estrutura simples.</h1>
+          <p class="lead">Cadastre aulas, consultorias, gravações e tarefas. Cada compromisso recebe um nome de arquivo padronizado, como <strong>2026-06-30-01.txt</strong>, pronto para exportação e organização.</p>
+          <div class="hero-actions"><a class="btn primary" href="#novo">Criar compromisso</a><a class="btn ghost" href="#lista">Ver agenda</a></div>
+        </div>
+        <aside class="hero-card reveal" aria-label="Como a agenda funciona">
+          <h2>Como funciona</h2>
+          <ul class="hero-list">
+            <li><span class="dot"></span><span><strong>Novo compromisso:</strong> a agenda gera o próximo número disponível para a data.</span></li>
+            <li><span class="dot"></span><span><strong>Edição:</strong> o nome do arquivo permanece o mesmo.</span></li>
+            <li><span class="dot"></span><span><strong>Exportação:</strong> baixe compromissos em arquivos .txt com nomes organizados.</span></li>
+            <li><span class="dot"></span><span><strong>Importação:</strong> traga de volta arquivos .txt exportados anteriormente.</span></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- NOVO COMPROMISSO / EDIÇÃO -->
+    <section class="section" id="novo">
+      <div class="container">
+        <div class="grid two">
+          <div class="panel reveal"><div class="panel-inner">
+            <span class="eyebrow">Cadastro</span>
+            <h2 class="section-title small" id="formTitle">Novo compromisso</h2>
+            <p class="lead">Preencha a data, o título e o corpo do texto. A numeração do arquivo será definida automaticamente.</p>
+            <form id="appointmentForm" autocomplete="off">
+              <input type="hidden" id="editingFilename" value="">
+              <div class="form-grid">
+                <div class="field"><label for="date">Data</label><input id="date" type="date" required></div>
+                <div class="field"><label for="category">Tipo</label><select id="category"><option value="math">Matemática</option><option value="latex">LaTeX</option><option value="tech">Tecnologia</option><option value="personal">Pessoal/geral</option></select></div>
+                <div class="field full"><label for="title">Título</label><input id="title" type="text" maxlength="120" placeholder="Ex.: Aula de Matemática Básica" required></div>
+                <div class="field full"><label for="bodyText">Corpo do texto</label><textarea id="bodyText" placeholder="Escreva os detalhes do compromisso..." required></textarea></div>
+              </div>
+              <div class="form-actions"><button class="btn primary" type="submit" id="saveBtn">Salvar compromisso</button><button class="btn ghost" type="button" id="clearBtn">Limpar</button><span class="filename-preview" id="filenamePreview">Arquivo previsto: escolha uma data</span></div>
+              <p class="hint">Ao editar um compromisso, o nome do arquivo permanece o mesmo. Isso evita quebrar sua organização.</p>
+            </form>
+          </div></div>
+          <div class="panel reveal"><div class="panel-inner">
+            <span class="eyebrow">Padrão de arquivo</span>
+            <h2 class="section-title small">Nomes previsíveis.</h2>
+            <p class="lead">A agenda segue a lógica: <strong>AAAA-MM-DD-NN.txt</strong>. O número final identifica a ordem de cadastro naquele dia.</p>
+            <div style="display:grid; gap:10px; margin-top:22px;"><span class="badge">2026-06-30-01.txt</span><span class="badge">2026-06-30-02.txt</span><span class="badge">2026-07-01-01.txt</span></div>
+            <p class="hint" style="margin-top:22px;">O conteúdo do arquivo exportado inclui título, data, tipo, data de criação, data de atualização e corpo do texto.</p>
+          </div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LISTA -->
+    <section class="section" id="lista">
+      <div class="container">
+        <span class="eyebrow reveal">Agenda</span>
+        <h2 class="section-title small reveal">Compromissos cadastrados</h2>
+        <p class="lead reveal">Os dados abaixo estão salvos neste navegador. Use exportação/importação para manter cópias externas.</p>
+        <div class="toolbar reveal" aria-label="Filtros da agenda"><input id="search" type="search" placeholder="Buscar por título, corpo ou arquivo..."><input id="filterDate" type="date" aria-label="Filtrar por data"><select id="filterCategory" aria-label="Filtrar por tipo"><option value="">Todos os tipos</option><option value="math">Matemática</option><option value="latex">LaTeX</option><option value="tech">Tecnologia</option><option value="personal">Pessoal/geral</option></select></div>
+        <div class="form-actions reveal"><button class="btn small ghost" type="button" id="todayBtn">Filtrar hoje</button><button class="btn small ghost" type="button" id="clearFiltersBtn">Limpar filtros</button></div>
+        <div class="appointments" id="appointments"></div>
+      </div>
+    </section>
+
+    <!-- COMANDOS RÁPIDOS -->
+    <section class="section" id="comandos">
+      <div class="container"><div class="panel reveal"><div class="panel-inner">
+        <span class="eyebrow">Comandos simples</span>
+        <h2 class="section-title small">Cadastre sem perder tempo.</h2>
+        <p class="lead">Use comandos rápidos quando quiser registrar ou alterar algo de forma textual.</p>
+        <div style="display:grid; gap:12px; margin-top:22px;"><textarea id="commandInput" placeholder="Ex.: ADD 2026-06-30 | Aula experimental | Conversar com aluno sobre reforço de Matemática."></textarea><div class="form-actions"><button class="btn primary" type="button" id="runCommandBtn">Executar comando</button><button class="btn ghost" type="button" id="clearCommandBtn">Limpar comando</button></div></div>
+        <div style="display:grid; gap:8px; margin-top:14px; color:var(--muted-2); font-size:.9rem;"><div><code>ADD 2026-06-30 | Título | Corpo do texto</code></div><div><code>EDIT 2026-06-30-01.txt | Novo título | Novo corpo do texto</code></div><div><code>DELETE 2026-06-30-01.txt</code></div></div>
+        <p class="hint">No comando EDIT, o arquivo mantém o mesmo nome. No comando ADD, a agenda calcula automaticamente o próximo número da data.</p>
+      </div></div></div>
+    </section>
+
+    <!-- ARQUIVOS -->
+    <section class="section" id="arquivos">
+      <div class="container"><div class="grid two">
+        <div class="panel reveal"><div class="panel-inner"><span class="eyebrow">Exportação</span><h2 class="section-title small">Baixe seus .txt.</h2><p class="lead">Exporte todos os compromissos em um único arquivo JSON ou baixe cada compromisso individualmente em TXT.</p><div class="form-actions"><button class="btn primary" type="button" id="exportJsonBtn">Exportar agenda em JSON</button><button class="btn ghost" type="button" id="exportAllTxtBtn">Exportar todos em TXT</button></div><p class="hint">Por segurança do navegador, vários TXT serão baixados um por vez. Para muitos compromissos, o JSON é mais prático.</p></div></div>
+        <div class="panel reveal"><div class="panel-inner"><span class="eyebrow">Importação</span><h2 class="section-title small">Traga arquivos de volta.</h2><p class="lead">Importe arquivos TXT exportados pela agenda ou um arquivo JSON de backup.</p><div class="field" style="margin-top:20px;"><label for="importFiles">Selecionar arquivos</label><input id="importFiles" type="file" multiple accept=".txt,.json,text/plain,application/json"></div><div class="form-actions"><button class="btn ghost" type="button" id="importBtn">Importar selecionados</button><button class="btn danger" type="button" id="wipeBtn">Apagar agenda local</button></div><p class="hint">Ao importar um arquivo com o mesmo nome de outro já existente, a agenda atualiza o compromisso correspondente.</p></div></div>
+      </div></div>
+    </section>
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer class="section-sm"><div class="container"><div class="panel"><div class="panel-inner" style="display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; align-items:center;"><div><strong>Cafemática</strong><div class="muted">contato@cafematica.com.br</div></div><div style="display:flex; gap:10px; flex-wrap:wrap;"><a class="btn small ghost" href="index.html">Página principal</a><a class="btn small ghost" href="https://www.cafematica.com.br/">www.cafematica.com.br</a></div></div></div></div></footer>
+
+  <!-- Modal de confirmação para exclusão -->
+  <div class="modal-backdrop" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal"><h3 id="modalTitle">Confirmar exclusão</h3><p id="modalText">Tem certeza?</p><div class="modal-actions"><button class="btn ghost" type="button" id="cancelDeleteBtn">Cancelar</button><button class="btn danger" type="button" id="confirmDeleteBtn">Excluir</button></div></div></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    /* =========================================================
+       ESTADO PRINCIPAL DA AGENDA
+       Os compromissos são salvos no localStorage do navegador.
+       Chave usada: cafematica_agenda_v1
+       ========================================================= */
+    const STORAGE_KEY = "cafematica_agenda_v1";
+    let appointments = loadAppointments();
+    let pendingDeleteFilename = null;
+
+    /* Seletores centralizados para facilitar edição futura. */
+    const els = {
+      nav: document.getElementById("nav"), mobileToggle: document.getElementById("mobileToggle"), form: document.getElementById("appointmentForm"), formTitle: document.getElementById("formTitle"), editingFilename: document.getElementById("editingFilename"), date: document.getElementById("date"), category: document.getElementById("category"), title: document.getElementById("title"), bodyText: document.getElementById("bodyText"), saveBtn: document.getElementById("saveBtn"), clearBtn: document.getElementById("clearBtn"), filenamePreview: document.getElementById("filenamePreview"), appointments: document.getElementById("appointments"), search: document.getElementById("search"), filterDate: document.getElementById("filterDate"), filterCategory: document.getElementById("filterCategory"), todayBtn: document.getElementById("todayBtn"), clearFiltersBtn: document.getElementById("clearFiltersBtn"), commandInput: document.getElementById("commandInput"), runCommandBtn: document.getElementById("runCommandBtn"), clearCommandBtn: document.getElementById("clearCommandBtn"), exportJsonBtn: document.getElementById("exportJsonBtn"), exportAllTxtBtn: document.getElementById("exportAllTxtBtn"), importFiles: document.getElementById("importFiles"), importBtn: document.getElementById("importBtn"), wipeBtn: document.getElementById("wipeBtn"), confirmModal: document.getElementById("confirmModal"), modalText: document.getElementById("modalText"), cancelDeleteBtn: document.getElementById("cancelDeleteBtn"), confirmDeleteBtn: document.getElementById("confirmDeleteBtn"), toast: document.getElementById("toast")
+    };
+
+    init();
+
+    function init() {
+      els.date.value = todayISO();
+      updateFilenamePreview();
+      renderAppointments();
+      setupEvents();
+      setupRevealAnimations();
+    }
+
+    function setupEvents() {
+      els.mobileToggle.addEventListener("click", () => { const active = els.nav.classList.toggle("active"); els.mobileToggle.setAttribute("aria-expanded", String(active)); });
+      els.nav.addEventListener("click", (event) => { if (event.target.tagName === "A") { els.nav.classList.remove("active"); els.mobileToggle.setAttribute("aria-expanded", "false"); } });
+      els.form.addEventListener("submit", handleFormSubmit);
+      els.clearBtn.addEventListener("click", clearForm);
+      els.date.addEventListener("input", updateFilenamePreview);
+      els.search.addEventListener("input", renderAppointments);
+      els.filterDate.addEventListener("input", renderAppointments);
+      els.filterCategory.addEventListener("input", renderAppointments);
+      els.todayBtn.addEventListener("click", () => { els.filterDate.value = todayISO(); renderAppointments(); });
+      els.clearFiltersBtn.addEventListener("click", () => { els.search.value = ""; els.filterDate.value = ""; els.filterCategory.value = ""; renderAppointments(); });
+      els.runCommandBtn.addEventListener("click", runCommand);
+      els.clearCommandBtn.addEventListener("click", () => els.commandInput.value = "");
+      els.exportJsonBtn.addEventListener("click", exportJson);
+      els.exportAllTxtBtn.addEventListener("click", exportAllTxt);
+      els.importBtn.addEventListener("click", importSelectedFiles);
+      els.wipeBtn.addEventListener("click", requestWipe);
+      els.cancelDeleteBtn.addEventListener("click", closeConfirmModal);
+      els.confirmDeleteBtn.addEventListener("click", confirmDelete);
+      els.confirmModal.addEventListener("click", (event) => { if (event.target === els.confirmModal) closeConfirmModal(); });
+    }
+
+    /* Criar ou editar compromisso. Edição preserva filename e data originais. */
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const editing = els.editingFilename.value.trim();
+      const now = new Date().toISOString();
+      const title = els.title.value.trim();
+      const body = els.bodyText.value.trim();
+      const date = els.date.value;
+      const category = els.category.value;
+      if (!date || !title || !body) return showToast("Preencha data, título e corpo do texto.");
+      if (editing) {
+        const index = appointments.findIndex(item => item.filename === editing);
+        if (index === -1) { showToast("Não encontrei o compromisso em edição."); clearForm(); return; }
+        appointments[index] = { ...appointments[index], category, title, body, updatedAt: now };
+        saveAppointments(); renderAppointments(); clearForm(); showToast("Compromisso atualizado mantendo o mesmo nome de arquivo."); return;
+      }
+      const sequence = nextSequenceForDate(date);
+      const filename = buildFilename(date, sequence);
+      appointments.push({ filename, date, sequence, category, title, body, createdAt: now, updatedAt: now });
+      saveAppointments(); renderAppointments(); clearForm(); showToast(`Compromisso salvo como ${filename}`);
+    }
+
+    function editAppointment(filename) {
+      const item = appointments.find(item => item.filename === filename);
+      if (!item) return;
+      els.editingFilename.value = item.filename;
+      els.date.value = item.date;
+      els.date.disabled = true; // Mantém a data travada para não renomear o arquivo.
+      els.category.value = item.category;
+      els.title.value = item.title;
+      els.bodyText.value = item.body;
+      els.formTitle.textContent = "Editar compromisso";
+      els.saveBtn.textContent = "Salvar alterações";
+      els.filenamePreview.textContent = `Editando: ${item.filename}`;
+      document.getElementById("novo").scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function clearForm() {
+      els.editingFilename.value = "";
+      els.date.disabled = false;
+      els.date.value = todayISO();
+      els.category.value = "math";
+      els.title.value = "";
+      els.bodyText.value = "";
+      els.formTitle.textContent = "Novo compromisso";
+      els.saveBtn.textContent = "Salvar compromisso";
+      updateFilenamePreview();
+    }
+
+    function updateFilenamePreview() {
+      const editing = els.editingFilename.value.trim();
+      if (editing) { els.filenamePreview.textContent = `Editando: ${editing}`; return; }
+      const date = els.date.value;
+      els.filenamePreview.textContent = date ? `Arquivo previsto: ${buildFilename(date, nextSequenceForDate(date))}` : "Arquivo previsto: escolha uma data";
+    }
+
+    function renderAppointments() {
+      const query = normalize(els.search.value), date = els.filterDate.value, category = els.filterCategory.value;
+      const filtered = appointments.filter(item => {
+        const text = normalize(`${item.filename} ${item.title} ${item.body} ${item.category}`);
+        return (!query || text.includes(query)) && (!date || item.date === date) && (!category || item.category === category);
+      }).sort((a, b) => a.date !== b.date ? a.date.localeCompare(b.date) : a.filename.localeCompare(b.filename));
+      els.appointments.innerHTML = "";
+      if (!filtered.length) { const empty = document.createElement("div"); empty.className = "empty reveal visible"; empty.textContent = "Nenhum compromisso encontrado."; els.appointments.appendChild(empty); return; }
+      for (const item of filtered) {
+        const card = document.createElement("article");
+        card.className = `appointment ${item.category}`;
+        card.innerHTML = `<div class="appointment-top"><div><h3>${escapeHTML(item.title)}</h3><div class="appointment-meta"><span class="badge">${formatDateBR(item.date)}</span><span class="badge">${escapeHTML(labelCategory(item.category))}</span><span class="badge">${escapeHTML(item.filename)}</span></div></div></div><div class="appointment-body">${escapeHTML(item.body)}</div><div class="appointment-actions"><button class="btn small ghost" type="button" data-action="edit" data-filename="${escapeHTML(item.filename)}">Editar</button><button class="btn small ghost" type="button" data-action="download" data-filename="${escapeHTML(item.filename)}">Baixar TXT</button><button class="btn small danger" type="button" data-action="delete" data-filename="${escapeHTML(item.filename)}">Excluir</button></div>`;
+        els.appointments.appendChild(card);
+      }
+      els.appointments.querySelectorAll("button[data-action]").forEach(button => button.addEventListener("click", () => {
+        const action = button.dataset.action, filename = button.dataset.filename;
+        if (action === "edit") editAppointment(filename);
+        if (action === "download") downloadTxt(filename);
+        if (action === "delete") requestDelete(filename);
+      }));
+    }
+
+    /* Comandos rápidos: ADD, EDIT e DELETE. */
+    function runCommand() {
+      const raw = els.commandInput.value.trim();
+      if (!raw) return showToast("Digite um comando.");
+      const [commandRaw, restRaw = ""] = raw.split(/\s+(.+)/);
+      const command = commandRaw.toUpperCase();
+      try {
+        if (command === "ADD") {
+          const [date, title, body] = restRaw.split("|").map(part => part.trim());
+          if (!isValidDate(date) || !title || !body) throw new Error("Use: ADD 2026-06-30 | Título | Corpo do texto");
+          const sequence = nextSequenceForDate(date), filename = buildFilename(date, sequence), now = new Date().toISOString();
+          appointments.push({ filename, date, sequence, category: "personal", title, body, createdAt: now, updatedAt: now });
+          saveAppointments(); renderAppointments(); els.commandInput.value = ""; showToast(`Comando executado: ${filename}`); return;
+        }
+        if (command === "EDIT") {
+          const [filename, title, body] = restRaw.split("|").map(part => part.trim());
+          if (!filename || !title || !body) throw new Error("Use: EDIT 2026-06-30-01.txt | Novo título | Novo corpo");
+          const index = appointments.findIndex(item => item.filename === filename);
+          if (index === -1) throw new Error("Arquivo não encontrado.");
+          appointments[index] = { ...appointments[index], title, body, updatedAt: new Date().toISOString() };
+          saveAppointments(); renderAppointments(); els.commandInput.value = ""; showToast(`Compromisso editado: ${filename}`); return;
+        }
+        if (command === "DELETE") {
+          const filename = restRaw.trim();
+          if (!filename) throw new Error("Use: DELETE 2026-06-30-01.txt");
+          if (!appointments.some(item => item.filename === filename)) throw new Error("Arquivo não encontrado.");
+          requestDelete(filename); return;
+        }
+        throw new Error("Comando desconhecido. Use ADD, EDIT ou DELETE.");
+      } catch (error) { showToast(error.message); }
+    }
+
+    /* Exportação/importação de TXT e JSON. */
+    function appointmentToTxt(item) { return [`TÍTULO: ${item.title}`, `DATA: ${item.date}`, `TIPO: ${labelCategory(item.category)}`, `ARQUIVO: ${item.filename}`, `CRIADO: ${item.createdAt}`, `ATUALIZADO: ${item.updatedAt}`, "---", item.body].join("\n"); }
+    function txtToAppointment(filename, text) {
+      const lines = text.replace(/\r\n/g, "\n").split("\n"), separatorIndex = lines.findIndex(line => line.trim() === "---");
+      const headerLines = separatorIndex >= 0 ? lines.slice(0, separatorIndex) : [], bodyLines = separatorIndex >= 0 ? lines.slice(separatorIndex + 1) : lines;
+      const header = {};
+      for (const line of headerLines) { const match = line.match(/^([^:]+):\s*(.*)$/); if (match) header[match[1].trim().toUpperCase()] = match[2].trim(); }
+      const parsed = parseFilename(filename);
+      if (!parsed) throw new Error(`Nome inválido: ${filename}`);
+      const now = new Date().toISOString();
+      return { filename, date: header["DATA"] || parsed.date, sequence: parsed.sequence, category: categoryFromLabel(header["TIPO"]) || "personal", title: header["TÍTULO"] || filename.replace(/\.txt$/i, ""), body: bodyLines.join("\n").trim() || "", createdAt: header["CRIADO"] || now, updatedAt: header["ATUALIZADO"] || now };
+    }
+    function downloadTxt(filename) { const item = appointments.find(item => item.filename === filename); if (item) downloadFile(item.filename, appointmentToTxt(item), "text/plain;charset=utf-8"); }
+    function exportAllTxt() { if (!appointments.length) return showToast("Não há compromissos para exportar."); [...appointments].sort((a,b)=>a.filename.localeCompare(b.filename)).forEach((item,index)=>setTimeout(()=>downloadTxt(item.filename), index * 250)); showToast(`Exportando ${appointments.length} arquivo(s) TXT.`); }
+    function exportJson() { const data = JSON.stringify({ source: "Agenda Cafemática", exportedAt: new Date().toISOString(), appointments }, null, 2); downloadFile(`agenda-cafematica-${todayISO()}.json`, data, "application/json;charset=utf-8"); }
+    async function importSelectedFiles() {
+      const files = Array.from(els.importFiles.files || []);
+      if (!files.length) return showToast("Selecione arquivos .txt ou .json para importar.");
+      let imported = 0;
+      try {
+        for (const file of files) {
+          const text = await file.text();
+          if (file.name.toLowerCase().endsWith(".json")) {
+            const parsed = JSON.parse(text), items = Array.isArray(parsed) ? parsed : parsed.appointments;
+            if (!Array.isArray(items)) throw new Error("JSON inválido.");
+            for (const item of items) { upsertAppointment(normalizeImportedAppointment(item)); imported++; }
+          } else if (file.name.toLowerCase().endsWith(".txt")) { upsertAppointment(txtToAppointment(file.name, text)); imported++; }
+        }
+        saveAppointments(); renderAppointments(); els.importFiles.value = ""; showToast(`${imported} compromisso(s) importado(s).`);
+      } catch (error) { showToast(error.message); }
+    }
+    function upsertAppointment(item) { const index = appointments.findIndex(existing => existing.filename === item.filename); if (index >= 0) appointments[index] = item; else appointments.push(item); }
+    function normalizeImportedAppointment(item) { const parsed = parseFilename(item.filename); if (!parsed) throw new Error(`Nome inválido: ${item.filename}`); return { filename: item.filename, date: item.date || parsed.date, sequence: Number(item.sequence || parsed.sequence), category: ["math","latex","tech","personal"].includes(item.category) ? item.category : "personal", title: String(item.title || item.filename), body: String(item.body || ""), createdAt: item.createdAt || new Date().toISOString(), updatedAt: item.updatedAt || new Date().toISOString() }; }
+
+    /* Exclusão com confirmação. */
+    function requestDelete(filename) { pendingDeleteFilename = filename; els.modalText.textContent = `Excluir o compromisso ${filename}? Esta ação remove o item da agenda local.`; els.confirmModal.classList.add("active"); }
+    function requestWipe() { pendingDeleteFilename = "__wipe__"; els.modalText.textContent = "Apagar todos os compromissos salvos neste navegador?"; els.confirmModal.classList.add("active"); }
+    function closeConfirmModal() { pendingDeleteFilename = null; els.confirmModal.classList.remove("active"); }
+    function confirmDelete() {
+      if (!pendingDeleteFilename) return;
+      if (pendingDeleteFilename === "__wipe__") { appointments = []; saveAppointments(); renderAppointments(); clearForm(); closeConfirmModal(); showToast("Agenda local apagada."); return; }
+      appointments = appointments.filter(item => item.filename !== pendingDeleteFilename);
+      saveAppointments(); renderAppointments(); clearForm(); closeConfirmModal(); showToast("Compromisso excluído.");
+    }
+
+    /* Utilitários de nomeação. */
+    function buildFilename(date, sequence) { return `${date}-${String(sequence).padStart(2, "0")}.txt`; }
+    function nextSequenceForDate(date) { const sequences = appointments.filter(item => item.date === date).map(item => Number(item.sequence || parseFilename(item.filename)?.sequence || 0)).filter(Number.isFinite); return sequences.length ? Math.max(...sequences) + 1 : 1; }
+    function parseFilename(filename) { const match = String(filename || "").match(/^(\d{4}-\d{2}-\d{2})-(\d{2})\.txt$/i); return match ? { date: match[1], sequence: Number(match[2]) } : null; }
+    function isValidDate(value) { return /^\d{4}-\d{2}-\d{2}$/.test(value) && !Number.isNaN(Date.parse(value + "T00:00:00")); }
+    function todayISO() { const date = new Date(), offset = date.getTimezoneOffset(), local = new Date(date.getTime() - offset * 60000); return local.toISOString().slice(0, 10); }
+    function formatDateBR(value) { if (!isValidDate(value)) return value; const [y,m,d] = value.split("-"); return `${d}/${m}/${y}`; }
+    function labelCategory(value) { return { math: "Matemática", latex: "LaTeX", tech: "Tecnologia", personal: "Pessoal/geral" }[value] || "Pessoal/geral"; }
+    function categoryFromLabel(label) { const value = normalize(label || ""); if (value.includes("matematica")) return "math"; if (value.includes("latex")) return "latex"; if (value.includes("tecnologia")) return "tech"; return "personal"; }
+    function normalize(value) { return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase(); }
+    function escapeHTML(value) { return String(value || "").replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;"); }
+    function loadAppointments() { try { const raw = localStorage.getItem(STORAGE_KEY); const data = raw ? JSON.parse(raw) : []; return Array.isArray(data) ? data : []; } catch { return []; } }
+    function saveAppointments() { localStorage.setItem(STORAGE_KEY, JSON.stringify(appointments)); updateFilenamePreview(); }
+    function downloadFile(filename, content, mime) { const blob = new Blob([content], { type: mime }), url = URL.createObjectURL(blob), a = document.createElement("a"); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url); }
+    function showToast(message) { els.toast.textContent = message; els.toast.classList.add("active"); clearTimeout(showToast.timer); showToast.timer = setTimeout(() => els.toast.classList.remove("active"), 3600); }
+    function setupRevealAnimations() { const items = document.querySelectorAll(".reveal"); if (!("IntersectionObserver" in window)) { items.forEach(item => item.classList.add("visible")); return; } const observer = new IntersectionObserver(entries => entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add("visible"); observer.unobserve(entry.target); } }), { threshold: .12 }); items.forEach(item => observer.observe(item)); }
+  </script>
+</body>
+</html>
