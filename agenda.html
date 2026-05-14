@@ -3461,7 +3461,7 @@
       speechRecognition = new SpeechRecognition();
       speechRecognition.lang = "pt-BR";
       speechRecognition.continuous = true;
-      speechRecognition.interimResults = true;
+      speechRecognition.interimResults = false;
 
       speechRecognition.onstart = () => {
         isListeningToBody = true;
@@ -3471,26 +3471,26 @@
       };
 
       speechRecognition.onresult = (event) => {
-        let interimText = "";
+  for (let i = event.resultIndex; i < event.results.length; i++) {
+    if (!event.results[i].isFinal) continue;
 
-        for (let i = event.resultIndex; i < event.results.length; i++) {
-          const text = event.results[i][0].transcript;
+    const text = event.results[i][0].transcript.trim();
 
-          if (event.results[i].isFinal) {
-            speechFinalText += text.trim() + " ";
-          } else {
-            interimText += text;
-          }
-        }
+    if (!text) continue;
 
-        const parts = [];
+    // Evita repetir o mesmo trecho caso o celular envie o final mais de uma vez.
+    if (speechFinalText.trim().endsWith(text)) continue;
 
-        if (speechBaseText) parts.push(speechBaseText);
-        if (speechFinalText.trim()) parts.push(speechFinalText.trim());
-        if (interimText.trim()) parts.push(interimText.trim());
+    speechFinalText += text + " ";
+  }
 
-        els.bodyText.value = parts.join("\n\n");
-      };
+  const parts = [];
+
+  if (speechBaseText) parts.push(speechBaseText);
+  if (speechFinalText.trim()) parts.push(speechFinalText.trim());
+
+  els.bodyText.value = parts.join("\n\n");
+};
 
       speechRecognition.onerror = (event) => {
         console.warn("Erro no reconhecimento de fala:", event.error);
