@@ -1810,6 +1810,53 @@
       }
     }
 
+
+    .soft-divider {
+      width: 100%;
+      height: 1px;
+      margin: 24px 0 20px;
+      border: 0;
+      background: linear-gradient(90deg, transparent, rgba(196,154,95,.36), rgba(255,255,255,.12), transparent);
+    }
+
+    .backup-copy-box,
+    .backup-paste-box {
+      display: grid;
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .backup-title {
+      margin: 0;
+      font-size: 1rem;
+      font-weight: 950;
+      letter-spacing: -.02em;
+    }
+
+    .backup-textarea {
+      min-height: 145px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+      font-size: .88rem;
+      line-height: 1.45;
+      resize: vertical;
+    }
+
+    .backup-mini-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .backup-mini-actions .btn {
+      min-height: 42px;
+    }
+
+    @media (max-width: 700px) {
+      .backup-mini-actions .btn {
+        width: 100%;
+      }
+    }
+
     /* =========================================================
        MODAL E TOAST
        ========================================================= */
@@ -2207,6 +2254,16 @@
               </p>
 
               <button class="btn primary export-pdf" type="button" id="generatePdfBtn">Gerar PDF</button>
+
+              <hr class="soft-divider">
+
+              <div class="backup-copy-box">
+                <h3 class="backup-title">Backup prático para celular</h3>
+                <p class="hint">
+                  Copie a agenda como texto e guarde em uma conversa, nota, e-mail ou bloco de notas. Depois é só colar de volta na importação.
+                </p>
+                <button class="btn ghost" type="button" id="copyBackupBtn">Copiar backup da agenda</button>
+              </div>
             </div>
           </div>
 
@@ -2231,6 +2288,20 @@
               <p class="hint">
                 Ao importar um arquivo com o mesmo nome de outro já existente, a agenda atualiza o compromisso correspondente.
               </p>
+
+              <hr class="soft-divider">
+
+              <div class="backup-paste-box">
+                <h3 class="backup-title">Importar backup colado</h3>
+                <p class="hint">
+                  Cole aqui o texto copiado da agenda. Funciona melhor no celular do que procurar um arquivo JSON na pasta de downloads.
+                </p>
+                <textarea class="backup-textarea" id="backupTextInput" placeholder="Cole aqui o backup da agenda..."></textarea>
+                <div class="backup-mini-actions">
+                  <button class="btn ghost" type="button" id="importBackupTextBtn">Importar texto colado</button>
+                  <button class="btn ghost" type="button" id="clearBackupTextBtn">Limpar texto</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -2603,6 +2674,10 @@
       clearFiltersBtn: document.getElementById("clearFiltersBtn"),
 
       generatePdfBtn: document.getElementById("generatePdfBtn"),
+      copyBackupBtn: document.getElementById("copyBackupBtn"),
+      backupTextInput: document.getElementById("backupTextInput"),
+      importBackupTextBtn: document.getElementById("importBackupTextBtn"),
+      clearBackupTextBtn: document.getElementById("clearBackupTextBtn"),
       exportJsonBtn: document.getElementById("exportJsonBtn"),
       exportAllTxtBtn: document.getElementById("exportAllTxtBtn"),
       importFiles: document.getElementById("importFiles"),
@@ -2833,6 +2908,12 @@
       });
 
       els.generatePdfBtn.addEventListener("click", generatePrintablePdf);
+      els.copyBackupBtn.addEventListener("click", copyBackupToClipboard);
+      els.importBackupTextBtn.addEventListener("click", importBackupText);
+      els.clearBackupTextBtn.addEventListener("click", () => {
+        els.backupTextInput.value = "";
+        showToast("Texto limpo.");
+      });
       els.exportJsonBtn.addEventListener("click", exportJson);
       els.exportAllTxtBtn.addEventListener("click", exportAllTxt);
       els.importBtn.addEventListener("click", importSelectedFiles);
@@ -4100,13 +4181,88 @@
       printWindow.document.close();
     }
 
-    function exportJson() {
-      const data = JSON.stringify({
+    function buildAgendaBackupText() {
+      return JSON.stringify({
         source: "Agenda Cafemática",
         exportedAt: new Date().toISOString(),
         appointments
       }, null, 2);
+    }
 
+    async function copyBackupToClipboard() {
+      const data = buildAgendaBackupText();
+
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(data);
+          showToast("Backup copiado.");
+          return;
+        }
+
+        const textarea = document.createElement("textarea");
+        textarea.value = data;
+        textarea.setAttribute("readonly", "");
+        textarea.style.position = "fixed";
+        textarea.style.left = "-9999px";
+        textarea.style.top = "0";
+        document.body.appendChild(textarea);
+        textarea.focus();
+        textarea.select();
+
+        const copied = document.execCommand("copy");
+        textarea.remove();
+
+        if (copied) {
+          showToast("Backup copiado.");
+        } else {
+          throw new Error("Cópia não confirmada.");
+        }
+      } catch {
+        if (els.backupTextInput) {
+          els.backupTextInput.value = data;
+          els.backupTextInput.focus();
+          els.backupTextInput.select();
+        }
+        showToast("Não consegui copiar automaticamente. O backup foi colocado na caixa de texto.");
+      }
+    }
+
+    function importBackupText() {
+      const text = els.backupTextInput.value.trim();
+
+      if (!text) {
+        showToast("Cole um backup antes de importar.");
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(text);
+        const items = Array.isArray(parsed) ? parsed : parsed.appointments;
+
+        if (!Array.isArray(items)) {
+          throw new Error("Backup inválido.");
+        }
+
+        let imported = 0;
+
+        for (const item of items) {
+          upsertAppointment(normalizeImportedAppointment(item));
+          imported++;
+        }
+
+        saveAppointments();
+        renderTypes();
+        renderAll();
+        els.backupTextInput.value = "";
+        showToast(`${imported} compromisso(s) importado(s).`);
+      } catch (error) {
+        console.warn("Erro ao importar backup colado:", error);
+        showToast("Não foi possível importar. Verifique se o texto foi colado inteiro.");
+      }
+    }
+
+    function exportJson() {
+      const data = buildAgendaBackupText();
       downloadFile(`agenda-cafematica-${todayISO()}.json`, data, "application/json;charset=utf-8");
     }
 
