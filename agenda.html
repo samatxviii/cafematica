@@ -78,6 +78,33 @@
       line-height: 1.55;
     }
 
+
+    /* Scrollbar personalizada para combinar com o modo escuro da página. */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(196,154,95,.55) rgba(255,255,255,.06);
+    }
+
+    *::-webkit-scrollbar {
+      width: 10px;
+      height: 10px;
+    }
+
+    *::-webkit-scrollbar-track {
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+    }
+
+    *::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, rgba(228,196,136,.9), rgba(196,154,95,.72));
+      border-radius: 999px;
+      border: 2px solid rgba(18,21,22,.96);
+    }
+
+    *::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, rgba(238,211,157,.98), rgba(196,154,95,.86));
+    }
+
     a { color: inherit; text-decoration: none; }
     button, input, textarea, select { font: inherit; }
     ::selection { background: rgba(196,154,95,.34); color: #fff; }
@@ -128,8 +155,8 @@
     }
 
     .brand-mark {
-      width: 42px;
-      height: 42px;
+      width: 44px;
+      height: 44px;
       display: grid;
       place-items: center;
       border: 1px solid rgba(255,255,255,.2);
@@ -163,6 +190,46 @@
       color: var(--text);
       background: rgba(255,255,255,.08);
       outline: none;
+    }
+
+    .nav button {
+      font: inherit;
+      color: var(--muted);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.045);
+      cursor: pointer;
+      transition: background .2s ease, color .2s ease, transform .18s ease, border-color .18s ease;
+    }
+
+    .nav button:hover,
+    .nav button:focus-visible {
+      color: var(--text);
+      background: rgba(255,255,255,.08);
+      border-color: rgba(196,154,95,.32);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .nav-add-btn {
+      width: 38px;
+      height: 38px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 999px;
+      color: #120f0a !important;
+      background: linear-gradient(135deg, #e4c488, var(--coffee)) !important;
+      border-color: rgba(196,154,95,.50) !important;
+      font-size: 1.35rem !important;
+      font-weight: 950 !important;
+      line-height: 1;
+      box-shadow: 0 10px 28px rgba(196,154,95,.16);
+    }
+
+    .nav-type-btn {
+      min-height: 38px;
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-weight: 750;
     }
 
     .mobile-toggle {
@@ -352,19 +419,46 @@
 
     textarea { min-height: 150px; resize: vertical; }
 
-    .checkbox-line {
-      display: flex;
-      align-items: center;
+    .time-mode {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      color: var(--muted);
-      font-weight: 800;
-      user-select: none;
+      grid-column: 1 / -1;
     }
 
-    .checkbox-line input {
-      width: 18px;
-      height: 18px;
-      accent-color: var(--coffee);
+    .time-mode-option {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(0,0,0,.20);
+      font-weight: 900;
+      cursor: pointer;
+      user-select: none;
+      transition: background .18s ease, border-color .18s ease, color .18s ease, transform .18s ease;
+    }
+
+    .time-mode-option:hover {
+      transform: translateY(-1px);
+      background: rgba(255,255,255,.07);
+    }
+
+    .time-mode-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .time-mode-option:has(input:checked) {
+      color: #120f0a;
+      border-color: rgba(196,154,95,.50);
+      background: linear-gradient(135deg, #e4c488, var(--coffee));
+      box-shadow: 0 12px 34px rgba(196,154,95,.14);
     }
 
     .time-fields {
@@ -375,6 +469,155 @@
     }
 
     .time-fields.active { display: grid; }
+
+    .time-pick {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      min-height: 50px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 14px;
+      color: var(--text);
+      background: rgba(0,0,0,.26);
+      padding: 12px 13px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .time-pick:hover,
+    .time-pick:focus-visible {
+      border-color: rgba(196,154,95,.55);
+      box-shadow: 0 0 0 4px rgba(196,154,95,.12);
+      outline: none;
+    }
+
+    .time-pick-value {
+      font-weight: 900;
+      letter-spacing: -.02em;
+    }
+
+    .time-pick-placeholder {
+      color: var(--muted-2);
+      font-weight: 800;
+    }
+
+    .time-pick-icon {
+      color: #ead8b5;
+      opacity: .9;
+    }
+
+
+    /* Seletor horizontal de horário em formato de barra deslizante. */
+    .time-mode {
+      position: relative;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      grid-column: 1 / -1;
+      min-height: 48px;
+      padding: 5px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      background: rgba(0,0,0,.24);
+      overflow: hidden;
+    }
+
+    .time-mode::before {
+      content: "";
+      position: absolute;
+      top: 5px;
+      bottom: 5px;
+      left: 5px;
+      width: calc((100% - 10px) / 3);
+      border-radius: 999px;
+      background: linear-gradient(135deg, #e4c488, var(--coffee));
+      box-shadow: 0 12px 34px rgba(196,154,95,.16);
+      transform: translateX(calc(var(--time-index, 0) * 100%));
+      transition: transform .22s ease;
+      z-index: 0;
+    }
+
+    .time-mode-option {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      padding: 9px 10px;
+      border: 0;
+      border-radius: 999px;
+      color: var(--muted);
+      background: transparent;
+      font-weight: 950;
+      cursor: pointer;
+      user-select: none;
+      transition: color .18s ease;
+      text-align: center;
+    }
+
+    .time-mode-option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .time-mode-option:has(input:checked) {
+      color: #120f0a;
+    }
+
+    .time-fields {
+      display: none;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      grid-column: 1 / -1;
+    }
+
+    .time-fields.active { display: grid; }
+
+    .time-pick {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+      min-height: 50px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 14px;
+      color: var(--text);
+      background: rgba(0,0,0,.26);
+      padding: 12px 13px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .time-pick:hover,
+    .time-pick:focus-visible {
+      border-color: rgba(196,154,95,.55);
+      box-shadow: 0 0 0 4px rgba(196,154,95,.12);
+      outline: none;
+    }
+
+    .time-pick-value {
+      font-weight: 900;
+      letter-spacing: -.02em;
+    }
+
+    .time-pick-placeholder {
+      color: var(--muted-2);
+      font-weight: 800;
+    }
+
+    .time-pick-icon {
+      color: #ead8b5;
+      opacity: .9;
+    }
+
+    .filename-preview {
+      display: none !important;
+    }
 
     .form-actions {
       display: flex;
@@ -412,7 +655,7 @@
        ========================================================= */
     .calendar-shell {
       display: grid;
-      grid-template-columns: .85fr 1.15fr;
+      grid-template-columns: 1fr;
       gap: 18px;
       align-items: start;
     }
@@ -432,20 +675,39 @@
     }
 
     .year-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      display: flex;
       gap: 10px;
       margin-top: 20px;
+      overflow-x: auto;
+      padding: 2px 2px 10px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(196,154,95,.45) rgba(255,255,255,.06);
+    }
+
+    .year-grid::-webkit-scrollbar {
+      height: 8px;
+    }
+
+    .year-grid::-webkit-scrollbar-track {
+      background: rgba(255,255,255,.06);
+      border-radius: 999px;
+    }
+
+    .year-grid::-webkit-scrollbar-thumb {
+      background: rgba(196,154,95,.45);
+      border-radius: 999px;
     }
 
     .month-card {
-      min-height: 76px;
+      flex: 0 0 auto;
+      min-width: 132px;
+      min-height: 58px;
       border: 1px solid rgba(255,255,255,.12);
       border-radius: 16px;
       background: rgba(255,255,255,.045);
       color: var(--text);
       cursor: pointer;
-      padding: 12px;
+      padding: 10px 12px;
       text-align: left;
       transition: transform .16s ease, background .16s ease, border-color .16s ease;
       position: relative;
@@ -463,18 +725,20 @@
       display: block;
       font-weight: 950;
       letter-spacing: -.04em;
-      font-size: 1rem;
+      font-size: .95rem;
+      line-height: 1.05;
     }
 
     .month-count {
       display: inline-flex;
-      margin-top: 8px;
+      margin-top: 7px;
       padding: 4px 8px;
       border-radius: 999px;
       background: rgba(196,154,95,.12);
       color: #ead8b5;
-      font-size: .76rem;
+      font-size: .72rem;
       font-weight: 900;
+      white-space: nowrap;
     }
 
     .month-view-head {
@@ -515,6 +779,34 @@
       padding: 9px;
       position: relative;
       overflow: hidden;
+    }
+
+    .day-add {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 24px;
+      height: 24px;
+      border: 1px solid rgba(196,154,95,.34);
+      border-radius: 999px;
+      background: rgba(196,154,95,.10);
+      color: #ead8b5;
+      cursor: pointer;
+      font-weight: 950;
+      line-height: 1;
+      opacity: 0;
+      transform: scale(.92);
+      transition: opacity .16s ease, transform .16s ease, background .16s ease;
+    }
+
+    .day-cell:hover .day-add,
+    .day-cell:focus-within .day-add {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .day-add:hover {
+      background: rgba(196,154,95,.22);
     }
 
     .day-cell.outside { opacity: .35; }
@@ -579,9 +871,19 @@
        ========================================================= */
     .toolbar {
       display: grid;
-      grid-template-columns: 1fr 170px 170px;
+      grid-template-columns: 1.4fr 180px 130px 130px 180px;
       gap: 12px;
       margin-top: 22px;
+      align-items: end;
+    }
+
+    .filter-field {
+      gap: 6px;
+    }
+
+    .filter-field label {
+      font-size: .76rem;
+      color: var(--muted-2);
     }
 
     .appointments { display: grid; gap: 14px; margin-top: 22px; }
@@ -641,6 +943,837 @@
     }
 
     /* =========================================================
+       MODAL DE COMPROMISSO
+       Formulário em pop-up. Ao abrir, o restante da página fica
+       visualmente escurecido para concentrar a atenção.
+       ========================================================= */
+    .appointment-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 95;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,.90);
+      backdrop-filter: blur(10px);
+    }
+
+    .appointment-modal-backdrop.active {
+      display: flex;
+    }
+
+    .appointment-modal {
+      width: min(860px, 100%);
+      max-height: min(88vh, 860px);
+      overflow: auto;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(24,27,28,.98), rgba(16,18,19,.98));
+      background-size: 28px 28px, 28px 28px, auto;
+      box-shadow: 0 36px 120px rgba(0,0,0,.68);
+    }
+
+    .appointment-modal-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      padding: clamp(20px, 4vw, 32px) clamp(20px, 4vw, 32px) 0;
+    }
+
+    .appointment-modal-title {
+      margin: 0;
+      font-size: clamp(1.7rem, 4vw, 3rem);
+      line-height: .95;
+      letter-spacing: -.06em;
+      font-weight: 950;
+    }
+
+    .modal-close {
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 14px;
+      color: var(--text);
+      background: rgba(255,255,255,.06);
+      cursor: pointer;
+      font-size: 1.25rem;
+      font-weight: 900;
+    }
+
+    .appointment-modal-body {
+      padding: clamp(20px, 4vw, 32px);
+    }
+
+
+    /* Modal específico para gerenciar tipos de compromisso.
+       Ele evita poluir o pop-up principal de cadastro. */
+    .type-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 112;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,.84);
+      backdrop-filter: blur(10px);
+    }
+
+    .type-modal-backdrop.active {
+      display: flex;
+    }
+
+    .type-modal {
+      width: min(620px, 100%);
+      max-height: min(86vh, 760px);
+      overflow: auto;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(24,27,28,.98), rgba(16,18,19,.98));
+      background-size: 28px 28px, 28px 28px, auto;
+      box-shadow: 0 36px 120px rgba(0,0,0,.68);
+      padding: clamp(20px, 4vw, 30px);
+    }
+
+    .type-modal-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .type-modal-title {
+      margin: 0;
+      font-size: clamp(1.55rem, 4vw, 2.5rem);
+      line-height: .96;
+      letter-spacing: -.055em;
+      font-weight: 950;
+    }
+
+    .type-modal .type-add-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .type-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .type-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.05);
+      color: var(--muted);
+      font-size: .84rem;
+      font-weight: 850;
+    }
+
+    .type-edit-btn {
+      color: #ead8b5 !important;
+      background: rgba(196,154,95,.12) !important;
+    }
+
+    .type-count {
+      display: inline-grid;
+      place-items: center;
+      min-width: 24px;
+      height: 24px;
+      padding: 0 6px;
+      border-radius: 999px;
+      color: #120f0a;
+      background: linear-gradient(135deg, #e4c488, var(--coffee));
+      font-size: .76rem;
+      font-weight: 950;
+      line-height: 1;
+      box-shadow: 0 8px 20px rgba(196,154,95,.14);
+    }
+
+    .type-edit-btn {
+      color: #ead8b5 !important;
+      background: rgba(196,154,95,.12) !important;
+    }
+
+    .type-chip button {
+      width: 22px;
+      height: 22px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      color: #ffd0d0;
+      background: rgba(180,71,71,.12);
+      cursor: pointer;
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .type-chip button:disabled {
+      opacity: .35;
+      cursor: not-allowed;
+    }
+
+    @media (max-width: 700px) {
+      .type-modal .type-add-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* =========================================================
+       RELÓGIO ANALÓGICO PARA SELEÇÃO DE HORÁRIO
+       Primeiro escolhe a hora, depois os minutos. O relógio
+       respeita a identidade escura da página.
+       ========================================================= */
+    .clock-modal-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 115;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,.82);
+      backdrop-filter: blur(10px);
+    }
+
+    .clock-modal-backdrop.active {
+      display: flex;
+    }
+
+    .clock-modal {
+      width: min(520px, 100%);
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(24,27,28,.98), rgba(16,18,19,.98));
+      background-size: 28px 28px, 28px 28px, auto;
+      box-shadow: 0 36px 120px rgba(0,0,0,.68);
+      padding: 22px;
+    }
+
+    .clock-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .clock-title {
+      margin: 0;
+      font-size: 1.55rem;
+      letter-spacing: -.05em;
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .clock-selected {
+      margin-top: 8px;
+      color: #ead8b5;
+      font-size: 1.25rem;
+      font-weight: 950;
+      letter-spacing: .02em;
+    }
+
+    .clock-stage {
+      display: flex;
+      gap: 10px;
+      margin: 12px 0 18px;
+    }
+
+    .clock-stage button {
+      flex: 1;
+      min-height: 38px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,.05);
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .clock-stage button.active {
+      color: #120f0a;
+      border-color: rgba(196,154,95,.50);
+      background: linear-gradient(135deg, #e4c488, var(--coffee));
+    }
+
+    .ampm-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin: 0 0 18px;
+    }
+
+    .ampm-toggle button {
+      min-height: 40px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,.05);
+      cursor: pointer;
+      font-weight: 950;
+      letter-spacing: .02em;
+    }
+
+    .ampm-toggle button.active {
+      color: #120f0a;
+      border-color: rgba(196,154,95,.50);
+      background: linear-gradient(135deg, #e4c488, var(--coffee));
+    }
+
+    .clock-face {
+      position: relative;
+      width: min(340px, 78vw);
+      aspect-ratio: 1;
+      margin: 0 auto;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,.16);
+      background:
+        radial-gradient(circle at center, rgba(196,154,95,.18) 0 4px, transparent 5px),
+        radial-gradient(circle at center, rgba(255,255,255,.06), rgba(0,0,0,.20));
+      box-shadow: inset 0 0 34px rgba(0,0,0,.36), 0 24px 60px rgba(0,0,0,.36);
+    }
+
+    .clock-hand {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 3px;
+      height: 35%;
+      transform-origin: 50% 100%;
+      transform: translate(-50%, -100%) rotate(0deg);
+      border-radius: 999px;
+      background: linear-gradient(to top, var(--coffee), #ead8b5);
+      pointer-events: none;
+      box-shadow: 0 0 18px rgba(196,154,95,.22);
+    }
+
+    .clock-option {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 42px;
+      height: 42px;
+      transform: translate(-50%, -50%);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      color: var(--text);
+      background: rgba(255,255,255,.055);
+      cursor: pointer;
+      font-weight: 950;
+      transition: background .15s ease, color .15s ease, border-color .15s ease, transform .15s ease;
+    }
+
+    .clock-option:hover {
+      background: rgba(196,154,95,.18);
+      border-color: rgba(196,154,95,.45);
+    }
+
+    .clock-option.selected {
+      color: #120f0a;
+      background: linear-gradient(135deg, #e4c488, var(--coffee));
+      border-color: rgba(196,154,95,.55);
+    }
+
+    .clock-actions {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    /* =========================================================
+       DROPDOWNS PERSONALIZADOS
+       ========================================================= */
+    .custom-select {
+      position: relative;
+      width: 100%;
+    }
+
+    .custom-select-button {
+      width: 100%;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 14px;
+      color: var(--text);
+      background: rgba(0,0,0,.26);
+      padding: 12px 13px;
+      cursor: pointer;
+      text-align: left;
+      font-weight: 800;
+    }
+
+    .custom-select-button:hover,
+    .custom-select-button:focus-visible {
+      border-color: rgba(196,154,95,.55);
+      box-shadow: 0 0 0 4px rgba(196,154,95,.12);
+      outline: none;
+    }
+
+    .custom-select-arrow {
+      color: #ead8b5;
+      font-size: .82rem;
+      opacity: .9;
+      transition: transform .18s ease;
+    }
+
+    .custom-select.open .custom-select-arrow { transform: rotate(180deg); }
+
+    .custom-select-options {
+      position: fixed;
+      z-index: 300;
+      top: 0;
+      left: 0;
+      width: 240px;
+      max-height: 280px;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      pointer-events: auto;
+      display: none;
+      padding: 7px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 16px;
+      background:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
+        rgba(18,21,22,.98);
+      background-size: 28px 28px, 28px 28px, auto;
+      box-shadow: 0 24px 70px rgba(0,0,0,.55);
+      backdrop-filter: blur(12px);
+      scrollbar-width: thin;
+      scrollbar-color: rgba(196,154,95,.55) rgba(255,255,255,.06);
+    }
+
+    .custom-select-options::-webkit-scrollbar { width: 9px; }
+    .custom-select-options::-webkit-scrollbar-track { background: rgba(255,255,255,.06); border-radius: 999px; }
+    .custom-select-options::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, rgba(228,196,136,.9), rgba(196,154,95,.72));
+      border-radius: 999px;
+      border: 2px solid rgba(18,21,22,.96);
+    }
+
+    .custom-select-options.open {
+      display: block;
+    }
+
+    .custom-select-option + .custom-select-option {
+      margin-top: 5px;
+    }
+
+    .custom-select-option {
+      width: 100%;
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border: 0;
+      border-radius: 11px;
+      color: var(--muted);
+      background: transparent;
+      padding: 9px 10px;
+      cursor: pointer;
+      text-align: left;
+      font-weight: 800;
+    }
+
+    .custom-select-option:hover,
+    .custom-select-option:focus-visible {
+      color: var(--text);
+      background: rgba(255,255,255,.07);
+      outline: none;
+    }
+
+    .custom-select-option.selected {
+      color: #120f0a;
+      background: linear-gradient(135deg, #e4c488, var(--coffee));
+    }
+
+    .native-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+      clip-path: inset(50%) !important;
+    }
+
+
+    .month-filter-button {
+      width: 100%;
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 14px;
+      color: var(--text);
+      background: rgba(0,0,0,.26);
+      padding: 12px 13px;
+      cursor: pointer;
+      text-align: left;
+      font-weight: 900;
+    }
+
+    .month-filter-button:hover,
+    .month-filter-button:focus-visible {
+      border-color: rgba(196,154,95,.55);
+      box-shadow: 0 0 0 4px rgba(196,154,95,.12);
+      outline: none;
+    }
+
+    .month-picker-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 116;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,.84);
+      backdrop-filter: blur(10px);
+    }
+
+    .month-picker-backdrop.active {
+      display: flex;
+    }
+
+    .month-picker {
+      width: min(620px, 100%);
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(24,27,28,.98), rgba(16,18,19,.98));
+      background-size: 28px 28px, 28px 28px, auto;
+      box-shadow: 0 36px 120px rgba(0,0,0,.68);
+      padding: clamp(20px, 4vw, 30px);
+    }
+
+    .month-picker-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .month-picker-title {
+      margin: 0;
+      font-size: clamp(1.55rem, 4vw, 2.4rem);
+      line-height: .96;
+      letter-spacing: -.055em;
+      font-weight: 950;
+    }
+
+    .month-picker-year {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .month-picker-year strong {
+      font-size: 1.5rem;
+      letter-spacing: -.04em;
+    }
+
+    .month-picker-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .month-picker-option {
+      min-height: 58px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      background: rgba(255,255,255,.045);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 900;
+      transition: background .18s ease, border-color .18s ease, transform .18s ease;
+    }
+
+    .month-picker-option:hover,
+    .month-picker-option:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(196,154,95,.38);
+      background: rgba(255,255,255,.075);
+      outline: none;
+    }
+
+    .month-picker-option.active {
+      color: #120f0a;
+      background: linear-gradient(135deg, #e4c488, var(--coffee));
+      border-color: rgba(196,154,95,.55);
+    }
+
+    .month-picker-option {
+      position: relative;
+    }
+
+    .month-appointment-count {
+      position: absolute;
+      top: 8px;
+      right: 10px;
+      display: inline-grid;
+      place-items: center;
+      min-width: 24px;
+      height: 24px;
+      padding: 0 6px;
+      border-radius: 999px;
+      color: #120f0a;
+      background: linear-gradient(135deg, #e4c488, var(--coffee));
+      font-size: .76rem;
+      font-weight: 950;
+      line-height: 1;
+      box-shadow: 0 8px 20px rgba(196,154,95,.14);
+    }
+
+    .month-picker-option.active .month-appointment-count {
+      color: #ead8b5;
+      background: rgba(18,21,22,.92);
+      border: 1px solid rgba(18,21,22,.35);
+      box-shadow: none;
+    }
+
+    .month-picker-option.current-month {
+      border-color: rgba(196,154,95,.82);
+      box-shadow:
+        inset 0 0 0 1px rgba(196,154,95,.38),
+        0 0 0 3px rgba(196,154,95,.10);
+    }
+
+    .month-picker-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex: 0 0 auto;
+    }
+
+    .month-now-btn {
+      width: 42px;
+      height: 42px;
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid rgba(196,154,95,.32);
+      border-radius: 14px;
+      color: #ead8b5;
+      background: rgba(196,154,95,.10);
+      cursor: pointer;
+      font-size: 1.05rem;
+      font-weight: 950;
+      transition: background .18s ease, transform .18s ease, border-color .18s ease;
+    }
+
+    .month-now-btn:hover,
+    .month-now-btn:focus-visible {
+      transform: translateY(-1px);
+      background: rgba(196,154,95,.18);
+      border-color: rgba(196,154,95,.55);
+      outline: none;
+    }
+
+    .day-cell.drag-over {
+      border-color: rgba(196,154,95,.75);
+      box-shadow: inset 0 0 0 2px rgba(196,154,95,.22);
+      background: rgba(196,154,95,.08);
+    }
+
+    .day-item[draggable="true"] {
+      cursor: grab;
+    }
+
+    .day-item[draggable="true"]:active {
+      cursor: grabbing;
+    }
+
+    @media (max-width: 700px) {
+      .month-picker-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+
+    .type-filter-backdrop {
+      position: fixed;
+      inset: 0;
+      z-index: 116;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0,0,0,.84);
+      backdrop-filter: blur(10px);
+    }
+
+    .type-filter-backdrop.active {
+      display: flex;
+    }
+
+    .type-filter-modal {
+      width: min(620px, 100%);
+      max-height: min(86vh, 760px);
+      overflow: auto;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(24,27,28,.98), rgba(16,18,19,.98));
+      background-size: 28px 28px, 28px 28px, auto;
+      box-shadow: 0 36px 120px rgba(0,0,0,.68);
+      padding: clamp(20px, 4vw, 30px);
+    }
+
+    .type-filter-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+
+    .type-filter-title {
+      margin: 0;
+      font-size: clamp(1.55rem, 4vw, 2.4rem);
+      line-height: .96;
+      letter-spacing: -.055em;
+      font-weight: 950;
+    }
+
+    .type-filter-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .type-filter-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .type-filter-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      min-height: 48px;
+      padding: 12px 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 16px;
+      color: var(--text);
+      background: rgba(255,255,255,.045);
+      cursor: pointer;
+      user-select: none;
+      font-weight: 900;
+    }
+
+    .type-filter-option:hover {
+      border-color: rgba(196,154,95,.36);
+      background: rgba(255,255,255,.075);
+    }
+
+    .type-filter-option input {
+      width: 19px;
+      height: 19px;
+      accent-color: var(--coffee);
+    }
+
+    .type-filter-option-count {
+      display: inline-grid;
+      place-items: center;
+      min-width: 24px;
+      height: 24px;
+      padding: 0 6px;
+      border-radius: 999px;
+      color: #120f0a;
+      background: linear-gradient(135deg, #e4c488, var(--coffee));
+      font-size: .76rem;
+      font-weight: 950;
+      line-height: 1;
+    }
+
+
+    .popup-open-icon {
+      display: inline-grid;
+      place-items: center;
+      width: 24px;
+      height: 24px;
+      border: 1px solid rgba(196,154,95,.22);
+      border-radius: 8px;
+      color: #ead8b5;
+      background: rgba(196,154,95,.08);
+      font-size: .82rem;
+      font-weight: 950;
+      line-height: 1;
+      flex: 0 0 auto;
+    }
+
+    .filter-category-internal {
+      display: none !important;
+    }
+
+
+    .export-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .export-half {
+      width: 100%;
+      min-height: 46px;
+    }
+
+    .export-hint {
+      margin-top: 14px;
+    }
+
+    .export-pdf {
+      width: 100%;
+      min-height: 46px;
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      .export-actions {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* =========================================================
        MODAL E TOAST
        ========================================================= */
     .modal-backdrop {
@@ -672,23 +1805,28 @@
 
     .toast {
       position: fixed;
-      right: 18px;
+      left: 50%;
       bottom: 18px;
       z-index: 120;
-      width: min(420px, calc(100% - 36px));
-      transform: translateY(24px);
+      width: fit-content;
+      min-width: 0;
+      max-width: min(520px, calc(100% - 36px));
+      transform: translate(-50%, 24px);
       opacity: 0;
       pointer-events: none;
       transition: opacity .2s ease, transform .2s ease;
       border: 1px solid rgba(255,255,255,.14);
       border-radius: 18px;
       background: rgba(18,21,22,.94);
-      box-shadow: var(--shadow);
-      padding: 14px 16px;
+      box-shadow: 0 18px 54px rgba(0,0,0,.42);
+      padding: 13px 16px;
       color: var(--text);
+      font-weight: 800;
+      text-align: center;
+      white-space: normal;
     }
 
-    .toast.active { transform: translateY(0); opacity: 1; }
+    .toast.active { transform: translate(-50%, 0); opacity: 1; }
 
     .reveal { opacity: 0; transform: translateY(16px); transition: opacity .55s ease, transform .55s ease; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -706,10 +1844,6 @@
     /* =========================================================
        RESPONSIVIDADE
        ========================================================= */
-    @media (max-width: 1080px) {
-      .calendar-shell { grid-template-columns: 1fr; }
-    }
-
     @media (max-width: 980px) {
       .nav {
         position: fixed;
@@ -732,7 +1866,6 @@
 
       .grid.two, .grid.three { grid-template-columns: 1fr; }
       .toolbar { grid-template-columns: 1fr; }
-      .year-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
     @media (max-width: 700px) {
@@ -740,7 +1873,9 @@
       .brand-subtitle { display: none; }
       .section { padding: 50px 0; }
       .hero { padding: 54px 0 28px; min-height: auto; }
-      .form-grid, .time-fields { grid-template-columns: 1fr; }
+      .form-grid, .time-fields, .time-mode { grid-template-columns: 1fr; }
+      .appointment-modal, .type-modal, .clock-modal { max-height: 90vh; }
+      select, input, textarea { font-size: 16px; }
       .appointment-top { flex-direction: column; }
 
       .btn { width: 100%; white-space: normal; }
@@ -751,7 +1886,6 @@
       .weekdays, .month-grid { gap: 5px; }
       .day-cell { min-height: 72px; padding: 6px; border-radius: 12px; }
       .day-item { font-size: .66rem; padding: 4px 5px; }
-      .year-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -770,12 +1904,11 @@
       </a>
 
       <nav class="nav" id="nav" aria-label="Navegação principal">
+        <button class="nav-add-btn" type="button" id="navAddAppointment" title="Novo compromisso" aria-label="Novo compromisso">+</button>
         <a href="#calendario">Calendário</a>
-        <a href="#novo">Novo compromisso</a>
         <a href="#lista">Compromissos</a>
-        <a href="#comandos">Comandos</a>
         <a href="#arquivos">Arquivos</a>
-        <a href="index.html">Site</a>
+        <button class="nav-type-btn" type="button" id="navManageTypes">Tipos</button>
       </nav>
 
       <button class="mobile-toggle" id="mobileToggle" aria-label="Abrir menu" aria-expanded="false">☰</button>
@@ -796,7 +1929,6 @@
           </p>
           <div class="hero-actions">
             <a class="btn primary" href="#calendario">Ver calendário</a>
-            <a class="btn ghost" href="#novo">Criar compromisso</a>
           </div>
         </div>
       </div>
@@ -810,7 +1942,7 @@
         <span class="eyebrow reveal">Calendário</span>
         <h2 class="section-title small reveal">Visão anual e mensal</h2>
         <p class="lead reveal">
-          Clique em um mês para abrir o calendário mensal. Dias com compromissos aparecem marcados; passe o mouse para ver o resumo e clique no compromisso para editar.
+          Clique em um mês para abrir o calendário mensal. Use o botão + em um dia para cadastrar; passe o mouse para ver resumos e clique em um compromisso para editar.
         </p>
 
         <div class="calendar-controls reveal">
@@ -821,13 +1953,20 @@
         </div>
 
         <div class="calendar-shell" style="margin-top:22px;">
+          <!-- Seletor mensal em uma única linha para não competir com a altura do calendário. -->
           <div class="panel reveal">
             <div class="panel-inner">
-              <h3 style="margin:0; letter-spacing:-.035em;">Ano</h3>
+              <div class="month-view-head">
+                <div>
+                  <h3 style="margin:0; letter-spacing:-.035em;">Selecionar mês</h3>
+                  <p class="hint">Use a linha abaixo para trocar o mês exibido no calendário.</p>
+                </div>
+              </div>
               <div class="year-grid" id="yearGrid"></div>
             </div>
           </div>
 
+          <!-- Calendário mensal em largura total, evitando que os dias cresçam de forma estranha quando há vários compromissos. -->
           <div class="panel reveal">
             <div class="panel-inner">
               <div class="month-view-head">
@@ -850,83 +1989,6 @@
     </section>
 
     <!-- =========================================================
-         FORMULÁRIO DE COMPROMISSOS
-         ========================================================= -->
-    <section class="section" id="novo">
-      <div class="container">
-        <div class="panel reveal">
-          <div class="panel-inner">
-            <span class="eyebrow">Cadastro</span>
-            <h2 class="section-title small" id="formTitle">Novo compromisso</h2>
-            <p class="lead">
-              Preencha a data, o título e o corpo do texto. A numeração do arquivo será definida automaticamente.
-            </p>
-
-            <form id="appointmentForm" autocomplete="off">
-              <input type="hidden" id="editingFilename" value="">
-
-              <div class="form-grid">
-                <div class="field">
-                  <label for="date">Data</label>
-                  <input id="date" type="date" required>
-                </div>
-
-                <div class="field">
-                  <label for="category">Tipo</label>
-                  <select id="category">
-                    <option value="math">Matemática</option>
-                    <option value="latex">LaTeX</option>
-                    <option value="tech">Tecnologia</option>
-                    <option value="personal">Pessoal/geral</option>
-                  </select>
-                </div>
-
-                <div class="field full">
-                  <label class="checkbox-line" for="hasTime">
-                    <input id="hasTime" type="checkbox">
-                    Este compromisso tem hora marcada
-                  </label>
-                </div>
-
-                <div class="time-fields" id="timeFields">
-                  <div class="field">
-                    <label for="startTime">Começa às</label>
-                    <input id="startTime" type="time">
-                  </div>
-
-                  <div class="field">
-                    <label for="endTime">Termina às</label>
-                    <input id="endTime" type="time">
-                  </div>
-                </div>
-
-                <div class="field full">
-                  <label for="title">Título</label>
-                  <input id="title" type="text" maxlength="120" placeholder="Ex.: Aula de Matemática Básica" required>
-                </div>
-
-                <div class="field full">
-                  <label for="bodyText">Corpo do texto</label>
-                  <textarea id="bodyText" placeholder="Escreva os detalhes do compromisso..." required></textarea>
-                </div>
-              </div>
-
-              <div class="form-actions">
-                <button class="btn primary" type="submit" id="saveBtn">Salvar compromisso</button>
-                <button class="btn ghost" type="button" id="clearBtn">Limpar</button>
-                <span class="filename-preview" id="filenamePreview">Arquivo previsto: escolha uma data</span>
-              </div>
-
-              <p class="hint">
-                Ao editar um compromisso, o nome do arquivo permanece o mesmo. O horário é opcional.
-              </p>
-            </form>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- =========================================================
          LISTA DE COMPROMISSOS
          ========================================================= -->
     <section class="section" id="lista">
@@ -937,60 +1999,49 @@
           Os dados abaixo estão salvos neste navegador. Use exportação/importação para manter cópias externas.
         </p>
 
-        <div class="toolbar reveal" aria-label="Filtros da agenda">
+        <div class="toolbar toolbar-filters reveal" aria-label="Filtros da agenda">
           <input id="search" type="search" placeholder="Buscar por título, corpo ou arquivo...">
-          <input id="filterDate" type="date" aria-label="Filtrar por data">
-          <select id="filterCategory" aria-label="Filtrar por tipo">
-            <option value="">Todos os tipos</option>
-            <option value="math">Matemática</option>
-            <option value="latex">LaTeX</option>
-            <option value="tech">Tecnologia</option>
-            <option value="personal">Pessoal/geral</option>
-          </select>
+
+          <div class="field filter-field">
+            <label for="filterMonthButton">Mês</label>
+            <select id="filterMonth" class="native-hidden" aria-label="Filtrar por mês"></select>
+            <button class="month-filter-button" type="button" id="filterMonthButton">
+              <span id="filterMonthLabel">Mês atual</span>
+              <span class="popup-open-icon" aria-hidden="true">↗</span>
+            </button>
+          </div>
+
+          <div class="field filter-field">
+            <label for="filterStartDay">Dia inicial</label>
+            <select id="filterStartDay" aria-label="Filtrar por dia inicial">
+              <option value="">--</option>
+            </select>
+          </div>
+
+          <div class="field filter-field">
+            <label for="filterEndDay">Dia final</label>
+            <select id="filterEndDay" aria-label="Filtrar por dia final">
+              <option value="">--</option>
+            </select>
+          </div>
+
+          <div class="field filter-field">
+            <label for="filterTypeButton">Tipo</label>
+            <select id="filterCategory" class="native-hidden filter-category-internal" aria-label="Filtro de tipo interno" tabindex="-1"></select>
+            <button class="month-filter-button" type="button" id="filterTypeButton">
+              <span id="filterTypeLabel">Todos os tipos</span>
+              <span class="popup-open-icon" aria-hidden="true">↗</span>
+            </button>
+          </div>
         </div>
 
         <div class="form-actions reveal">
           <button class="btn small ghost" type="button" id="todayBtn">Filtrar hoje</button>
+          <button class="btn small ghost" type="button" id="currentMonthFilterBtn">Mês atual</button>
           <button class="btn small ghost" type="button" id="clearFiltersBtn">Limpar filtros</button>
         </div>
 
         <div class="appointments" id="appointments"></div>
-      </div>
-    </section>
-
-    <!-- =========================================================
-         COMANDOS SIMPLES
-         ========================================================= -->
-    <section class="section" id="comandos">
-      <div class="container">
-        <div class="panel reveal">
-          <div class="panel-inner">
-            <span class="eyebrow">Comandos simples</span>
-            <h2 class="section-title small">Cadastre sem perder tempo.</h2>
-            <p class="lead">
-              Use comandos rápidos quando quiser registrar ou alterar algo de forma textual.
-            </p>
-
-            <div class="command-box" style="margin-top:22px;">
-              <textarea id="commandInput" placeholder="Ex.: ADD 2026-06-30 | Aula experimental | Conversar com aluno sobre reforço de Matemática."></textarea>
-              <div class="form-actions">
-                <button class="btn primary" type="button" id="runCommandBtn">Executar comando</button>
-                <button class="btn ghost" type="button" id="clearCommandBtn">Limpar comando</button>
-              </div>
-            </div>
-
-            <div class="command-help">
-              <div><code>ADD 2026-06-30 | Título | Corpo do texto</code></div>
-              <div><code>ADD 2026-06-30 14:00-15:00 | Título | Corpo do texto</code></div>
-              <div><code>EDIT 2026-06-30-01.txt | Novo título | Novo corpo do texto</code></div>
-              <div><code>DELETE 2026-06-30-01.txt</code></div>
-            </div>
-
-            <p class="hint">
-              No comando EDIT, o arquivo mantém o mesmo nome. No comando ADD, a agenda calcula automaticamente o próximo número da data.
-            </p>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -1008,14 +2059,16 @@
                 Exporte todos os compromissos em um único arquivo JSON ou baixe cada compromisso individualmente em TXT.
               </p>
 
-              <div class="form-actions">
-                <button class="btn primary" type="button" id="exportJsonBtn">Exportar agenda em JSON</button>
-                <button class="btn ghost" type="button" id="exportAllTxtBtn">Exportar todos em TXT</button>
+              <div class="export-actions">
+                <button class="btn ghost export-half" type="button" id="exportJsonBtn">Exportar agenda em JSON</button>
+                <button class="btn ghost export-half" type="button" id="exportAllTxtBtn">Exportar todos em TXT</button>
               </div>
 
-              <p class="hint">
+              <p class="hint export-hint">
                 Por segurança do navegador, vários TXT serão baixados um por vez. Para muitos compromissos, o JSON é mais prático.
               </p>
+
+              <button class="btn primary export-pdf" type="button" id="generatePdfBtn">Gerar PDF</button>
             </div>
           </div>
 
@@ -1064,6 +2117,220 @@
     </div>
   </footer>
 
+  <!-- =========================================================
+       MODAL DE COMPROMISSO
+       ========================================================= -->
+  <div class="appointment-modal-backdrop" id="appointmentModal" role="dialog" aria-modal="true" aria-labelledby="formTitle">
+    <div class="appointment-modal">
+      <div class="appointment-modal-head">
+        <div>
+          <span class="eyebrow">Cadastro</span>
+          <h2 class="appointment-modal-title" id="formTitle">Novo compromisso</h2>
+          <p class="lead" style="margin-top:14px;">
+            Preencha os dados do compromisso. O horário é opcional.
+          </p>
+        </div>
+        <button class="modal-close" type="button" id="closeAppointmentModal" aria-label="Fechar formulário">×</button>
+      </div>
+
+      <div class="appointment-modal-body">
+        <form id="appointmentForm" autocomplete="off">
+          <input type="hidden" id="editingFilename" value="">
+
+          <div class="form-grid">
+            <div class="field">
+              <label for="date">Data</label>
+              <input id="date" type="date" required>
+            </div>
+
+            <div class="field">
+              <label for="category">Tipo</label>
+              <select id="category"></select>
+            </div>
+
+            <div class="field full">
+              <label>Horário</label>
+              <div class="time-mode" id="timeMode">
+                <label class="time-mode-option">
+                  <input type="radio" name="timeMode" value="none" checked>
+                  Dia todo
+                </label>
+                <label class="time-mode-option">
+                  <input type="radio" name="timeMode" value="start">
+                  Início
+                </label>
+                <label class="time-mode-option">
+                  <input type="radio" name="timeMode" value="range">
+                  Início e fim
+                </label>
+              </div>
+            </div>
+
+            <div class="time-fields" id="timeFields">
+              <div class="field">
+                <label>Começa às</label>
+                <button class="time-pick" type="button" id="startTimeButton">
+                  <span class="time-pick-value time-pick-placeholder" id="startTimeLabel">Escolher horário</span>
+                  <span class="time-pick-icon" aria-hidden="true">◷</span>
+                </button>
+                <input id="startTime" type="hidden">
+              </div>
+
+              <div class="field" id="endTimeField">
+                <label>Termina às</label>
+                <button class="time-pick" type="button" id="endTimeButton">
+                  <span class="time-pick-value time-pick-placeholder" id="endTimeLabel">Escolher horário</span>
+                  <span class="time-pick-icon" aria-hidden="true">◷</span>
+                </button>
+                <input id="endTime" type="hidden">
+              </div>
+            </div>
+
+            <div class="field full">
+              <label for="title">Título</label>
+              <input id="title" type="text" maxlength="120" placeholder="Ex.: Atendimento" required>
+            </div>
+
+            <div class="field full">
+              <label for="bodyText">Corpo do texto</label>
+              <textarea id="bodyText" placeholder="Escreva os detalhes do compromisso..." required></textarea>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn primary" type="submit" id="saveBtn">Salvar compromisso</button>
+            <button class="btn ghost" type="button" id="clearBtn">Limpar</button>
+            <span class="filename-preview" id="filenamePreview"></span>
+          </div>
+
+          <p class="hint">
+            O nome do arquivo é gerado automaticamente ao salvar e permanece o mesmo durante a edição.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL DE FILTRO POR TIPO
+       ========================================================= -->
+  <div class="type-filter-backdrop" id="typeFilterModal" role="dialog" aria-modal="true" aria-labelledby="typeFilterTitle">
+    <div class="type-filter-modal">
+      <div class="type-filter-head">
+        <div>
+          <span class="eyebrow">Filtro</span>
+          <h3 class="type-filter-title" id="typeFilterTitle">Filtrar por tipo</h3>
+          <p class="lead" style="margin-top:12px;">
+            Marque os tipos que devem aparecer na lista de compromissos.
+          </p>
+        </div>
+        <button class="modal-close" type="button" id="closeTypeFilter" aria-label="Fechar filtro de tipos">×</button>
+      </div>
+
+      <div class="type-filter-actions">
+        <button class="btn small primary" type="button" id="selectAllTypesBtn">Marcar todos</button>
+        <button class="btn small ghost" type="button" id="clearAllTypesBtn">Desmarcar todos</button>
+      </div>
+
+      <div class="type-filter-list" id="typeFilterList"></div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL DE SELEÇÃO DE MÊS
+       ========================================================= -->
+  <div class="month-picker-backdrop" id="monthPickerModal" role="dialog" aria-modal="true" aria-labelledby="monthPickerTitle">
+    <div class="month-picker">
+      <div class="month-picker-head">
+        <div>
+          <span class="eyebrow">Mês</span>
+          <h3 class="month-picker-title" id="monthPickerTitle">Selecionar mês</h3>
+          <p class="lead" style="margin-top:12px;">
+            Escolha o mês e avance ou recue o ano quando necessário.
+          </p>
+        </div>
+        <div class="month-picker-actions">
+          <button class="month-now-btn" type="button" id="monthPickerCurrent" title="Selecionar mês atual" aria-label="Selecionar mês atual">◷</button>
+          <button class="modal-close" type="button" id="closeMonthPicker" aria-label="Fechar seletor de mês">×</button>
+        </div>
+      </div>
+
+      <div class="month-picker-year">
+        <button class="btn small ghost" type="button" id="prevPickerYear">← Ano anterior</button>
+        <strong id="monthPickerYear">2026</strong>
+        <button class="btn small ghost" type="button" id="nextPickerYear">Próximo ano →</button>
+      </div>
+
+      <div class="month-picker-grid" id="monthPickerGrid"></div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL DE TIPOS DE COMPROMISSO
+       Abre quando a última opção do menu Tipo é escolhida.
+       ========================================================= -->
+  <div class="type-modal-backdrop" id="typeModal" role="dialog" aria-modal="true" aria-labelledby="typeModalTitle">
+    <div class="type-modal">
+      <div class="type-modal-head">
+        <div>
+          <span class="eyebrow">Tipos</span>
+          <h3 class="type-modal-title" id="typeModalTitle">Gerenciar tipos</h3>
+          <p class="lead" style="margin-top:12px;">
+            Adicione, edite ou exclua tipos personalizados. Ao excluir um tipo usado, os compromissos dele passam automaticamente para “Sem categoria”.
+          </p>
+        </div>
+        <button class="modal-close" type="button" id="closeTypeModal" aria-label="Fechar gerenciador de tipos">×</button>
+      </div>
+
+      <input id="editingTypeId" type="hidden" value="">
+      <div class="type-add-row">
+        <input id="newTypeInput" type="text" maxlength="40" placeholder="Ex.: Atendimento, Gravação, Reunião">
+        <button class="btn primary" type="button" id="addTypeBtn">Adicionar tipo</button>
+      </div>
+
+      <div class="type-list" id="typeList"></div>
+
+      <p class="hint">
+        Os tipos padrão ficam protegidos. Tipos personalizados podem ser editados ou apagados; compromissos antigos não são perdidos.
+      </p>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       MODAL DO RELÓGIO ANALÓGICO
+       Usado para escolher hora e minutos nos campos de início/fim.
+       ========================================================= -->
+  <div class="clock-modal-backdrop" id="clockModal" role="dialog" aria-modal="true" aria-labelledby="clockTitle">
+    <div class="clock-modal">
+      <div class="clock-head">
+        <div>
+          <h3 class="clock-title" id="clockTitle">Escolher horário</h3>
+          <div class="clock-selected" id="clockSelected">--:--</div>
+        </div>
+        <button class="modal-close" type="button" id="closeClockModal" aria-label="Fechar relógio">×</button>
+      </div>
+
+      <div class="clock-stage" aria-label="Etapa de escolha do horário">
+        <button type="button" id="hourStageBtn" class="active">Hora</button>
+        <button type="button" id="minuteStageBtn">Minutos</button>
+      </div>
+
+      <div class="ampm-toggle" id="ampmToggle" aria-label="Selecionar período">
+        <button type="button" id="amBtn">AM</button>
+        <button type="button" id="pmBtn">PM</button>
+      </div>
+
+      <div class="clock-face" id="clockFace" aria-label="Relógio analógico para seleção de horário">
+        <div class="clock-hand" id="clockHand"></div>
+      </div>
+
+      <div class="clock-actions">
+        <button class="btn ghost" type="button" id="cancelClockBtn">Cancelar</button>
+        <button class="btn primary" type="button" id="confirmClockBtn">Confirmar horário</button>
+      </div>
+    </div>
+  </div>
+
   <div class="modal-backdrop" id="confirmModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
     <div class="modal">
       <h3 id="modalTitle">Confirmar exclusão</h3>
@@ -1082,13 +2349,30 @@
        ESTADO PRINCIPAL
        ========================================================= */
     const STORAGE_KEY = "cafematica_agenda_v2";
+    const TYPES_KEY = "cafematica_agenda_types_v1";
+    const DEFAULT_TYPES = [
+      { id: "uncategorized", label: "Sem categoria", locked: true },
+      { id: "math", label: "Matemática", locked: true },
+      { id: "latex", label: "LaTeX", locked: true },
+      { id: "tech", label: "Tecnologia", locked: true },
+      { id: "personal", label: "Pessoal/geral", locked: true }
+    ];
 
+    let appointmentTypes = loadTypes();
     let appointments = migrateAppointments(loadAppointments());
     let pendingDeleteFilename = null;
+    let activeTimeTarget = null;
+    let clockStage = "hour";
+    let clockPeriod = "AM";
+    let tempHour = 8;
+    let tempMinute = 0;
 
     const todayDate = new Date();
     let selectedYear = todayDate.getFullYear();
     let selectedMonth = todayDate.getMonth();
+    let pickerYear = selectedYear;
+    let draggedFilename = null;
+    let selectedFilterTypes = new Set(); // vazio significa “todos os tipos”
 
     const monthNames = [
       "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
@@ -1098,6 +2382,8 @@
     const els = {
       nav: document.getElementById("nav"),
       mobileToggle: document.getElementById("mobileToggle"),
+      navAddAppointment: document.getElementById("navAddAppointment"),
+      navManageTypes: document.getElementById("navManageTypes"),
 
       calendarYear: document.getElementById("calendarYear"),
       prevYearBtn: document.getElementById("prevYearBtn"),
@@ -1108,15 +2394,29 @@
       monthViewTitle: document.getElementById("monthViewTitle"),
       filterMonthBtn: document.getElementById("filterMonthBtn"),
 
+      appointmentModal: document.getElementById("appointmentModal"),
+      closeAppointmentModal: document.getElementById("closeAppointmentModal"),
       form: document.getElementById("appointmentForm"),
       formTitle: document.getElementById("formTitle"),
       editingFilename: document.getElementById("editingFilename"),
       date: document.getElementById("date"),
       category: document.getElementById("category"),
-      hasTime: document.getElementById("hasTime"),
+      typeModal: document.getElementById("typeModal"),
+      closeTypeModal: document.getElementById("closeTypeModal"),
+      editingTypeId: document.getElementById("editingTypeId"),
+      newTypeInput: document.getElementById("newTypeInput"),
+      addTypeBtn: document.getElementById("addTypeBtn"),
+      typeList: document.getElementById("typeList"),
+      timeMode: document.getElementById("timeMode"),
+      timeModeRadios: Array.from(document.querySelectorAll('input[name="timeMode"]')),
       timeFields: document.getElementById("timeFields"),
+      endTimeField: document.getElementById("endTimeField"),
       startTime: document.getElementById("startTime"),
       endTime: document.getElementById("endTime"),
+      startTimeButton: document.getElementById("startTimeButton"),
+      endTimeButton: document.getElementById("endTimeButton"),
+      startTimeLabel: document.getElementById("startTimeLabel"),
+      endTimeLabel: document.getElementById("endTimeLabel"),
       title: document.getElementById("title"),
       bodyText: document.getElementById("bodyText"),
       saveBtn: document.getElementById("saveBtn"),
@@ -1125,21 +2425,49 @@
 
       appointments: document.getElementById("appointments"),
       search: document.getElementById("search"),
-      filterDate: document.getElementById("filterDate"),
+      filterMonth: document.getElementById("filterMonth"),
+      filterMonthButton: document.getElementById("filterMonthButton"),
+      filterMonthLabel: document.getElementById("filterMonthLabel"),
+      monthPickerModal: document.getElementById("monthPickerModal"),
+      closeMonthPicker: document.getElementById("closeMonthPicker"),
+      monthPickerCurrent: document.getElementById("monthPickerCurrent"),
+      prevPickerYear: document.getElementById("prevPickerYear"),
+      nextPickerYear: document.getElementById("nextPickerYear"),
+      monthPickerYear: document.getElementById("monthPickerYear"),
+      monthPickerGrid: document.getElementById("monthPickerGrid"),
+      filterStartDay: document.getElementById("filterStartDay"),
+      filterEndDay: document.getElementById("filterEndDay"),
       filterCategory: document.getElementById("filterCategory"),
+      filterTypeButton: document.getElementById("filterTypeButton"),
+      filterTypeLabel: document.getElementById("filterTypeLabel"),
+      typeFilterModal: document.getElementById("typeFilterModal"),
+      closeTypeFilter: document.getElementById("closeTypeFilter"),
+      selectAllTypesBtn: document.getElementById("selectAllTypesBtn"),
+      clearAllTypesBtn: document.getElementById("clearAllTypesBtn"),
+      typeFilterList: document.getElementById("typeFilterList"),
       todayBtn: document.getElementById("todayBtn"),
+      currentMonthFilterBtn: document.getElementById("currentMonthFilterBtn"),
       clearFiltersBtn: document.getElementById("clearFiltersBtn"),
 
-      commandInput: document.getElementById("commandInput"),
-      runCommandBtn: document.getElementById("runCommandBtn"),
-      clearCommandBtn: document.getElementById("clearCommandBtn"),
-
+      generatePdfBtn: document.getElementById("generatePdfBtn"),
       exportJsonBtn: document.getElementById("exportJsonBtn"),
       exportAllTxtBtn: document.getElementById("exportAllTxtBtn"),
       importFiles: document.getElementById("importFiles"),
       importBtn: document.getElementById("importBtn"),
       wipeBtn: document.getElementById("wipeBtn"),
 
+      clockModal: document.getElementById("clockModal"),
+      clockTitle: document.getElementById("clockTitle"),
+      clockSelected: document.getElementById("clockSelected"),
+      clockFace: document.getElementById("clockFace"),
+      clockHand: document.getElementById("clockHand"),
+      closeClockModal: document.getElementById("closeClockModal"),
+      hourStageBtn: document.getElementById("hourStageBtn"),
+      minuteStageBtn: document.getElementById("minuteStageBtn"),
+      amBtn: document.getElementById("amBtn"),
+      pmBtn: document.getElementById("pmBtn"),
+      cancelClockBtn: document.getElementById("cancelClockBtn"),
+      confirmClockBtn: document.getElementById("confirmClockBtn"),
       confirmModal: document.getElementById("confirmModal"),
       modalText: document.getElementById("modalText"),
       cancelDeleteBtn: document.getElementById("cancelDeleteBtn"),
@@ -1151,7 +2479,11 @@
 
     function init() {
       els.date.value = todayISO();
+      renderFilterMonths();
+      els.filterMonth.value = currentMonthISO();
+      renderFilterDays();
       els.calendarYear.value = String(selectedYear);
+      renderTypes();
       saveAppointments();
       updateFilenamePreview();
       renderAll();
@@ -1160,13 +2492,16 @@
     }
 
     function setupEvents() {
+      els.navAddAppointment.addEventListener("click", () => openAppointmentModal(todayISO()));
+      els.navManageTypes.addEventListener("click", openTypeModal);
+
       els.mobileToggle.addEventListener("click", () => {
         const active = els.nav.classList.toggle("active");
         els.mobileToggle.setAttribute("aria-expanded", String(active));
       });
 
       els.nav.addEventListener("click", (event) => {
-        if (event.target.tagName === "A") {
+        if (event.target.tagName === "A" || event.target.tagName === "BUTTON") {
           els.nav.classList.remove("active");
           els.mobileToggle.setAttribute("aria-expanded", "false");
         }
@@ -1201,38 +2536,149 @@
       });
 
       els.filterMonthBtn.addEventListener("click", () => {
-        els.filterDate.value = "";
+        els.filterMonth.value = `${selectedYear}-${String(selectedMonth + 1).padStart(2, "0")}`;
+        renderFilterDays();
+        els.filterStartDay.value = "";
+        els.filterEndDay.value = "";
         els.search.value = "";
         els.filterCategory.value = "";
-        els.search.value = `month:${selectedYear}-${String(selectedMonth + 1).padStart(2, "0")}`;
         renderAppointments();
         document.getElementById("lista").scrollIntoView({ behavior: "smooth", block: "start" });
       });
 
       els.form.addEventListener("submit", handleFormSubmit);
+      els.closeAppointmentModal.addEventListener("click", closeAppointmentModal);
+      els.appointmentModal.addEventListener("click", (event) => {
+        if (event.target === els.appointmentModal) closeAppointmentModal();
+      });
+      els.category.addEventListener("change", handleCategoryChange);
+      els.closeTypeModal.addEventListener("click", closeTypeModal);
+      els.typeModal.addEventListener("click", (event) => {
+        if (event.target === els.typeModal) closeTypeModal();
+      });
+      els.addTypeBtn.addEventListener("click", addAppointmentType);
+      els.newTypeInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          addAppointmentType();
+        }
+      });
       els.clearBtn.addEventListener("click", clearForm);
       els.date.addEventListener("input", updateFilenamePreview);
-      els.hasTime.addEventListener("change", toggleTimeFields);
+      els.timeModeRadios.forEach(radio => radio.addEventListener("change", updateTimeModeUI));
+      els.startTimeButton.addEventListener("click", () => openClockPicker("start"));
+      els.endTimeButton.addEventListener("click", () => openClockPicker("end"));
+      els.closeClockModal.addEventListener("click", closeClockPicker);
+      els.cancelClockBtn.addEventListener("click", closeClockPicker);
+      els.hourStageBtn.addEventListener("click", () => setClockStage("hour"));
+      els.minuteStageBtn.addEventListener("click", () => setClockStage("minute"));
+      els.amBtn.addEventListener("click", () => setClockPeriod("AM"));
+      els.pmBtn.addEventListener("click", () => setClockPeriod("PM"));
+      els.confirmClockBtn.addEventListener("click", confirmClockPicker);
+      els.closeAppointmentModal.addEventListener("click", closeAppointmentModal);
+      els.appointmentModal.addEventListener("click", (event) => {
+        if (event.target === els.appointmentModal) closeAppointmentModal();
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && els.typeFilterModal.classList.contains("active")) {
+          closeTypeFilterModal();
+          return;
+        }
+        if (event.key === "Escape" && els.monthPickerModal.classList.contains("active")) {
+          closeMonthPicker();
+          return;
+        }
+        if (event.key === "Escape" && els.typeModal.classList.contains("active")) {
+          closeTypeModal();
+          return;
+        }
+        if (event.key === "Escape" && els.clockModal.classList.contains("active")) {
+          closeClockPicker();
+          return;
+        }
+        if (event.key === "Escape" && els.appointmentModal.classList.contains("active")) {
+          closeAppointmentModal();
+        }
+      });
 
       els.search.addEventListener("input", renderAppointments);
-      els.filterDate.addEventListener("input", renderAppointments);
-      els.filterCategory.addEventListener("input", renderAppointments);
+      els.filterMonth.addEventListener("change", () => {
+        renderFilterDays();
+        updateFilterMonthButton();
+        renderAppointments();
+      });
+
+      els.filterMonthButton.addEventListener("click", openMonthPicker);
+      els.closeMonthPicker.addEventListener("click", closeMonthPicker);
+      els.monthPickerCurrent.addEventListener("click", selectCurrentMonthFromPicker);
+      els.monthPickerModal.addEventListener("click", (event) => {
+        if (event.target === els.monthPickerModal) closeMonthPicker();
+      });
+      els.prevPickerYear.addEventListener("click", () => {
+        pickerYear--;
+        renderMonthPicker();
+      });
+      els.nextPickerYear.addEventListener("click", () => {
+        pickerYear++;
+        renderMonthPicker();
+      });
+      els.filterStartDay.addEventListener("change", renderAppointments);
+      els.filterEndDay.addEventListener("change", renderAppointments);
+      els.filterTypeButton.addEventListener("click", openTypeFilterModal);
+      els.closeTypeFilter.addEventListener("click", closeTypeFilterModal);
+      els.typeFilterModal.addEventListener("click", (event) => {
+        if (event.target === els.typeFilterModal) closeTypeFilterModal();
+      });
+      els.selectAllTypesBtn.addEventListener("click", () => {
+        selectedFilterTypes.clear();
+        renderTypeFilterOptions();
+        updateFilterTypeButton();
+        renderAppointments();
+      });
+      els.clearAllTypesBtn.addEventListener("click", () => {
+        selectedFilterTypes = new Set(["__none__"]);
+        renderTypeFilterOptions();
+        updateFilterTypeButton();
+        renderAppointments();
+      });
 
       els.todayBtn.addEventListener("click", () => {
-        els.filterDate.value = todayISO();
+        const today = todayISO();
+        ensureMonthOption(today.slice(0, 7));
+        els.filterMonth.value = today.slice(0, 7);
+        renderFilterDays();
+        els.filterStartDay.value = String(Number(today.slice(8, 10)));
+        els.filterEndDay.value = String(Number(today.slice(8, 10)));
+        updateFilterMonthButton();
+        renderAppointments();
+      });
+
+      els.currentMonthFilterBtn.addEventListener("click", () => {
+        ensureMonthOption(currentMonthISO());
+        els.filterMonth.value = currentMonthISO();
+        renderFilterDays();
+        els.filterStartDay.value = "";
+        els.filterEndDay.value = "";
+        updateFilterMonthButton();
+        refreshCustomSelects();
         renderAppointments();
       });
 
       els.clearFiltersBtn.addEventListener("click", () => {
         els.search.value = "";
-        els.filterDate.value = "";
-        els.filterCategory.value = "";
+        ensureMonthOption(currentMonthISO());
+        els.filterMonth.value = currentMonthISO();
+        renderFilterDays();
+        els.filterStartDay.value = "";
+        els.filterEndDay.value = "";
+        selectedFilterTypes.clear();
+        updateFilterMonthButton();
+        updateFilterTypeButton();
+        renderTypeFilterOptions();
         renderAppointments();
       });
 
-      els.runCommandBtn.addEventListener("click", runCommand);
-      els.clearCommandBtn.addEventListener("click", () => els.commandInput.value = "");
-
+      els.generatePdfBtn.addEventListener("click", generatePrintablePdf);
       els.exportJsonBtn.addEventListener("click", exportJson);
       els.exportAllTxtBtn.addEventListener("click", exportAllTxt);
       els.importBtn.addEventListener("click", importSelectedFiles);
@@ -1246,6 +2692,11 @@
     }
 
     function renderAll() {
+      renderFilterMonths();
+      renderFilterDays();
+      updateFilterMonthButton();
+      updateFilterTypeButton();
+      renderTypeFilterOptions();
       renderCalendar();
       renderAppointments();
     }
@@ -1309,23 +2760,56 @@
           ? dayItems.map(item => `${formatTimeRange(item)}${item.title} (${item.filename})`).join("\n")
           : `${formatDateBR(iso)} — sem compromisso`;
         cell.title = tooltip;
+        cell.dataset.date = iso;
+        cell.addEventListener("dragover", (event) => {
+          if (!draggedFilename) return;
+          event.preventDefault();
+          cell.classList.add("drag-over");
+        });
+        cell.addEventListener("dragleave", () => {
+          cell.classList.remove("drag-over");
+        });
+        cell.addEventListener("drop", (event) => {
+          event.preventDefault();
+          cell.classList.remove("drag-over");
+          if (draggedFilename) {
+            moveAppointmentToDate(draggedFilename, iso);
+            draggedFilename = null;
+          }
+        });
 
         const visibleItems = dayItems.slice(0, 3);
         const more = dayItems.length - visibleItems.length;
 
         cell.innerHTML = `
           <span class="day-number">${current.getDate()}</span>
+          <button class="day-add" type="button" aria-label="Adicionar compromisso em ${formatDateBR(iso)}" title="Adicionar compromisso em ${formatDateBR(iso)}">+</button>
           <div class="day-items"></div>
         `;
+
+        cell.querySelector(".day-add").addEventListener("click", (event) => {
+          event.stopPropagation();
+          openAppointmentModal(iso);
+        });
 
         const list = cell.querySelector(".day-items");
 
         visibleItems.forEach(item => {
           const btn = document.createElement("button");
           btn.type = "button";
+          btn.draggable = true;
           btn.className = `day-item ${item.category}`;
           btn.title = `${formatTimeRange(item)}${item.title}\n${item.filename}`;
           btn.textContent = `${formatTimeRange(item)}${item.title}`;
+          btn.addEventListener("dragstart", (event) => {
+            draggedFilename = item.filename;
+            event.dataTransfer.effectAllowed = "move";
+            event.dataTransfer.setData("text/plain", item.filename);
+          });
+          btn.addEventListener("dragend", () => {
+            draggedFilename = null;
+            document.querySelectorAll(".day-cell.drag-over").forEach(cell => cell.classList.remove("drag-over"));
+          });
           btn.addEventListener("click", (event) => {
             event.stopPropagation();
             editAppointment(item.filename);
@@ -1343,7 +2827,10 @@
         cell.addEventListener("click", () => {
           if (dayItems.length === 1) editAppointment(dayItems[0].filename);
           if (dayItems.length > 1) {
-            els.filterDate.value = iso;
+            els.filterMonth.value = iso.slice(0, 7);
+            renderFilterDays();
+            els.filterStartDay.value = String(Number(iso.slice(8, 10)));
+            els.filterEndDay.value = String(Number(iso.slice(8, 10)));
             els.search.value = "";
             renderAppointments();
             document.getElementById("lista").scrollIntoView({ behavior: "smooth", block: "start" });
@@ -1352,6 +2839,271 @@
 
         els.monthGrid.appendChild(cell);
       }
+    }
+
+    /* =========================================================
+       ABERTURA E FECHAMENTO DO MODAL DE COMPROMISSO
+       ========================================================= */
+    function openAppointmentModal(date = todayISO()) {
+      clearForm();
+      els.date.value = date;
+      updateFilenamePreview();
+      els.appointmentModal.classList.add("active");
+      setTimeout(() => els.title.focus(), 50);
+    }
+
+    function closeAppointmentModal() {
+      els.appointmentModal.classList.remove("active");
+      clearForm();
+    }
+
+    /* =========================================================
+       TIPOS DE COMPROMISSO
+       ========================================================= */
+    function loadTypes() {
+      try {
+        const raw = localStorage.getItem(TYPES_KEY);
+        const parsed = raw ? JSON.parse(raw) : DEFAULT_TYPES;
+        if (!Array.isArray(parsed) || parsed.length === 0) return DEFAULT_TYPES;
+        return mergeWithDefaultTypes(parsed);
+      } catch {
+        return DEFAULT_TYPES;
+      }
+    }
+
+    function mergeWithDefaultTypes(types) {
+      const map = new Map();
+      [...DEFAULT_TYPES, ...types].forEach(type => {
+        if (!type || !type.id || !type.label) return;
+        map.set(type.id, {
+          id: String(type.id),
+          label: String(type.label),
+          locked: Boolean(type.locked || DEFAULT_TYPES.some(defaultType => defaultType.id === type.id))
+        });
+      });
+      return Array.from(map.values());
+    }
+
+    function saveTypes() {
+      localStorage.setItem(TYPES_KEY, JSON.stringify(appointmentTypes));
+    }
+
+    function renderTypes() {
+      const previous = els.category.value || "math";
+
+      els.category.innerHTML = "";
+      appointmentTypes.forEach(type => {
+        const option = document.createElement("option");
+        option.value = type.id;
+        option.textContent = type.label;
+        els.category.appendChild(option);
+      });
+
+      const manageOption = document.createElement("option");
+      manageOption.value = "__manage_types__";
+      manageOption.textContent = "Gerenciar tipos...";
+      els.category.appendChild(manageOption);
+
+      if (appointmentTypes.some(type => type.id === previous)) {
+        els.category.value = previous;
+      } else {
+        els.category.value = "uncategorized";
+      }
+
+      if (els.filterCategory) {
+        const previousFilter = els.filterCategory.value || "";
+        els.filterCategory.innerHTML = "";
+
+        const allOption = document.createElement("option");
+        allOption.value = "";
+        allOption.textContent = "Todos os tipos";
+        els.filterCategory.appendChild(allOption);
+
+        appointmentTypes.forEach(type => {
+          const option = document.createElement("option");
+          option.value = type.id;
+          option.textContent = type.label;
+          els.filterCategory.appendChild(option);
+        });
+
+        els.filterCategory.value = appointmentTypes.some(type => type.id === previousFilter) ? previousFilter : "";
+      }
+
+      refreshCustomSelects();
+      renderTypeFilterOptions();
+      updateFilterTypeButton();
+
+      els.typeList.innerHTML = "";
+      appointmentTypes.forEach(type => {
+        const chip = document.createElement("span");
+        chip.className = "type-chip";
+
+        const usedCount = appointments.filter(item => item.category === type.id).length;
+        const canModify = !type.locked;
+
+        chip.innerHTML = `
+          <span>${escapeHTML(type.label)}</span>
+          ${usedCount ? `<span class="type-count" title="${usedCount} compromisso${usedCount === 1 ? "" : "s"}">${usedCount}</span>` : ""}
+          <button class="type-edit-btn" type="button" ${canModify ? "" : "disabled"} title="${type.locked ? "Tipo padrão" : "Editar tipo"}">✎</button>
+          <button type="button" ${canModify ? "" : "disabled"} title="${type.locked ? "Tipo padrão" : "Excluir tipo"}">×</button>
+        `;
+
+        const [editButton, deleteButton] = chip.querySelectorAll("button");
+
+        editButton.addEventListener("click", () => {
+          if (!canModify) {
+            showToast("Esse tipo padrão não pode ser editado.");
+            return;
+          }
+          startEditType(type.id);
+        });
+
+        deleteButton.addEventListener("click", () => {
+          if (!canModify) {
+            showToast("Esse tipo padrão não pode ser excluído.");
+            return;
+          }
+
+          appointments = appointments.map(item => {
+            if (item.category !== type.id) return item;
+            return {
+              ...item,
+              category: "uncategorized",
+              updatedAt: new Date().toISOString()
+            };
+          });
+
+          appointmentTypes = appointmentTypes.filter(item => item.id !== type.id);
+          selectedFilterTypes.delete(type.id);
+          saveTypes();
+          saveAppointments();
+          renderTypes();
+          renderAll();
+          showToast(`Tipo excluído. Compromissos de “${type.label}” foram movidos para “Sem categoria”.`);
+        });
+
+        els.typeList.appendChild(chip);
+      });
+    }
+
+    function handleCategoryChange() {
+      if (els.category.value === "__manage_types__") {
+        const fallback = appointmentTypes.some(type => type.id === "uncategorized") ? "uncategorized" : appointmentTypes[0]?.id;
+        els.category.value = fallback;
+        openTypeModal();
+      }
+    }
+
+    function openTypeModal() {
+      renderTypes();
+      refreshCustomSelects();
+      els.typeModal.classList.add("active");
+      setTimeout(() => els.newTypeInput.focus(), 50);
+    }
+
+    function closeTypeModal() {
+      els.typeModal.classList.remove("active");
+      resetTypeEditor();
+    }
+
+    function addAppointmentType() {
+      const label = els.newTypeInput.value.trim();
+      const editingId = els.editingTypeId.value.trim();
+
+      if (!label) {
+        showToast(editingId ? "Digite o novo nome do tipo." : "Digite o nome do novo tipo.");
+        return;
+      }
+
+      const id = slugify(label);
+      if (!id) {
+        showToast("Digite um nome de tipo válido.");
+        return;
+      }
+
+      if (editingId) {
+        const current = appointmentTypes.find(type => type.id === editingId);
+        if (!current || current.locked) {
+          showToast("Esse tipo não pode ser editado.");
+          resetTypeEditor();
+          return;
+        }
+
+        const repeated = appointmentTypes.some(type =>
+          type.id !== editingId && (type.id === id || normalize(type.label) === normalize(label))
+        );
+
+        if (repeated) {
+          showToast("Já existe um tipo com esse nome.");
+          return;
+        }
+
+        appointmentTypes = appointmentTypes.map(type => {
+          if (type.id !== editingId) return type;
+          return { ...type, id, label };
+        });
+
+        if (selectedFilterTypes.has(editingId)) {
+          selectedFilterTypes.delete(editingId);
+          selectedFilterTypes.add(id);
+        }
+
+        appointments = appointments.map(item => {
+          if (item.category !== editingId) return item;
+          return {
+            ...item,
+            category: id,
+            updatedAt: new Date().toISOString()
+          };
+        });
+
+        saveTypes();
+        saveAppointments();
+        resetTypeEditor();
+        renderTypes();
+        renderAll();
+        showToast(`Tipo atualizado: ${label}`);
+        return;
+      }
+
+      if (appointmentTypes.some(type => type.id === id || normalize(type.label) === normalize(label))) {
+        showToast("Esse tipo já existe.");
+        return;
+      }
+
+      appointmentTypes.push({ id, label, locked: false });
+      saveTypes();
+      renderTypes();
+      els.category.value = id;
+      refreshCustomSelects();
+      els.newTypeInput.value = "";
+      showToast(`Tipo adicionado: ${label}`);
+    }
+
+    function startEditType(typeId) {
+      const type = appointmentTypes.find(item => item.id === typeId);
+      if (!type || type.locked) {
+        showToast("Esse tipo padrão não pode ser editado.");
+        return;
+      }
+
+      els.editingTypeId.value = type.id;
+      els.newTypeInput.value = type.label;
+      els.addTypeBtn.textContent = "Salvar tipo";
+      els.newTypeInput.focus();
+    }
+
+    function resetTypeEditor() {
+      els.editingTypeId.value = "";
+      els.newTypeInput.value = "";
+      els.addTypeBtn.textContent = "Adicionar tipo";
+    }
+
+    function slugify(value) {
+      return normalize(value)
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 40);
     }
 
     /* =========================================================
@@ -1367,22 +3119,28 @@
       const body = els.bodyText.value.trim();
       const date = els.date.value;
       const category = els.category.value;
-      const hasTime = els.hasTime.checked;
+      const timeMode = getTimeMode();
+      const hasTime = timeMode !== "none";
       const startTime = hasTime ? els.startTime.value : "";
-      const endTime = hasTime ? els.endTime.value : "";
+      const endTime = timeMode === "range" ? els.endTime.value : "";
 
       if (!date || !title || !body) {
         showToast("Preencha data, título e corpo do texto.");
         return;
       }
 
-      if (hasTime && (!startTime || !endTime)) {
-        showToast("Informe a hora de início e de término, ou desmarque a opção de hora marcada.");
+      if (timeMode === "start" && !startTime) {
+        showToast("Escolha a hora de início ou marque a opção sem hora.");
         return;
       }
 
-      if (hasTime && startTime >= endTime) {
-        showToast("A hora de término deve ser posterior à hora de início.");
+      if (timeMode === "range" && (!startTime || !endTime)) {
+        showToast("Escolha a hora de início e a hora final, ou mude o tipo de horário.");
+        return;
+      }
+
+      if (timeMode === "range" && startTime >= endTime) {
+        showToast("A hora final deve ser posterior à hora de início.");
         return;
       }
 
@@ -1394,12 +3152,16 @@
           return;
         }
 
-        // Mantém filename, sequence e data original para preservar a lógica do arquivo.
+        const currentItem = appointments[index];
+        const moveData = prepareMoveToDate(currentItem, date);
+
         appointments[index] = {
-          ...appointments[index],
+          ...currentItem,
+          ...moveData,
           category,
           title,
           body,
+          timeMode,
           hasTime,
           startTime,
           endTime,
@@ -1407,9 +3169,12 @@
         };
 
         saveAppointments();
+        selectedYear = Number(appointments[index].date.slice(0, 4));
+        selectedMonth = Number(appointments[index].date.slice(5, 7)) - 1;
+        els.calendarYear.value = String(selectedYear);
         renderAll();
-        clearForm();
-        showToast("Compromisso atualizado mantendo o mesmo nome de arquivo.");
+        closeAppointmentModal();
+        showToast("Compromisso atualizado");
         return;
       }
 
@@ -1435,7 +3200,7 @@
       selectedMonth = Number(date.slice(5, 7)) - 1;
       els.calendarYear.value = String(selectedYear);
       renderAll();
-      clearForm();
+      closeAppointmentModal();
       showToast(`Compromisso salvo como ${filename}`);
     }
 
@@ -1445,18 +3210,19 @@
 
       els.editingFilename.value = item.filename;
       els.date.value = item.date;
-      els.date.disabled = true;
+      els.date.disabled = false;
       els.category.value = item.category;
-      els.hasTime.checked = Boolean(item.hasTime);
+      setTimeMode(item.timeMode || (item.hasTime ? (item.endTime ? "range" : "start") : "none"));
       els.startTime.value = item.startTime || "";
       els.endTime.value = item.endTime || "";
-      toggleTimeFields();
+      updateTimeModeUI();
       els.title.value = item.title;
       els.bodyText.value = item.body;
       els.formTitle.textContent = "Editar compromisso";
       els.saveBtn.textContent = "Salvar alterações";
       els.filenamePreview.textContent = `Editando: ${item.filename}`;
-      document.getElementById("novo").scrollIntoView({ behavior: "smooth", block: "start" });
+      els.appointmentModal.classList.add("active");
+      setTimeout(() => els.title.focus(), 50);
     }
 
     function clearForm() {
@@ -1464,10 +3230,10 @@
       els.date.disabled = false;
       els.date.value = todayISO();
       els.category.value = "math";
-      els.hasTime.checked = false;
+      setTimeMode("none");
       els.startTime.value = "";
       els.endTime.value = "";
-      toggleTimeFields();
+      updateTimeModeUI();
       els.title.value = "";
       els.bodyText.value = "";
       els.formTitle.textContent = "Novo compromisso";
@@ -1475,8 +3241,169 @@
       updateFilenamePreview();
     }
 
-    function toggleTimeFields() {
-      els.timeFields.classList.toggle("active", els.hasTime.checked);
+    function getTimeMode() {
+      const checked = els.timeModeRadios.find(radio => radio.checked);
+      return checked ? checked.value : "none";
+    }
+
+    function setTimeMode(mode) {
+      els.timeModeRadios.forEach(radio => {
+        radio.checked = radio.value === mode;
+      });
+    }
+
+    function updateTimeModeUI() {
+      const mode = getTimeMode();
+      const index = mode === "none" ? 0 : mode === "start" ? 1 : 2;
+      els.timeMode.style.setProperty("--time-index", index);
+      els.timeFields.classList.toggle("active", mode !== "none");
+      els.endTimeField.style.display = mode === "range" ? "grid" : "none";
+
+      if (mode === "none") {
+        els.startTime.value = "";
+        els.endTime.value = "";
+      }
+
+      if (mode === "start") {
+        els.endTime.value = "";
+      }
+
+      updateTimeLabels();
+    }
+
+    function updateTimeLabels() {
+      setTimeLabel(els.startTimeLabel, els.startTime.value, "Escolher início");
+      setTimeLabel(els.endTimeLabel, els.endTime.value, "Escolher fim");
+    }
+
+    function setTimeLabel(label, value, placeholder) {
+      label.textContent = value || placeholder;
+      label.classList.toggle("time-pick-placeholder", !value);
+    }
+
+    function openClockPicker(target) {
+      activeTimeTarget = target;
+      const current = target === "start" ? els.startTime.value : els.endTime.value;
+      const parsed = parseClockValue(current);
+
+      tempHour = parsed.hour12;
+      tempMinute = parsed.minute;
+      clockPeriod = parsed.period;
+      clockStage = "hour";
+
+      els.clockTitle.textContent = target === "start" ? "Escolher hora de início" : "Escolher hora final";
+      els.clockModal.classList.add("active");
+      renderClock();
+    }
+
+    function closeClockPicker() {
+      els.clockModal.classList.remove("active");
+      activeTimeTarget = null;
+    }
+
+    function setClockStage(stage) {
+      clockStage = stage;
+      renderClock();
+    }
+
+    function setClockPeriod(period) {
+      clockPeriod = period;
+      renderClock();
+    }
+
+    function renderClock() {
+      els.hourStageBtn.classList.toggle("active", clockStage === "hour");
+      els.minuteStageBtn.classList.toggle("active", clockStage === "minute");
+      els.amBtn.classList.toggle("active", clockPeriod === "AM");
+      els.pmBtn.classList.toggle("active", clockPeriod === "PM");
+
+      els.clockSelected.textContent = `${String(tempHour).padStart(2, "0")}:${String(tempMinute).padStart(2, "0")} ${clockPeriod}`;
+      els.clockFace.querySelectorAll(".clock-option").forEach(item => item.remove());
+
+      if (clockStage === "hour") {
+        renderClockOptions(Array.from({ length: 12 }, (_, i) => i + 1), "hour");
+        rotateClockHand((tempHour % 12) * 30);
+      } else {
+        renderClockOptions(Array.from({ length: 12 }, (_, i) => i * 5), "minute");
+        rotateClockHand((tempMinute ?? 0) * 6);
+      }
+    }
+
+    function renderClockOptions(values, type) {
+      const radius = type === "hour" ? 42 : 41;
+      values.forEach((value, index) => {
+        const total = values.length;
+
+        // No modo hora, os números seguem a posição real de um relógio analógico:
+        // 12 no topo, 3 à direita, 6 embaixo e 9 à esquerda.
+        // No modo minuto, 00 fica no topo, 15 à direita, 30 embaixo e 45 à esquerda.
+        const analogIndex = type === "hour" ? (value % 12) : index;
+        const angle = (analogIndex / total) * Math.PI * 2 - Math.PI / 2;
+
+        const x = 50 + Math.cos(angle) * radius;
+        const y = 50 + Math.sin(angle) * radius;
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "clock-option";
+        button.style.left = `${x}%`;
+        button.style.top = `${y}%`;
+        button.textContent = String(value).padStart(2, "0");
+
+        const selected = type === "hour" ? value === tempHour : value === tempMinute;
+        button.classList.toggle("selected", selected);
+
+        button.addEventListener("click", () => {
+          if (type === "hour") {
+            tempHour = value;
+            clockStage = "minute";
+          } else {
+            tempMinute = value;
+          }
+          renderClock();
+        });
+
+        els.clockFace.appendChild(button);
+      });
+    }
+
+    function rotateClockHand(degrees) {
+      els.clockHand.style.transform = `translate(-50%, -100%) rotate(${degrees}deg)`;
+    }
+
+    function confirmClockPicker() {
+      const hour24 = to24Hour(tempHour, clockPeriod);
+      const value = `${String(hour24).padStart(2, "0")}:${String(tempMinute ?? 0).padStart(2, "0")}`;
+
+      if (activeTimeTarget === "start") {
+        els.startTime.value = value;
+      }
+
+      if (activeTimeTarget === "end") {
+        els.endTime.value = value;
+      }
+
+      updateTimeLabels();
+      closeClockPicker();
+    }
+
+    function parseClockValue(value) {
+      const match = String(value || "").match(/^(\d{2}):(\d{2})$/);
+      if (!match) return { hour12: 8, minute: 0, period: "AM" };
+
+      const hour24 = Number(match[1]);
+      const minute = Number(match[2]);
+      const period = hour24 >= 12 ? "PM" : "AM";
+      let hour12 = hour24 % 12;
+      if (hour12 === 0) hour12 = 12;
+
+      return { hour12, minute, period };
+    }
+
+    function to24Hour(hour12, period) {
+      const h = Number(hour12);
+      if (period === "AM") return h === 12 ? 0 : h;
+      return h === 12 ? 12 : h + 12;
     }
 
     function updateFilenamePreview() {
@@ -1488,33 +3415,37 @@
 
       const date = els.date.value;
       if (!date) {
-        els.filenamePreview.textContent = "Arquivo previsto: escolha uma data";
+        els.filenamePreview.textContent = "";
         return;
       }
 
       const filename = buildFilename(date, nextSequenceForDate(date));
-      els.filenamePreview.textContent = `Arquivo previsto: ${filename}`;
+      els.filenamePreview.textContent = "";
     }
 
     /* =========================================================
        LISTA
        ========================================================= */
-    function renderAppointments() {
+    function getFilteredAppointments() {
       const queryRaw = els.search.value.trim();
       const query = normalize(queryRaw);
-      const date = els.filterDate.value;
-      const category = els.filterCategory.value;
+      const month = els.filterMonth.value || currentMonthISO();
+      const startDay = els.filterStartDay.value;
+      const endDay = els.filterEndDay.value;
+      const startDate = month && startDay ? `${month}-${String(startDay).padStart(2, "0")}` : "";
+      const endDate = month && endDay ? `${month}-${String(endDay).padStart(2, "0")}` : "";
+      const hasTypeRestrictions = selectedFilterTypes.size > 0 && !selectedFilterTypes.has("__none__");
+      const noTypesSelected = selectedFilterTypes.has("__none__");
 
-      const monthFilter = queryRaw.match(/^month:(\d{4})-(\d{2})$/);
-
-      const filtered = appointments
+      return appointments
         .filter(item => {
-          const text = normalize(`${item.filename} ${item.title} ${item.body} ${item.category} ${item.date}`);
-          const matchQuery = !query || monthFilter || text.includes(query);
-          const matchMonth = !monthFilter || item.date.startsWith(`${monthFilter[1]}-${monthFilter[2]}`);
-          const matchDate = !date || item.date === date;
-          const matchCategory = !category || item.category === category;
-          return matchQuery && matchMonth && matchDate && matchCategory;
+          const text = normalize(`${item.filename} ${item.title} ${item.body} ${item.category} ${labelCategory(item.category)} ${item.date}`);
+          const matchQuery = !query || text.includes(query);
+          const matchMonth = !month || item.date.startsWith(month);
+          const matchStart = !startDate || item.date >= startDate;
+          const matchEnd = !endDate || item.date <= endDate;
+          const matchCategory = noTypesSelected ? false : (!hasTypeRestrictions || selectedFilterTypes.has(item.category));
+          return matchQuery && matchMonth && matchStart && matchEnd && matchCategory;
         })
         .sort((a, b) => {
           if (a.date !== b.date) return a.date.localeCompare(b.date);
@@ -1522,6 +3453,10 @@
           if (timeCompare !== 0) return timeCompare;
           return a.filename.localeCompare(b.filename);
         });
+    }
+
+    function renderAppointments() {
+      const filtered = getFilteredAppointments();
 
       els.appointments.innerHTML = "";
 
@@ -1543,7 +3478,7 @@
               <h3>${escapeHTML(item.title)}</h3>
               <div class="appointment-meta">
                 <span class="badge">${formatDateBR(item.date)}</span>
-                <span class="badge">${item.hasTime ? escapeHTML(`${item.startTime}–${item.endTime}`) : "Dia inteiro / sem horário"}</span>
+                <span class="badge">${escapeHTML(displayTimeBadge(item))}</span>
                 <span class="badge">${escapeHTML(labelCategory(item.category))}</span>
                 <span class="badge">${escapeHTML(item.filename)}</span>
               </div>
@@ -1574,106 +3509,13 @@
     }
 
     /* =========================================================
-       COMANDOS
-       ADD 2026-06-30 | Título | Corpo
-       ADD 2026-06-30 14:00-15:00 | Título | Corpo
-       ========================================================= */
-    function runCommand() {
-      const raw = els.commandInput.value.trim();
-
-      if (!raw) {
-        showToast("Digite um comando.");
-        return;
-      }
-
-      const [commandRaw, restRaw = ""] = raw.split(/\s+(.+)/);
-      const command = commandRaw.toUpperCase();
-
-      try {
-        if (command === "ADD") {
-          const parts = restRaw.split("|").map(part => part.trim());
-          const [dateAndTime, title, body] = parts;
-
-          const parsed = parseDateAndOptionalTime(dateAndTime);
-          if (!parsed || !title || !body) {
-            throw new Error("Use: ADD 2026-06-30 | Título | Corpo ou ADD 2026-06-30 14:00-15:00 | Título | Corpo");
-          }
-
-          const sequence = nextSequenceForDate(parsed.date);
-          const filename = buildFilename(parsed.date, sequence);
-          const now = new Date().toISOString();
-
-          appointments.push({
-            filename,
-            date: parsed.date,
-            sequence,
-            category: "personal",
-            title,
-            body,
-            hasTime: parsed.hasTime,
-            startTime: parsed.startTime,
-            endTime: parsed.endTime,
-            createdAt: now,
-            updatedAt: now
-          });
-
-          saveAppointments();
-          selectedYear = Number(parsed.date.slice(0, 4));
-          selectedMonth = Number(parsed.date.slice(5, 7)) - 1;
-          els.calendarYear.value = String(selectedYear);
-          renderAll();
-          els.commandInput.value = "";
-          showToast(`Comando executado: ${filename}`);
-          return;
-        }
-
-        if (command === "EDIT") {
-          const parts = restRaw.split("|").map(part => part.trim());
-          const [filename, title, body] = parts;
-
-          if (!filename || !title || !body) {
-            throw new Error("Use: EDIT 2026-06-30-01.txt | Novo título | Novo corpo");
-          }
-
-          const index = appointments.findIndex(item => item.filename === filename);
-          if (index === -1) throw new Error("Arquivo não encontrado.");
-
-          appointments[index] = {
-            ...appointments[index],
-            title,
-            body,
-            updatedAt: new Date().toISOString()
-          };
-
-          saveAppointments();
-          renderAll();
-          els.commandInput.value = "";
-          showToast(`Compromisso editado: ${filename}`);
-          return;
-        }
-
-        if (command === "DELETE") {
-          const filename = restRaw.trim();
-          if (!filename) throw new Error("Use: DELETE 2026-06-30-01.txt");
-          if (!appointments.some(item => item.filename === filename)) throw new Error("Arquivo não encontrado.");
-          requestDelete(filename);
-          return;
-        }
-
-        throw new Error("Comando desconhecido. Use ADD, EDIT ou DELETE.");
-      } catch (error) {
-        showToast(error.message);
-      }
-    }
-
-    /* =========================================================
        EXPORTAÇÃO / IMPORTAÇÃO
        ========================================================= */
     function appointmentToTxt(item) {
       return [
         `TÍTULO: ${item.title}`,
         `DATA: ${item.date}`,
-        `HORÁRIO: ${item.hasTime ? `${item.startTime}-${item.endTime}` : "sem horário"}`,
+        `HORÁRIO: ${serializeTime(item)}`,
         `TIPO: ${labelCategory(item.category)}`,
         `ARQUIVO: ${item.filename}`,
         `CRIADO: ${item.createdAt}`,
@@ -1708,6 +3550,7 @@
         category: categoryFromLabel(header["TIPO"]) || "personal",
         title: header["TÍTULO"] || filename.replace(/\.txt$/i, ""),
         body: bodyLines.join("\n").trim() || "",
+        timeMode: time.timeMode,
         hasTime: time.hasTime,
         startTime: time.startTime,
         endTime: time.endTime,
@@ -1733,6 +3576,190 @@
       });
 
       showToast(`Exportando ${appointments.length} arquivo(s) TXT.`);
+    }
+
+    function printBorderClass(category) {
+      if (category === "math") return "border-math";
+      if (category === "latex") return "border-latex";
+      if (category === "tech") return "border-tech";
+      return "border-default";
+    }
+
+    function generatePrintablePdf() {
+      const filtered = getFilteredAppointments();
+
+      if (filtered.length === 0) {
+        showToast("Nenhum compromisso para gerar PDF");
+        return;
+      }
+
+      const printWindow = window.open("", "_blank");
+
+      if (!printWindow) {
+        showToast("Permita pop-ups para gerar o PDF");
+        return;
+      }
+
+      const itemsHtml = filtered.map(item => {
+        const dateLine = `📅 ${formatDateBR(item.date)}${item.hasTime ? " — " + displayTimeBadge(item) : ""}`;
+        const typeLabel = labelCategory(item.category);
+        const borderClass = printBorderClass(item.category);
+
+        return `
+          <section class="appointment-print">
+            <h2>${escapeHTML(item.title)}</h2>
+            <div class="date-line">
+              <span>${escapeHTML(dateLine)}</span>
+              <span>${escapeHTML(typeLabel)}</span>
+            </div>
+            <div class="body-box ${borderClass}">
+              <div class="body-text">${escapeHTML(item.body).replace(/\\n/g, "<br>")}</div>
+              <span class="check-marker" aria-hidden="true"></span>
+            </div>
+          </section>
+        `;
+      }).join("");
+
+      const printHtml = `<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Agenda Cafemática — impressão</title>
+  <style>
+    @page {
+      size: A4;
+      margin: 3cm 2cm 2cm 3cm;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: #ffffff;
+      color: #000000;
+      font-family: "Times New Roman", Times, serif;
+      font-size: 12pt;
+      line-height: 1.5;
+    }
+
+    body {
+      width: 16cm;
+    }
+
+    .document-title {
+      margin: 0 0 1.2cm;
+      font-size: 16pt;
+      line-height: 1.2;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .appointment-print {
+      width: 16cm;
+      break-inside: avoid;
+      page-break-inside: avoid;
+      margin: 0 0 .75cm;
+    }
+
+    .appointment-print h2 {
+      margin: 0 0 .08cm;
+      font-size: 14pt;
+      line-height: 1.25;
+      font-weight: bold;
+    }
+
+    .date-line {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: .5cm;
+      margin: 0 0 .22cm;
+      font-size: 10pt;
+      line-height: 1.3;
+      font-style: italic;
+      font-weight: normal;
+      color: #333333;
+    }
+
+    .date-line span:last-child {
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .body-box {
+      position: relative;
+      width: 16cm;
+      border: 1px solid #000000;
+      border-left-width: 6px;
+      border-radius: 8px 8px 0 8px;
+      padding: .35cm .45cm .48cm .45cm;
+      font-size: 12pt;
+      line-height: 1.5;
+      white-space: normal;
+      overflow-wrap: anywhere;
+    }
+
+    .body-text {
+      padding-right: .25cm;
+    }
+
+    .check-marker {
+      position: absolute;
+      right: -.19cm;
+      bottom: -.19cm;
+      width: .38cm;
+      height: .38cm;
+      border: 1.2px solid #000000;
+      border-radius: 4px;
+      background: #ffffff;
+      z-index: 2;
+    }
+
+    .body-box.border-math {
+      border-left-color: #7d1f28;
+    }
+
+    .body-box.border-latex {
+      border-left-color: #1f6b45;
+    }
+
+    .body-box.border-tech {
+      border-left-color: #1e4f7a;
+    }
+
+    .body-box.border-default {
+      border-left-color: #c49a5f;
+    }
+
+    @media print {
+      .appointment-print {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1 class="document-title">Compromissos</h1>
+  ${itemsHtml}
+
+  <script>
+    window.addEventListener("load", () => {
+      setTimeout(() => {
+        window.print();
+      }, 250);
+    });
+  <\/script>
+</body>
+</html>`;
+
+      printWindow.document.open();
+      printWindow.document.write(printHtml);
+      printWindow.document.close();
     }
 
     function exportJson() {
@@ -1776,6 +3803,7 @@
       }
 
       saveAppointments();
+      renderTypes();
       renderAll();
       els.importFiles.value = "";
       showToast(`${imported} compromisso(s) importado(s).`);
@@ -1791,18 +3819,19 @@
       if (!item || typeof item !== "object") throw new Error("Item inválido no JSON.");
       const parsed = parseFilename(item.filename);
       if (!parsed) throw new Error(`Nome inválido: ${item.filename}`);
-      const time = parseTimeRange(item.hasTime ? `${item.startTime}-${item.endTime}` : "");
+      const timeMode = item.timeMode || (item.hasTime ? (item.endTime ? "range" : "start") : "none");
 
       return {
         filename: item.filename,
         date: item.date || parsed.date,
         sequence: Number(item.sequence || parsed.sequence),
-        category: ["math", "latex", "tech", "personal"].includes(item.category) ? item.category : "personal",
+        category: appointmentTypes.some(type => type.id === item.category) ? item.category : "uncategorized",
         title: String(item.title || item.filename),
         body: String(item.body || ""),
-        hasTime: Boolean(item.hasTime && time.hasTime),
-        startTime: time.startTime,
-        endTime: time.endTime,
+        timeMode,
+        hasTime: timeMode !== "none",
+        startTime: item.startTime || "",
+        endTime: timeMode === "range" ? (item.endTime || "") : "",
         createdAt: item.createdAt || new Date().toISOString(),
         updatedAt: item.updatedAt || new Date().toISOString()
       };
@@ -1856,9 +3885,47 @@
       return `${date}-${String(sequence).padStart(2, "0")}.txt`;
     }
 
-    function nextSequenceForDate(date) {
+    function prepareMoveToDate(item, newDate) {
+      if (!item || item.date === newDate) {
+        return {
+          date: item.date,
+          sequence: item.sequence,
+          filename: item.filename
+        };
+      }
+
+      const sequence = nextSequenceForDate(newDate, item.filename);
+      return {
+        date: newDate,
+        sequence,
+        filename: buildFilename(newDate, sequence)
+      };
+    }
+
+    function moveAppointmentToDate(filename, newDate) {
+      const index = appointments.findIndex(item => item.filename === filename);
+      if (index === -1 || !isValidDate(newDate)) return;
+
+      const item = appointments[index];
+      const moveData = prepareMoveToDate(item, newDate);
+
+      appointments[index] = {
+        ...item,
+        ...moveData,
+        updatedAt: new Date().toISOString()
+      };
+
+      saveAppointments();
+      selectedYear = Number(newDate.slice(0, 4));
+      selectedMonth = Number(newDate.slice(5, 7)) - 1;
+      els.calendarYear.value = String(selectedYear);
+      renderAll();
+      showToast("Compromisso movido");
+    }
+
+    function nextSequenceForDate(date, excludeFilename = "") {
       const sequences = appointments
-        .filter(item => item.date === date)
+        .filter(item => item.date === date && item.filename !== excludeFilename)
         .map(item => Number(item.sequence || parseFilename(item.filename)?.sequence || 0))
         .filter(Number.isFinite);
 
@@ -1887,11 +3954,19 @@
     }
 
     function parseTimeRange(value) {
-      const match = String(value || "").trim().match(/^(\d{2}:\d{2})-(\d{2}:\d{2})$/);
-      if (!match || match[1] >= match[2]) {
-        return { hasTime: false, startTime: "", endTime: "" };
+      const raw = String(value || "").trim().toLowerCase();
+
+      const startOnly = raw.match(/^início\s+(\d{2}:\d{2})$/);
+      if (startOnly) {
+        return { timeMode: "start", hasTime: true, startTime: startOnly[1], endTime: "" };
       }
-      return { hasTime: true, startTime: match[1], endTime: match[2] };
+
+      const range = raw.match(/^(\d{2}:\d{2})-(\d{2}:\d{2})$/);
+      if (range && range[1] < range[2]) {
+        return { timeMode: "range", hasTime: true, startTime: range[1], endTime: range[2] };
+      }
+
+      return { timeMode: "none", hasTime: false, startTime: "", endTime: "" };
     }
 
     function isValidDate(value) {
@@ -1900,6 +3975,411 @@
 
     function todayISO() {
       return localISO(new Date());
+    }
+
+    function enhanceSelect(select) {
+      if (!select || select.id === "filterMonth") return;
+
+      if (select.dataset.enhanced === "true") {
+        rebuildCustomSelect(select);
+        return;
+      }
+
+      select.dataset.enhanced = "true";
+      select.classList.add("native-hidden");
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "custom-select";
+      wrapper.dataset.for = select.id;
+
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "custom-select-button";
+      button.setAttribute("aria-haspopup", "listbox");
+      button.setAttribute("aria-expanded", "false");
+
+      const label = document.createElement("span");
+      label.className = "custom-select-label";
+
+      const arrow = document.createElement("span");
+      arrow.className = "custom-select-arrow";
+      arrow.textContent = "▾";
+
+      button.append(label, arrow);
+      wrapper.append(button);
+      select.insertAdjacentElement("afterend", wrapper);
+
+      const options = document.createElement("div");
+      options.className = "custom-select-options";
+      options.setAttribute("role", "listbox");
+      options.tabIndex = -1;
+      options.dataset.for = select.id;
+      document.body.appendChild(options);
+
+      options.addEventListener("wheel", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        options.scrollTop += event.deltaY;
+      }, { passive: false });
+
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const willOpen = !options.classList.contains("open");
+        closeOtherCustomSelects(select.id);
+
+        if (willOpen) {
+          positionCustomOptions(select);
+          rebuildCustomSelect(select);
+          options.classList.add("open");
+          wrapper.classList.add("open");
+          button.setAttribute("aria-expanded", "true");
+          const selected = options.querySelector(".custom-select-option.selected");
+          if (selected) selected.scrollIntoView({ block: "nearest" });
+        } else {
+          closeCustomSelect(select.id);
+        }
+      });
+
+      document.addEventListener("click", (event) => {
+        if (!wrapper.contains(event.target) && !options.contains(event.target)) {
+          closeCustomSelect(select.id);
+        }
+      });
+
+      window.addEventListener("resize", () => positionCustomOptions(select));
+      window.addEventListener("scroll", () => {
+        if (options.classList.contains("open")) positionCustomOptions(select);
+      }, true);
+
+      rebuildCustomSelect(select);
+    }
+
+    function getCustomParts(id) {
+      const select = document.getElementById(id);
+      const wrapper = select ? document.querySelector(`.custom-select[data-for="${id}"]`) : null;
+      const options = document.querySelector(`.custom-select-options[data-for="${id}"]`);
+      return { select, wrapper, options };
+    }
+
+    function positionCustomOptions(select) {
+      if (!select || select.id === "filterMonth") return;
+      const { wrapper, options } = getCustomParts(select.id);
+      if (!wrapper || !options) return;
+
+      const rect = wrapper.getBoundingClientRect();
+      const gap = 8;
+      const availableBelow = window.innerHeight - rect.bottom - gap;
+      const availableAbove = rect.top - gap;
+      const maxHeight = Math.max(160, Math.min(280, Math.max(availableBelow, availableAbove)));
+
+      options.style.left = `${rect.left}px`;
+      options.style.width = `${rect.width}px`;
+      options.style.maxHeight = `${maxHeight}px`;
+
+      if (availableBelow >= 160 || availableBelow >= availableAbove) {
+        options.style.top = `${rect.bottom + gap}px`;
+      } else {
+        options.style.top = `${Math.max(gap, rect.top - maxHeight - gap)}px`;
+      }
+    }
+
+    function closeCustomSelect(id) {
+      const { wrapper, options } = getCustomParts(id);
+      if (wrapper) {
+        wrapper.classList.remove("open");
+        const btn = wrapper.querySelector(".custom-select-button");
+        if (btn) btn.setAttribute("aria-expanded", "false");
+      }
+      if (options) options.classList.remove("open");
+    }
+
+    function closeOtherCustomSelects(currentId) {
+      document.querySelectorAll(".custom-select-options.open").forEach(options => {
+        if (options.dataset.for !== currentId) closeCustomSelect(options.dataset.for);
+      });
+    }
+
+    function rebuildCustomSelect(select) {
+      if (!select || select.id === "filterMonth") return;
+
+      const { wrapper, options } = getCustomParts(select.id);
+      if (!wrapper || !options) return;
+
+      const label = wrapper.querySelector(".custom-select-label");
+      const selectedOption = select.options[select.selectedIndex];
+
+      label.textContent = selectedOption ? selectedOption.textContent : "Selecionar";
+      options.innerHTML = "";
+
+      Array.from(select.options).forEach(option => {
+        const item = document.createElement("button");
+        item.type = "button";
+        item.className = "custom-select-option";
+        item.textContent = option.textContent;
+        item.dataset.value = option.value;
+        item.setAttribute("role", "option");
+        item.classList.toggle("selected", option.value === select.value);
+
+        item.addEventListener("click", (event) => {
+          event.preventDefault();
+          event.stopPropagation();
+
+          select.value = option.value;
+          select.dispatchEvent(new Event("change", { bubbles: true }));
+
+          closeCustomSelect(select.id);
+          rebuildCustomSelect(select);
+        });
+
+        options.appendChild(item);
+      });
+
+      positionCustomOptions(select);
+    }
+
+    function refreshCustomSelects() {
+      ["filterStartDay", "filterEndDay", "category"].forEach(id => {
+        const select = document.getElementById(id);
+        if (select) enhanceSelect(select);
+      });
+
+      const oldTypeDropdown = document.querySelector('.custom-select[data-for="filterCategory"]');
+      const oldTypeOptions = document.querySelector('.custom-select-options[data-for="filterCategory"]');
+      if (oldTypeDropdown) oldTypeDropdown.remove();
+      if (oldTypeOptions) oldTypeOptions.remove();
+
+      updateFilterMonthButton();
+    }
+
+    function openTypeFilterModal() {
+      renderTypeFilterOptions();
+      updateFilterTypeButton();
+      els.typeFilterModal.classList.add("active");
+    }
+
+    function closeTypeFilterModal() {
+      els.typeFilterModal.classList.remove("active");
+    }
+
+    function renderTypeFilterOptions() {
+      if (!els.typeFilterList) return;
+
+      els.typeFilterList.innerHTML = "";
+      const allSelected = selectedFilterTypes.size === 0;
+      const noneSelected = selectedFilterTypes.has("__none__");
+
+      appointmentTypes.forEach(type => {
+        const usedCount = appointments.filter(item => item.category === type.id).length;
+
+        const label = document.createElement("label");
+        label.className = "type-filter-option";
+
+        const left = document.createElement("span");
+        left.textContent = type.label;
+
+        const right = document.createElement("span");
+        right.style.display = "inline-flex";
+        right.style.alignItems = "center";
+        right.style.gap = "10px";
+
+        if (usedCount) {
+          const count = document.createElement("span");
+          count.className = "type-filter-option-count";
+          count.textContent = String(usedCount);
+          right.appendChild(count);
+        }
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.value = type.id;
+        checkbox.checked = !noneSelected && (allSelected || selectedFilterTypes.has(type.id));
+
+        checkbox.addEventListener("change", () => {
+          const checkedBoxes = Array.from(els.typeFilterList.querySelectorAll('input[type="checkbox"]:checked'));
+          const allTypeIds = appointmentTypes.map(item => item.id);
+
+          if (checkedBoxes.length === 0) {
+            selectedFilterTypes = new Set(["__none__"]);
+          } else if (checkedBoxes.length === allTypeIds.length) {
+            selectedFilterTypes.clear(); // todos
+          } else {
+            selectedFilterTypes = new Set(checkedBoxes.map(box => box.value));
+          }
+
+          renderTypeFilterOptions();
+          updateFilterTypeButton();
+          renderAppointments();
+        });
+
+        right.appendChild(checkbox);
+        label.append(left, right);
+        els.typeFilterList.appendChild(label);
+      });
+    }
+
+    function updateFilterTypeButton() {
+      if (!els.filterTypeLabel) return;
+
+      if (selectedFilterTypes.has("__none__")) {
+        els.filterTypeLabel.textContent = "Nenhum tipo";
+        return;
+      }
+
+      if (selectedFilterTypes.size === 0 || selectedFilterTypes.size === appointmentTypes.length) {
+        els.filterTypeLabel.textContent = "Todos os tipos";
+        return;
+      }
+
+      const selected = appointmentTypes.filter(type => selectedFilterTypes.has(type.id));
+
+      if (selected.length === 1) {
+        els.filterTypeLabel.textContent = selected[0].label;
+        return;
+      }
+
+      els.filterTypeLabel.textContent = `${selected.length} tipos`;
+    }
+
+    function openMonthPicker() {
+      const current = els.filterMonth.value || currentMonthISO();
+      pickerYear = Number(current.slice(0, 4)) || new Date().getFullYear();
+      renderMonthPicker();
+      els.monthPickerModal.classList.add("active");
+    }
+
+    function selectCurrentMonthFromPicker() {
+      const current = currentMonthISO();
+      ensureMonthOption(current);
+      els.filterMonth.value = current;
+      pickerYear = Number(current.slice(0, 4));
+      renderFilterDays();
+      els.filterStartDay.value = "";
+      els.filterEndDay.value = "";
+      updateFilterMonthButton();
+      renderMonthPicker();
+      renderAppointments();
+      closeMonthPicker();
+    }
+
+    function closeMonthPicker() {
+      els.monthPickerModal.classList.remove("active");
+    }
+
+    function renderMonthPicker() {
+      els.monthPickerYear.textContent = String(pickerYear);
+      els.monthPickerGrid.innerHTML = "";
+
+      const current = els.filterMonth.value || currentMonthISO();
+
+      monthNames.forEach((name, index) => {
+        const value = `${pickerYear}-${String(index + 1).padStart(2, "0")}`;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "month-picker-option";
+        button.classList.toggle("active", value === current);
+        button.classList.toggle("current-month", value === currentMonthISO());
+
+        const monthCount = appointments.filter(item => item.date && item.date.startsWith(value)).length;
+        button.innerHTML = `
+          <span>${name}</span>
+          ${monthCount ? `<span class="month-appointment-count" title="${monthCount} compromisso${monthCount === 1 ? "" : "s"}">${monthCount}</span>` : ""}
+        `;
+
+        button.addEventListener("click", () => {
+          ensureMonthOption(value);
+          els.filterMonth.value = value;
+          renderFilterDays();
+          updateFilterMonthButton();
+          renderAppointments();
+          closeMonthPicker();
+        });
+
+        els.monthPickerGrid.appendChild(button);
+      });
+    }
+
+    function ensureMonthOption(value) {
+      if (Array.from(els.filterMonth.options).some(option => option.value === value)) return;
+
+      const [year, month] = value.split("-").map(Number);
+      const option = document.createElement("option");
+      option.value = value;
+      option.textContent = `${monthNames[month - 1]} (${year})`;
+      els.filterMonth.appendChild(option);
+    }
+
+    function updateFilterMonthButton() {
+      if (!els.filterMonthLabel) return;
+      const value = els.filterMonth.value || currentMonthISO();
+      const [year, month] = value.split("-").map(Number);
+      els.filterMonthLabel.textContent = `${monthNames[month - 1]} (${year})`;
+    }
+
+    function renderFilterMonths() {
+      const current = els.filterMonth.value || currentMonthISO();
+      els.filterMonth.innerHTML = "";
+
+      const baseYear = new Date().getFullYear();
+      const years = new Set([baseYear - 1, baseYear, baseYear + 1]);
+
+      appointments.forEach(item => {
+        if (item.date && item.date.length >= 7) years.add(Number(item.date.slice(0, 4)));
+      });
+
+      Array.from(years).sort((a, b) => a - b).forEach(year => {
+        monthNames.forEach((name, index) => {
+          const value = `${year}-${String(index + 1).padStart(2, "0")}`;
+          const option = document.createElement("option");
+          option.value = value;
+          option.textContent = `${name} (${year})`;
+          els.filterMonth.appendChild(option);
+        });
+      });
+
+      if (Array.from(els.filterMonth.options).some(option => option.value === current)) {
+        els.filterMonth.value = current;
+      } else {
+        els.filterMonth.value = currentMonthISO();
+      }
+    }
+
+    function renderFilterDays() {
+      const month = els.filterMonth.value || currentMonthISO();
+      const previousStart = els.filterStartDay.value;
+      const previousEnd = els.filterEndDay.value;
+      const [year, monthNumber] = month.split("-").map(Number);
+      const days = new Date(year, monthNumber, 0).getDate();
+
+      fillDaySelect(els.filterStartDay, days, previousStart);
+      fillDaySelect(els.filterEndDay, days, previousEnd);
+    }
+
+    function fillDaySelect(select, days, previous) {
+      select.innerHTML = "";
+
+      const blank = document.createElement("option");
+      blank.value = "";
+      blank.textContent = "--";
+      select.appendChild(blank);
+
+      for (let day = 1; day <= days; day++) {
+        const option = document.createElement("option");
+        option.value = String(day);
+        option.textContent = String(day);
+        select.appendChild(option);
+      }
+
+      if (previous && Number(previous) <= days) {
+        select.value = previous;
+      } else {
+        select.value = "";
+      }
+    }
+
+    function currentMonthISO() {
+      return todayISO().slice(0, 7);
     }
 
     function localISO(date) {
@@ -1915,7 +4395,21 @@
     }
 
     function formatTimeRange(item) {
-      return item.hasTime ? `${item.startTime}–${item.endTime} · ` : "";
+      if (!item.hasTime) return "";
+      if ((item.timeMode || "") === "start" || !item.endTime) return `${item.startTime} · `;
+      return `${item.startTime}–${item.endTime} · `;
+    }
+
+    function displayTimeBadge(item) {
+      if (!item.hasTime) return "Dia inteiro / sem horário";
+      if ((item.timeMode || "") === "start" || !item.endTime) return `Início: ${item.startTime}`;
+      return `${item.startTime}–${item.endTime}`;
+    }
+
+    function serializeTime(item) {
+      if (!item.hasTime) return "sem horário";
+      if ((item.timeMode || "") === "start" || !item.endTime) return `início ${item.startTime}`;
+      return `${item.startTime}-${item.endTime}`;
     }
 
     function sortByTimeThenFilename(a, b) {
@@ -1925,20 +4419,14 @@
     }
 
     function labelCategory(value) {
-      return {
-        math: "Matemática",
-        latex: "LaTeX",
-        tech: "Tecnologia",
-        personal: "Pessoal/geral"
-      }[value] || "Pessoal/geral";
+      const found = appointmentTypes.find(type => type.id === value);
+      return found ? found.label : "Sem categoria";
     }
 
     function categoryFromLabel(label) {
       const value = normalize(label || "");
-      if (value.includes("matematica")) return "math";
-      if (value.includes("latex")) return "latex";
-      if (value.includes("tecnologia")) return "tech";
-      return "personal";
+      const found = appointmentTypes.find(type => normalize(type.label) === value || type.id === value);
+      return found ? found.id : "uncategorized";
     }
 
     function normalize(value) {
@@ -1975,12 +4463,13 @@
         filename: item.filename,
         date: item.date,
         sequence: Number(item.sequence || parseFilename(item.filename)?.sequence || 1),
-        category: ["math", "latex", "tech", "personal"].includes(item.category) ? item.category : "personal",
+        category: appointmentTypes.some(type => type.id === item.category) ? item.category : "uncategorized",
         title: item.title || item.filename,
         body: item.body || "",
-        hasTime: Boolean(item.hasTime),
+        timeMode: item.timeMode || (item.hasTime ? (item.endTime ? "range" : "start") : "none"),
+        hasTime: Boolean(item.timeMode ? item.timeMode !== "none" : item.hasTime),
         startTime: item.startTime || "",
-        endTime: item.endTime || "",
+        endTime: (item.timeMode === "range" || (!item.timeMode && item.endTime)) ? (item.endTime || "") : "",
         createdAt: item.createdAt || new Date().toISOString(),
         updatedAt: item.updatedAt || new Date().toISOString()
       })).filter(item => parseFilename(item.filename) && isValidDate(item.date));
