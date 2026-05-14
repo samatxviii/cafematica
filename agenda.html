@@ -433,7 +433,7 @@
       align-items: center;
       justify-content: center;
       min-height: 44px;
-      padding: 10px 12px;
+      padding: 12px 14px; /* 10px 12px; */
       border: 1px solid rgba(255,255,255,.14);
       border-radius: 999px;
       color: var(--muted);
@@ -1921,6 +1921,11 @@
         box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
       }
 
+      .time-mode-option::before,
+      .time-mode-option::after {
+        display: none;
+      }
+      /*
       .time-mode-option::before {
         content: "";
         position: absolute;
@@ -1947,6 +1952,7 @@
         opacity: 0;
         transition: opacity .18s ease, transform .18s ease;
       }
+      */
 
       .time-mode-option:has(input:checked) {
         color: #120f0a;
@@ -3697,7 +3703,7 @@
       }
 
       const itemsHtml = filtered.map(item => {
-        const dateLine = `📅 ${formatDateBR(item.date)}${item.hasTime ? " — " + displayTimeBadge(item) : ""}`;
+        const dateText = `${formatDateBR(item.date)}${item.hasTime ? " — " + displayTimeBadge(item) : ""}`;
         const typeLabel = labelCategory(item.category);
         const borderClass = printBorderClass(item.category);
 
@@ -3705,7 +3711,7 @@
           <section class="appointment-print">
             <h2>${escapeHTML(item.title)}</h2>
             <div class="date-line">
-              <span>${escapeHTML(dateLine)}</span>
+             <span><span class="calendar-icon">📅</span> ${escapeHTML(dateText)}</span>
               <span>${escapeHTML(typeLabel)}</span>
             </div>
             <div class="body-box ${borderClass}">
@@ -3784,6 +3790,10 @@
     .date-line span:last-child {
       text-align: right;
       white-space: nowrap;
+    }
+
+    .calendar-icon {
+      font-style: normal;
     }
 
     .body-box {
