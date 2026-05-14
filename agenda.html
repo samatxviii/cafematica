@@ -420,6 +420,42 @@
 
     textarea { min-height: 150px; resize: vertical; }
 
+    .voice-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .voice-btn {
+      min-height: 42px;
+    }
+
+    .voice-btn.recording {
+      color: #120f0a;
+      border-color: rgba(196,154,95,.50);
+      background: linear-gradient(135deg, #e4c488, var(--coffee));
+      box-shadow: 0 12px 34px rgba(196,154,95,.14);
+    }
+
+    .voice-status {
+      color: var(--muted-2);
+      font-size: .86rem;
+      font-weight: 700;
+    }
+
+    @media (max-width: 700px) {
+      .voice-actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .voice-btn {
+        width: 100%;
+      }
+    }
+
     .time-mode {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -2296,6 +2332,15 @@
             <div class="field full">
               <label for="bodyText">Corpo do texto</label>
               <textarea id="bodyText" placeholder="Escreva os detalhes do compromisso..." required></textarea>
+
+              <div class="voice-actions">
+                <button class="btn ghost voice-btn" type="button" id="voiceBodyBtn">
+                  🎙️ Gravar fala
+                </button>
+                <span class="voice-status" id="voiceStatus">
+                  Clique para ditar o texto do compromisso.
+                </span>
+              </div>
             </div>
           </div>
 
@@ -2475,6 +2520,10 @@
     let pickerYear = selectedYear;
     let draggedFilename = null;
     let selectedFilterTypes = new Set(); // vazio significa “todos os tipos”
+    let speechRecognition = null;
+    let isListeningToBody = false;
+    let speechBaseText = "";
+    let speechFinalText = "";
 
     const monthNames = [
       "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
@@ -2521,6 +2570,8 @@
       endTimeLabel: document.getElementById("endTimeLabel"),
       title: document.getElementById("title"),
       bodyText: document.getElementById("bodyText"),
+      voiceBodyBtn: document.getElementById("voiceBodyBtn"),
+      voiceStatus: document.getElementById("voiceStatus"),
       saveBtn: document.getElementById("saveBtn"),
       clearBtn: document.getElementById("clearBtn"),
       filenamePreview: document.getElementById("filenamePreview"),
@@ -2666,6 +2717,7 @@
         }
       });
       els.clearBtn.addEventListener("click", clearForm);
+      els.voiceBodyBtn.addEventListener("click", toggleSpeechToBody);
       els.date.addEventListener("input", updateFilenamePreview);
       els.timeModeRadios.forEach(radio => radio.addEventListener("change", updateTimeModeUI));
       els.startTimeButton.addEventListener("click", () => openClockPicker("start"));
@@ -2955,6 +3007,7 @@
     }
 
     function closeAppointmentModal() {
+      stopSpeechToBody();
       els.appointmentModal.classList.remove("active");
       clearForm();
     }
@@ -3341,6 +3394,7 @@
       els.formTitle.textContent = "Novo compromisso";
       els.saveBtn.textContent = "Salvar compromisso";
       updateFilenamePreview();
+      stopSpeechToBodyInterface();
     }
 
     function getTimeMode() {
@@ -3381,6 +3435,115 @@
     function setTimeLabel(label, value, placeholder) {
       label.textContent = value || placeholder;
       label.classList.toggle("time-pick-placeholder", !value);
+    }
+
+    function toggleSpeechToBody() {
+      if (isListeningToBody) {
+        stopSpeechToBody();
+        return;
+      }
+
+      startSpeechToBody();
+    }
+
+    function startSpeechToBody() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+      if (!SpeechRecognition) {
+        showToast("Seu navegador não oferece transcrição de fala.");
+        if (els.voiceStatus) els.voiceStatus.textContent = "Transcrição não disponível neste navegador.";
+        return;
+      }
+
+      speechBaseText = els.bodyText.value.trim();
+      speechFinalText = "";
+
+      speechRecognition = new SpeechRecognition();
+      speechRecognition.lang = "pt-BR";
+      speechRecognition.continuous = true;
+      speechRecognition.interimResults = true;
+
+      speechRecognition.onstart = () => {
+        isListeningToBody = true;
+        els.voiceBodyBtn.classList.add("recording");
+        els.voiceBodyBtn.textContent = "⏹️ Parar gravação";
+        els.voiceStatus.textContent = "Ouvindo... fale normalmente.";
+      };
+
+      speechRecognition.onresult = (event) => {
+        let interimText = "";
+
+        for (let i = event.resultIndex; i < event.results.length; i++) {
+          const text = event.results[i][0].transcript;
+
+          if (event.results[i].isFinal) {
+            speechFinalText += text.trim() + " ";
+          } else {
+            interimText += text;
+          }
+        }
+
+        const parts = [];
+
+        if (speechBaseText) parts.push(speechBaseText);
+        if (speechFinalText.trim()) parts.push(speechFinalText.trim());
+        if (interimText.trim()) parts.push(interimText.trim());
+
+        els.bodyText.value = parts.join("\n\n");
+      };
+
+      speechRecognition.onerror = (event) => {
+        console.warn("Erro no reconhecimento de fala:", event.error);
+
+        if (event.error === "not-allowed") {
+          showToast("Permita o uso do microfone para transcrever.");
+          els.voiceStatus.textContent = "Microfone bloqueado pelo navegador.";
+        } else if (event.error === "no-speech") {
+          showToast("Nenhuma fala detectada.");
+          els.voiceStatus.textContent = "Nenhuma fala detectada. Tente novamente.";
+        } else {
+          showToast("Erro ao transcrever fala.");
+          els.voiceStatus.textContent = "Não foi possível continuar a transcrição.";
+        }
+
+        stopSpeechToBodyInterface();
+      };
+
+      speechRecognition.onend = () => {
+        stopSpeechToBodyInterface();
+      };
+
+      try {
+        speechRecognition.start();
+      } catch {
+        showToast("Não foi possível iniciar a transcrição.");
+        stopSpeechToBodyInterface();
+      }
+    }
+
+    function stopSpeechToBody() {
+      if (speechRecognition) {
+        try {
+          speechRecognition.stop();
+        } catch {
+          // Ignora erro caso o navegador já tenha encerrado o reconhecimento.
+        }
+      }
+
+      stopSpeechToBodyInterface();
+    }
+
+    function stopSpeechToBodyInterface() {
+      isListeningToBody = false;
+
+      if (els.voiceBodyBtn) {
+        els.voiceBodyBtn.classList.remove("recording");
+        els.voiceBodyBtn.textContent = "🎙️ Gravar fala";
+      }
+
+      if (els.voiceStatus) {
+        els.voiceStatus.textContent = "Clique para ditar o texto do compromisso.";
+      }
     }
 
     function openClockPicker(target) {
