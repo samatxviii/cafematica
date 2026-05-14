@@ -3716,7 +3716,7 @@
       }
 
      const itemsHtml = filtered.map((item, index) => {
-  const dateLine = `📅 ${formatDateBR(item.date)}${item.hasTime ? " — " + displayTimeBadge(item) : ""}`;
+  const dateLine = `${formatDateBR(item.date)}${item.hasTime ? " — " + displayTimeBadge(item) : ""}`;
   const typeLabel = labelCategory(item.category);
   const borderClass = printBorderClass(item.category);
   const firstUrl = extractFirstUrl(item.body);
@@ -3726,7 +3726,7 @@
     <section class="appointment-print">
       <h2>${escapeHTML(item.title)}</h2>
       <div class="date-line">
-        <span>${escapeHTML(dateLine)}</span>
+        <span><span class="calendar-icon">📅</span> ${escapeHTML(dateText)}</span>
         <span>${escapeHTML(typeLabel)}</span>
       </div>
 
