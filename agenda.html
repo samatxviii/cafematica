@@ -1870,6 +1870,101 @@
     }
 
     @media (max-width: 700px) {
+      .appointment-modal-backdrop {
+        padding: 10px;
+        align-items: flex-start;
+        overflow-y: auto;
+      }
+
+      .appointment-modal {
+        width: min(100%, 560px);
+        margin: 10px 0;
+        border-radius: 22px;
+      }
+
+      .appointment-modal-head {
+        padding: 18px 18px 0;
+      }
+
+      .appointment-modal-body {
+        padding: 18px;
+      }
+
+      .time-mode {
+        grid-template-columns: 1fr !important;
+        gap: 8px;
+        padding: 0;
+        min-height: auto;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        overflow: visible;
+      }
+
+      .time-mode::before {
+        display: none;
+      }
+
+      .time-mode-option {
+        min-height: 48px;
+        justify-content: flex-start;
+        padding: 12px 14px 12px 46px;
+        border: 1px solid rgba(255,255,255,.14);
+        border-radius: 16px;
+        background:
+          linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px),
+          rgba(0,0,0,.24);
+        background-size: 22px 22px, 22px 22px, auto;
+        color: var(--muted);
+        text-align: left;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+      }
+
+      .time-mode-option::before {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        width: 18px;
+        height: 18px;
+        transform: translateY(-50%);
+        border: 1px solid rgba(255,255,255,.22);
+        border-radius: 999px;
+        background: rgba(255,255,255,.04);
+      }
+
+      .time-mode-option::after {
+        content: "";
+        position: absolute;
+        left: 20px;
+        top: 50%;
+        width: 8px;
+        height: 8px;
+        transform: translateY(-50%) scale(.4);
+        border-radius: 999px;
+        background: #120f0a;
+        opacity: 0;
+        transition: opacity .18s ease, transform .18s ease;
+      }
+
+      .time-mode-option:has(input:checked) {
+        color: #120f0a;
+        border-color: rgba(196,154,95,.52);
+        background: linear-gradient(135deg, #e4c488, var(--coffee));
+        box-shadow: 0 12px 34px rgba(196,154,95,.14);
+      }
+
+      .time-mode-option:has(input:checked)::before {
+        border-color: rgba(18,15,10,.38);
+        background: rgba(255,255,255,.34);
+      }
+
+      .time-mode-option:has(input:checked)::after {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+      }
+
       :root { --header-h: 68px; }
       .brand-subtitle { display: none; }
       .section { padding: 50px 0; }
