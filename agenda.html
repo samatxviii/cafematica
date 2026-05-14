@@ -3687,6 +3687,19 @@
       return "border-default";
     }
 
+    function extractFirstUrl(text) {
+      const match = String(text || "").match(/https?:\/\/[^\s<>"')]+/i);
+      return match ? match[0] : "";
+    }
+
+    function escapeAttribute(value) {
+      return String(value || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;");
+    }
+
     function generatePrintablePdf() {
       const filtered = getFilteredAppointments();
 
@@ -3702,25 +3715,36 @@
         return;
       }
 
-      const itemsHtml = filtered.map(item => {
-        const dateText = `${formatDateBR(item.date)}${item.hasTime ? " — " + displayTimeBadge(item) : ""}`;
-        const typeLabel = labelCategory(item.category);
-        const borderClass = printBorderClass(item.category);
+     const itemsHtml = filtered.map((item, index) => {
+  const dateLine = `📅 ${formatDateBR(item.date)}${item.hasTime ? " — " + displayTimeBadge(item) : ""}`;
+  const typeLabel = labelCategory(item.category);
+  const borderClass = printBorderClass(item.category);
+  const firstUrl = extractFirstUrl(item.body);
+  const qrId = `qr-code-${index}`;
 
-        return `
-          <section class="appointment-print">
-            <h2>${escapeHTML(item.title)}</h2>
-            <div class="date-line">
-             <span><span class="calendar-icon">📅</span> ${escapeHTML(dateText)}</span>
-              <span>${escapeHTML(typeLabel)}</span>
-            </div>
-            <div class="body-box ${borderClass}">
-              <div class="body-text">${escapeHTML(item.body).replace(/\\n/g, "<br>")}</div>
-              <span class="check-marker" aria-hidden="true"></span>
-            </div>
-          </section>
-        `;
-      }).join("");
+  return `
+    <section class="appointment-print">
+      <h2>${escapeHTML(item.title)}</h2>
+      <div class="date-line">
+        <span>${escapeHTML(dateLine)}</span>
+        <span>${escapeHTML(typeLabel)}</span>
+      </div>
+
+      <div class="body-row ${firstUrl ? "has-qr" : ""}">
+        <div class="body-box ${borderClass}">
+          <div class="body-text">${escapeHTML(item.body).replace(/\\n/g, "<br>")}</div>
+          <span class="check-marker" aria-hidden="true"></span>
+        </div>
+
+        ${firstUrl ? `
+          <div class="qr-box">
+            <div id="${qrId}" class="qr-code" data-url="${escapeAttribute(firstUrl)}"></div>
+          </div>
+        ` : ""}
+      </div>
+    </section>
+  `;
+}).join("");
 
       const printHtml = `<!doctype html>
 <html lang="pt-BR">
@@ -3825,6 +3849,40 @@
       z-index: 2;
     }
 
+    .body-row {
+  width: 16cm;
+  display: flex;
+  align-items: stretch;
+  gap: .35cm;
+}
+
+.body-row.has-qr .body-box {
+  width: 13.65cm;
+}
+
+.body-row:not(.has-qr) .body-box {
+  width: 16cm;
+}
+
+.qr-box {
+  width: 2cm;
+  min-width: 2cm;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-code {
+  width: 1.75cm;
+  height: 1.75cm;
+}
+
+.qr-code img,
+.qr-code canvas {
+  width: 1.75cm !important;
+  height: 1.75cm !important;
+}
+
     .body-box.border-math {
       border-left-color: #7d1f28;
     }
@@ -3853,13 +3911,24 @@
   <h1 class="document-title">Compromissos</h1>
   ${itemsHtml}
 
-  <script>
-    window.addEventListener("load", () => {
-      setTimeout(() => {
-        window.print();
-      }, 250);
+  <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"><\/script>
+
+<script>
+  window.addEventListener("load", () => {
+    document.querySelectorAll(".qr-code[data-url]").forEach((element) => {
+      new QRCode(element, {
+        text: element.dataset.url,
+        width: 96,
+        height: 96,
+        correctLevel: QRCode.CorrectLevel.M
+      });
     });
-  <\/script>
+
+    setTimeout(() => {
+      window.print();
+    }, 700);
+  });
+<\/script>
 </body>
 </html>`;
 
