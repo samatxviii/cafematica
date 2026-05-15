@@ -321,6 +321,37 @@
     .btn.latex { background: linear-gradient(135deg, #2b8a5a, var(--latex)); }
     .btn.tech { background: linear-gradient(135deg, #2e6f9f, var(--tech)); }
     .btn.danger { background: rgba(180,71,71,.14); color: #ffd0d0; border-color: rgba(180,71,71,.35); }
+
+    .btn.complete {
+      width: 30px;
+      height: 30px;
+      min-width: 30px;
+      min-height: 30px;
+      padding: 0;
+      border-radius: 999px;
+      color: transparent;
+      background: transparent;
+      border: 2px solid rgba(55,255,131,.80);
+      box-shadow: 0 0 0 4px rgba(55,255,131,.06);
+      overflow: hidden;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+
+    .btn.complete:hover,
+    .btn.complete:focus-visible {
+      background: rgba(55,255,131,.08);
+      border-color: rgba(55,255,131,1);
+      box-shadow: 0 0 0 5px rgba(55,255,131,.10);
+    }
+
+    .btn.complete.is-completed {
+      color: #001d0b;
+      background: linear-gradient(135deg, #37ff83, #00d957);
+      border-color: rgba(55,255,131,.92);
+      box-shadow: 0 0 0 5px rgba(55,255,131,.10);
+    }
+
     .btn.ghost { background: transparent; }
     .btn.small { min-height: 38px; padding: 9px 13px; font-size: .9rem; }
 
@@ -948,10 +979,126 @@
     .appointment.personal::before { background: var(--coffee); }
 
     .appointment-top { display: flex; justify-content: space-between; gap: 14px; align-items: flex-start; }
+
+    .appointment-title-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
     .appointment h3 { margin: 0; font-size: 1.08rem; letter-spacing: -.02em; }
     .appointment-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
     .appointment-body { margin: 14px 0 0; color: var(--muted); white-space: pre-wrap; overflow-wrap: anywhere; }
-    .appointment-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+    .appointment-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; align-items: center; }
+
+    .appointment {
+      transition: background .22s ease, border-color .22s ease, opacity .22s ease, padding .22s ease, transform .22s ease;
+    }
+
+    .appointment.completed {
+      padding: 14px 18px;
+      background: rgba(0,0,0,.34);
+      border-color: rgba(55,255,131,.16);
+      cursor: pointer;
+    }
+
+    .appointment.completed:hover {
+      background: rgba(0,0,0,.42);
+      border-color: rgba(55,255,131,.28);
+      transform: translateY(-1px);
+    }
+
+    .appointment.completed .appointment-body,
+    .appointment.completed .appointment-meta,
+    .appointment.completed .appointment-actions {
+      display: none;
+    }
+
+    .appointment.completed .appointment-top {
+      align-items: center;
+    }
+
+    .appointment.completed h3 {
+      color: var(--muted);
+      text-decoration: line-through;
+      text-decoration-thickness: 1px;
+      text-decoration-color: rgba(55,255,131,.95);
+    }
+
+    .completed-mark {
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      color: #001d0b;
+      background: #37ff83;
+      border: 1px solid rgba(55,255,131,.86);
+      font-size: 1rem;
+      font-weight: 950;
+      box-shadow: 0 0 0 4px rgba(55,255,131,.10);
+      flex: 0 0 auto;
+    }
+
+    .appointment.completed .completed-mark {
+      order: -1;
+      width: 30px;
+      height: 30px;
+      font-size: 1.05rem;
+      box-shadow: 0 0 0 5px rgba(55,255,131,.08);
+    }
+
+    .completed-filter {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 38px;
+      padding: 9px 13px;
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 999px;
+      color: var(--muted);
+      background: rgba(255,255,255,.045);
+      font-size: .9rem;
+      font-weight: 850;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .completed-filter input {
+      appearance: none;
+      position: relative;
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      display: inline-block;
+      border: 1px solid rgba(255,255,255,.22);
+      border-radius: 6px;
+      background: rgba(0,0,0,.24);
+      flex: 0 0 auto;
+    }
+
+    .completed-filter input:checked {
+      border-color: rgba(196,154,95,.65);
+      background: linear-gradient(135deg, #e4c488, var(--coffee));
+    }
+
+    .completed-filter input:checked::before {
+      content: "✓";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      color: #120f0a;
+      font-size: 1rem;
+      font-weight: 950;
+      line-height: 1;
+      transform: translate(-50%, -55%);
+    }
+
+    .day-item.completed {
+      text-decoration: line-through;
+      text-decoration-thickness: 1px;
+      opacity: .78;
+    }
 
     .empty {
       padding: 28px;
@@ -2224,6 +2371,10 @@
           <button class="btn small ghost" type="button" id="todayBtn">Filtrar hoje</button>
           <button class="btn small ghost" type="button" id="currentMonthFilterBtn">Mês atual</button>
           <button class="btn small ghost" type="button" id="clearFiltersBtn">Limpar filtros</button>
+          <label class="completed-filter" for="showCompletedFilter">
+            <input id="showCompletedFilter" type="checkbox" checked>
+            Mostrar concluídos
+          </label>
         </div>
 
         <div class="appointments" id="appointments"></div>
@@ -2672,6 +2823,7 @@
       todayBtn: document.getElementById("todayBtn"),
       currentMonthFilterBtn: document.getElementById("currentMonthFilterBtn"),
       clearFiltersBtn: document.getElementById("clearFiltersBtn"),
+      showCompletedFilter: document.getElementById("showCompletedFilter"),
 
       generatePdfBtn: document.getElementById("generatePdfBtn"),
       copyBackupBtn: document.getElementById("copyBackupBtn"),
@@ -2854,6 +3006,7 @@
       els.filterStartDay.addEventListener("change", renderAppointments);
       els.filterEndDay.addEventListener("change", renderAppointments);
       els.filterTypeButton.addEventListener("click", openTypeFilterModal);
+      els.showCompletedFilter.addEventListener("change", renderAppointments);
       els.closeTypeFilter.addEventListener("click", closeTypeFilterModal);
       els.typeFilterModal.addEventListener("click", (event) => {
         if (event.target === els.typeFilterModal) closeTypeFilterModal();
@@ -2901,6 +3054,7 @@
         els.filterStartDay.value = "";
         els.filterEndDay.value = "";
         selectedFilterTypes.clear();
+        els.showCompletedFilter.checked = true;
         updateFilterMonthButton();
         updateFilterTypeButton();
         renderTypeFilterOptions();
@@ -3033,7 +3187,7 @@
           const btn = document.createElement("button");
           btn.type = "button";
           btn.draggable = true;
-          btn.className = `day-item ${item.category}`;
+          btn.className = `day-item ${item.category} ${item.completed ? "completed" : ""}`;
           btn.title = `${formatTimeRange(item)}${item.title}\n${item.filename}`;
           btn.textContent = `${formatTimeRange(item)}${item.title}`;
           btn.addEventListener("dragstart", (event) => {
@@ -3427,6 +3581,7 @@
         hasTime,
         startTime,
         endTime,
+        completed: false,
         createdAt: now,
         updatedAt: now
       });
@@ -3782,6 +3937,7 @@
       const endDate = month && endDay ? `${month}-${String(endDay).padStart(2, "0")}` : "";
       const hasTypeRestrictions = selectedFilterTypes.size > 0 && !selectedFilterTypes.has("__none__");
       const noTypesSelected = selectedFilterTypes.has("__none__");
+      const showCompleted = !els.showCompletedFilter || els.showCompletedFilter.checked;
 
       return appointments
         .filter(item => {
@@ -3791,7 +3947,8 @@
           const matchStart = !startDate || item.date >= startDate;
           const matchEnd = !endDate || item.date <= endDate;
           const matchCategory = noTypesSelected ? false : (!hasTypeRestrictions || selectedFilterTypes.has(item.category));
-          return matchQuery && matchMonth && matchStart && matchEnd && matchCategory;
+          const matchCompleted = showCompleted || !item.completed;
+          return matchQuery && matchMonth && matchStart && matchEnd && matchCategory && matchCompleted;
         })
         .sort((a, b) => {
           if (a.date !== b.date) return a.date.localeCompare(b.date);
@@ -3816,12 +3973,19 @@
 
       for (const item of filtered) {
         const card = document.createElement("article");
-        card.className = `appointment ${item.category}`;
+        card.className = `appointment ${item.category} ${item.completed ? "completed" : ""}`;
+        card.dataset.filename = item.filename;
 
         card.innerHTML = `
           <div class="appointment-top">
             <div>
-              <h3>${escapeHTML(item.title)}</h3>
+              <div class="appointment-title-row">
+                ${item.completed
+                  ? `<span class="completed-mark" title="Compromisso concluído" aria-label="Compromisso concluído">✓</span>`
+                  : `<button class="btn complete" type="button" data-action="toggle-completed" data-filename="${escapeHTML(item.filename)}" title="Marcar como concluído" aria-label="Marcar como concluído"></button>`
+                }
+                <h3>${escapeHTML(item.title)}</h3>
+              </div>
               <div class="appointment-meta">
                 <span class="badge">${formatDateBR(item.date)}</span>
                 <span class="badge">${escapeHTML(displayTimeBadge(item))}</span>
@@ -3843,15 +4007,39 @@
         els.appointments.appendChild(card);
       }
 
+      els.appointments.querySelectorAll(".appointment.completed").forEach(card => {
+        card.addEventListener("click", () => {
+          const filename = card.dataset.filename;
+          if (filename) toggleCompleted(filename);
+        });
+      });
+
       els.appointments.querySelectorAll("button[data-action]").forEach(button => {
-        button.addEventListener("click", () => {
+        button.addEventListener("click", (event) => {
+          event.stopPropagation();
           const action = button.dataset.action;
           const filename = button.dataset.filename;
           if (action === "edit") editAppointment(filename);
           if (action === "download") downloadTxt(filename);
           if (action === "delete") requestDelete(filename);
+          if (action === "toggle-completed") toggleCompleted(filename);
         });
       });
+    }
+
+    function toggleCompleted(filename) {
+      const index = appointments.findIndex(item => item.filename === filename);
+      if (index === -1) return;
+
+      appointments[index] = {
+        ...appointments[index],
+        completed: !appointments[index].completed,
+        updatedAt: new Date().toISOString()
+      };
+
+      saveAppointments();
+      renderAll();
+      showToast(appointments[index].completed ? "Compromisso concluído" : "Compromisso reaberto");
     }
 
     /* =========================================================
@@ -3863,6 +4051,7 @@
         `DATA: ${item.date}`,
         `HORÁRIO: ${serializeTime(item)}`,
         `TIPO: ${labelCategory(item.category)}`,
+        `CONCLUÍDO: ${item.completed ? "sim" : "não"}`,
         `ARQUIVO: ${item.filename}`,
         `CRIADO: ${item.createdAt}`,
         `ATUALIZADO: ${item.updatedAt}`,
@@ -3894,6 +4083,7 @@
         date: header["DATA"] || parsed.date,
         sequence: parsed.sequence,
         category: categoryFromLabel(header["TIPO"]) || "personal",
+        completed: ["sim", "true", "1", "concluído", "concluido"].includes(normalize(header["CONCLUÍDO"] || "")),
         title: header["TÍTULO"] || filename.replace(/\.txt$/i, ""),
         body: bodyLines.join("\n").trim() || "",
         timeMode: time.timeMode,
@@ -3977,7 +4167,7 @@
       <div class="body-row ${firstUrl ? "has-qr" : ""}">
         <div class="body-box ${borderClass}">
           <div class="body-text">${escapeHTML(item.body).replace(/\\n/g, "<br>")}</div>
-          <span class="check-marker" aria-hidden="true"></span>
+          <span class="check-marker ${item.completed ? "completed" : ""}" aria-hidden="true"></span>
         </div>
 
         ${firstUrl ? `
@@ -4091,6 +4281,22 @@
       border-radius: 4px;
       background: #ffffff;
       z-index: 2;
+    }
+
+    .check-marker.completed::after {
+      content: "✓";
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #00b943;
+      font-family: Arial Black, Arial, sans-serif;
+      font-size: 16pt;
+      font-weight: 900;
+      line-height: 1;
+      text-shadow: .25px 0 #00b943, -.25px 0 #00b943, 0 .25px #00b943, 0 -.25px #00b943;
+      transform: translateY(-.02cm);
     }
 
     .body-row {
@@ -4322,6 +4528,7 @@
         category: appointmentTypes.some(type => type.id === item.category) ? item.category : "uncategorized",
         title: String(item.title || item.filename),
         body: String(item.body || ""),
+        completed: Boolean(item.completed),
         timeMode,
         hasTime: timeMode !== "none",
         startTime: item.startTime || "",
@@ -4960,6 +5167,7 @@
         category: appointmentTypes.some(type => type.id === item.category) ? item.category : "uncategorized",
         title: item.title || item.filename,
         body: item.body || "",
+        completed: Boolean(item.completed),
         timeMode: item.timeMode || (item.hasTime ? (item.endTime ? "range" : "start") : "none"),
         hasTime: Boolean(item.timeMode ? item.timeMode !== "none" : item.hasTime),
         startTime: item.startTime || "",
