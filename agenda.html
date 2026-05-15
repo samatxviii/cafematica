@@ -4221,8 +4221,14 @@
     .appointment-print {
       width: 16cm;
       break-inside: avoid;
+      break-inside: avoid-page;
       page-break-inside: avoid;
       margin: 0 0 .75cm;
+    }
+
+    .appointment-print.force-page-break {
+      break-before: page;
+      page-break-before: always;
     }
 
     .appointment-print h2 {
@@ -4265,6 +4271,9 @@
       line-height: 1.5;
       white-space: normal;
       overflow-wrap: anywhere;
+      break-inside: avoid;
+      break-inside: avoid-page;
+      page-break-inside: avoid;
     }
 
     .body-text {
@@ -4304,6 +4313,9 @@
   display: flex;
   align-items: stretch;
   gap: .35cm;
+  break-inside: avoid;
+  break-inside: avoid-page;
+  page-break-inside: avoid;
 }
 
 .body-row.has-qr .body-box {
@@ -4364,6 +4376,52 @@
   <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"><\/script>
 
 <script>
+  function getPxPerCm() {
+    const probe = document.createElement("div");
+    probe.style.width = "1cm";
+    probe.style.height = "1cm";
+    probe.style.position = "absolute";
+    probe.style.left = "-9999px";
+    document.body.appendChild(probe);
+    const px = probe.getBoundingClientRect().height;
+    probe.remove();
+    return px || 37.795;
+  }
+
+  function applyPrintPageBreaks() {
+    const items = Array.from(document.querySelectorAll(".appointment-print"));
+    if (!items.length) return;
+
+    items.forEach(item => item.classList.remove("force-page-break"));
+
+    const pxPerCm = getPxPerCm();
+
+    // A4 tem 29,7 cm de altura. As margens do @page são:
+    // superior 3 cm + inferior 2 cm. Área útil vertical: 24,7 cm.
+    const printableHeight = 24.7 * pxPerCm;
+    let currentPageStart = 0;
+
+    items.forEach((item, index) => {
+      const rect = item.getBoundingClientRect();
+      const top = item.offsetTop;
+      const height = rect.height;
+
+      if (index === 0) {
+        currentPageStart = top;
+        return;
+      }
+
+      const usedOnPage = top - currentPageStart;
+
+      if (usedOnPage > 0 && usedOnPage + height > printableHeight) {
+        item.classList.add("force-page-break");
+
+        // Depois da quebra, este item será o primeiro bloco da nova página.
+        currentPageStart = item.offsetTop;
+      }
+    });
+  }
+
   window.addEventListener("load", () => {
     document.querySelectorAll(".qr-code[data-url]").forEach((element) => {
       new QRCode(element, {
@@ -4375,8 +4433,9 @@
     });
 
     setTimeout(() => {
+      applyPrintPageBreaks();
       window.print();
-    }, 700);
+    }, 800);
   });
 <\/script>
 </body>
