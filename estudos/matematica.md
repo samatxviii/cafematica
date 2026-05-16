@@ -1,3 +1,8 @@
+---
+layout: default
+title: Minha Aula
+---
+
 # Tendências de dois mil e vinte e seis para vídeos de Matemática em YouTube, TikTok e Google Trends
 
 ## Resumo executivo
