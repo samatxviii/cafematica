@@ -212,7 +212,7 @@
       min-height: 100svh;
       display: grid;
       place-items: center;
-      padding: calc(var(--header-h) + 64px) 0 86px;
+      padding: calc(var(--header-h) + 64px) 0 120px;
       text-align: center;
       position: relative;
       isolation: isolate;
