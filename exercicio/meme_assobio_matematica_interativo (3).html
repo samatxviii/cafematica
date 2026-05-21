@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assobio Absoluto — Média Aritmética</title>
+
+  <!-- MathJax para renderizar LaTeX -->
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]] },
+      svg: { fontCache: "global" }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    :root {
+      --green-dark: #075e54;
+      --green-mid: #128c7e;
+      --green-light: #dcf8c6;
+      --chat-bg: #efe6dd;
+      --text: #1f2933;
+      --muted: #6b7280;
+      --correct: #18a058;
+      --wrong: #d93025;
+      --youtube: #ff0000;
+      --white: #ffffff;
+      --shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #111827;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      padding: 18px;
+    }
+
+    .poster {
+      width: min(540px, calc(100vh * 0.8), 100%);
+      aspect-ratio: 1080 / 1350;
+      background: var(--white);
+      border-radius: 30px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-rows: 24% minmax(0, 1fr) 22%;
+    }
+
+    .top-white,
+    .bottom-white {
+      padding: 20px 30px 18px;
+      gap: 12px;
+      align-content: center;
+    }
+
+    .top-white {
+      padding: 22px 30px 18px;
+      gap: 9px;
+      align-content: center;
+      border-bottom: 1px solid #eef0f3;
+    }
+
+    .eyebrow {
+      font-weight: 800;
+      font-size: 0.66rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--green-mid);
+      margin: 0 0 1px;
+    }
+
+    h1 {
+      font-size: clamp(1.18rem, 3.75vw, 1.52rem);
+      line-height: 1.04;
+      margin: 0;
+      letter-spacing: -0.035em;
+    }
+
+    .statement {
+      margin: 0;
+      font-size: clamp(0.82rem, 2.4vw, 0.92rem);
+      line-height: 1.28;
+      color: #344054;
+    }
+
+    .latex-line {
+      margin: 6px auto 0;
+      display: flex;
+      width: fit-content;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      background: #f5f7fa;
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-align: center;
+    }
+
+    .chat-area {
+      min-height: 0;
+      background:
+        radial-gradient(circle at 20px 20px, rgba(255, 255, 255, 0.34) 0 2px, transparent 3px),
+        linear-gradient(135deg, rgba(7, 94, 84, 0.08), rgba(18, 140, 126, 0.05)),
+        var(--chat-bg);
+      background-size: 28px 28px, auto, auto;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr);
+    }
+
+    .wa-header {
+      background: var(--green-dark);
+      color: #ffffff;
+      padding: 8px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .avatar {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: linear-gradient(135deg, #c8facc, #ffffff);
+      color: var(--green-dark);
+      font-size: 1.16rem;
+      flex: 0 0 auto;
+    }
+
+    .group-info { line-height: 1.12; min-width: 0; }
+
+    .group-name {
+      font-weight: 800;
+      font-size: 0.93rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .members {
+      margin-top: 2px;
+      font-size: 0.68rem;
+      opacity: 0.84;
+    }
+
+    .messages {
+      min-height: 0;
+      padding: 8px 14px 8px;
+      display: grid;
+      gap: 5px;
+      align-content: start;
+      overflow: visible;
+    }
+
+    .date-pill {
+      justify-self: center;
+      font-size: 0.64rem;
+      font-weight: 700;
+      color: #607080;
+      background: rgba(255, 255, 255, 0.82);
+      border-radius: 999px;
+      padding: 3px 9px;
+      margin-bottom: 1px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+    }
+
+    .audio-bubble {
+      width: var(--bubble-width, 82%);
+      max-width: 96%;
+      min-width: 62%;
+      border-radius: 14px 14px 14px 5px;
+      background: #ffffff;
+      padding: 6px 8px 5px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+      display: grid;
+      grid-template-columns: 30px minmax(0, 1fr) 34px;
+      align-items: center;
+      gap: 7px;
+      position: relative;
+    }
+
+    .audio-bubble.d8 { --bubble-width: 70%; }
+    .audio-bubble.d10 { --bubble-width: 78%; }
+    .audio-bubble.d12 { --bubble-width: 86%; }
+    .audio-bubble.dx { --bubble-width: 94%; }
+
+    .audio-bubble.sent {
+      justify-self: end;
+      border-radius: 14px 14px 5px 14px;
+      background: var(--green-light);
+    }
+
+    .play {
+      width: 29px;
+      height: 29px;
+      border: 0;
+      border-radius: 50%;
+      background: var(--green-mid);
+      display: grid;
+      place-items: center;
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 900;
+      cursor: pointer;
+      padding: 0 0 0 2px;
+    }
+
+    .play.playing {
+      background: #0a6a60;
+      box-shadow: 0 0 0 4px rgba(18, 140, 126, 0.16);
+    }
+
+    .wave {
+      width: 100%;
+      min-width: 0;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 1.5px;
+      overflow: hidden;
+    }
+
+    .bar {
+      flex: 1 1 0;
+      min-width: 2px;
+      border-radius: 999px;
+      background: rgba(7, 94, 84, 0.38);
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+
+    .bar:nth-child(2n) { animation-delay: 0.15s; }
+    .bar:nth-child(3n) { animation-delay: 0.3s; }
+    .bar:nth-child(4n) { animation-delay: 0.45s; }
+
+    @keyframes pulse {
+      0%, 100% { transform: scaleY(0.72); opacity: 0.65; }
+      50% { transform: scaleY(1.12); opacity: 1; }
+    }
+
+    .duration {
+      font-weight: 800;
+      font-size: 0.76rem;
+      color: #31424f;
+      min-width: 28px;
+      text-align: right;
+    }
+
+    .bubble-caption {
+      grid-column: 2 / 4;
+      color: #425466;
+      font-size: 0.62rem;
+      margin-top: -4px;
+    }
+
+    .text-bubble {
+      width: fit-content;
+      max-width: 86%;
+      border-radius: 14px 14px 14px 5px;
+      background: #ffffff;
+      padding: 9px 12px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.12);
+      font-weight: 800;
+      line-height: 1.18;
+      color: #243b53;
+      font-size: 0.88rem;
+      margin-top: 1px;
+      position: relative;
+    }
+
+    .text-bubble.sent {
+      justify-self: end;
+      border-radius: 14px 14px 5px 14px;
+      background: var(--green-light);
+    }
+
+    .bottom-white {
+      padding: 12px 24px 14px;
+    }
+
+    .options-title {
+      margin: 0 0 7px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      color: #344054;
+    }
+
+    .options {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      align-items: center;
+    }
+
+    .option {
+      border: 2px solid #d9dee7;
+      background: #ffffff;
+      border-radius: 13px;
+      padding: 10px 3px;
+      font-weight: 900;
+      font-size: 0.84rem;
+      color: #344054;
+      cursor: pointer;
+      transition: 0.18s ease;
+      text-align: center;
+      user-select: none;
+    }
+
+    .option:hover {
+      transform: translateY(-1px);
+      border-color: var(--green-mid);
+    }
+
+    .option.selected {
+      border-color: var(--green-mid);
+      background: #e8f7f3;
+      color: var(--green-dark);
+    }
+
+    .option.correct {
+      border-color: var(--correct) !important;
+      background: #e7f8ee !important;
+      color: #0b6b3a !important;
+      box-shadow: 0 0 0 4px rgba(24, 160, 88, 0.13);
+    }
+
+    .option.wrong {
+      border-color: var(--wrong) !important;
+      background: #fdeceb !important;
+      color: #9f1c14 !important;
+    }
+
+    .confirm-wrap {
+      max-height: 0;
+      opacity: 0;
+      overflow: hidden;
+      transition: max-height 0.28s ease, opacity 0.22s ease;
+      display: grid;
+      place-items: center;
+    }
+
+    .confirm-wrap.show {
+      max-height: 58px;
+      opacity: 1;
+    }
+
+    .confirm-btn {
+      border: 0;
+      border-radius: 999px;
+      background: var(--green-dark);
+      color: #ffffff;
+      font-weight: 900;
+      font-size: 0.94rem;
+      padding: 12px 28px;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(7, 94, 84, 0.23);
+    }
+
+    .confirm-btn:active,
+    .yt-btn:active,
+    .close-btn:active,
+    .play:active { transform: translateY(1px); }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      background: rgba(17, 24, 39, 0.35);
+      z-index: 20;
+      padding: 24px;
+    }
+
+    .overlay.show { display: grid; }
+
+    .popup {
+      width: min(400px, 100%);
+      background: #ffffff;
+      border-radius: 24px;
+      padding: 26px 24px 24px;
+      text-align: center;
+      box-shadow: 0 24px 55px rgba(0,0,0,0.27);
+      position: relative;
+      animation: pop 0.22s ease-out;
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.88); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .popup-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      margin: 0 auto 12px;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+
+    .popup-icon.success { background: #e7f8ee; color: var(--correct); }
+    .popup-icon.error { background: #fdeceb; color: var(--wrong); }
+
+    .popup h2 {
+      margin: 0 0 8px;
+      font-size: 1.45rem;
+      letter-spacing: -0.03em;
+    }
+
+    .popup p {
+      margin: 0 0 17px;
+      color: #52606d;
+      line-height: 1.35;
+    }
+
+    .yt-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      border: 0;
+      text-decoration: none;
+      border-radius: 999px;
+      background: var(--youtube);
+      color: #ffffff;
+      font-weight: 900;
+      padding: 13px 18px;
+      min-width: 215px;
+      box-shadow: 0 9px 18px rgba(255, 0, 0, 0.25);
+    }
+
+    .play-mark {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.18);
+      display: grid;
+      place-items: center;
+      font-size: 0.78rem;
+    }
+
+    .close-btn {
+      margin-top: 12px;
+      background: transparent;
+      border: 0;
+      color: #667085;
+      cursor: pointer;
+      font-weight: 800;
+      padding: 8px 10px;
+    }
+
+    .fireworks {
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      z-index: 60;
+      display: none;
+    }
+
+    .fireworks.show { display: block; }
+
+    .spark {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: hsl(var(--h), 95%, 58%);
+      box-shadow: 0 0 10px hsl(var(--h), 95%, 58%);
+      transform: translate(-50%, -50%);
+      animation: explode 1100ms ease-out forwards;
+    }
+
+    @keyframes explode {
+      to {
+        transform: translate(calc(-50% + var(--x)), calc(-50% + var(--y))) scale(0.2);
+        opacity: 0;
+      }
+    }
+
+    .red-flash { animation: flashRed 430ms ease-in-out 3; }
+
+    @keyframes flashRed {
+      0%, 100% { filter: none; }
+      50% { filter: saturate(1.6); background: #ffdddd; }
+    }
+
+    .brand {
+      position: static;
+      justify-self: center;
+      text-align: center;
+      font-size: 0.6rem;
+      color: #9aa5b1;
+      font-weight: 800;
+      z-index: 3;
+      margin-top: 2px;
+    }
+
+    @media (max-width: 430px) {
+      body { padding: 10px; }
+      .poster { border-radius: 22px; }
+      .top-white { padding: 18px 18px 14px; gap: 7px; }
+      .bottom-white { padding: 17px 18px 15px; gap: 10px; }
+      .latex-line { font-size: 0.72rem; padding: 6px 12px; }
+      .messages { padding-left: 10px; padding-right: 10px; gap: 4px; }
+      .options { gap: 6px; }
+      .option { border-radius: 10px; font-size: 0.76rem; padding: 8px 2px; }
+      .brand { font-size: 0.52rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="poster" id="poster">
+    <section class="top-white">
+      <div class="eyebrow">Meme matemático interativo</div>
+      <h1>O grupo de assobio caiu na Matemática</h1>
+      <p class="statement">
+        No grupo <strong>Assobio Absoluto</strong>, a média de duração dos 4 assobios foi de 11 segundos.
+      </p>
+      <div class="latex-line">$\bar{x}=\dfrac{\text{soma dos valores}}{\text{quantidade}}$</div>
+    </section>
+
+    <section class="chat-area">
+      <div class="wa-header">
+        <div class="avatar">🐦</div>
+        <div class="group-info">
+          <div class="group-name">Assobio Absoluto</div>
+          <div class="members">1.024 membros • só áudio assobiando</div>
+        </div>
+      </div>
+
+      <div class="messages" aria-label="Conversa simulada de WhatsApp">
+        <div class="date-pill">Hoje</div>
+
+        <div class="audio-bubble d8">
+          <button class="play" type="button" aria-label="Tocar áudio de assobio" data-tone="620">▶</button>
+          <div class="wave" aria-hidden="true">
+            <span class="bar" style="height: 12px"></span><span class="bar" style="height: 18px"></span><span class="bar" style="height: 9px"></span><span class="bar" style="height: 22px"></span><span class="bar" style="height: 15px"></span><span class="bar" style="height: 20px"></span><span class="bar" style="height: 11px"></span><span class="bar" style="height: 17px"></span><span class="bar" style="height: 13px"></span><span class="bar" style="height: 21px"></span><span class="bar" style="height: 10px"></span><span class="bar" style="height: 16px"></span>
+          </div>
+          <div class="duration">8 s</div>
+          <div class="bubble-caption">Áudio 1</div>
+        </div>
+
+        <div class="audio-bubble sent d12">
+          <button class="play" type="button" aria-label="Tocar áudio de assobio" data-tone="760">▶</button>
+          <div class="wave" aria-hidden="true">
+            <span class="bar" style="height: 20px"></span><span class="bar" style="height: 14px"></span><span class="bar" style="height: 22px"></span><span class="bar" style="height: 11px"></span><span class="bar" style="height: 19px"></span><span class="bar" style="height: 24px"></span><span class="bar" style="height: 13px"></span><span class="bar" style="height: 20px"></span><span class="bar" style="height: 16px"></span><span class="bar" style="height: 23px"></span><span class="bar" style="height: 12px"></span><span class="bar" style="height: 18px"></span>
+          </div>
+          <div class="duration">12 s</div>
+          <div class="bubble-caption">Áudio 2</div>
+        </div>
+
+        <div class="audio-bubble d10">
+          <button class="play" type="button" aria-label="Tocar áudio de assobio" data-tone="690">▶</button>
+          <div class="wave" aria-hidden="true">
+            <span class="bar" style="height: 18px"></span><span class="bar" style="height: 10px"></span><span class="bar" style="height: 16px"></span><span class="bar" style="height: 22px"></span><span class="bar" style="height: 12px"></span><span class="bar" style="height: 19px"></span><span class="bar" style="height: 15px"></span><span class="bar" style="height: 21px"></span><span class="bar" style="height: 13px"></span><span class="bar" style="height: 17px"></span><span class="bar" style="height: 9px"></span><span class="bar" style="height: 20px"></span>
+          </div>
+          <div class="duration">10 s</div>
+          <div class="bubble-caption">Áudio 3</div>
+        </div>
+
+        <div class="audio-bubble sent dx">
+          <button class="play" type="button" aria-label="Tocar áudio de assobio" data-tone="840">▶</button>
+          <div class="wave" aria-hidden="true">
+            <span class="bar" style="height: 15px"></span><span class="bar" style="height: 22px"></span><span class="bar" style="height: 12px"></span><span class="bar" style="height: 18px"></span><span class="bar" style="height: 24px"></span><span class="bar" style="height: 11px"></span><span class="bar" style="height: 20px"></span><span class="bar" style="height: 14px"></span><span class="bar" style="height: 21px"></span><span class="bar" style="height: 13px"></span><span class="bar" style="height: 19px"></span><span class="bar" style="height: 10px"></span>
+          </div>
+          <div class="duration">x s</div>
+          <div class="bubble-caption">Áudio 4</div>
+        </div>
+
+        <div class="text-bubble">
+          Quanto durou o 4º assobio?
+        </div>
+      </div>
+    </section>
+
+    <section class="bottom-white">
+      <div class="options" id="options">
+        <button class="option" data-value="8">A) 8s</button>
+        <button class="option" data-value="10">B) 10s</button>
+        <button class="option" data-value="12">C) 12s</button>
+        <button class="option" data-value="14">D) 14s</button>
+        <button class="option" data-value="16">E) 16s</button>
+      </div>
+
+      <div class="confirm-wrap" id="confirmWrap">
+        <button class="confirm-btn" id="confirmBtn">Confirmar resposta</button>
+      </div>
+          <div class="brand">Prof. Fernando Batista • www.cafematica.com.br</div>
+    </section>
+
+    <div class="fireworks" id="fireworks"></div>
+
+    <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+      <div class="popup">
+        <div class="popup-icon" id="popupIcon">✓</div>
+        <h2 id="popupTitle">Parabéns!</h2>
+        <p id="popupText">Você acertou. O 4º assobio durou 14 segundos.</p>
+        <a class="yt-btn" id="ytBtn" href="https://www.youtube.com/@cafematica" target="_blank" rel="noopener noreferrer">
+          <span class="play-mark">▶</span>
+          Assistir explicação
+        </a>
+        <br />
+        <button class="close-btn" id="closeBtn">Fechar</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const correctValue = "14";
+    let currentWhistleTimeout = null;
+    let selectedValue = null;
+    let answered = false;
+
+    const poster = document.getElementById("poster");
+    const options = [...document.querySelectorAll(".option")];
+    const confirmWrap = document.getElementById("confirmWrap");
+    const confirmBtn = document.getElementById("confirmBtn");
+    const overlay = document.getElementById("overlay");
+    const popupIcon = document.getElementById("popupIcon");
+    const popupTitle = document.getElementById("popupTitle");
+    const popupText = document.getElementById("popupText");
+    const closeBtn = document.getElementById("closeBtn");
+    const fireworks = document.getElementById("fireworks");
+    const playButtons = [...document.querySelectorAll(".play")];
+    const wavePatterns = [
+      [12,18,9,22,15,20,11,17,13,21,10,16,14,19,8,23,12,18,10,20,15,22,9,17,13,21,11,16,14,19,8,18],
+      [20,14,22,11,19,24,13,20,16,23,12,18,21,15,24,10,19,22,14,20,16,23,11,18,21,13,24,12,19,22,15,20],
+      [18,10,16,22,12,19,15,21,13,17,9,20,16,23,11,18,14,21,12,19,15,22,10,17,13,20,9,18,16,21,12,19],
+      [15,22,12,18,24,11,20,14,21,13,19,10,17,23,12,20,15,24,11,19,14,22,13,18,10,21,16,23,12,20,15,19]
+    ];
+
+    document.querySelectorAll(".wave").forEach((wave, index) => {
+      const pattern = wavePatterns[index] || wavePatterns[0];
+      const extendedPattern = [];
+      const targetBars = 52;
+
+      for (let i = 0; i < targetBars; i++) {
+        extendedPattern.push(pattern[i % pattern.length]);
+      }
+
+      wave.innerHTML = extendedPattern
+        .map((height) => `<span class="bar" style="height: ${height}px"></span>`)
+        .join("");
+    });
+
+    playButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        playWhistle(Number(button.dataset.tone || 720), button);
+      });
+    });
+
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        if (answered) return;
+
+        selectedValue = option.dataset.value;
+        options.forEach((btn) => btn.classList.remove("selected"));
+        option.classList.add("selected");
+        confirmWrap.classList.add("show");
+      });
+    });
+
+    confirmBtn.addEventListener("click", () => {
+      if (!selectedValue || answered) return;
+      answered = true;
+
+      const isCorrect = selectedValue === correctValue;
+      revealCorrectAnswer(isCorrect);
+
+      if (isCorrect) {
+        playSuccessSound();
+        showFireworks();
+        showPopup({
+          type: "success",
+          title: "Parabéns!",
+          text: "Você acertou. O 4º assobio durou 14 segundos. Absolute assobio! 🐦"
+        });
+      } else {
+        playBuzzer();
+        poster.classList.add("red-flash");
+        setTimeout(() => poster.classList.remove("red-flash"), 1400);
+        showPopup({
+          type: "error",
+          title: "Resposta errada...",
+          text: "A resposta correta é D) 14 s. A média de 4 áudios precisava totalizar 44 segundos."
+        });
+      }
+    });
+
+    closeBtn.addEventListener("click", () => {
+      overlay.classList.remove("show");
+    });
+
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay) overlay.classList.remove("show");
+    });
+
+    function revealCorrectAnswer(isCorrect) {
+      options.forEach((btn) => {
+        if (btn.dataset.value === correctValue) {
+          btn.classList.add("correct");
+        }
+        if (!isCorrect && btn.dataset.value === selectedValue) {
+          btn.classList.add("wrong");
+        }
+      });
+    }
+
+    function showPopup({ type, title, text }) {
+      popupIcon.className = `popup-icon ${type}`;
+      popupIcon.textContent = type === "success" ? "✓" : "!";
+      popupTitle.textContent = title;
+      popupText.textContent = text;
+      overlay.classList.add("show");
+    }
+
+    function showFireworks() {
+      fireworks.innerHTML = "";
+      fireworks.classList.add("show");
+
+      const bursts = [
+        { cx: 50, cy: 48 },
+        { cx: 36, cy: 40 },
+        { cx: 64, cy: 40 }
+      ];
+
+      bursts.forEach((burst, burstIndex) => {
+        setTimeout(() => {
+          for (let i = 0; i < 34; i++) {
+            const spark = document.createElement("span");
+            const angle = (Math.PI * 2 * i) / 34;
+            const distance = 75 + Math.random() * 80;
+            const x = Math.cos(angle) * distance;
+            const y = Math.sin(angle) * distance;
+
+            spark.className = "spark";
+            spark.style.left = `${burst.cx}%`;
+            spark.style.top = `${burst.cy}%`;
+            spark.style.setProperty("--x", `${x}px`);
+            spark.style.setProperty("--y", `${y}px`);
+            spark.style.setProperty("--h", `${Math.floor(Math.random() * 360)}`);
+            fireworks.appendChild(spark);
+          }
+        }, burstIndex * 170);
+      });
+
+      setTimeout(() => {
+        fireworks.classList.remove("show");
+        fireworks.innerHTML = "";
+      }, 1700);
+    }
+
+    function playWhistle(baseFrequency, button) {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+
+      if (currentWhistleTimeout) {
+        clearTimeout(currentWhistleTimeout);
+        currentWhistleTimeout = null;
+      }
+
+      playButtons.forEach((btn) => {
+        btn.classList.remove("playing");
+        btn.textContent = "▶";
+      });
+
+      const ctx = new AudioContext();
+      const oscillator = ctx.createOscillator();
+      const gain = ctx.createGain();
+      const vibrato = ctx.createOscillator();
+      const vibratoGain = ctx.createGain();
+
+      oscillator.type = "sine";
+      oscillator.frequency.setValueAtTime(baseFrequency, ctx.currentTime);
+      oscillator.frequency.linearRampToValueAtTime(baseFrequency + 95, ctx.currentTime + 0.32);
+      oscillator.frequency.linearRampToValueAtTime(baseFrequency - 30, ctx.currentTime + 0.72);
+      oscillator.frequency.linearRampToValueAtTime(baseFrequency + 60, ctx.currentTime + 1.05);
+
+      vibrato.type = "sine";
+      vibrato.frequency.value = 7;
+      vibratoGain.gain.value = 12;
+      vibrato.connect(vibratoGain);
+      vibratoGain.connect(oscillator.frequency);
+
+      gain.gain.setValueAtTime(0.0001, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 0.95);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.18);
+
+      oscillator.connect(gain);
+      gain.connect(ctx.destination);
+
+      button.classList.add("playing");
+      button.textContent = "Ⅱ";
+
+      oscillator.start();
+      vibrato.start();
+      oscillator.stop(ctx.currentTime + 1.2);
+      vibrato.stop(ctx.currentTime + 1.2);
+
+      currentWhistleTimeout = setTimeout(() => {
+        button.classList.remove("playing");
+        button.textContent = "▶";
+        ctx.close();
+      }, 1250);
+    }
+
+    function playSuccessSound() {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+
+      const ctx = new AudioContext();
+      const master = ctx.createGain();
+      master.gain.setValueAtTime(0.0001, ctx.currentTime);
+      master.gain.exponentialRampToValueAtTime(0.22, ctx.currentTime + 0.02);
+      master.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.45);
+      master.connect(ctx.destination);
+
+      const notes = [523.25, 659.25, 783.99, 1046.5];
+      notes.forEach((frequency, index) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const start = ctx.currentTime + index * 0.16;
+        const end = start + 0.32;
+
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(frequency, start);
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(0.18, start + 0.03);
+        gain.gain.exponentialRampToValueAtTime(0.0001, end);
+
+        osc.connect(gain);
+        gain.connect(master);
+        osc.start(start);
+        osc.stop(end + 0.03);
+      });
+
+      [1318.51, 1567.98, 2093].forEach((frequency, index) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const start = ctx.currentTime + 0.62 + index * 0.11;
+        const end = start + 0.18;
+
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(frequency, start);
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(0.09, start + 0.02);
+        gain.gain.exponentialRampToValueAtTime(0.0001, end);
+
+        osc.connect(gain);
+        gain.connect(master);
+        osc.start(start);
+        osc.stop(end + 0.03);
+      });
+
+      setTimeout(() => ctx.close(), 1700);
+    }
+
+    function playBuzzer() {
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContext) return;
+
+      const ctx = new AudioContext();
+      const master = ctx.createGain();
+      master.gain.setValueAtTime(0.0001, ctx.currentTime);
+      master.gain.exponentialRampToValueAtTime(0.26, ctx.currentTime + 0.02);
+      master.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.95);
+      master.connect(ctx.destination);
+
+      const pattern = [
+        { start: 0.00, duration: 0.20, from: 180, to: 95 },
+        { start: 0.27, duration: 0.20, from: 155, to: 80 },
+        { start: 0.54, duration: 0.28, from: 130, to: 58 }
+      ];
+
+      pattern.forEach(({ start, duration, from, to }) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const begin = ctx.currentTime + start;
+        const end = begin + duration;
+
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(from, begin);
+        osc.frequency.exponentialRampToValueAtTime(to, end);
+        gain.gain.setValueAtTime(0.0001, begin);
+        gain.gain.exponentialRampToValueAtTime(0.22, begin + 0.025);
+        gain.gain.exponentialRampToValueAtTime(0.0001, end);
+
+        osc.connect(gain);
+        gain.connect(master);
+        osc.start(begin);
+        osc.stop(end + 0.03);
+      });
+
+      const noiseLength = ctx.sampleRate * 0.08;
+      const buffer = ctx.createBuffer(1, noiseLength, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < noiseLength; i++) {
+        data[i] = (Math.random() * 2 - 1) * (1 - i / noiseLength);
+      }
+      const noise = ctx.createBufferSource();
+      const noiseGain = ctx.createGain();
+      noise.buffer = buffer;
+      noiseGain.gain.setValueAtTime(0.12, ctx.currentTime);
+      noiseGain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.08);
+      noise.connect(noiseGain);
+      noiseGain.connect(master);
+      noise.start(ctx.currentTime);
+
+      setTimeout(() => ctx.close(), 1150);
+    }
+  </script>
+</body>
+</html>
