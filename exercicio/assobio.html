@@ -569,7 +569,7 @@
         <div class="date-pill">Hoje</div>
 
         <div class="audio-bubble d8">
-          <button class="play" type="button" aria-label="Tocar áudio de assobio" data-tone="620">▶</button>
+          <button class="play" type="button" aria-label="Tocar áudio de assobio" data-audio="assobio01.ogg">▶</button>
           <div class="wave" aria-hidden="true">
             <span class="bar" style="height: 12px"></span><span class="bar" style="height: 18px"></span><span class="bar" style="height: 9px"></span><span class="bar" style="height: 22px"></span><span class="bar" style="height: 15px"></span><span class="bar" style="height: 20px"></span><span class="bar" style="height: 11px"></span><span class="bar" style="height: 17px"></span><span class="bar" style="height: 13px"></span><span class="bar" style="height: 21px"></span><span class="bar" style="height: 10px"></span><span class="bar" style="height: 16px"></span>
           </div>
@@ -578,7 +578,7 @@
         </div>
 
         <div class="audio-bubble sent d12">
-          <button class="play" type="button" aria-label="Tocar áudio de assobio" data-tone="760">▶</button>
+          <button class="play" type="button" aria-label="Tocar áudio de assobio" data-audio="assobio02.ogg">▶</button>
           <div class="wave" aria-hidden="true">
             <span class="bar" style="height: 20px"></span><span class="bar" style="height: 14px"></span><span class="bar" style="height: 22px"></span><span class="bar" style="height: 11px"></span><span class="bar" style="height: 19px"></span><span class="bar" style="height: 24px"></span><span class="bar" style="height: 13px"></span><span class="bar" style="height: 20px"></span><span class="bar" style="height: 16px"></span><span class="bar" style="height: 23px"></span><span class="bar" style="height: 12px"></span><span class="bar" style="height: 18px"></span>
           </div>
@@ -587,7 +587,7 @@
         </div>
 
         <div class="audio-bubble d10">
-          <button class="play" type="button" aria-label="Tocar áudio de assobio" data-tone="690">▶</button>
+          <button class="play" type="button" aria-label="Tocar áudio de assobio" data-audio="assobio03.ogg">▶</button>
           <div class="wave" aria-hidden="true">
             <span class="bar" style="height: 18px"></span><span class="bar" style="height: 10px"></span><span class="bar" style="height: 16px"></span><span class="bar" style="height: 22px"></span><span class="bar" style="height: 12px"></span><span class="bar" style="height: 19px"></span><span class="bar" style="height: 15px"></span><span class="bar" style="height: 21px"></span><span class="bar" style="height: 13px"></span><span class="bar" style="height: 17px"></span><span class="bar" style="height: 9px"></span><span class="bar" style="height: 20px"></span>
           </div>
@@ -596,7 +596,7 @@
         </div>
 
         <div class="audio-bubble sent dx">
-          <button class="play" type="button" aria-label="Tocar áudio de assobio" data-tone="840">▶</button>
+          <button class="play" type="button" aria-label="Tocar áudio de assobio" data-audio="assobio04.ogg">▶</button>
           <div class="wave" aria-hidden="true">
             <span class="bar" style="height: 15px"></span><span class="bar" style="height: 22px"></span><span class="bar" style="height: 12px"></span><span class="bar" style="height: 18px"></span><span class="bar" style="height: 24px"></span><span class="bar" style="height: 11px"></span><span class="bar" style="height: 20px"></span><span class="bar" style="height: 14px"></span><span class="bar" style="height: 21px"></span><span class="bar" style="height: 13px"></span><span class="bar" style="height: 19px"></span><span class="bar" style="height: 10px"></span>
           </div>
@@ -644,7 +644,7 @@
 
   <script>
     const correctValue = "14";
-    let currentWhistleTimeout = null;
+    let currentWhistleAudio = null;
     let selectedValue = null;
     let answered = false;
 
@@ -682,7 +682,7 @@
 
     playButtons.forEach((button) => {
       button.addEventListener("click", () => {
-        playWhistle(Number(button.dataset.tone || 720), button);
+        playWhistle(button.dataset.audio, button);
       });
     });
 
@@ -787,60 +787,38 @@
       }, 1700);
     }
 
-    function playWhistle(baseFrequency, button) {
-      const AudioContext = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContext) return;
+   function playWhistle(audioFile, button) {
+  if (!audioFile) return;
 
-      if (currentWhistleTimeout) {
-        clearTimeout(currentWhistleTimeout);
-        currentWhistleTimeout = null;
-      }
+  if (currentWhistleAudio) {
+    currentWhistleAudio.pause();
+    currentWhistleAudio.currentTime = 0;
+    currentWhistleAudio = null;
+  }
 
-      playButtons.forEach((btn) => {
-        btn.classList.remove("playing");
-        btn.textContent = "▶";
-      });
+  playButtons.forEach((btn) => {
+    btn.classList.remove("playing");
+    btn.textContent = "▶";
+  });
 
-      const ctx = new AudioContext();
-      const oscillator = ctx.createOscillator();
-      const gain = ctx.createGain();
-      const vibrato = ctx.createOscillator();
-      const vibratoGain = ctx.createGain();
+  const audio = new Audio(audioFile);
+  currentWhistleAudio = audio;
 
-      oscillator.type = "sine";
-      oscillator.frequency.setValueAtTime(baseFrequency, ctx.currentTime);
-      oscillator.frequency.linearRampToValueAtTime(baseFrequency + 95, ctx.currentTime + 0.32);
-      oscillator.frequency.linearRampToValueAtTime(baseFrequency - 30, ctx.currentTime + 0.72);
-      oscillator.frequency.linearRampToValueAtTime(baseFrequency + 60, ctx.currentTime + 1.05);
+  button.classList.add("playing");
+  button.textContent = "Ⅱ";
 
-      vibrato.type = "sine";
-      vibrato.frequency.value = 7;
-      vibratoGain.gain.value = 12;
-      vibrato.connect(vibratoGain);
-      vibratoGain.connect(oscillator.frequency);
+  audio.play().catch(() => {
+    button.classList.remove("playing");
+    button.textContent = "▶";
+    currentWhistleAudio = null;
+  });
 
-      gain.gain.setValueAtTime(0.0001, ctx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.12, ctx.currentTime + 0.04);
-      gain.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 0.95);
-      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 1.18);
-
-      oscillator.connect(gain);
-      gain.connect(ctx.destination);
-
-      button.classList.add("playing");
-      button.textContent = "Ⅱ";
-
-      oscillator.start();
-      vibrato.start();
-      oscillator.stop(ctx.currentTime + 1.2);
-      vibrato.stop(ctx.currentTime + 1.2);
-
-      currentWhistleTimeout = setTimeout(() => {
-        button.classList.remove("playing");
-        button.textContent = "▶";
-        ctx.close();
-      }, 1250);
-    }
+  audio.addEventListener("ended", () => {
+    button.classList.remove("playing");
+    button.textContent = "▶";
+    currentWhistleAudio = null;
+  });
+}
 
     function playSuccessSound() {
       const AudioContext = window.AudioContext || window.webkitAudioContext;
