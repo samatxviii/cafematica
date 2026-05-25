@@ -596,6 +596,50 @@
         return `${mapa.year}-${mapa.month}-${mapa.day}`;
       }
 
+         function obterHoraAtualBrasilia() {
+  const partes = new Intl.DateTimeFormat("pt-BR", {
+    timeZone: "America/Sao_Paulo",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false
+  }).formatToParts(new Date());
+
+  const mapa = {};
+  partes.forEach((parte) => {
+    mapa[parte.type] = parte.value;
+  });
+
+  return {
+    hora: Number(mapa.hour),
+    minuto: Number(mapa.minute)
+  };
+}
+
+function hojeAindaPodeSerAgendado() {
+  const agora = obterHoraAtualBrasilia();
+
+  return agora.hora < 18;
+}
+
+function horarioBloqueadoPelaRegraDoDia(dataIso, horario) {
+  if (dataIso !== hojeIso) {
+    return false;
+  }
+
+  const agora = obterHoraAtualBrasilia();
+  const horaEscolhida = Number(horario.split(":")[0]);
+
+  if (agora.hora >= 18) {
+    return true;
+  }
+
+  if (agora.hora >= 13) {
+    return horaEscolhida < 18;
+  }
+
+  return horaEscolhida < 13;
+}
+
       function criarIso(ano, mesZero, dia) {
         const mes = String(mesZero + 1).padStart(2, "0");
         const diaFormatado = String(dia).padStart(2, "0");
@@ -616,21 +660,25 @@
       }
 
       function gerarHorarios() {
-        const horarios = [];
+  const horarios = [];
 
-        for (let hora = 7; hora <= 23; hora++) {
-          horarios.push(`${String(hora).padStart(2, "0")}:00`);
-        }
+  for (let hora = 7; hora <= 22; hora++) {
+    horarios.push(`${String(hora).padStart(2, "0")}:00`);
+  }
 
-        return horarios;
-      }
+  return horarios;
+}
 
       function horarioIndisponivel(dataIso, horario) {
-        return Boolean(
-          HORARIOS_INDISPONIVEIS[dataIso] &&
-          HORARIOS_INDISPONIVEIS[dataIso].includes(horario)
-        );
-      }
+  const indisponivelManual = Boolean(
+    HORARIOS_INDISPONIVEIS[dataIso] &&
+    HORARIOS_INDISPONIVEIS[dataIso].includes(horario)
+  );
+
+  const indisponivelPelaRegraDoDia = horarioBloqueadoPelaRegraDoDia(dataIso, horario);
+
+  return indisponivelManual || indisponivelPelaRegraDoDia;
+}
 
       function renderizarCalendario() {
         elMes.textContent = nomeDoMes(anoAtual, mesAtual);
@@ -647,7 +695,7 @@
 
         for (let dia = 1; dia <= totalDias; dia++) {
           const dataIso = criarIso(anoAtual, mesAtual, dia);
-          const passado = dataIso < hojeIso;
+          const passado = dataIso < hojeIso || (dataIso === hojeIso && !hojeAindaPodeSerAgendado());
 
           const botao = document.createElement("button");
           botao.type = "button";
