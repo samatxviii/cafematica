@@ -427,6 +427,71 @@
       color: #ffffff;
     }
 
+    .agenda-botao[hidden] {
+      display: none !important;
+    }
+
+    .agenda-secundario {
+      grid-column: 1;
+    }
+
+    .agenda-confirmar {
+      grid-column: 2;
+    }
+
+    .agenda-primario {
+      grid-column: 3;
+    }
+
+    .agenda-confirmacao-card {
+      display: grid;
+      gap: .75rem;
+      margin-top: 1rem;
+      border: 1px solid var(--agenda-borda);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, .06);
+      padding: 1rem;
+    }
+
+    .agenda-confirmacao-linha {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: .8rem;
+      align-items: start;
+      padding-bottom: .75rem;
+      border-bottom: 1px solid rgba(255, 255, 255, .09);
+    }
+
+    .agenda-confirmacao-linha:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .agenda-confirmacao-label {
+      color: var(--agenda-mutado);
+      font-size: .9rem;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .agenda-confirmacao-valor {
+      color: #ffffff;
+      font-weight: 900;
+      line-height: 1.35;
+    }
+
+    .agenda-confirmacao-aviso {
+      margin-top: 1rem;
+      border: 1px solid rgba(250, 204, 21, .28);
+      border-radius: 18px;
+      background: rgba(250, 204, 21, .10);
+      color: #fde68a;
+      padding: .9rem 1rem;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+
 
     .agenda-telefone-linha {
       display: grid;
@@ -847,6 +912,17 @@
       .agenda-telefone-linha {
         grid-template-columns: 1fr;
       }
+
+      .agenda-secundario,
+      .agenda-confirmar,
+      .agenda-primario {
+        grid-column: auto;
+      }
+
+      .agenda-confirmacao-linha {
+        grid-template-columns: 1fr;
+        gap: .25rem;
+      }
     }
   </style>
 
@@ -903,15 +979,15 @@
       <div class="agenda-popup-corpo" data-agenda-corpo></div>
 
       <div class="agenda-popup-rodape">
-        <button class="agenda-botao agenda-secundario" type="button" data-agenda-voltar disabled>
+        <button class="agenda-botao agenda-secundario" type="button" data-agenda-voltar disabled hidden>
           Voltar
         </button>
 
-        <button class="agenda-botao agenda-confirmar" type="button" data-agenda-confirmar disabled>
+        <button class="agenda-botao agenda-confirmar" type="button" data-agenda-confirmar disabled hidden>
           Confirmar
         </button>
 
-        <button class="agenda-botao agenda-primario" type="button" data-agenda-avancar disabled>
+        <button class="agenda-botao agenda-primario" type="button" data-agenda-avancar disabled hidden>
           Avançar
         </button>
       </div>
@@ -1263,106 +1339,31 @@
       }
 
       function renderizarEtapaDados() {
-        const paisSelecionado = obterPaisSelecionado();
-        const usandoPaisManual = estado.paisId === "OUTRO";
-        const codigoAtual = obterCodigoPaisEfetivo();
-        const exemploTelefone = usandoPaisManual
-          ? "Digite apenas o número, sem o código do país"
-          : paisSelecionado.exemplo;
-
         elCorpo.innerHTML = `
-          <h4>Informe seus dados</h4>
-          <p>Preencha seu nome e seu WhatsApp para finalizar a solicitação.</p>
+          <h4>Confirme seu agendamento</h4>
+          <p>Confira os dados antes de continuar.</p>
 
-          <div class="agenda-campos">
-            <div class="agenda-campo">
-              <label for="agendaNome">Nome</label>
-              <input id="agendaNome" type="text" autocomplete="name" placeholder="Seu nome completo">
+          <div class="agenda-confirmacao-card">
+            <div class="agenda-confirmacao-linha">
+              <span class="agenda-confirmacao-label">Data</span>
+              <span class="agenda-confirmacao-valor">${formatarDataBR(estado.data)}</span>
             </div>
 
-            <div class="agenda-campo">
-              <label for="agendaTelefone">WhatsApp</label>
+            <div class="agenda-confirmacao-linha">
+              <span class="agenda-confirmacao-label">Horário</span>
+              <span class="agenda-confirmacao-valor">${estado.horario} (horário de Brasília)</span>
+            </div>
 
-              <div class="agenda-telefone-linha">
-                <div class="agenda-pais-wrap">
-                  <select id="agendaPais" class="agenda-pais" aria-label="País do WhatsApp">
-                    ${PAISES_WHATSAPP.map((pais) => {
-                      const texto = pais.codigo
-                        ? `${pais.nome} +${pais.codigo}`
-                        : pais.nome;
-
-                      return `
-                        <option value="${pais.id}" ${pais.id === estado.paisId ? "selected" : ""}>
-                          ${texto}
-                        </option>
-                      `;
-                    }).join("")}
-                  </select>
-
-                  <input
-                    id="agendaCodigoPais"
-                    class="agenda-codigo-pais"
-                    type="tel"
-                    inputmode="numeric"
-                    placeholder="Código do país. Ex.: 351"
-                    value="${estado.paisCodigoManual}"
-                    ${usandoPaisManual ? "" : "hidden"}
-                  >
-                </div>
-
-                <input id="agendaTelefone" type="tel" inputmode="numeric" autocomplete="tel" placeholder="${exemploTelefone}">
-              </div>
-
-              <div class="agenda-ajuda" data-agenda-ajuda-telefone>
-                ${usandoPaisManual
-                  ? "Escolha ‘Outro país’, informe o código internacional à esquerda e o número à direita."
-                  : `Exemplo: +${codigoAtual} ${paisSelecionado.exemplo}`
-                }
-              </div>
+            <div class="agenda-confirmacao-linha">
+              <span class="agenda-confirmacao-label">Assunto</span>
+              <span class="agenda-confirmacao-valor">${estado.assunto}</span>
             </div>
           </div>
+
+          <div class="agenda-confirmacao-aviso">
+            Ao clicar em Confirmar, você será encaminhado para o WhatsApp para enviar a mensagem e concluir a solicitação do agendamento.
+          </div>
         `;
-
-        const inputNome = elCorpo.querySelector("#agendaNome");
-        const selectPais = elCorpo.querySelector("#agendaPais");
-        const inputCodigoPais = elCorpo.querySelector("#agendaCodigoPais");
-        const inputTelefone = elCorpo.querySelector("#agendaTelefone");
-
-        inputNome.value = estado.nome;
-        inputTelefone.value = estado.telefone;
-
-        inputNome.addEventListener("input", () => {
-          estado.nome = inputNome.value;
-          atualizarBotoes();
-        });
-
-        selectPais.addEventListener("change", () => {
-          const novoPais = PAISES_WHATSAPP.find((pais) => pais.id === selectPais.value) || PAISES_WHATSAPP[0];
-
-          estado.paisId = novoPais.id;
-          estado.paisCodigo = novoPais.codigo;
-          estado.paisCodigoManual = "";
-          estado.telefone = "";
-
-          renderizarPopup();
-        });
-
-        inputCodigoPais.addEventListener("input", () => {
-          inputCodigoPais.value = inputCodigoPais.value.replace(/\D/g, "").slice(0, 4);
-          estado.paisCodigoManual = inputCodigoPais.value;
-          atualizarBotoes();
-        });
-
-        inputTelefone.addEventListener("input", () => {
-          if (obterCodigoPaisEfetivo() === "55") {
-            inputTelefone.value = mascararTelefone(inputTelefone.value);
-          }
-
-          estado.telefone = inputTelefone.value;
-          atualizarBotoes();
-        });
-
-        inputNome.focus();
       }
 
       function mascararTelefone(valor) {
@@ -1431,15 +1432,10 @@
       }
 
       function podeConfirmar() {
-        const nomeOk = estado.nome.trim().length >= 2;
-        const telefoneOk = telefoneValido(estado.telefone);
-
         const dadosBasicosOk = Boolean(
           estado.data &&
           estado.horario &&
-          estado.assunto &&
-          nomeOk &&
-          telefoneOk
+          estado.assunto
         );
 
         const indisponivel = horarioIndisponivel(estado.data, estado.horario);
@@ -1453,22 +1449,27 @@
         return dadosBasicosOk && !indisponivel;
       }
 
+      function definirVisibilidadeBotao(botao, visivel, ativo) {
+        botao.hidden = !visivel;
+        botao.disabled = !visivel || !ativo;
+      }
+
       function atualizarBotoes() {
-        btnVoltar.disabled = estado.etapa === 0;
-        btnAvancar.disabled = estado.etapa === 2 || !podeAvancar();
-        btnConfirmar.disabled = !podeConfirmar();
+        const voltarVisivel = estado.etapa > 0;
+        const avancarVisivel = estado.etapa < 2 && podeAvancar();
+        const confirmarVisivel = estado.etapa === 2 && podeConfirmar();
+
+        definirVisibilidadeBotao(btnVoltar, voltarVisivel, voltarVisivel);
+        definirVisibilidadeBotao(btnAvancar, avancarVisivel, avancarVisivel);
+        definirVisibilidadeBotao(btnConfirmar, confirmarVisivel, confirmarVisivel);
       }
 
       function enviarWhatsApp() {
         if (!podeConfirmar()) return;
 
-        const codigoPais = obterCodigoPaisEfetivo();
-
         const mensagem = [
-          "Olá, Fernando! Gostaria de agendar um atendimento.",
+          "Olá, Fernando! Gostaria de confirmar uma solicitação de agendamento.",
           "",
-          `Nome: ${estado.nome.trim()}`,
-          `WhatsApp: +${codigoPais} ${estado.telefone}`,
           `Data: ${formatarDataBR(estado.data)}`,
           `Horário: ${estado.horario} (horário de Brasília)`,
           `Assunto: ${estado.assunto}`
