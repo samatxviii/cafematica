@@ -1,0 +1,13 @@
+{
+  "name": "Cafem\u00e1tica",
+  "url": "https://www.cafematica.com.br",
+  "email": "contato@cafematica.com.br",
+  "adminUrl": "/admin/",
+  "supabaseUrl": "",
+  "supabasePublishableKey": "",
+  "authEnabled": false,
+  "adsensePublisherId": "",
+  "adsEnabled": false,
+  "editorialUpdated": "2026-10-12",
+  "commentsEnabled": false
+}

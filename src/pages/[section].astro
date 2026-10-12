@@ -1,0 +1,10 @@
+---
+import fs from 'node:fs';import matter from 'gray-matter';import Base from '../layouts/Base.astro';import PostCard from '../components/PostCard.astro';import {getPosts,categories} from '../lib/content.mjs';import {renderMarkdown} from '../lib/render.mjs';
+export function getStaticPaths(){
+ const cats=Object.entries(categories).map(([section,info])=>({params:{section},props:{kind:'category',info,category:section}}));
+ const pages=fs.readdirSync('content/pages').filter(f=>f.endsWith('.md')).map(f=>{const {data,content}=matter(fs.readFileSync('content/pages/'+f,'utf8'));return {params:{section:data.slug},props:{kind:'legal',page:data,content}};});
+ return [...cats,...pages];
+}
+const {kind,info,category,page,content}=Astro.props;const posts=kind==='category'?getPosts().filter(p=>p.category===category):[];
+---
+<Base title={kind==='category'?info.name:page.title} description={kind==='category'?info.intro:page.description}>{kind==='category'?<div class="container"><header class="page-intro"><div class="breadcrumbs"><a href="/">Início</a><span>/</span><span>{info.name}</span></div><span class="eyebrow">Aprenda com o Cafemática</span><h1>{info.name}<span style="color:var(--rust)">.</span></h1><p>{info.intro}</p></header><section class="section" style="padding-top:15px"><div class="post-grid">{posts.map(post=><PostCard post={post}/>)}</div></section></div>:<div class="container content-page"><header class="page-intro"><span class="eyebrow">Transparência e respeito</span><h1>{page.title}</h1></header><div class="prose" set:html={renderMarkdown(content)}/></div>}</Base>

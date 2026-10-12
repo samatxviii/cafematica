@@ -1,0 +1,38 @@
+---
+import '@fontsource/dm-sans/latin-400.css';
+import '@fontsource/dm-sans/latin-500.css';
+import '@fontsource/dm-sans/latin-600.css';
+import '@fontsource/dm-sans/latin-700.css';
+import '@fontsource/lora/latin-400.css';
+import '@fontsource/lora/latin-500.css';
+import 'katex/dist/katex.min.css';
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import site from '../../config/site.json';
+const {title='Um café. Uma ideia. Um novo aprendizado.',description='Matemática, LaTeX e tecnologia com Prof. Fernando. Artigos, exercícios resolvidos e tutoriais para aprender com clareza.',noindex=false,article=null}=Astro.props;
+const url=new URL(Astro.url.pathname,site.url).href;
+const schema=article?{'@context':'https://schema.org','@type':'Article',headline:article.title,description:article.description,datePublished:article.date,dateModified:article.updated||article.date,author:{'@type':'Organization',name:'Cafemática',url:site.url+'/sobre/'},publisher:{'@type':'Organization',name:'Cafemática',logo:{'@type':'ImageObject',url:site.url+'/assets/logo-original.png'}},mainEntityOfPage:url}:{'@context':'https://schema.org','@type':'WebSite',name:'Cafemática',url:site.url,inLanguage:'pt-BR'};
+const nav=[['/blog/','Blog'],['/matematica/','Matemática'],['/latex/','LaTeX'],['/tecnologia/','Tecnologia'],['/sobre/','Sobre']];
+---
+<!doctype html><html lang="pt-BR"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>{title} | Cafemática</title><meta name="description" content={description}/><meta name="theme-color" content="#f9f7f2"/>
+<meta name="robots" content={noindex?'noindex, nofollow':'index, follow, max-image-preview:large'}/><link rel="canonical" href={url}/>
+<link rel="icon" href="/assets/logo-original.png"/><link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Artigos do Cafemática"/>
+<meta property="og:type" content={article?'article':'website'}/><meta property="og:locale" content="pt_BR"/><meta property="og:site_name" content="Cafemática"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={url}/><meta property="og:image" content={site.url+'/og-cafematica.png'}/><meta name="twitter:card" content="summary_large_image"/>
+{site.adsensePublisherId&&/^ca-pub-\d{16}$/.test(site.adsensePublisherId)&&<meta name="google-adsense-account" content={site.adsensePublisherId}/>}
+<script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g,'\u003c')}/>
+</head><body>
+<a class="skip-link" href="#principal">Pular para o conteúdo</a>
+<header class="site-header"><div class="container header-inner">
+<a class="brand" href="/" aria-label="Cafemática, início"><img src="/assets/logo-original.png" width="36" height="44" alt=""/><span>Cafemática<span class="brand-dot">.</span></span></a>
+<nav class="main-nav" id="main-nav" aria-label="Menu principal">{nav.map(([href,label])=><a href={href} aria-current={Astro.url.pathname.startsWith(href)?'page':undefined}>{label}</a>)}<a class="nav-contact" href="/contato/">Vamos conversar <Icon size={16}/></a></nav>
+<div class="header-actions"><a class="icon-button" href="/blog/#busca" aria-label="Pesquisar artigos"><Icon name="search"/></a><a class="icon-button admin-link" href={site.adminUrl} aria-label="Área administrativa" title="Área administrativa"><Icon name="lock" size={17}/></a><button class="icon-button menu-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Abrir menu"><Icon name="menu"/></button></div>
+</div></header>
+<main id="principal"><slot/></main>
+<footer class="site-footer"><div class="container footer-top"><div class="footer-brand"><a class="brand" href="/"><img src="/assets/logo-original.png" width="34" height="42" alt=""/>Cafemática.</a><p>Conhecimento combina com uma boa conversa.<br/>E, claro, com um café.</p></div><div><h2>Explore</h2><a href="/matematica/">Matemática</a><a href="/latex/">LaTeX</a><a href="/tecnologia/">Tecnologia</a></div><div><h2>Por aqui</h2><a href="/sobre/">Sobre o professor</a><a href="/aulas/">Aulas e consultorias</a><a href="/contato/">Contato</a></div><div><h2>Continue aprendendo</h2><a href="https://www.youtube.com/@CafematicaOficial" rel="noopener noreferrer">Cafemática no YouTube ↗</a><a href="https://www.youtube.com/@LaTeX.Fernando" rel="noopener noreferrer">Canal LaTeX ↗</a><a href="https://www.youtube.com/@TTT.Fernando" rel="noopener noreferrer">Teu Tutor de Tecnologia ↗</a></div></div>
+<div class="container footer-bottom"><small>© {new Date().getFullYear()} Cafemática · Prof. Fernando Batista</small><div><a href="/privacidade/">Privacidade</a><a href="/termos/">Termos e comentários</a><a href="/cookies/">Cookies</a><button class="text-button" data-cookie-settings>Preferências de privacidade</button></div></div></footer>
+<dialog id="cookie-dialog" class="cookie-dialog" aria-labelledby="cookie-title"><form method="dialog"><div class="eyebrow">Você escolhe</div><h2 id="cookie-title">Suas preferências de privacidade</h2><p>As páginas e a busca funcionam sem cookies de publicidade. Vídeos externos só serão carregados com sua autorização. O login, quando ativado, usa armazenamento necessário para manter sua sessão.</p><label class="cookie-choice"><input type="checkbox" checked disabled/> Essenciais <span>Sempre ativos quando necessários</span></label><label class="cookie-choice"><input id="cookie-media" type="checkbox"/> Vídeos do YouTube <span>Permite carregar vídeos incorporados</span></label><p class="small">Não veiculamos anúncios nem usamos análise de audiência nesta versão. <a href="/cookies/">Saiba mais</a>.</p><div class="button-row"><button class="button secondary" value="reject" id="cookie-reject">Rejeitar opcionais</button><button class="button" value="save" id="cookie-save">Salvar preferências</button></div></form></dialog>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<script>import '../scripts/site.js';</script>
+</body></html>
