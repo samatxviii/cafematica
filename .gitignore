@@ -1,0 +1,12 @@
+node_modules/
+dist/
+admin-dist/
+.astro/
+.env
+.env.*
+!.env.example
+coverage/
+*.log
+.DS_Store
+supabase/.temp/
+supabase/.branches/

@@ -1,0 +1,8 @@
+---
+import Icon from './Icon.astro';
+const {post,compact=false}=Astro.props;
+---
+<article class:list={['post-card',{'compact':compact}]} data-search={`${post.title} ${post.description} ${post.categoryInfo.name}`} data-category={post.category}>
+<a class:list={['post-art',post.categoryInfo.color]} href={`/blog/${post.slug}/`} tabindex="-1" aria-hidden="true"><span class="art-label">{post.topic||post.categoryInfo.name}</span><span class="art-symbol">{post.art||post.categoryInfo.symbol}</span><span class="art-corner">C /</span></a>
+<div class="post-card-content"><div class="post-meta"><span class={`category-label ${post.category}`}>{post.categoryInfo.name}</span><span>{post.minutes} min de leitura</span></div><h3><a href={`/blog/${post.slug}/`}>{post.title}</a></h3><p>{post.description}</p><a class="read-link" href={`/blog/${post.slug}/`}>Ler artigo <Icon size={17}/></a></div>
+</article>

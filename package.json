@@ -1,0 +1,38 @@
+{
+  "name": "cafematica-portal",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build && node scripts/finish-build.mjs",
+    "preview": "astro preview",
+    "test": "vitest run",
+    "verify": "node scripts/verify-build.mjs",
+    "release:pages": "node scripts/release-pages.mjs",
+    "admin:build": "node scripts/build-admin.mjs"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.4",
+    "@fontsource/dm-sans": "5.3.0",
+    "@fontsource/lora": "5.3.0",
+    "@supabase/supabase-js": "2.117.3",
+    "astro": "7.3.8",
+    "dompurify": "3.4.16",
+    "gray-matter": "4.0.3",
+    "katex": "0.19.0",
+    "marked": "18.1.0",
+    "sanitize-html": "2.18.0"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.8",
+    "@types/node": "26.6.5",
+    "@types/sanitize-html": "2.16.2",
+    "linkedom": "0.18.13",
+    "typescript": "7.0.2",
+    "vitest": "5.0.3"
+  }
+}

@@ -1,0 +1,4 @@
+project_id = "cafematica"
+[functions.publish-post]
+# Auth is verified with getUser() and is_admin() inside the function (supports new JWT keys).
+verify_jwt = false

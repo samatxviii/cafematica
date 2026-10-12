@@ -1,0 +1,52 @@
+---
+slug: "obs-primeira-aula"
+title: "OBS para professores: prepare sua primeira aula gravada"
+description: "Organize tela, câmera e áudio em uma estrutura simples e faça um teste antes de gravar a aula completa."
+category: "tecnologia"
+topic: "Tecnologia para ensinar"
+art: "REC •"
+date: "2026-10-12"
+published: true
+cmsId: "7cadeccd-5bee-453f-a1a9-782dc4cfc4c1"
+cmsVersion: 1
+---
+
+A primeira aula gravada não precisa de uma abertura animada ou de muitas transições. O mais importante é que o estudante consiga ouvir sua explicação e ler o material. Uma estrutura simples também facilita corrigir problemas antes que eles comprometam uma gravação longa.
+
+O OBS Studio trabalha com cenas e fontes. Uma cena organiza o que aparecerá na saída; as fontes são os elementos que a compõem, como uma janela, uma câmera ou uma imagem. Vamos usar essa estrutura para planejar uma aula curta.
+
+## Defina o que o aluno precisa enxergar
+
+Antes de abrir o programa, escolha um objetivo pequeno: explicar a solução de uma equação, apresentar uma ferramenta ou comentar um exercício. Prepare o material com letra grande e deixe espaço para apontar ou escrever.
+
+Um teste útil é abrir o material em uma janela menor. Se a fórmula fica difícil de distinguir nesse tamanho, ela provavelmente precisará de ajustes para quem assistir pelo celular. A câmera pode aproximar a conversa, mas não deve esconder uma parte importante da resolução.
+
+## Monte duas cenas
+
+Crie uma cena chamada “Apresentação”, contendo sua câmera, e outra chamada “Aula”, contendo o material de trabalho. Na segunda, você pode acrescentar uma câmera pequena no canto, desde que sobre espaço.
+
+Para capturar um aplicativo, procure a fonte de captura de janela adequada ao seu sistema. Para capturar uma tela inteira, use a fonte correspondente. Os nomes e a disponibilidade podem variar conforme o sistema operacional. A captura de janela ajuda a limitar a área mostrada, mas é importante conferir o resultado real antes de gravar.
+
+As fontes têm uma ordem: as que estão acima na lista podem cobrir as inferiores. Se a câmera sumiu, verifique essa ordem e a visibilidade indicada pelo ícone de olho.
+
+## Trate o áudio como parte da explicação
+
+Fale uma frase em volume normal e observe o medidor do microfone. Depois, grave uma amostra e escute com fones. Um medidor se movimentando confirma que há sinal, mas não garante que a voz esteja agradável ou que o dispositivo correto tenha sido selecionado.
+
+Evite capturar o mesmo microfone em duas fontes ao mesmo tempo. Se houver eco ou voz duplicada, investigue fontes sobrepostas e monitoramento. Faça também um teste com alguns segundos de silêncio para perceber ruídos constantes.
+
+Na aula de Matemática, pausas para pensar e escrever fazem parte do ritmo. Não é necessário preencher cada segundo com fala. O áudio deve ajudar o estudante a acompanhar seu raciocínio.
+
+## Grave um ensaio de um minuto
+
+Use o assistente de configuração do OBS como ponto de partida e faça uma gravação curta. No ensaio, apresente o tema, troque de cena, mostre uma conta e finalize. Abra o arquivo gravado, não apenas a prévia do programa.
+
+Confira quatro pontos: a voz pode ser compreendida, o texto pode ser lido, nenhuma janela indevida aparece e a troca de cena acontece como esperado. A cada tentativa, altere apenas o necessário para resolver o problema observado.
+
+## Organize uma rotina repetível
+
+Crie uma pequena lista pessoal de preparação: material aberto, microfone selecionado, notificações controladas, destino da gravação conhecido e teste concluído. Depois da aula, assista a alguns trechos do início, do meio e do final antes de publicar.
+
+As coleções de cenas e os perfis são recursos diferentes. Perfis guardam configurações relacionadas à transmissão e saída; cenas ficam nas coleções. Se você trabalha com vários canais, confira a conta e o destino efetivamente selecionados a cada transmissão, além de conferir a coleção visual usada.
+
+Para consultar as opções do programa, veja o [guia inicial oficial](https://obsproject.com/kb/quick-start-guide), o [guia de fontes](https://obsproject.com/kb/sources-guide) e a [documentação de perfis](https://obsproject.com/kb/profiles). Os exemplos deste artigo são uma proposta de organização de aula; adapte-os ao seu equipamento e à sua forma de ensinar.
