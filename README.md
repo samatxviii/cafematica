@@ -16,7 +16,7 @@ Requer Node.js 24. Instale com `npm ci`.
 - `npm run verify`: verifica metadados, links e o pacote público.
 - `npm run admin:build`: gera `admin-dist/` para hospedar o painel em origem separada.
 
-O workflow `.github/workflows/portal.yml` valida e publica `dist/` no GitHub Pages. Somente `main` pode publicar. PRs executam as verificações. O domínio original é preservado em `CNAME`.
+O workflow `.github/workflows/portal.yml` valida e publica `dist/` no GitHub Pages. Somente `main` pode publicar. PRs executam as verificações. O domínio original é preservado em `CNAME`. Enquanto a origem do Pages estiver configurada como branch, o workflow aguarda a publicação automática anterior e depois implanta o pacote correto. A troca para origem GitHub Actions pode ser feita posteriormente nas configurações do Pages.
 
 ## Conteúdo
 
