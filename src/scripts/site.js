@@ -141,3 +141,24 @@ if(studio){
   control.addEventListener('input',render);
   render();
 }
+
+
+// Accessible code copying in tutorials (no third-party library).
+document.querySelectorAll('.prose pre').forEach(pre=>{
+  const code=pre.querySelector('code');
+  if(!code)return;
+  const button=document.createElement('button');
+  button.type='button';
+  button.className='code-copy';
+  button.textContent='Copiar código';
+  button.setAttribute('aria-label','Copiar o código deste exemplo');
+  button.addEventListener('click',async()=>{
+    try{
+      await navigator.clipboard.writeText(code.textContent||'');
+      button.textContent='Copiado!';
+      toast('Código copiado.');
+    }catch{toast('Não foi possível copiar automaticamente. Selecione o código para copiar.');}
+  });
+  pre.classList.add('code-example');
+  pre.prepend(button);
+});
