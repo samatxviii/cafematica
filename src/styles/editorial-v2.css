@@ -128,3 +128,16 @@ h1,h2{font-family:'Lora',Georgia,serif}
 [data-blog] .post-card .read-link:hover{border-color:var(--rust)}
 @media(max-width:800px){.page-intro{padding-block:55px 35px}.browse-controls{padding:16px}}
 @media(max-width:520px){.page-intro h1{font-size:47px}.page-intro p{font-size:16px}}
+
+/* Tutorials: copyable code examples */
+.prose pre.code-example{position:relative;padding-top:60px;background:#20364D;color:#f9f3e9}
+.code-copy{position:absolute;top:13px;right:13px;padding:7px 12px;border:1px solid #ffffff55;border-radius:4px;background:#ffffff12;color:white;font-family:'DM Sans',sans-serif;font-size:12px;line-height:1.2}
+.code-copy:hover,.code-copy:focus-visible{background:#ffffff2c;color:white}
+@media(min-width:801px) and (max-width:1050px){
+  .site-header .main-nav{display:none;position:absolute;left:0;right:0;top:76px;background:var(--paper);border-bottom:1px solid var(--line);padding:20px 25px;box-shadow:0 20px 25px #292c2510}
+  .site-header .main-nav.is-open{display:flex;flex-direction:column;align-items:stretch;gap:0}
+  .site-header .main-nav a{padding:13px}
+  .site-header .menu-toggle{display:flex}
+  .site-header .nav-contact{display:flex}
+  .site-header{height:77px}
+}
