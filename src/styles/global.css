@@ -14,3 +14,15 @@
 @keyframes cafematica-draw-line{to{background-size:100% .075em}}
 @media(prefers-reduced-motion:reduce){.signature-underline{animation:none!important;background-size:100% .075em!important}*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
 @media(max-width:800px){.hero-copy h1{font-size:clamp(2.55rem,8vw,4rem)}}
+
+/* Progressive blog refinements */
+.blog-refine{display:flex;align-items:end;justify-content:flex-end;gap:18px;flex-wrap:wrap;margin:-16px 0 26px}
+.blog-refine label{font-size:12px;color:var(--muted);margin-bottom:5px}
+.blog-refine select{min-width:170px;max-width:100%;background:var(--white);border:1px solid var(--line);border-radius:7px;font-size:14px;padding:10px 13px}
+.post-card{min-width:0}
+.post-card .post-art{transition:transform .25s ease,border-radius .25s ease}
+.post-card:hover .post-art{transform:translateY(-3px)}
+.post-card h3 a{text-decoration:underline;text-decoration-color:transparent;text-underline-offset:.2em;text-decoration-thickness:2px;transition:text-decoration-color .2s ease}
+.post-card h3 a:hover,.post-card h3 a:focus-visible{text-decoration-color:var(--rust)}
+@media(max-width:800px){.blog-refine{justify-content:stretch}.blog-refine>div{flex:1 1 150px}.blog-refine select{width:100%}}
+@media(prefers-reduced-motion:reduce){.post-card .post-art{transform:none!important}}
