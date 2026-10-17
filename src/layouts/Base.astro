@@ -13,7 +13,7 @@ const {title='Um café. Uma ideia. Um novo aprendizado.',description='Matemátic
 const url=new URL(Astro.url.pathname,site.url).href;
 const schema=article?{'@context':'https://schema.org','@type':'Article',headline:article.title,description:article.description,datePublished:article.date,dateModified:article.updated||article.date,author:{'@type':'Organization',name:'Cafemática',url:site.url+'/sobre/'},publisher:{'@type':'Organization',name:'Cafemática',logo:{'@type':'ImageObject',url:site.url+'/assets/logo-original.png'}},mainEntityOfPage:url}:{'@context':'https://schema.org','@type':'WebSite',name:'Cafemática',url:site.url,inLanguage:'pt-BR'};
 const analyticsId=/^G-[A-Z0-9]+$/.test(site.googleAnalyticsMeasurementId||'')?site.googleAnalyticsMeasurementId:'';
-const nav=[['/blog/','Blog'],['/matematica/','Matemática'],['/latex/','LaTeX'],['/tecnologia/','Tecnologia'],['/sobre/','Sobre']];
+const nav=[['/','Início'],['/matematica/','Matemática'],['/latex/','LaTeX'],['/tecnologia/','Tecnologia'],['/blog/','Artigos'],['/aulas/','Materiais'],['/sobre/','Sobre']];
 ---
 <!doctype html><html lang="pt-BR" data-analytics-id={analyticsId||undefined}><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
