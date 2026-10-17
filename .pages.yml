@@ -1,0 +1,104 @@
+# Cafemática — edição direta dos artigos em GitHub, sem Supabase nem servidor.
+# Acesse https://app.pagescms.org e conecte este repositório.
+media:
+  input: public/imagens/blog
+  output: /imagens/blog
+  rename: safe
+  extensions: [jpg, jpeg, png, webp, avif]
+
+settings:
+  content:
+    merge: true
+  commit:
+    templates:
+      create: "Publica novo artigo: {filename}"
+      update: "Atualiza artigo: {filename}"
+
+content:
+  - name: posts
+    label: Artigos do Cafemática
+    type: collection
+    path: content/posts
+    format: yaml-frontmatter
+    filename:
+      template: "{fields.slug}.md"
+      field: false
+    view:
+      primary: title
+      fields: [title, category, published, date]
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    operations:
+      rename: false
+      delete: false
+    fields:
+      - name: title
+        label: Título
+        type: string
+        required: true
+        options:
+          minlength: 5
+          maxlength: 160
+      - name: slug
+        label: Endereço do artigo (não alterar em artigos existentes)
+        type: string
+        required: true
+        description: "Somente letras minúsculas, números e hífens. Exemplo: juros-compostos-na-pratica. Não altere o endereço de artigos já publicados."
+        pattern: "^[a-z0-9]+(-[a-z0-9]+)*$"
+        options:
+          minlength: 3
+          maxlength: 90
+      - name: description
+        label: Resumo do artigo
+        type: text
+        required: true
+        options:
+          minlength: 30
+          maxlength: 300
+      - name: category
+        label: Categoria
+        type: select
+        required: true
+        default: matematica
+        options:
+          values:
+            - name: matematica
+              label: Matemática
+            - name: latex
+              label: LaTeX
+            - name: tecnologia
+              label: Tecnologia
+      - name: topic
+        label: Assunto específico
+        type: string
+        description: "Exemplo: Educação financeira, Álgebra ou Tutoriais."
+      - name: cover
+        label: Imagem de capa
+        type: image
+        options:
+          extensions: [jpg, jpeg, png, webp, avif]
+          rename: safe
+      - name: date
+        label: Data de publicação
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: published
+        label: Publicado no site
+        type: boolean
+        default: true
+        description: "Ativado = o artigo aparece no site após o GitHub Actions concluir a publicação."
+      - name: youtube
+        label: ID do vídeo YouTube (opcional)
+        type: string
+        description: "Apenas os 11 caracteres do identificador do vídeo."
+      - name: body
+        label: Conteúdo
+        type: rich-text
+        required: true
+        options:
+          format: markdown
+          switcher: true
