@@ -112,3 +112,18 @@ h1,h2,h3{font-family:'Lora',Georgia,serif;letter-spacing:-.045em}
 @media(max-width:800px){.container{width:calc(100% - 42px)}.site-header{height:77px}.atelier-hero h1{font-size:clamp(46px,8.5vw,74px);margin:60px 0 35px}.atelier-hero-foot{margin-bottom:60px}.atelier-intro{padding-block:75px;grid-template-columns:1fr;gap:20px}.atelier-topics,.atelier-reads,.atelier-play{padding-block:75px}.atelier-topic{grid-template-columns:35px 1fr 60px 25px;min-height:155px}.atelier-topic-art{font-size:58px}.atelier-feature{grid-template-columns:1fr}.atelier-feature-art{min-height:300px}.atelier-posts{grid-template-columns:repeat(2,minmax(0,1fr))}.atelier-play-grid{grid-template-columns:1fr}.atelier-play-demo{max-width:560px;width:100%}.atelier-ending{padding-block:75px;grid-template-columns:1fr;gap:20px}}
 @media(max-width:520px){.container{width:calc(100% - 36px)}.atelier-kicker{font-size:9px;gap:9px;padding-top:22px}.atelier-kicker-line,.atelier-kicker-line+span{display:none}.atelier-hero h1{font-size:clamp(40px,10.2vw,55px);margin:48px 0 35px;letter-spacing:-.065em}.atelier-handline{white-space:normal}.atelier-hero-foot{align-items:start;flex-direction:column;gap:24px;margin-bottom:50px}.atelier-hero-foot p{font-size:16px}.atelier-round-link{width:102px;height:102px;align-self:flex-end}.atelier-hero-bottom{font-size:9px}.atelier-intro p{font-size:31px}.atelier-section-heading h2{font-size:42px}.atelier-topic{grid-template-columns:30px 1fr 28px;gap:10px;padding:25px 0}.atelier-topic:hover{padding-inline:8px}.atelier-topic-art{display:none}.atelier-topic h3{font-size:38px}.atelier-topic p{font-size:13px}.atelier-feature-art{min-height:240px}.atelier-feature-art strong{font-size:140px}.atelier-feature-body{padding:28px}.atelier-feature-body h3{font-size:34px}.atelier-posts{grid-template-columns:1fr;gap:40px}.atelier-play-demo{padding:20px;box-shadow:6px 6px 0 #D5DDDA}.atelier-play-demo h3{font-size:38px}.atelier-ending h2{font-size:39px}}
 @media(prefers-reduced-motion:reduce){.atelier-handline path{animation:none;stroke-dashoffset:0}.atelier-round-link,.atelier-topic,.atelier-topic-art{transition:none!important;transform:none!important}}
+
+/* Editorial photography replaces noisy typographic artwork. */
+.post-art.editorial-cover{position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;aspect-ratio:16/10;height:auto;min-height:180px;border-radius:8px;background:#eee8df;color:#79675d}
+.post-art.editorial-cover img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;display:block;transition:transform .45s ease}
+.post-card:hover .editorial-cover img{transform:scale(1.035)}
+.post-art.editorial-cover .cover-placeholder{font-family:Georgia,serif;font-size:clamp(64px,7vw,100px);font-weight:400;font-style:italic;opacity:.22;letter-spacing:-.08em}
+.post-art.editorial-cover:before,.post-art.editorial-cover:after{display:none!important}
+.post-art.editorial-cover.has-cover{background:#eee8df}
+.atelier-posts .post-art.editorial-cover,[data-blog] .post-art.editorial-cover{height:auto;min-height:0}
+.blog-editorial-top{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.create-post-link{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;border:1px solid var(--line);border-radius:7px;padding:10px 16px;color:var(--espresso);background:#fffdf9;transition:border-color .2s,background .2s}
+.create-post-link:hover{border-color:var(--rust);background:#f7ede8;color:var(--rust)}
+.create-post-link>span:first-child{font-size:19px;line-height:1}
+.create-post-lock{color:var(--muted)}
+@media(prefers-reduced-motion:reduce){.post-art.editorial-cover img{transition:none!important;transform:none!important}}
