@@ -23,7 +23,7 @@ const safeDate=(v)=>v instanceof Date&&!Number.isNaN(v.getTime())?v.toISOString(
 const countH2=(s)=>(s.match(/^## [^\n]+/gm)||[]).length;
 const safeCover=(v)=>{
   const cover=text(v);
-  if(/^\/(?!\/)[a-zA-Z0-9/_.,-]+\.(?:jpe?g|png|webp|avif)$/i.test(cover)) {
+  if(/^\/(?!\/)[\p{L}\p{N}/_.,-]+\.(?:jpe?g|png|webp|avif)$/iu.test(cover) && !cover.split('/').some(part=>part==='.'||part==='..')) {
     const full=path.resolve(SITE_PUBLIC,'.'+cover);
     return full.startsWith(SITE_PUBLIC+path.sep)&&fs.existsSync(full);
   }
