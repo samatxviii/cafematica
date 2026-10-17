@@ -19,13 +19,15 @@ content:
     label: Artigos do Cafemática
     type: collection
     path: content/posts
+    subfolders: true
     format: yaml-frontmatter
     filename:
       template: "{fields.slug}.md"
       field: false
     view:
       primary: title
-      fields: [title, category, published, date]
+      fields: [title, seoScore, category, published, date]
+      layout: tree
       sort: [date, title]
       default:
         sort: date
@@ -33,7 +35,40 @@ content:
     operations:
       rename: false
       delete: false
+    actions:
+      - name: move-post-folder
+        label: Mover artigo para pasta
+        scope: entry
+        workflow: pages-cms-move-post.yml
+        ref: current
+        cancelable: false
+        confirm:
+          title: Mover este artigo?
+          message: O arquivo será movido no GitHub, mas o endereço público do artigo não mudará.
+          button: Mover artigo
+        fields:
+          - name: folder
+            label: Pasta de destino
+            type: select
+            required: true
+            options:
+              - label: Sem pasta (raiz de Artigos)
+                value: raiz
+              - label: Matemática
+                value: matematica
+              - label: LaTeX
+                value: latex
+              - label: Tecnologia
+                value: tecnologia
     fields:
+      - name: seoScore
+        label: Checklist SEO (0-10)
+        type: number
+        readonly: true
+        description: "Pontuação automática de 10 verificações editoriais objetivas. Não representa ranking nem nota do Google. É atualizada pelo GitHub após salvar."
+        options:
+          min: 0
+          max: 10
       - name: title
         label: Título
         type: string
