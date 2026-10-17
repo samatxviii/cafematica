@@ -10,7 +10,7 @@ date: 2026-10-12
 published: true
 cmsId: 448a58d9-c844-4c45-ab31-ed15ce88157f
 cmsVersion: 1
-cover: /imagens/blog/83996284-0789-4e03-bc18-e500ef891254.png
+cover: /imagens/blog/equação-de-primeiro-grau.png
 seoTitle: "Equação do 1º grau: como resolver passo a passo"
 seoDescription: "Aprenda a resolver equações do primeiro grau com exemplos, parênteses e exercícios. Entenda as operações nos dois lados e como conferir cada resposta."
 tags:
