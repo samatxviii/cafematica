@@ -9,6 +9,22 @@ date: "2026-10-12"
 published: true
 cmsId: "07b7a7d8-488d-419a-acf6-ff54388bf2ee"
 cmsVersion: 1
+seoTitle: "Lista de exercícios em LaTeX: modelo com gabarito"
+seoDescription: "Veja um modelo completo de lista de exercícios em LaTeX, com enumerate, espaço para respostas e gabarito em outra página. Código pronto para adaptar."
+tags:
+  - "lista de exercícios LaTeX"
+  - "gabarito em LaTeX"
+  - "enumerate"
+  - "atividades de matemática"
+  - "espaçamento no LaTeX"
+author: "Fernando da Silva Batista"
+updated: "2026-10-17"
+quickAnswer: "Para montar uma lista de exercícios em LaTeX, use o ambiente enumerate e inicie cada questão com \\item. Reserve espaço para resolução com \\vspace{...} e coloque o gabarito em uma nova página usando \\newpage. Compile o PDF e confira se a numeração, os espaços e as respostas continuam corretos depois das alterações."
+sources:
+  - title: "Overleaf — Listas numeradas com enumerate"
+    url: "https://www.overleaf.com/learn/latex/Lists"
+  - title: "Overleaf — Quebras de linha, de página e espaçamento"
+    url: "https://www.overleaf.com/learn/latex/Line_breaks_and_blank_spaces"
 ---
 
 Uma boa lista de exercícios precisa ser fácil de ler, resolver e revisar. O LaTeX ajuda a manter a numeração e a estrutura consistentes, especialmente quando você inclui ou reorganiza questões. Para começar, vamos montar um arquivo pequeno com três exercícios e um gabarito separado.
@@ -79,3 +95,8 @@ Ao preparar material para uma turma, mantenha uma versão do professor com resol
 Acrescente uma quarta questão com incógnitas dos dois lados. Resolva antes de incluí-la e confira a resposta substituindo o valor encontrado na igualdade original. Depois, observe se a lista ainda cabe nas páginas como você pretendia.
 
 Para personalizar rótulos e espaçamentos, consulte a [documentação do Overleaf sobre listas](https://www.overleaf.com/learn/latex/Lists). Aprenda primeiro a estrutura básica; adicione novas opções quando elas resolverem uma necessidade concreta.
+
+
+## Aproveite a mesma estrutura para outros conteúdos
+
+Uma vez pronta a estrutura da lista, substitua as questões por exercícios sobre [equações do primeiro grau](/blog/equacao-primeiro-grau/) ou [frações e operações](/blog/fracoes-sem-decorar/). Se precisar de comandos para numeradores, expoentes e radicais, consulte [como escrever fórmulas no LaTeX](/blog/formulas-latex/). Antes de distribuir o arquivo, confirme no PDF se o gabarito ficou separado do material do estudante.
