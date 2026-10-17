@@ -5,7 +5,7 @@
   "adminUrl": "/admin/",
   "supabaseUrl": "https://bgzxqfslersfmsluuszs.supabase.co",
   "supabasePublishableKey": "sb_publishable_ugJxWU-QG-SibDYjaymrZA_lqDdbxR4",
-  "authEnabled": false,
+  "authEnabled": true,
   "adsensePublisherId": "",
   "adsEnabled": false,
   "editorialUpdated": "2026-10-12",
