@@ -9,6 +9,24 @@ date: "2026-10-12"
 published: true
 cmsId: "682e5df5-e186-4a28-af98-03f39dbe20b4"
 cmsVersion: 1
+seoTitle: "Fórmulas em LaTeX: frações, raízes e potências"
+seoDescription: "Veja como escrever fórmulas matemáticas em LaTeX com frac, sqrt, expoentes e índices. Exemplos prontos para copiar em documentos e no Overleaf."
+tags:
+  - "fórmulas em LaTeX"
+  - "frações no LaTeX"
+  - "raiz quadrada no LaTeX"
+  - "expoentes e índices"
+  - "Overleaf"
+author: "Fernando da Silva Batista"
+updated: "2026-10-17"
+quickAnswer: "No LaTeX, escreva uma fração com \\frac{numerador}{denominador}, uma raiz com \\sqrt{x}, uma potência com x^{2} e um índice com a_{n}. Use o modo matemático para essas expressões e chaves para agrupar numeradores, expoentes ou índices com vários caracteres. Para destacar uma equação sem numeração, use \\[ ... \\]."
+sources:
+  - title: "Overleaf — Como escrever expressões matemáticas em LaTeX"
+    url: "https://www.overleaf.com/learn/latex/Mathematical_expressions"
+  - title: "Overleaf — Frações e binômios no LaTeX"
+    url: "https://www.overleaf.com/learn/latex/Fractions_and_Binomials"
+  - title: "Overleaf — Índices inferiores e expoentes"
+    url: "https://www.overleaf.com/learn/latex/Subscripts_and_superscripts"
 ---
 
 Uma fórmula bem escrita ajuda o leitor a perceber a estrutura de uma ideia. No LaTeX, o modo matemático cuida do espaçamento entre operadores e da apresentação dos símbolos, mas você precisa indicar corretamente quais partes pertencem a cada comando.
@@ -70,3 +88,8 @@ Tente escrever, nesta ordem, $\frac35$, $x^{10}$, $a_{12}$, $\sqrt{x+2}$ e $\fra
 No último exemplo, a escrita está bem formada, mas o denominador informa uma restrição matemática: $x\ne3$. O compilador não substitui a revisão do raciocínio. Ele pode apresentar com excelente aparência uma expressão matematicamente inadequada.
 
 Consulte a [documentação do Overleaf sobre expressões matemáticas](https://www.overleaf.com/learn/latex/Mathematical_expressions) para explorar outras formas de apresentação. Se ainda não tem um arquivo de trabalho, comece pelo [primeiro documento em LaTeX](/blog/primeiro-documento-latex/).
+
+
+## Aplique esses comandos em um material didático
+
+Para treinar a escrita de frações, raízes e potências, experimente incorporá-las a uma atividade pronta. O tutorial [Como montar uma lista de exercícios em LaTeX](/blog/lista-exercicios-latex/) mostra a estrutura de uma lista numerada com gabarito. Se quiser começar por um documento mínimo antes de trabalhar com fórmulas, veja [Seu primeiro documento em LaTeX](/blog/primeiro-documento-latex/). Para conferir o significado matemático de uma fração antes de digitá-la, relembre [frações equivalentes e operações](/blog/fracoes-sem-decorar/).
