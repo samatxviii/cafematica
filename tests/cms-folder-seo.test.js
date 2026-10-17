@@ -6,7 +6,10 @@ import {getPosts,listPostFiles} from '../src/lib/content.mjs';
 import {moveArticle,planArticleMove} from '../scripts/move-post.mjs';
 
 const cms=fs.readFileSync('.pages.yml','utf8');
-const article=fs.readFileSync('content/posts/equacao-primeiro-grau.md','utf8');
+// Read the article by filename no matter which CMS subfolder it currently occupies.
+const articlePath=listPostFiles('content/posts').find(file=>path.basename(file)==='equacao-primeiro-grau.md');
+if(!articlePath)throw new Error('Artigo de referência de equações não encontrado.');
+const article=fs.readFileSync(articlePath,'utf8');
 const payload=(file,folder)=>({
  source:'pages-cms',
  action:{name:'move-post-folder'},
