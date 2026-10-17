@@ -9,6 +9,22 @@ date: "2026-10-12"
 published: true
 cmsId: "2a2591c2-0053-4ef2-a1eb-3433190ddc68"
 cmsVersion: 1
+seoTitle: "Como começar no LaTeX: crie seu primeiro documento PDF"
+seoDescription: "Aprenda LaTeX do zero com um exemplo completo: configure o preâmbulo, escreva seções, insira uma fórmula e gere seu primeiro PDF no Overleaf."
+tags:
+  - "LaTeX para iniciantes"
+  - "primeiro documento LaTeX"
+  - "Overleaf"
+  - "estrutura do documento"
+  - "compilação PDF"
+author: "Fernando da Silva Batista"
+updated: "2026-10-17"
+quickAnswer: "Para criar seu primeiro documento em LaTeX, escolha um editor como o Overleaf, declare uma classe com \\documentclass{article} e escreva o conteúdo entre \\begin{document} e \\end{document}. Use \\section{...} para organizar as partes, compile o arquivo .tex e revise o PDF resultante. Comece com um exemplo curto antes de personalizar o layout."
+sources:
+  - title: "Overleaf — Aprenda LaTeX em 30 minutos"
+    url: "https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes"
+  - title: "Overleaf — Introdução às expressões matemáticas"
+    url: "https://www.overleaf.com/learn/latex/Mathematical_expressions"
 ---
 
 Começar com LaTeX não exige memorizar uma grande quantidade de comandos. Um objetivo melhor é montar um documento curto, compilar e perceber a função de cada parte. Depois, você amplia esse primeiro arquivo conforme a necessidade.
@@ -70,3 +86,8 @@ Se houver erro, procure primeiro a mensagem inicial do relatório. Vários aviso
 Transforme o arquivo em uma ficha de estudo sobre um assunto que você está aprendendo. Use três seções: ideia principal, exemplo e dúvida. O objetivo é produzir algo útil com a estrutura que você já compreendeu.
 
 Para aprofundar a linguagem e consultar exemplos, veja a [introdução oficial do Overleaf ao LaTeX](https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes). Depois, continue com o artigo sobre [fórmulas matemáticas](/blog/formulas-latex/).
+
+
+## Próximo passo: aprenda a escrever fórmulas e atividades
+
+Depois de compilar seu primeiro arquivo, experimente inserir uma fração e uma raiz seguindo o tutorial [Fórmulas em LaTeX: frações, potências e raízes](/blog/formulas-latex/). Quando estiver confortável com a estrutura do documento, avance para [uma lista de exercícios em LaTeX com gabarito](/blog/lista-exercicios-latex/). Esses exercícios permitem reutilizar as mesmas bases e perceber como o LaTeX ajuda a manter materiais didáticos organizados.
