@@ -9,6 +9,22 @@ date: "2026-10-12"
 published: true
 cmsId: "b07ccf4a-7226-4404-a3a2-d8aa5ab0f874"
 cmsVersion: 1
+seoTitle: "GeoGebra: como fazer o gráfico da função afim"
+seoDescription: "Aprenda a desenhar e comparar retas no GeoGebra. Investigue f(x)=ax+b, coeficientes, crescimento e variações do gráfico com uma atividade guiada."
+tags:
+  - "GeoGebra"
+  - "gráfico de função afim"
+  - "função do primeiro grau"
+  - "coeficiente angular"
+  - "calculadora gráfica"
+author: "Fernando da Silva Batista"
+updated: "2026-10-17"
+quickAnswer: "Abra a Calculadora Gráfica do GeoGebra e digite f(x)=2x+1 para desenhar uma reta. Em seguida, compare com g(x)=2x+4: a inclinação permanece igual, mas a reta muda de altura. Se alterar o coeficiente de x, como em h(x)=3x+1, muda a taxa de variação da função. Faça previsões e confira no gráfico."
+sources:
+  - title: "GeoGebra — Ajuda oficial da Calculadora Gráfica"
+    url: "https://help.geogebra.org/hc/en-us/articles/8379920754717-Graphing-Calculator"
+  - title: "GeoGebra — Ferramenta Deslizante (manual oficial)"
+    url: "https://geogebra.github.io/docs/manual/en/tools/Slider/"
 ---
 
 Um gráfico pronto pode mostrar uma resposta. Uma investigação com gráficos pode revelar relações. Nesta atividade, vamos usar a Calculadora Gráfica do GeoGebra para comparar funções do primeiro grau, fazer previsões e conferir se elas se confirmam.
@@ -46,3 +62,8 @@ Qual função de primeiro grau passa por $(0,3)$ e $(2,7)$? O primeiro ponto inf
 Digite essa expressão e confira os pontos. Depois, crie seu próprio desafio com dois pontos de abscissas diferentes. Resolva no papel e use a ferramenta como uma segunda forma de verificar.
 
 O GeoGebra permite experimentar rapidamente, mas a investigação fica mais rica quando você registra três coisas: o que imaginou antes, o que observou e como explica a diferença. Para revisar o conteúdo algébrico, consulte [função do primeiro grau](/blog/funcao-primeiro-grau/).
+
+
+## Um passo além: experimente controles deslizantes
+
+Além de digitar várias expressões, você pode criar controles deslizantes para os coeficientes e observar a reta mudar continuamente. Experimente definir números chamados `a` e `b` na Calculadora Gráfica e então inserir `f(x)=a*x+b`. Ajuste os valores para investigar a inclinação e o intercepto. A disponibilidade e a posição dessas ferramentas variam conforme a versão do GeoGebra; consulte o [manual oficial dos controles deslizantes](https://geogebra.github.io/docs/manual/en/tools/Slider/) quando necessário. Para revisar por que o gráfico é uma reta, leia [Função do primeiro grau: fórmula, gráfico e raiz](/blog/funcao-primeiro-grau/).
