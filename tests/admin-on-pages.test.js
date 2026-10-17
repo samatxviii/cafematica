@@ -34,7 +34,7 @@ describe('Administração do blog no próprio GitHub Pages',()=>{
  });
  it('publica somente pelo serviço protegido e preserva URLs públicas',()=>{
   const fn=file('supabase/functions/publish-post/index.ts');
-  expect(fn).toContain('sessionClient.auth.getUser()');
+  expect(fn).toContain('sessionClient.auth.getUser(token)');
   expect(fn).toContain("rpc('is_admin')");
   expect(fn).toContain("get('GITHUB_TOKEN')");
   expect(fn).toContain("const branch=Deno.env.get('GITHUB_BRANCH')||'main'");
