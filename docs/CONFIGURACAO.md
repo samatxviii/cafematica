@@ -1,78 +1,73 @@
-# Ativação do painel e dos comentários
+# Administração do Cafemática — GitHub Pages + Supabase
 
-O código está pronto para configuração. Não há projeto Supabase associado, conta administrativa provisionada, credenciais Google configuradas ou segredos GitHub implantados nesta etapa. Não marque os recursos como ativos antes da validação real.
+Não há Render nem outro servidor de hospedagem. O site público e o painel ficam no GitHub Pages; o Supabase cuida da identidade, dos rascunhos, das imagens e das permissões. O publicador usa uma Edge Function para gravar artigos no GitHub.
 
-## 1. Projeto Supabase
+## O que já está configurado
 
-Use a organização `cafematica` e, preferencialmente, a região São Paulo (`sa-east-1`). Confira o preço apresentado pelo serviço antes de criar o projeto; não habilite cobranças nem altere o plano automaticamente.
+- Projeto Supabase: `cafematica-site`, ID `bgzxqfslersfmsluuszs`, região São Paulo.
+- Banco de dados com migrações `cms_schema`, `initial_articles` e `cms_cover_storage`.
+- Os 10 artigos existentes foram importados preservando seus IDs e slugs.
+- Tabelas com RLS ativo e administrador autorizado por `private.admins`.
+- Bucket público `article-images`, com escrita somente para administradores; imagens de até 5 MB em JPG/PNG/WebP/AVIF.
+- Edge Function `publish-post` implantada, com validação de sessão e autorização administrativa.
+- Painel em `https://www.cafematica.com.br/admin/`, autenticação Google OAuth ou link por e-mail sem entrada de senha no GitHub Pages.
+- URL e chave **publishable** no código público, sem tokens secretos de GitHub ou Supabase.
 
-As migrações estão em `supabase/migrations/`, na ordem:
+## Passos que exigem acesso às contas externas
 
-- `cms_schema`: tabelas, permissões e funções.
-- `initial_articles`: importação dos dez artigos públicos iniciais, sem substituir rascunhos posteriores.
+### 1. URLs de autenticação do Supabase
 
-Aplique as migrações no projeto escolhido. Execute os advisors de segurança e verifique as tabelas e políticas. Os testes locais usam PostgreSQL real via PGlite com as identidades do Auth simuladas; não substituem um teste de integração com Supabase Auth e Google.
+Abra [Supabase Auth — URL Configuration](https://supabase.com/dashboard/project/bgzxqfslersfmsluuszs/auth/url-configuration).
 
-O schema `private` não deve ser exposto na Data API. As funções privadas têm permissões explícitas, `search_path` vazio e verificações no servidor. As RPCs públicas são `SECURITY INVOKER`. `anon` só lê o catálogo e os campos públicos de comentários aprovados. `authenticated` não pode inserir diretamente em tabelas ou se tornar administrador.
+- **Site URL:** `https://www.cafematica.com.br`
+- **Redirect URLs:** `https://www.cafematica.com.br/admin/` e `https://www.cafematica.com.br/blog/**` (esta segunda rota somente quando comentários Google forem ativados).
 
-## 2. Administrador
+Para o primeiro acesso administrativo, pode-se usar **Enviar link de acesso**, sem configurar o Google. O provedor de e-mail do Supabase tem limites de envio; não repita muitos links. Abra o link no mesmo navegador em que o solicitou.
 
-Crie o usuário em Supabase Auth com seu e-mail real e uma senha exclusiva de pelo menos 12 caracteres. Não use senhas do código legado. Não envie senhas ao GitHub.
+### 2. Conta administrativa
 
-Associe o UUID real dessa conta a `private.admins`, por operação administrativa autenticada. Exemplo com marcador que deve ser substituído, nunca executado literalmente:
+Entre no painel com um endereço de e-mail sob seu controle; depois autorize o UUID real da conta. A autorização **não** é feita pela página pública, apenas pelo banco. Após o primeiro login, um operador com acesso administrativo ao projeto pode conferir a identidade no Supabase Auth e executar:
 
 ```sql
 insert into private.admins(user_id)
-select id from auth.users where email = 'SEU_EMAIL_REAL';
+select id from auth.users
+where lower(email)=lower('EMAIL_CONFIRMADO_DO_ADMIN')
+  and email_confirmed_at is not null
+on conflict (user_id) do nothing;
 ```
 
-Confira que exatamente uma conta foi associada. Não há cadastro administrativo pelo navegador. Desative o cadastro público por senha se não for utilizado; preserve o cadastro pelo provedor Google para leitores. Configure proteção contra força bruta, senha forte e recuperação de conta. A entrega de recuperação de senha exige SMTP funcional; o provedor de e-mail de teste do Supabase tem restrições.
+Substitua o marcador por um endereço previamente confirmado pelo proprietário. Confira que somente a conta autorizada foi incluída. Não copie senhas, links mágicos ou tokens para conversas.
 
-## 3. Hospedagem do painel
+### 3. Permissão de publicar no GitHub
 
-O GitHub Pages desaconselha transações sensíveis, incluindo envio de senhas. O painel foi projetado para uma origem separada, por exemplo Cloudflare Pages em `https://admin.cafematica.com.br`.
+A Edge Function `publish-post` precisa de um segredo **GITHUB_TOKEN** configurado somente no [painel de segredos das Edge Functions](https://supabase.com/dashboard/project/bgzxqfslersfmsluuszs/functions/secrets).
 
-1. Hospede `admin-dist/` (gerado por `npm run build && npm run admin:build`) no serviço escolhido.
-2. Configure HTTPS e o domínio. A origem precisa funcionar antes da ativação.
-3. Em `config/site.json`, preencha `adminUrl` com `https://ENDERECO_REAL/admin/`, `supabaseUrl` e uma chave **publishable** ativa. Essas são configurações públicas.
-4. Mude `authEnabled` para `true` somente após testar a conta e as permissões.
-5. Recompile o site e o painel com a mesma configuração.
+Crie um [fine-grained personal access token](https://github.com/settings/personal-access-tokens/new) restrito a `samatxviii/cafematica` com permissão **Contents: Read and write**. Ajuste a expiração e rotacione quando necessário. **Não envie o token por mensagens e nunca insira em `config/site.json`.**
 
-O painel recusa entrada de senha na origem do site público ou em `*.github.io`. Seus cabeçalhos incluem noindex, restrição de enquadramento e CSP. O botão discreto de cadeado usa `adminUrl`.
+Os valores `GITHUB_REPOSITORY=samatxviii/cafematica`, `GITHUB_BRANCH=main` e `ADMIN_ORIGINS=https://www.cafematica.com.br` já têm valores padrão explícitos no código da função.
 
-## 4. Google para leitores
+### 4. Google (opcional para primeiro acesso; obrigatório para comentários de leitores)
 
-No Google Auth Platform, registre o aplicativo web com as URLs públicas de privacidade e termos. Use apenas `openid`, e-mail e perfil. Crie um OAuth Client ID para web.
+Para o botão **Continuar com Google**, configure o provedor Google em [Supabase Auth — Providers](https://supabase.com/dashboard/project/bgzxqfslersfmsluuszs/auth/providers).
+Crie o OAuth Client ID de tipo **Web application** no [Google Auth Platform](https://console.cloud.google.com/auth/clients), com:
 
-- Origem: `https://www.cafematica.com.br`.
-- Callback autorizado no Google: `https://REF_DO_PROJETO.supabase.co/auth/v1/callback`.
-- Supabase Auth: habilite Google com o Client ID e Client Secret reais.
-- Supabase Site URL: `https://www.cafematica.com.br`.
-- Redirect URLs: `https://www.cafematica.com.br/blog/**` e a URL exata do painel `/admin/` para recuperação.
-- Teste Google com uma conta comum, incluindo cancelamento e retorno ao mesmo artigo. Configure a audiência de produção do OAuth; aplicativos em teste restringem usuários.
+- **Origem JavaScript autorizada:** `https://www.cafematica.com.br`
+- **URI de redirecionamento autorizada:** `https://bgzxqfslersfmsluuszs.supabase.co/auth/v1/callback`
+- Permissões mínimas: `openid`, `email` e `profile`.
 
-O segredo Google deve permanecer nas configurações privadas do Supabase. Nunca inclua em `config/site.json`. Ative `commentsEnabled` somente depois do teste real. Atualize os textos de privacidade e cookies para refletir os serviços e a região efetivamente usados.
+Preencha o Client ID e o Client Secret **somente** no Supabase. Para comentários de leitores, habilite `commentsEnabled` apenas depois de testar o OAuth e a moderação.
 
-## 5. Publicação pelo painel
+## Como trabalhar após configurar
 
-Implante a função `publish-post` junto com `_shared/publish.ts`. Ela valida o usuário com `auth.getUser()` e consulta a permissão administrativa; por isso a verificação JWT legada do gateway está desativada. Não remova a autenticação implementada no corpo.
+Acesse `/admin/` e entre. Em **Seus artigos**, selecione uma das 10 publicações importadas ou clique **+ Novo**. Edite texto, fórmulas em LaTeX, título, resumo e imagens. Salve o rascunho. A prévia não publica nada. Ao clicar **Publicar no site**, a Edge Function verifica a permissão, envia o Markdown ao GitHub e o GitHub Actions recompila o site.
 
-Segredos da Edge Function:
+Verifique a página publicada e a execução em [GitHub Actions](https://github.com/samatxviii/cafematica/actions). O retorno **Enviado** não significa publicação concluída até o deploy terminar.
 
-- `ADMIN_ORIGINS`: origem exata do painel (sem barra final). Não use `*`.
-- `GITHUB_REPOSITORY`: `samatxviii/cafematica`.
-- `GITHUB_BRANCH`: `main`.
-- `GITHUB_TOKEN`: token de escopo restrito, com `Contents: write` apenas para esse repositório. Uma GitHub App é uma alternativa para rotação automática. O token nunca vai para o navegador.
-- `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`: variáveis padrão da Edge Function. O cliente público usa a publishable key; a compatibilidade com a anon key é necessária somente nesse componente servidor quando usada para verificar a sessão do usuário.
+## Segurança e limites
 
-A função aceita apenas o ID do artigo e sua versão. Uma trava impede publicar enquanto outra sessão modifica o mesmo rascunho. O commit usa avanço normal da branch, sem force push. Colisões com um artigo que pertença a outro ID são recusadas. Não há exclusão de artigos publicados pelo painel nesta versão.
-
-O envio ao GitHub retorna “enviado”. Falhas no build não são confundidas com publicação concluída. Confira o workflow e a página pública. O arquivo público `publication.json` contém as versões efetivamente compiladas, sem rascunhos.
-
-## 6. Verificação final
-
-Teste login/sair/recuperação do administrador, salvar e reabrir rascunho, conflitos de versão, prévia de fórmulas, publicar e atualizar um artigo. Teste leitor Google, envio pendente, aprovação/recusa e confirmação de que outro leitor não lê rascunhos nem comentários pendentes. Repita os advisors após aplicar mudanças.
-
-Nunca use uma chave secreta no cliente para resolver problemas de permissão. Ajuste as políticas e os grants.
-
-Referências oficiais: [Google Auth](https://supabase.com/docs/guides/auth/social-login/auth-google), [RLS](https://supabase.com/docs/guides/database/postgres/row-level-security), [GitHub Pages](https://docs.github.com/en/pages/getting-started-with-github-pages/about-github-pages).
+- A chave publicável é deliberadamente visível no JavaScript; a autorização real é feita no banco (RLS e RPC) e na Edge Function.
+- Nenhum usuário pode se promover a administrador pelo navegador.
+- O GitHub Pages não recebe uma senha de administração; o login externo cria a sessão no Supabase.
+- As imagens de artigos são públicas por URL logo após o envio, antes mesmo de publicar o texto; não envie imagens sensíveis.
+- No plano gratuito, respeite os limites do Supabase Storage, Auth e Edge Functions.
+- Não desative RLS, não use service-role keys no frontend e não compartilhe tokens privados.
