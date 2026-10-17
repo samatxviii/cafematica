@@ -1,12 +1,10 @@
 ---
 import Icon from './Icon.astro';
 import site from '../../config/site.json';
+import {safeCoverPath} from '../lib/cover.mjs';
 const {post,compact=false}=Astro.props;
 const cover=typeof post.cover==='string' ? post.cover : typeof post.image==='string' ? post.image : '';
-const localCover=/^\/(?!\/)[a-zA-Z0-9/_.,-]+\.(?:avif|webp|png|jpe?g)$/i.test(cover);
-let hostedCover=false;
-try{const img=new URL(cover),backend=new URL(site.supabaseUrl);hostedCover=img.origin===backend.origin&&img.pathname.startsWith('/storage/v1/object/public/article-images/')&&/^[a-zA-Z0-9/._-]+$/.test(img.pathname.split('/article-images/')[1]||'');}catch{}
-const safeCover=localCover||hostedCover?cover:'';
+const safeCover=safeCoverPath(cover,site.supabaseUrl);
 ---
 <article class:list={['post-card',{'compact':compact}]} data-search={`${post.title} ${post.description} ${post.categoryInfo.name} ${post.topic||""} ${(post.tags||[]).join(" ")}`} data-category={post.category} data-topic={post.topic||""} data-date={post.date} data-title={post.title}>
 <a class:list={['post-art','editorial-cover',post.categoryInfo.color,{'has-cover':!!safeCover}]} href={`/blog/${post.slug}/`} tabindex="-1" aria-hidden="true">{safeCover?<img src={safeCover} alt="" loading="lazy" decoding="async" width="800" height="500"/>:<span class="cover-placeholder" aria-hidden="true"></span>}</a>
