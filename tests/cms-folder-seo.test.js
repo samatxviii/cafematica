@@ -6,7 +6,6 @@ import {getPosts,listPostFiles} from '../src/lib/content.mjs';
 import {moveArticle,planArticleMove} from '../scripts/move-post.mjs';
 
 const cms=fs.readFileSync('.pages.yml','utf8');
-// Read the article by filename no matter which CMS subfolder it currently occupies.
 // Fixtures are independent of the actual posts: editing/unpublishing content must not break the build.
 const article=[
  '---',
