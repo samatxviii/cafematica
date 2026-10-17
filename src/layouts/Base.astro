@@ -11,21 +11,27 @@ import '../styles/editorial-v2.css';
 import '../styles/atelier.css';
 import Icon from '../components/Icon.astro';
 import site from '../../config/site.json';
+import {articleSeoMetadata} from '../lib/seo.mjs';
 const {title='Um café. Uma ideia. Um novo aprendizado.',description='Matemática, LaTeX e tecnologia com Prof. Fernando. Artigos, exercícios resolvidos e tutoriais para aprender com clareza.',noindex=false,article=null}=Astro.props;
-const url=new URL(Astro.url.pathname,site.url).href;
-const schema=article?{'@context':'https://schema.org','@type':'Article',headline:article.title,description:article.description,datePublished:article.date,dateModified:article.updated||article.date,author:{'@type':'Organization',name:'Cafemática',url:site.url+'/sobre/'},publisher:{'@type':'Organization',name:'Cafemática',logo:{'@type':'ImageObject',url:site.url+'/assets/logo-original.png'}},mainEntityOfPage:url}:{'@context':'https://schema.org','@type':'WebSite',name:'Cafemática',url:site.url,inLanguage:'pt-BR'};
+const seo=articleSeoMetadata({title,description,article,siteUrl:site.url,pathname:Astro.url.pathname,supabaseUrl:site.supabaseUrl});
+const url=seo.url;
+const schema=seo.schema;
 const analyticsId=/^G-[A-Z0-9]+$/.test(site.googleAnalyticsMeasurementId||'')?site.googleAnalyticsMeasurementId:'';
 const nav=[['/','Início'],['/matematica/','Matemática'],['/latex/','LaTeX'],['/tecnologia/','Tecnologia'],['/blog/','Artigos'],['/aulas/','Materiais'],['/sobre/','Sobre']];
 ---
 <!doctype html><html lang="pt-BR" data-analytics-id={analyticsId||undefined}><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>{title} | Cafemática</title><meta name="description" content={description}/><meta name="theme-color" content="#FAF6EF"/>
+<title>{seo.title}</title><meta name="description" content={seo.description}/><meta name="theme-color" content="#FAF6EF"/>
 <meta name="robots" content={noindex?'noindex, nofollow':'index, follow, max-image-preview:large'}/><link rel="canonical" href={url}/>
 {site.googleSearchConsoleVerification&&/^[\w-]+$/.test(site.googleSearchConsoleVerification)&&<meta name="google-site-verification" content={site.googleSearchConsoleVerification}/> }
 <link rel="icon" href="/assets/logo-original.png"/><link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Artigos do Cafemática"/>
-<meta property="og:type" content={article?'article':'website'}/><meta property="og:locale" content="pt_BR"/><meta property="og:site_name" content="Cafemática"/><meta property="og:title" content={title}/><meta property="og:description" content={description}/><meta property="og:url" content={url}/><meta property="og:image" content={site.url+'/og-cafematica.png'}/><meta name="twitter:card" content="summary_large_image"/>
+<meta property="og:type" content={article?'article':'website'}/><meta property="og:locale" content="pt_BR"/><meta property="og:site_name" content="Cafemática"/><meta property="og:title" content={seo.title}/><meta property="og:description" content={seo.description}/><meta property="og:url" content={url}/><meta property="og:image" content={seo.image}/>{seo.imageAlt&&<meta property="og:image:alt" content={seo.imageAlt}/>}<meta name="twitter:card" content="summary_large_image"/><meta name="twitter:image" content={seo.image}/>
+{article&&<meta name="author" content={seo.authorName}/>}
+{article&&seo.published&&<meta property="article:published_time" content={seo.published}/>}
+{article&&seo.updated&&<meta property="article:modified_time" content={seo.updated}/>}
+{article&&seo.tags.map(tag=><meta property="article:tag" content={tag}/>)}
 {site.adsensePublisherId&&/^ca-pub-\d{16}$/.test(site.adsensePublisherId)&&<meta name="google-adsense-account" content={site.adsensePublisherId}/>}
-<script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g,'\u003c')}/>
+<script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, String.fromCharCode(92)+'u003c')}/>
 </head><body>
 <a class="skip-link" href="#principal">Pular para o conteúdo</a>
 <header class="site-header"><div class="container header-inner">
