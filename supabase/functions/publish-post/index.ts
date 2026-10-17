@@ -45,7 +45,7 @@ Deno.serve(async (req: Request) => {
   const commit=await github('git/commits','POST',{message:`Publica artigo: ${post.title.replace(/[\r\n]/g,' ')}`,tree:tree.sha,parents:[ref.object.sha]});
   await github(`git/refs/heads/${encodeURIComponent(branch)}`,'PATCH',{sha:commit.sha,force:false});
   commitCreated=true;
-  const {error:finishError}=await service.rpc('complete_publication',{p_id:id,p_token:token,p_sha:commit.sha,p_date:now});
+  const {error:finishError}=await service.rpc('complete_publication',{p_id:id,p_token:publishToken,p_sha:commit.sha,p_date:now});
   if(finishError)return reply(202,{queued:true,sha:commit.sha,warning:'Artigo enviado ao GitHub. O registro no painel precisa ser sincronizado; não publique novamente antes de verificar.'});
   return reply(202,{queued:true,sha:commit.sha,url:`https://www.cafematica.com.br/blog/${post.slug}/`});
  } catch(error) {
