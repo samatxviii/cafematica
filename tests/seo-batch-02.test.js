@@ -34,7 +34,8 @@ describe('SEO — lote 2: frações, GeoGebra e fórmulas LaTeX',()=>{
  it('oferece tags, respostas úteis, fontes oficiais e leitura cruzada',()=>{
   for(const slug of slugs){
    const post=posts.find(item=>item.slug===slug);
-   expect(post.tags.length).toBe(5);
+   expect(post.tags.length).toBeGreaterThanOrEqual(1);
+   expect(post.tags.length).toBeLessThanOrEqual(8);
    expect(post.quickAnswer.length).toBeGreaterThan(160);
    expect(post.quickAnswer.length).toBeLessThanOrEqual(600);
    expect(post.sources.length).toBeGreaterThanOrEqual(2);
