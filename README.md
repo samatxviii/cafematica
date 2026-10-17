@@ -26,17 +26,13 @@ As páginas institucionais estão em `src/pages/`; os textos de privacidade, coo
 
 ## Administração e comentários
 
-Código implementado, ativação dependente de configuração externa. Por padrão `authEnabled` e `commentsEnabled` estão desligados. O site informa corretamente que os comentários ainda não estão abertos. O painel não apresenta um formulário de senha na origem do GitHub Pages.
+O painel editorial está no mesmo domínio do site, em `/admin/`, hospedado pelo GitHub Pages. O Supabase Auth oferece login Google (após configurar o provedor) e link de acesso por e-mail, sem receber senhas no Pages. O controle de edição é verificado no servidor via `private.admins`, RLS e RPCs protegidas. Os 10 artigos iniciais já foram importados para o banco.
 
-Consulte [docs/CONFIGURACAO.md](docs/CONFIGURACAO.md) para instalar o banco, o login Google e o publicador. O funcionamento é:
+O editor permite criar e revisar rascunhos, enviar capa e imagens internas ao Supabase Storage, escrever Markdown e LaTeX, visualizar uma prévia e solicitar publicação. A Edge Function `publish-post` envia conteúdo ao GitHub, onde o workflow atualiza o site, depois de configurar `GITHUB_TOKEN` como segredo no Supabase.
 
-1. Administrador entra por e-mail/senha na hospedagem própria do painel.
-2. Rascunhos ficam no Supabase, com RLS e autorização administrativa no servidor.
-3. Publicar envia o Markdown ao GitHub; o workflow reconstrói o site.
-4. Leitores entram com Google e enviam comentários à fila de moderação.
-5. O administrador aprova ou recusa comentários. E-mails não aparecem publicamente.
+**Passos restantes para o primeiro acesso:** configurar URLs de redirecionamento no Supabase Auth, entrar com um e-mail confirmado, autorizar esse usuário em `private.admins` e cadastrar um token restrito do GitHub no Supabase. O Google OAuth demanda Client ID e Client Secret criados no Google Cloud; o link por e-mail pode ser usado primeiro. O sistema não confunde editor acessível com publicação operacional sem essas etapas.
 
-A indicação “enviado” significa que o GitHub recebeu o artigo, não que a publicação já terminou. Verifique a execução do workflow e a página pública.
+Os comentários de leitores permanecem desativados (`commentsEnabled=false`) até validar Google OAuth e moderação. Consulte [docs/CONFIGURACAO.md](docs/CONFIGURACAO.md) para os procedimentos exatos.
 
 ## AdSense
 
