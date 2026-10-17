@@ -9,6 +9,24 @@ date: "2026-10-12"
 published: true
 cmsId: "7cadeccd-5bee-453f-a1a9-782dc4cfc4c1"
 cmsVersion: 1
+seoTitle: "OBS Studio para professores: grave sua primeira aula"
+seoDescription: "Aprenda a gravar uma aula com OBS Studio: configure cenas, câmera, captura de tela e microfone. Faça um teste de áudio e vídeo antes da gravação."
+tags:
+  - "OBS Studio para professores"
+  - "gravar aula no OBS"
+  - "cenas e fontes OBS"
+  - "captura de tela"
+  - "configurar microfone OBS"
+author: "Fernando da Silva Batista"
+updated: "2026-10-17"
+quickAnswer: "Para gravar uma aula no OBS Studio, crie uma cena para a apresentação e outra para o conteúdo da aula. Adicione fontes de tela ou janela, câmera e microfone conforme a necessidade. Use o assistente de configuração como ponto de partida, grave um teste curto e confira se a voz está clara e se o texto é legível antes da gravação completa."
+sources:
+  - title: "OBS Studio — Guia oficial de primeiros passos"
+    url: "https://obsproject.com/kb/quick-start-guide"
+  - title: "OBS Studio — Guia oficial de fontes e capturas"
+    url: "https://obsproject.com/kb/sources-guide"
+  - title: "OBS Studio — Como funcionam os perfis"
+    url: "https://obsproject.com/kb/profiles"
 ---
 
 A primeira aula gravada não precisa de uma abertura animada ou de muitas transições. O mais importante é que o estudante consiga ouvir sua explicação e ler o material. Uma estrutura simples também facilita corrigir problemas antes que eles comprometam uma gravação longa.
@@ -50,3 +68,8 @@ Crie uma pequena lista pessoal de preparação: material aberto, microfone selec
 As coleções de cenas e os perfis são recursos diferentes. Perfis guardam configurações relacionadas à transmissão e saída; cenas ficam nas coleções. Se você trabalha com vários canais, confira a conta e o destino efetivamente selecionados a cada transmissão, além de conferir a coleção visual usada.
 
 Para consultar as opções do programa, veja o [guia inicial oficial](https://obsproject.com/kb/quick-start-guide), o [guia de fontes](https://obsproject.com/kb/sources-guide) e a [documentação de perfis](https://obsproject.com/kb/profiles). Os exemplos deste artigo são uma proposta de organização de aula; adapte-os ao seu equipamento e à sua forma de ensinar.
+
+
+## Monte uma rotina de produção para as próximas aulas
+
+Organizar a gravação também significa saber onde estão os materiais utilizados. Prepare uma pasta para exercícios, uma para apresentações e outra para vídeos concluídos; no artigo [Como organizar materiais no Google Drive](/blog/organizar-google-drive/), você encontra um modelo simples de estrutura. Para preparar materiais matemáticos legíveis que podem aparecer na gravação, experimente [criar uma lista de exercícios em LaTeX](/blog/lista-exercicios-latex/). Priorize sempre a clareza da tela e do áudio em vez de efeitos visuais.
