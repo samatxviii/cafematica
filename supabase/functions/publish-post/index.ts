@@ -9,19 +9,21 @@ Deno.serve(async (req: Request) => {
  if(!allowed.includes(origin))return reply(403,{error:'Origem não autorizada.'});
  if(req.method==='OPTIONS')return new Response(null,{status:204,headers});
  if(req.method!=='POST')return reply(405,{error:'Método inválido.'});
- let service:any, id:string|undefined, token:string|undefined, commitCreated=false;
+ let service:any, id:string|undefined, publishToken:string|undefined, commitCreated=false;
  try {
   const authorization=req.headers.get('authorization')||'';
+  const token=authorization.startsWith('Bearer ')?authorization.slice(7).trim():'';
+  if(!token)return reply(401,{error:'Sessão não encontrada. Entre novamente.'});
   const sessionClient=createClient(get('SUPABASE_URL'),get('SUPABASE_ANON_KEY'),{global:{headers:{Authorization:authorization}},auth:{persistSession:false}});
-  const {data:{user},error:authError}=await sessionClient.auth.getUser();
+  const {data:{user},error:authError}=await sessionClient.auth.getUser(token);
   if(authError||!user)return reply(401,{error:'Sessão expirada. Entre novamente.'});
   const {data:admin,error:adminError}=await sessionClient.rpc('is_admin');
   if(adminError||!admin)return reply(403,{error:'Acesso restrito ao administrador.'});
   const payload=await req.json(); id=payload.id;
   if(typeof id!=='string'||!Number.isInteger(payload.version))return reply(400,{error:'Artigo ou versão inválidos.'});
   service=createClient(get('SUPABASE_URL'),get('SUPABASE_SERVICE_ROLE_KEY'),{auth:{persistSession:false}});
-  token=crypto.randomUUID();
-  const {data:post,error:claimError}=await service.rpc('claim_publication',{p_id:id,p_version:payload.version,p_token:token});
+  publishToken=crypto.randomUUID();
+  const {data:post,error:claimError}=await service.rpc('claim_publication',{p_id:id,p_version:payload.version,p_token:publishToken});
   if(claimError)throw new Error('O artigo mudou ou está sendo publicado. Reabra e tente novamente.');
   const now=new Date().toISOString(); const content=postMarkdown(post,now);
   const repo=Deno.env.get('GITHUB_REPOSITORY')||'samatxviii/cafematica'; const branch=Deno.env.get('GITHUB_BRANCH')||'main';
@@ -48,7 +50,7 @@ Deno.serve(async (req: Request) => {
   return reply(202,{queued:true,sha:commit.sha,url:`https://www.cafematica.com.br/blog/${post.slug}/`});
  } catch(error) {
   // Preserve state after a successful GitHub commit; a retry must not falsely claim nothing happened.
-  if(service&&id&&token&&!commitCreated)await service.from('cms_posts').update({publish_lock_until:null,publish_token:null}).eq('id',id).eq('publish_token',token);
+  if(service&&id&&publishToken&&!commitCreated)await service.from('cms_posts').update({publish_lock_until:null,publish_token:null}).eq('id',id).eq('publish_token',token);
   const message=error instanceof Error?error.message:'Falha na publicação.';
   return reply(400,{error:message});
  }
