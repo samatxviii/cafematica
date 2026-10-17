@@ -7,6 +7,7 @@ import '@fontsource/lora/latin-400.css';
 import '@fontsource/lora/latin-500.css';
 import 'katex/dist/katex.min.css';
 import '../styles/global.css';
+import '../styles/editorial-v2.css';
 import Icon from '../components/Icon.astro';
 import site from '../../config/site.json';
 const {title='Um café. Uma ideia. Um novo aprendizado.',description='Matemática, LaTeX e tecnologia com Prof. Fernando. Artigos, exercícios resolvidos e tutoriais para aprender com clareza.',noindex=false,article=null}=Astro.props;
@@ -17,7 +18,7 @@ const nav=[['/','Início'],['/matematica/','Matemática'],['/latex/','LaTeX'],['
 ---
 <!doctype html><html lang="pt-BR" data-analytics-id={analyticsId||undefined}><head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>{title} | Cafemática</title><meta name="description" content={description}/><meta name="theme-color" content="#f9f7f2"/>
+<title>{title} | Cafemática</title><meta name="description" content={description}/><meta name="theme-color" content="#FAF6EF"/>
 <meta name="robots" content={noindex?'noindex, nofollow':'index, follow, max-image-preview:large'}/><link rel="canonical" href={url}/>
 {site.googleSearchConsoleVerification&&/^[\w-]+$/.test(site.googleSearchConsoleVerification)&&<meta name="google-site-verification" content={site.googleSearchConsoleVerification}/> }
 <link rel="icon" href="/assets/logo-original.png"/><link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Artigos do Cafemática"/>
@@ -28,7 +29,7 @@ const nav=[['/','Início'],['/matematica/','Matemática'],['/latex/','LaTeX'],['
 <a class="skip-link" href="#principal">Pular para o conteúdo</a>
 <header class="site-header"><div class="container header-inner">
 <a class="brand" href="/" aria-label="Cafemática, início"><img src="/assets/logo-original.png" width="36" height="44" alt=""/><span>Cafemática<span class="brand-dot">.</span></span></a>
-<nav class="main-nav" id="main-nav" aria-label="Menu principal">{nav.map(([href,label])=><a href={href} aria-current={Astro.url.pathname.startsWith(href)?'page':undefined}>{label}</a>)}<a class="nav-contact" href="/contato/">Vamos conversar <Icon size={16}/></a></nav>
+<nav class="main-nav" id="main-nav" aria-label="Menu principal">{nav.map(([href,label])=><a href={href} aria-current={(href==='/'?Astro.url.pathname==='/':Astro.url.pathname.startsWith(href))?'page':undefined}>{label}</a>)}<a class="nav-contact" href="/contato/">Vamos conversar <Icon size={16}/></a></nav>
 <div class="header-actions"><a class="icon-button" href="/blog/#busca" aria-label="Pesquisar artigos"><Icon name="search"/></a><a class="icon-button admin-link" href={site.adminUrl} aria-label="Área administrativa" title="Área administrativa"><Icon name="lock" size={17}/></a><button class="icon-button menu-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Abrir menu"><Icon name="menu"/></button></div>
 </div></header>
 <main id="principal"><slot/></main>
