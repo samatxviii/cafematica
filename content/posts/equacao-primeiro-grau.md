@@ -12,22 +12,28 @@ cmsId: 448a58d9-c844-4c45-ab31-ed15ce88157f
 cmsVersion: 1
 cover: /imagens/blog/equação-de-primeiro-grau.png
 seoTitle: "Equação do 1º grau: como resolver passo a passo"
-seoDescription: "Aprenda a resolver equações do primeiro grau com exemplos, parênteses e exercícios. Entenda as operações nos dois lados e como conferir cada resposta."
+seoDescription: Aprenda a resolver equações do primeiro grau com exemplos,
+  parênteses e exercícios. Entenda as operações nos dois lados e como conferir
+  cada resposta.
 tags:
-  - "equação do primeiro grau"
-  - "equações com uma incógnita"
-  - "resolver equações"
-  - "propriedade distributiva"
-  - "exercícios de álgebra"
-coverAlt: "Ilustração matemática usada na capa do artigo sobre equações do primeiro grau."
-author: "Fernando da Silva Batista"
-updated: "2026-10-17"
-quickAnswer: "Para resolver uma equação do primeiro grau, simplifique os dois lados e use operações equivalentes para isolar a incógnita. Em 2x+7=19, subtraia 7 de ambos os lados e depois divida por 2: x=6. Confira substituindo esse valor na igualdade original."
+  - equação do primeiro grau
+  - equações com uma incógnita
+  - resolver equações
+  - propriedade distributiva
+  - exercícios de álgebra
+coverAlt: Ilustração matemática usada na capa do artigo sobre equações do primeiro grau.
+author: Fernando da Silva Batista
+updated: 2026-10-17
+quickAnswer: "Para resolver uma equação do primeiro grau, simplifique os dois
+  lados e use operações equivalentes para isolar a incógnita. Em 2x+7=19,
+  subtraia 7 de ambos os lados e depois divida por 2: x=6. Confira substituindo
+  esse valor na igualdade original."
 sources:
-  - title: "Khan Academy — Revisão das equações de primeiro grau"
-    url: "https://pt.khanacademy.org/math/algebra-home/alg-basic-eq-ineq/alg-one-step-mult-div-equations/a/one-step-equation-review"
-  - title: "OpenStax — Estratégias para resolver equações lineares"
-    url: "https://openstax.org/books/elementary-algebra-2e/pages/2-key-concepts"
+  - title: Khan Academy — Revisão das equações de primeiro grau
+    url: https://pt.khanacademy.org/math/algebra-home/alg-basic-eq-ineq/alg-one-step-mult-div-equations/a/one-step-equation-review
+  - title: OpenStax — Estratégias para resolver equações lineares
+    url: https://openstax.org/books/elementary-algebra-2e/pages/2-key-concepts
+youtube: nBGDwPEkzAE
 ---
 Resolver uma equação é procurar os valores que tornam uma igualdade verdadeira. Em $2x+7=19$, o símbolo $x$ representa um número que ainda queremos descobrir. A pergunta é: que número, multiplicado por dois e depois somado a sete, resulta em dezenove?
 
