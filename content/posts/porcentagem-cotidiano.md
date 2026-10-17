@@ -9,6 +9,22 @@ date: "2026-10-12"
 published: true
 cmsId: "0983ee68-7ad3-4c4e-af68-25ac1b169771"
 cmsVersion: 1
+seoTitle: "Porcentagem: como calcular descontos e aumentos"
+seoDescription: "Aprenda a calcular porcentagens, descontos e aumentos com exemplos resolvidos. Entenda a base de cálculo e por que reajustes de 20% não se anulam."
+tags:
+  - "porcentagem"
+  - "desconto percentual"
+  - "aumento percentual"
+  - "variação percentual"
+  - "porcentagens sucessivas"
+author: "Fernando da Silva Batista"
+updated: "2026-10-17"
+quickAnswer: "Para calcular uma porcentagem de um valor, multiplique-o pela taxa dividida por 100. Em um desconto de 20%, multiplique o preço por 0,80; em um aumento de 20%, por 1,20. Um aumento seguido de um desconto de 20% não devolve o preço original, porque as bases de cálculo são diferentes."
+sources:
+  - title: "OpenStax — Aplicações de porcentagem e variação percentual"
+    url: "https://openstax.org/books/prealgebra-2e/pages/6-2-solve-general-applications-of-percent"
+  - title: "OpenStax — Cálculos de descontos e preços"
+    url: "https://openstax.org/books/prealgebra-2e/pages/6-3-solve-sales-tax-commission-and-discount-applications"
 ---
 
 Uma porcentagem sempre compara uma quantidade com uma base. Dizer apenas “aumentou 20%” deixa uma pergunta: vinte por cento de qual valor? Identificar essa base é o passo mais importante em problemas de descontos, reajustes e comparações.
@@ -74,3 +90,8 @@ Observe que usamos 25 no denominador, pois queremos comparar o aumento com o val
 3. Uma quantidade passa de 40 para 50. Qual é o aumento percentual?
 
 **Confira:** 24; 60 reais; 25%. Na última questão, a diferença é 10 e a base é 40. Antes de aceitar um resultado, escreva uma frase dizendo qual quantidade representa 100%. Isso evita boa parte das confusões.
+
+
+## Para continuar: a relação entre porcentagens e frações
+
+Uma porcentagem é uma fração de denominador 100. Se ainda parecer difícil decidir qual valor representa o todo, comece por [entender frações e partes de um inteiro](/blog/fracoes-sem-decorar/). Essa interpretação ajuda a explicar descontos e aumentos sem decorar regras isoladas.
