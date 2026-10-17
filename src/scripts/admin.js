@@ -39,13 +39,28 @@ $('login-google').onclick=async()=>{
  if(error)throw error;
  }catch(e){message('Não foi possível iniciar o login Google. Verifique se o provedor está habilitado no Supabase.',true);button.disabled=false;}
 };
+function emailLoginError(error){
+ const code=String(error?.code||'');
+ const status=Number(error?.status||0);
+ const details=String(error?.message||'').toLowerCase();
+ if(status===429||code==='over_email_send_rate_limit'||details.includes('email rate limit')){
+  return 'O Supabase atingiu o limite temporário de envio de e-mails. Não solicite novos links agora. Verifique os e-mails recebidos anteriormente ou tente mais tarde.';
+ }
+ if(code==='email_address_not_authorized'||details.includes('email address not authorized')){
+  return 'O serviço de e-mail padrão do Supabase não autorizou este destinatário. É necessário configurar um provedor SMTP próprio.';
+ }
+ if(code==='email_provider_disabled'||details.includes('email provider is disabled')){
+  return 'O acesso por e-mail está desativado no Supabase. Confira Authentication → Sign In / Providers.';
+ }
+ return 'Não foi possível enviar o link. Verifique o serviço de e-mail do Supabase ou tente novamente mais tarde.';
+}
 $('login-email-form').onsubmit=async e=>{
  e.preventDefault();const button=e.submitter;button.disabled=true;
  try{
  const email=new FormData(e.target).get('email')?.trim();
  const {error}=await client.auth.signInWithOtp({email,options:{emailRedirectTo:authRedirect,shouldCreateUser:true}});
  if(error)throw error;show('email-sent-state');
- }catch(e){message('Não foi possível enviar o link. Confira o e-mail e tente novamente.',true);}
+ }catch(error){message(emailLoginError(error),true);}
  finally{button.disabled=false;}
 };
 $('back-to-login').onclick=()=>show('login-state');

@@ -14,6 +14,13 @@ describe('Administração do blog no próprio GitHub Pages',()=>{
   expect(logic).not.toContain('signInWithPassword');
   expect(logic).not.toContain('adminOrigin===new URL(config.url).origin');
  });
+ it('explica bloqueios temporários de envio sem culpar o endereço',()=>{
+  const logic=file('src/scripts/admin.js');
+  expect(logic).toContain('function emailLoginError(error)');
+  expect(logic).toContain("code==='over_email_send_rate_limit'");
+  expect(logic).toContain('limite temporário de envio de e-mails');
+  expect(logic).toContain('message(emailLoginError(error),true)');
+ });
  it('não confunde chave publicável com credenciais secretas',()=>{
   const config=JSON.parse(file('config/site.json'));
   expect(config.authEnabled).toBe(true);
