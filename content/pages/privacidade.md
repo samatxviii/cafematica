@@ -4,15 +4,15 @@ title: Política de privacidade
 description: Saiba como o Cafemática trata dados de navegação, contato e comentários.
 ---
 
-Esta política descreve o funcionamento do Cafemática, mantido por **Fernando da Silva Batista**. Para dúvidas e solicitações sobre dados pessoais, escreva para **contato@cafematica.com.br**. Atualização: 12 de outubro de 2026.
+Esta política descreve o funcionamento do Cafemática, mantido por **Fernando da Silva Batista**. Para dúvidas e solicitações sobre dados pessoais, escreva para **contato@cafematica.com.br**. Atualização: 17 de outubro de 2026.
 
 ## Navegação no site
 
 Você pode ler os artigos sem criar uma conta. A hospedagem no GitHub Pages pode registrar informações técnicas, como endereço IP, por motivos de segurança. Consulte também a [política de privacidade do GitHub](https://docs.github.com/pt/site-policy/privacy-policies/github-general-privacy-statement).
 
-Nesta versão, o Cafemática não carrega ferramentas de análise de audiência nem anúncios do AdSense. As fontes usadas nas páginas são servidas junto ao próprio site.
+O Google Analytics só é carregado se você autorizar expressamente a medição de visitas nas preferências de privacidade. O Cafemática não exibe anúncios do AdSense nesta etapa. As fontes usadas nas páginas são servidas junto ao próprio site.
 
-## Login e comentários
+## Acesso à área administrativa e comentários\n\nO acesso ao editor de artigos é realizado pelo Supabase Auth, com entrada pelo Google (quando o provedor estiver configurado) ou por link enviado ao e-mail. O site não coleta senhas de administração. As sessões de login usam armazenamento necessário para manter a pessoa autenticada. Só contas autorizadas no servidor podem criar, editar, enviar imagens ou publicar artigos.\n\nImagens enviadas ao armazenamento público do Supabase ficam acessíveis por endereço web a quem possuir o link, inclusive antes de o artigo ser publicado. Não envie materiais privados. Para exercer seus direitos relativos a esses dados, entre em contato pelo endereço informado nesta política.\n\n## Login e comentários
 
 O recurso de comentários está em preparação. Quando estiver ativo, o acesso será feito por uma Conta Google, usando o serviço de autenticação Supabase. O site não terá acesso à sua senha Google. As informações básicas necessárias incluem um identificador da conta, nome e e-mail; a foto de perfil pode ser recebida do provedor, mas não é necessária para publicar seu texto.
 
@@ -40,7 +40,7 @@ Mensagens de contato serão mantidas enquanto necessárias ao atendimento e ao c
 
 Você pode solicitar confirmação do tratamento, acesso, correção, informações sobre compartilhamento, exclusão quando cabível e revogação do consentimento pelo e-mail de contato. Poderemos solicitar informações proporcionais para verificar sua identidade e evitar acesso indevido.
 
-Serviços utilizados podem processar dados fora do Brasil. A configuração de fornecedores, mecanismos aplicáveis à transferência internacional e prazos de retenção serão revistos antes da ativação do login em produção.
+O projeto do banco de dados Supabase foi criado na região de São Paulo, Brasil. Serviços de autenticação, provedores externos e infraestrutura de hospedagem podem envolver tratamento e transferência internacional de dados, sujeito às políticas dos respectivos fornecedores e à legislação aplicável.
 
 ## Crianças e adolescentes
 
