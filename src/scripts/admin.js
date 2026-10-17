@@ -61,27 +61,44 @@ $('new-post').onclick=()=>{if(dirty&&!confirm('Descartar as alterações não sa
 form.addEventListener('input',e=>{if(e.target.name==='title'&&!current&&!form.elements.slug.dataset.manual)form.elements.slug.value=slugify(e.target.value);if(e.target.name==='slug')form.elements.slug.dataset.manual='true';if(e.target.name==='cover')showCover(e.target.value.trim());edited();});
 
 const coverMime={'image/jpeg':'jpg','image/png':'png','image/webp':'webp','image/avif':'avif'};
+async function uploadImageFile(file){
+ if(!file||!coverMime[file.type]||file.size>5242880)throw Error('Use uma imagem JPG, PNG, WebP ou AVIF de até 5 MB.');
+ const {data:{user},error:authError}=await client.auth.getUser();
+ if(authError||!user)throw Error('Entre novamente para enviar imagens.');
+ const path=`${user.id}/${crypto.randomUUID()}.${coverMime[file.type]}`;
+ const {error}=await client.storage.from('article-images').upload(path,file,{contentType:file.type,upsert:false,cacheControl:'3600'});
+ if(error)throw error;
+ const {data}=client.storage.from('article-images').getPublicUrl(path);
+ if(!validCover(data.publicUrl))throw Error('O endereço da imagem não foi reconhecido.');
+ return data.publicUrl;
+}
 $('cover-upload').onclick=async()=>{
  const file=$('cover-file').files[0];
  if(!file){message('Selecione um arquivo de imagem antes de enviar.',true);return;}
- if(!coverMime[file.type]||file.size>5242880){message('Use JPG, PNG, WebP ou AVIF de até 5 MB.',true);return;}
  const button=$('cover-upload');button.disabled=true;button.textContent='Enviando imagem...';
  try{
-  const {data:{user},error:authError}=await client.auth.getUser();
-  if(authError||!user)throw Error('Entre novamente para enviar imagens.');
-  const path=`${user.id}/${crypto.randomUUID()}.${coverMime[file.type]}`;
-  const {error}=await client.storage.from('article-images').upload(path,file,{contentType:file.type,upsert:false,cacheControl:'3600'});
-  if(error)throw error;
-  const {data}=client.storage.from('article-images').getPublicUrl(path);
-  if(!validCover(data.publicUrl))throw Error('O endereço da imagem não foi reconhecido.');
-  form.elements.cover.value=data.publicUrl;showCover(data.publicUrl);edited();
+  const url=await uploadImageFile(file);
+  form.elements.cover.value=url;showCover(url);edited();
   message('Imagem enviada. Salve o artigo para utilizar esta capa.');
  }catch(e){message(e.message||'Não foi possível enviar a imagem.',true);}
  finally{button.textContent='Enviar imagem';button.disabled=false;}
 };
+$('inline-image-file').onchange=async()=>{
+ const picker=$('inline-image-file'),file=picker.files[0];if(!file)return;
+ const area=form.elements.body,position=area.selectionStart;
+ try{
+  message('Enviando imagem do artigo...');
+  const url=await uploadImageFile(file);
+  const alt=prompt('Descrição da imagem para leitores e acessibilidade:','Imagem ilustrativa')||'Imagem ilustrativa';
+  const cleaned=alt.replace(/[\\[\\]\\r\\n]/g,'').slice(0,150);
+  area.setRangeText('\n!['+cleaned+']('+url+')\n',position,position,'end');
+  area.focus();edited();message('Imagem incluída no artigo. Salve o rascunho.');
+ }catch(e){message(e.message||'Não foi possível enviar a imagem.',true);}
+ finally{picker.value='';}
+};
 form.onsubmit=async e=>{e.preventDefault();if(busy)return;setBusy(true);try{const v=values();if(!validCover(v.cover?.trim()||''))throw Error('A capa deve ser uma imagem local ou enviada pelo próprio painel.');const {data,error}=await client.rpc('save_post_with_cover',{p_id:current?.id||null,p_version:current?.version||0,p_slug:v.slug,p_title:v.title,p_description:v.description,p_category:v.category,p_body:v.body,p_youtube:v.youtube||'',p_cover:v.cover?.trim()||''});if(error)throw error;dirty=false;await loadPosts();fill(data);message('Rascunho salvo.');}catch(e){message(e.message||'Não foi possível salvar.',true);}finally{setBusy(false);}};
 $('publish-post').onclick=async()=>{if(busy||!current||dirty)return;if(!confirm('Publicar este artigo no site? O texto ficará disponível publicamente após a atualização.'))return;setBusy(true);try{const {data,error}=await client.functions.invoke('publish-post',{body:{id:current.id,version:current.version}});if(error){let detail;try{detail=await error.context?.json();}catch{}throw Error(detail?.error||'Não foi possível publicar. Verifique a configuração do serviço.');}if(data?.error)throw Error(data.error);await loadPosts();fill(posts.find(p=>p.id===current.id));$('publish-status').textContent=data.warning||'Artigo enviado ao GitHub. Aguarde a atualização do site e confira a página publicada.';message(data.warning||'Artigo enviado para publicação.');}catch(e){message(e.message,true);}finally{setBusy(false);}};
-form.querySelectorAll('[data-format]').forEach(b=>b.onclick=()=>{const area=form.elements.body,start=area.selectionStart,end=area.selectionEnd,selection=area.value.slice(start,end);const formats={heading:['\n## ','Subtítulo','\n'],bold:['**','texto','**'],italic:['*','texto','*'],link:['[','texto','](https://exemplo.com)'],list:['\n- ','Primeiro item','\n- Segundo item\n'],math:['$','x^2 + 2x + 1','$'],code:['\n```\n','código','\n```\n']};if(b.dataset.format==='image'){const url=prompt('Endereço da imagem em /imagens/ (PNG, JPG ou WebP):');if(!url)return;if(!url.startsWith('/imagens/')||!url.match(/\.(png|jpg|jpeg|webp)$/i)){message('Informe uma imagem local válida em /imagens/.',true);return;}area.setRangeText('![Imagem do artigo]('+url+')',start,end,'end');area.focus();edited();return;}const [before,placeholder,after]=formats[b.dataset.format];const body=selection||placeholder;area.setRangeText(before+body+after,start,end,'end');area.focus();area.setSelectionRange(start+before.length,start+before.length+body.length);edited();});
+form.querySelectorAll('[data-format]').forEach(b=>b.onclick=()=>{const area=form.elements.body,start=area.selectionStart,end=area.selectionEnd,selection=area.value.slice(start,end);const formats={heading:['\n## ','Subtítulo','\n'],bold:['**','texto','**'],italic:['*','texto','*'],link:['[','texto','](https://exemplo.com)'],list:['\n- ','Primeiro item','\n- Segundo item\n'],math:['$','x^2 + 2x + 1','$'],code:['\n```\n','código','\n```\n']};if(b.dataset.format==='image'){$('inline-image-file').click();return;}const [before,placeholder,after]=formats[b.dataset.format];const body=selection||placeholder;area.setRangeText(before+body+after,start,end,'end');area.focus();area.setSelectionRange(start+before.length,start+before.length+body.length);edited();});
 const escape=value=>String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 $('preview-post').onclick=()=>{const v=values();const html=DOMPurify.sanitize(rawMarkdown(v.body),{ADD_ATTR:['target'],FORBID_TAGS:['iframe','form','input','button','object','embed','style','script']});$('preview-frame').srcdoc=`<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src https:; style-src 'unsafe-inline'; font-src ${location.origin};"><style>${katexStyles}body{max-width:740px;margin:40px auto;padding:0 24px;font:18px/1.8 Georgia,serif;color:#24342b}h1{font-size:38px;line-height:1.25}h2{margin-top:2em}pre{overflow:auto;padding:20px;background:#f4f4f0;font-size:14px}img{max-width:100%}a{color:#8a452e}.math-block{overflow:auto}</style></head><body><h1>${escape(v.title)}</h1><p>${escape(v.description)}</p><hr>${html}</body></html>`;$('preview-dialog').showModal();};
 $('close-preview').onclick=()=>$('preview-dialog').close();
