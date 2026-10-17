@@ -133,7 +133,7 @@ describe('Checklist editorial SEO de zero a dez',()=>{
   const root=fs.mkdtempSync(path.join(os.tmpdir(),'cafematica-seo-yaml-'));
   try{
    const file=path.join(root,'post.md');
-   const existing=article.replace(/\nseoScore: 10\n/,\`\nseoScore: 10\nseoSummary: "Informação desatualizada"\nseoChecklist: |\n  Um comentário antigo.\n  Outra linha antiga.\n\`);
+   const existing=article.replace(/\nseoScore: 10\n/,`\nseoScore: 10\nseoSummary: "Informação desatualizada"\nseoChecklist: |\n  Um comentário antigo.\n  Outra linha antiga.\n`);
    fs.writeFileSync(file,existing);
    auditPosts(root,{write:true});
    const updated=fs.readFileSync(file,'utf8');
