@@ -4,7 +4,7 @@
  */
 export function safeCoverPath(value, supabaseUrl = '') {
   if (typeof value !== 'string' || !value) return '';
-  if (/^\/(?!\/)[a-zA-Z0-9/_.,-]+\.(?:avif|webp|png|jpe?g)$/i.test(value)) return value;
+  if (/^\/(?!\/)[\p{L}\p{N}/_.,-]+\.(?:avif|webp|png|jpe?g)$/iu.test(value) && !value.split('/').some(part=>part==='.'||part==='..')) return value;
   try {
     const image = new URL(value);
     const backend = new URL(supabaseUrl);
