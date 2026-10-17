@@ -24,15 +24,19 @@ Edite `content/posts/*.md` ou utilize o painel depois da configuração do Supab
 
 As páginas institucionais estão em `src/pages/`; os textos de privacidade, cookies e termos estão em `content/pages/`. A configuração pública fica em `config/site.json`. Nunca coloque senhas, tokens privados ou chaves `service_role` nesse arquivo.
 
-## Administração e comentários
+## Edição do blog — sem servidor e sem Supabase
 
-O painel editorial está no mesmo domínio do site, em `/admin/`, hospedado pelo GitHub Pages. O Supabase Auth oferece login Google (após configurar o provedor) e link de acesso por e-mail, sem receber senhas no Pages. O controle de edição é verificado no servidor via `private.admins`, RLS e RPCs protegidas. Os 10 artigos iniciais já foram importados para o banco.
+**O editor recomendado é o [Pages CMS](https://app.pagescms.org/).** Ele permite criar e alterar publicações, escolher categorias, definir capa, enviar imagens e editar texto pelo navegador.
 
-O editor permite criar e revisar rascunhos, enviar capa e imagens internas ao Supabase Storage, escrever Markdown e LaTeX, visualizar uma prévia e solicitar publicação. A Edge Function `publish-post` envia conteúdo ao GitHub, onde o workflow atualiza o site, depois de configurar `GITHUB_TOKEN` como segredo no Supabase.
+1. Acesse [www.cafematica.com.br/admin/](https://www.cafematica.com.br/admin/) e clique em **Abrir editor de publicações**.
+2. Entre no Pages CMS com a conta GitHub que administra `samatxviii/cafematica`; na primeira vez, autorize o aplicativo para **apenas esse repositório**.
+3. Escolha **Artigos do Cafemática**, edite um artigo ou crie um novo.
+4. Escolha a categoria, a imagem de capa e o texto. Para fórmulas em LaTeX, alterne para **Source** no editor de conteúdo.
+5. Salve. O Pages CMS grava em `content/posts/*.md`, e o GitHub Actions recompila automaticamente o site. Aguarde a execução terminar.
 
-**Passos restantes para o primeiro acesso:** configurar URLs de redirecionamento no Supabase Auth, entrar com um e-mail confirmado, autorizar esse usuário em `private.admins` e cadastrar um token restrito do GitHub no Supabase. O Google OAuth demanda Client ID e Client Secret criados no Google Cloud; o link por e-mail pode ser usado primeiro. O sistema não confunde editor acessível com publicação operacional sem essas etapas.
+A configuração do editor está em `.pages.yml`, com diretório de imagens `public/imagens/blog` e URL `/imagens/blog`. Os slugs antigos são mantidos; não altere o campo de endereço dos artigos publicados. Ative **Publicado no site** para exibir o artigo. Como este repositório é público, rascunhos salvos no GitHub também poderão ser visualizados por quem examinar seu código.
 
-Os comentários de leitores permanecem desativados (`commentsEnabled=false`) até validar Google OAuth e moderação. Consulte [docs/CONFIGURACAO.md](docs/CONFIGURACAO.md) para os procedimentos exatos.
+O antigo painel Supabase foi substituído como método de edição, **sem apagar artigos nem banco**. O projeto Supabase fica reservado para uma eventual abertura de comentários com Google; `commentsEnabled` permanece desativado. Não precisamos configurar SMTP, Google OAuth ou um token secreto GitHub só para publicar o blog.
 
 ## AdSense
 
