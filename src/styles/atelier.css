@@ -127,3 +127,14 @@ h1,h2,h3{font-family:'Lora',Georgia,serif;letter-spacing:-.045em}
 .create-post-link>span:first-child{font-size:19px;line-height:1}
 .create-post-lock{color:var(--muted)}
 @media(prefers-reduced-motion:reduce){.post-art.editorial-cover img{transition:none!important;transform:none!important}}
+
+/* Quiet covers when an article has not received a photograph yet. */
+.post-art.editorial-cover{background:#f0e8db;min-height:180px;border:0}
+.post-art.editorial-cover.sage{background:radial-gradient(circle at 72% 33%,#c7d7cc 0 15%,transparent 15.4%),radial-gradient(circle at 45% 65%,#e9d6ca 0 24%,transparent 24.5%),linear-gradient(130deg,#e6ebdf,#f5eee5);color:#577264}
+.post-art.editorial-cover.sand{background:radial-gradient(ellipse at 65% 47%,#dfcdb0 0 23%,transparent 23.5%),linear-gradient(125deg,#f1e6d6,#e9dfd3);color:#876946}
+.post-art.editorial-cover.lavender{background:radial-gradient(circle at 30% 35%,#b6cbd1 0 23%,transparent 23.5%),radial-gradient(circle at 83% 80%,#c8c5dc 0 24%,transparent 24.5%),linear-gradient(135deg,#e5edef,#e5e5ec);color:#4c6778}
+.post-art.editorial-cover .cover-placeholder{position:absolute;inset:0;display:block;font-size:0;opacity:1}
+.post-art.editorial-cover .cover-placeholder:before,.post-art.editorial-cover .cover-placeholder:after{content:'';position:absolute;border:1.5px solid currentColor;border-radius:50%;opacity:.28;transform:rotate(-18deg)}
+.post-art.editorial-cover .cover-placeholder:before{width:42%;height:83%;top:11%;left:30%;border-radius:50%}
+.post-art.editorial-cover .cover-placeholder:after{width:56%;height:40%;top:33%;left:23%;border-radius:50%}
+.post-art.editorial-cover.has-cover .cover-placeholder{display:none}
