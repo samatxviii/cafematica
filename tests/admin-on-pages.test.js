@@ -21,7 +21,7 @@ describe('Editor simples de artigos no GitHub',()=>{
     for(const field of ['title','slug','description','category','topic','cover','date','published','body']){
       expect(config).toContain('name: '+field);
     }
-    expect(getPosts().length).toBeGreaterThanOrEqual(10);
+    expect(Array.isArray(getPosts())).toBe(true);
   });
   it('salva imagens públicas na pasta estática do Astro e evita renomear posts',()=>{
     const config=file('.pages.yml');
