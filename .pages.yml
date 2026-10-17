@@ -26,7 +26,7 @@ content:
       field: false
     view:
       primary: title
-      fields: [title, seoScore, seoSummary, category, published, date]
+      fields: [title, category, published, date]
       layout: tree
       sort: [date, title]
       default:
@@ -61,24 +61,6 @@ content:
               - label: Tecnologia
                 value: tecnologia
     fields:
-      - name: seoScore
-        label: Checklist SEO (0-10)
-        type: number
-        readonly: true
-        description: "Pontuação automática de 10 verificações editoriais objetivas. Não representa ranking nem nota do Google. É atualizada pelo GitHub após salvar."
-        options:
-          min: 0
-          max: 10
-      - name: seoSummary
-        label: O que falta para melhorar o SEO
-        type: string
-        readonly: true
-        description: "Resumo automático do que está faltando. Aparece também na tabela, ao lado da nota. Atualiza alguns instantes após salvar."
-      - name: seoChecklist
-        label: Diagnóstico completo de SEO — 10 critérios e como corrigir
-        type: text
-        readonly: true
-        description: "✓ = critério atendido; ✗ = pendente. Veja acima o que falta e leia as ações para melhorar. Calculado pelo GitHub após salvar; não é nota oficial do Google."
       - name: title
         label: Título
         type: string
