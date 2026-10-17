@@ -147,3 +147,23 @@ h1,h2,h3{font-family:'Lora',Georgia,serif;letter-spacing:-.045em}
 .atelier-feature-placeholder:before,.atelier-feature-placeholder:after{content:'';position:absolute;width:53%;height:82%;top:9%;left:24%;border:1px solid #63716555;border-radius:50%;transform:rotate(20deg)}
 .atelier-feature-placeholder:after{width:72%;height:55%;top:23%;left:14%;transform:rotate(-28deg)}
 @media(prefers-reduced-motion:reduce){.atelier-feature-art img{transition:none!important;transform:none!important}}
+
+/* SEO editorial fields visible to readers, search engines and assistive tech. */
+.article-cover{margin:0 0 clamp(44px,6vw,85px);background:#ede7df;overflow:hidden;border-radius:4px}
+.article-cover img{display:block;width:100%;height:auto;max-height:610px;object-fit:cover;aspect-ratio:16/10}
+.article-cover figcaption{font-size:12px;line-height:1.6;color:var(--muted);padding:12px 17px}
+.article-edited{margin-top:12px;font-size:12px;letter-spacing:.01em;color:var(--muted)}
+.article-quick-answer{background:#f0eae2;border-left:3px solid var(--rust);padding:26px 30px;margin-bottom:45px}
+.article-quick-answer h2{font:700 11px/1.5 'DM Sans',sans-serif;letter-spacing:.13em;text-transform:uppercase;color:var(--rust);margin:0 0 14px}
+.article-quick-answer p{font-size:clamp(17px,1.8vw,21px);line-height:1.75;color:var(--espresso)}
+.article-tags{margin-block:48px 35px;border-top:1px solid var(--line);padding-top:24px}
+.article-tags h2,.article-references h2{font:700 12px/1.5 'DM Sans',sans-serif;text-transform:uppercase;letter-spacing:.1em;color:var(--espresso);margin:0 0 18px}
+.article-tags>div{display:flex;flex-wrap:wrap;gap:9px}
+.article-tags a{display:inline-block;border:1px solid #d7c8b8;background:#fffaf4;border-radius:50px;font-size:13px;padding:8px 14px;color:#70463d;transition:background .2s}
+.article-tags a:hover{background:#f0e0d2;color:var(--espresso)}
+.article-references{margin:30px 0 50px;border-top:1px solid var(--line);padding-top:24px}
+.article-references ul{margin:0;padding-left:23px;display:grid;gap:11px}
+.article-references li{font-size:15px;line-height:1.6}
+.article-references a{color:var(--rust);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;overflow-wrap:anywhere}
+@media(max-width:700px){.article-cover{margin-bottom:35px}.article-quick-answer{padding:22px 20px}.article-tags{margin-top:34px}}
+@media(prefers-reduced-motion:reduce){.article-tags a{transition:none!important}}
