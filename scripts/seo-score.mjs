@@ -1,7 +1,7 @@
 /**
  * Checklist SEO editorial do Cafemática.
  * Não é uma nota do Google nem prevê indexação, posições ou citações por IA.
- * São 10 verificações automáticas de completude e estrutura, descritas em docs/SEO-CHECKLIST.md.
+ * São 10 verificações automáticas de completude e estrutura, descritas em docs/PASTAS-E-CHECKLIST-SEO.md.
  */
 import fs from 'node:fs';
 import path from 'node:path';
