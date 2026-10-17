@@ -90,7 +90,7 @@ $('inline-image-file').onchange=async()=>{
   message('Enviando imagem do artigo...');
   const url=await uploadImageFile(file);
   const alt=prompt('Descrição da imagem para leitores e acessibilidade:','Imagem ilustrativa')||'Imagem ilustrativa';
-  const cleaned=alt.replace(/[\\[\\]\\r\\n]/g,'').slice(0,150);
+  const cleaned=alt.split('[').join('').split(']').join('').replaceAll(String.fromCharCode(10),' ').replaceAll(String.fromCharCode(13),' ').slice(0,150);
   area.setRangeText('\n!['+cleaned+']('+url+')\n',position,position,'end');
   area.focus();edited();message('Imagem incluída no artigo. Salve o rascunho.');
  }catch(e){message(e.message||'Não foi possível enviar a imagem.',true);}
