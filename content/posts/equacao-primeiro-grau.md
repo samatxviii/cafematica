@@ -29,6 +29,8 @@ sources:
   - title: "OpenStax — Estratégias para resolver equações lineares"
     url: "https://openstax.org/books/elementary-algebra-2e/pages/2-key-concepts"
 seoScore: 10
+seoSummary: "Tudo preenchido — revise a qualidade do conteúdo"
+seoChecklist: "10/10 — checklist editorial do Cafemática (não é nota do Google).\n\nNENHUMA PENDÊNCIA AUTOMÁTICA. Ainda é necessário verificar exatidão, utilidade e originalidade do conteúdo.\n\n10 CRITÉRIOS VERIFICADOS:\n✓ 1. Título SEO descritivo e exclusivo\n✓ 2. Descrição SEO preenchida e exclusiva\n✓ 3. Título principal visível e compreensível\n✓ 4. Slug único e estável para URL canônica\n✓ 5. Conteúdo organizado em seções\n✓ 6. Ao menos um link interno válido para outro artigo\n✓ 7. Fontes identificadas com links HTTPS válidos\n✓ 8. Resposta curta presente e clara\n✓ 9. Autoria e data de publicação identificadas\n✓ 10. Imagem de capa disponível com texto alternativo\n\nA pontuação será recalculada pelo GitHub após salvar o artigo. Os comprimentos são critérios editoriais locais, não regras de classificação do Google."
 ---
 Resolver uma equação é procurar os valores que tornam uma igualdade verdadeira. Em $2x+7=19$, o símbolo $x$ representa um número que ainda queremos descobrir. A pergunta é: que número, multiplicado por dois e depois somado a sete, resulta em dezenove?
 

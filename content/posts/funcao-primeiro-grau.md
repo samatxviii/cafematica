@@ -26,6 +26,8 @@ sources:
   - title: "OpenStax — Gráficos de equações lineares"
     url: "https://openstax.org/books/elementary-algebra-2e/pages/4-2-graph-linear-equations-in-two-variables"
 seoScore: 9
+seoSummary: "Falta: capa e descrição da imagem"
+seoChecklist: "9/10 — checklist editorial do Cafemática (não é nota do Google).\n\nO QUE FALTA E COMO CORRIGIR:\n✗ Imagem de capa disponível com texto alternativo\n  → Adicione uma imagem de capa acessível pelo site e preencha 'Descrição da imagem de capa' com 12 a 180 caracteres descrevendo o que ela realmente mostra.\n\n10 CRITÉRIOS VERIFICADOS:\n✓ 1. Título SEO descritivo e exclusivo\n✓ 2. Descrição SEO preenchida e exclusiva\n✓ 3. Título principal visível e compreensível\n✓ 4. Slug único e estável para URL canônica\n✓ 5. Conteúdo organizado em seções\n✓ 6. Ao menos um link interno válido para outro artigo\n✓ 7. Fontes identificadas com links HTTPS válidos\n✓ 8. Resposta curta presente e clara\n✓ 9. Autoria e data de publicação identificadas\n✗ 10. Imagem de capa disponível com texto alternativo\n\nA pontuação será recalculada pelo GitHub após salvar o artigo. Os comprimentos são critérios editoriais locais, não regras de classificação do Google."
 ---
 
 Uma função associa cada elemento de um conjunto de partida a um único resultado no conjunto de chegada. Para começar, imagine uma regra que recebe um número, multiplica por dois e soma um. A entrada 0 produz 1; a entrada 3 produz 7. Podemos representar essa regra por $f(x)=2x+1$.
