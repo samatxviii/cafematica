@@ -25,6 +25,7 @@ sources:
     url: "https://www.overleaf.com/learn/latex/Learn_LaTeX_in_30_minutes"
   - title: "Overleaf — Introdução às expressões matemáticas"
     url: "https://www.overleaf.com/learn/latex/Mathematical_expressions"
+seoScore: 9
 ---
 
 Começar com LaTeX não exige memorizar uma grande quantidade de comandos. Um objetivo melhor é montar um documento curto, compilar e perceber a função de cada parte. Depois, você amplia esse primeiro arquivo conforme a necessidade.

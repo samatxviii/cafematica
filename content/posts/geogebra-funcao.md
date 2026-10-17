@@ -25,6 +25,7 @@ sources:
     url: "https://help.geogebra.org/hc/en-us/articles/8379920754717-Graphing-Calculator"
   - title: "GeoGebra — Ferramenta Deslizante (manual oficial)"
     url: "https://geogebra.github.io/docs/manual/en/tools/Slider/"
+seoScore: 9
 ---
 
 Um gráfico pronto pode mostrar uma resposta. Uma investigação com gráficos pode revelar relações. Nesta atividade, vamos usar a Calculadora Gráfica do GeoGebra para comparar funções do primeiro grau, fazer previsões e conferir se elas se confirmam.

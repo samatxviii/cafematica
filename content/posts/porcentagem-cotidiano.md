@@ -25,6 +25,7 @@ sources:
     url: "https://openstax.org/books/prealgebra-2e/pages/6-2-solve-general-applications-of-percent"
   - title: "OpenStax — Cálculos de descontos e preços"
     url: "https://openstax.org/books/prealgebra-2e/pages/6-3-solve-sales-tax-commission-and-discount-applications"
+seoScore: 9
 ---
 
 Uma porcentagem sempre compara uma quantidade com uma base. Dizer apenas “aumentou 20%” deixa uma pergunta: vinte por cento de qual valor? Identificar essa base é o passo mais importante em problemas de descontos, reajustes e comparações.

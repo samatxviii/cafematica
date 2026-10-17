@@ -25,6 +25,7 @@ sources:
     url: "https://www.overleaf.com/learn/latex/Lists"
   - title: "Overleaf — Quebras de linha, de página e espaçamento"
     url: "https://www.overleaf.com/learn/latex/Line_breaks_and_blank_spaces"
+seoScore: 9
 ---
 
 Uma boa lista de exercícios precisa ser fácil de ler, resolver e revisar. O LaTeX ajuda a manter a numeração e a estrutura consistentes, especialmente quando você inclui ou reorganiza questões. Para começar, vamos montar um arquivo pequeno com três exercícios e um gabarito separado.

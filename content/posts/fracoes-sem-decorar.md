@@ -25,6 +25,7 @@ sources:
     url: "https://openstax.org/books/prealgebra-2e/pages/4-introduction-to-fractions"
   - title: "OpenStax — Somar e subtrair frações com denominadores diferentes"
     url: "https://openstax.org/books/prealgebra-2e/pages/4-5-add-and-subtract-fractions-with-different-denominators"
+seoScore: 9
 ---
 
 Imagine duas barras de chocolate do mesmo tamanho. Uma foi dividida em duas partes iguais; a outra, em três. Você pega uma parte de cada barra. Quantas barras recebeu ao todo? A resposta não é dois quintos. Para entender a conta, precisamos observar o tamanho das partes.

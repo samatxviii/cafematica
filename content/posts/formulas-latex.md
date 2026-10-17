@@ -27,6 +27,7 @@ sources:
     url: "https://www.overleaf.com/learn/latex/Fractions_and_Binomials"
   - title: "Overleaf — Índices inferiores e expoentes"
     url: "https://www.overleaf.com/learn/latex/Subscripts_and_superscripts"
+seoScore: 9
 ---
 
 Uma fórmula bem escrita ajuda o leitor a perceber a estrutura de uma ideia. No LaTeX, o modo matemático cuida do espaçamento entre operadores e da apresentação dos símbolos, mas você precisa indicar corretamente quais partes pertencem a cada comando.

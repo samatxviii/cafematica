@@ -25,6 +25,7 @@ sources:
     url: "https://pt.khanacademy.org/math/9-ano-mat-pr/xc330d75a48d4d1d9%3A3-trimestre/xc330d75a48d4d1d9%3Asemana-1-nocoes-de-funcoes-e-situacoes-problema-envolvendo-funcao-afim/a/introducao-a-funcao-afim"
   - title: "OpenStax — Gráficos de equações lineares"
     url: "https://openstax.org/books/elementary-algebra-2e/pages/4-2-graph-linear-equations-in-two-variables"
+seoScore: 9
 ---
 
 Uma função associa cada elemento de um conjunto de partida a um único resultado no conjunto de chegada. Para começar, imagine uma regra que recebe um número, multiplica por dois e soma um. A entrada 0 produz 1; a entrada 3 produz 7. Podemos representar essa regra por $f(x)=2x+1$.

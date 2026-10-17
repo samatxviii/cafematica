@@ -27,6 +27,7 @@ sources:
     url: "https://obsproject.com/kb/sources-guide"
   - title: "OBS Studio — Como funcionam os perfis"
     url: "https://obsproject.com/kb/profiles"
+seoScore: 9
 ---
 
 A primeira aula gravada não precisa de uma abertura animada ou de muitas transições. O mais importante é que o estudante consiga ouvir sua explicação e ler o material. Uma estrutura simples também facilita corrigir problemas antes que eles comprometam uma gravação longa.

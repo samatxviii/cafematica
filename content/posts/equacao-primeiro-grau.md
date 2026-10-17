@@ -28,6 +28,7 @@ sources:
     url: "https://pt.khanacademy.org/math/algebra-home/alg-basic-eq-ineq/alg-one-step-mult-div-equations/a/one-step-equation-review"
   - title: "OpenStax — Estratégias para resolver equações lineares"
     url: "https://openstax.org/books/elementary-algebra-2e/pages/2-key-concepts"
+seoScore: 10
 ---
 Resolver uma equação é procurar os valores que tornam uma igualdade verdadeira. Em $2x+7=19$, o símbolo $x$ representa um número que ainda queremos descobrir. A pergunta é: que número, multiplicado por dois e depois somado a sete, resulta em dezenove?
 

@@ -27,6 +27,7 @@ sources:
     url: "https://support.google.com/drive/answer/9700156?hl=pt-BR"
   - title: "Ajuda do Google Drive — Compartilhar arquivos e pastas com segurança"
     url: "https://support.google.com/drive/answer/2494822?hl=pt-BR"
+seoScore: 9
 ---
 
 “Lista final”, “lista final nova” e “lista final agora” são nomes que contam a história de uma dificuldade: falta um critério claro para identificar o material certo. A organização de arquivos fica mais útil quando responde a três perguntas: sobre qual assunto é o arquivo, para quem ele serve e qual versão deve ser usada?
