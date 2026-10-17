@@ -28,10 +28,34 @@ slugs duplicados em diretórios diferentes.
 A coluna **Checklist SEO (0-10)** mostra um número calculado automaticamente
 pelo script `scripts/seo-score.mjs` quando um artigo é salvo no GitHub.
 O workflow `.github/workflows/seo-checklist.yml` calcula e grava `seoScore`
-no frontmatter do artigo; no editor o campo é somente leitura. A atualização
+no frontmatter do artigo; os campos `seoScore`, `seoSummary` e `seoChecklist` são somente leitura no editor. A atualização
 não é instantânea: depende da execução do workflow, que geralmente leva
 alguns instantes após o commit. Se um workflow falhar, a nota antiga pode
 permanecer e deve ser considerada desatualizada.
+
+## Como interpretar as notas no editor
+
+A tabela do Pages CMS agora apresenta duas colunas lado a lado:
+
+- **Checklist SEO (0-10)**: a quantidade de verificações técnicas e editoriais atendidas.
+- **O que falta para melhorar o SEO**: o principal item pendente e, se existirem vários, um aviso de que há mais.
+
+Abra um artigo em **Edit** e consulte os campos de somente leitura no início do
+formulário: a nota, o resumo da pendência e **Diagnóstico completo de SEO — 10
+critérios e como corrigir**. O relatório identifica cada item com ✓ (atendido) ou
+✗ (pendente) e traz uma instrução específica de correção para cada item que falta.
+
+Exemplos de leitura:
+
+- **10/10** — os dez critérios automáticos foram preenchidos. Ainda vale revisar a exatidão, a experiência de leitura, a originalidade e eventuais erros de Matemática.
+- **9/10** — exatamente um critério está pendente. Veja qual na coluna *O que falta*; se for imagem, adicione uma capa real e o texto alternativo.
+- **7/10** — três critérios não foram atendidos. Consulte o diagnóstico para ver quais; a nota não diz sozinha o que falta.
+- **5/10** — cinco critérios não foram atendidos, independentemente de quais sejam. O diagnóstico mostra os cinco e o que editar.
+
+Depois de **Salvar**, o GitHub recalcula os campos; recarregue o Pages CMS após
+a automação concluir. Não é uma auditoria em tempo real enquanto o texto é digitado.
+Se o relatório ainda for o anterior, confira o
+[workflow Verificar checklist SEO dos artigos](https://github.com/samatxviii/cafematica/actions/workflows/seo-checklist.yml).
 
 Cada critério vale **exatamente um ponto**, sem pesos ocultos:
 
