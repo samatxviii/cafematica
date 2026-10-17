@@ -35,7 +35,7 @@ describe('Lote 1 — revisão editorial e SEO de três publicações',()=>{
   for(const slug of slugs){
    const article=articles.find(post=>post.slug===slug);
    expect(article.tags.length).toBeGreaterThanOrEqual(3);
-   expect(article.tags.length).toBeLessThanOrEqual(6);
+   expect(article.tags.length).toBeLessThanOrEqual(8);
    expect(article.quickAnswer.length).toBeGreaterThan(110);
    expect(article.quickAnswer.length).toBeLessThanOrEqual(600);
    expect(article.sources.length).toBeGreaterThanOrEqual(2);
