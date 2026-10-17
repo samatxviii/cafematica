@@ -27,9 +27,6 @@ sources:
     url: "https://www.overleaf.com/learn/latex/Fractions_and_Binomials"
   - title: "Overleaf — Índices inferiores e expoentes"
     url: "https://www.overleaf.com/learn/latex/Subscripts_and_superscripts"
-seoScore: 9
-seoSummary: "Falta: capa e descrição da imagem"
-seoChecklist: "9/10 — checklist editorial do Cafemática (não é nota do Google).\n\nO QUE FALTA E COMO CORRIGIR:\n✗ Imagem de capa disponível com texto alternativo\n  → Adicione uma imagem de capa acessível pelo site e preencha 'Descrição da imagem de capa' com 12 a 180 caracteres descrevendo o que ela realmente mostra.\n\n10 CRITÉRIOS VERIFICADOS:\n✓ 1. Título SEO descritivo e exclusivo\n✓ 2. Descrição SEO preenchida e exclusiva\n✓ 3. Título principal visível e compreensível\n✓ 4. Slug único e estável para URL canônica\n✓ 5. Conteúdo organizado em seções\n✓ 6. Ao menos um link interno válido para outro artigo\n✓ 7. Fontes identificadas com links HTTPS válidos\n✓ 8. Resposta curta presente e clara\n✓ 9. Autoria e data de publicação identificadas\n✗ 10. Imagem de capa disponível com texto alternativo\n\nA pontuação será recalculada pelo GitHub após salvar o artigo. Os comprimentos são critérios editoriais locais, não regras de classificação do Google."
 ---
 
 Uma fórmula bem escrita ajuda o leitor a perceber a estrutura de uma ideia. No LaTeX, o modo matemático cuida do espaçamento entre operadores e da apresentação dos símbolos, mas você precisa indicar corretamente quais partes pertencem a cada comando.
