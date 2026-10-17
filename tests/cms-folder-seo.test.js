@@ -21,7 +21,7 @@ const article=[
  'Um conteúdo de teste para a estrutura editorial.',
  '## Segundo passo',
  'A URL permanece baseada no slug após mover o arquivo.'
-].join('\\n');
+].join('\n');
 const payload=(file,folder)=>({
  source:'pages-cms',
  action:{name:'move-post-folder'},
