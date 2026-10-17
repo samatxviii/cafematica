@@ -121,3 +121,23 @@ if(gaEnabled){
     dialog?.showModal();
   }
 }
+
+
+// Interactive function sketch: no external dependencies or analytics events.
+const studio=document.querySelector('[data-math-studio]');
+if(studio){
+  const control=studio.querySelector('#slope-control');
+  const line=studio.querySelector('[data-graph-line]');
+  const label=studio.querySelector('[data-slope-label]');
+  const value=studio.querySelector('[data-slope-value]');
+  const render=()=>{
+    const slope=Number(control.value);
+    label.textContent=String(slope);
+    value.textContent=String(slope);
+    const yAt=x=>120-slope*(x-210)*.55;
+    line.setAttribute('d','M0 '+yAt(0)+' L420 '+yAt(420));
+    control.setAttribute('aria-valuetext','Inclinação '+slope);
+  };
+  control.addEventListener('input',render);
+  render();
+}
