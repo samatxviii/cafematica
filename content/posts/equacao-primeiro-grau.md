@@ -11,6 +11,23 @@ published: true
 cmsId: 448a58d9-c844-4c45-ab31-ed15ce88157f
 cmsVersion: 1
 cover: /imagens/blog/83996284-0789-4e03-bc18-e500ef891254.png
+seoTitle: "Equação do 1º grau: como resolver passo a passo"
+seoDescription: "Aprenda a resolver equações do primeiro grau com exemplos, parênteses e exercícios. Entenda as operações nos dois lados e como conferir cada resposta."
+tags:
+  - "equação do primeiro grau"
+  - "equações com uma incógnita"
+  - "resolver equações"
+  - "propriedade distributiva"
+  - "exercícios de álgebra"
+coverAlt: "Ilustração matemática usada na capa do artigo sobre equações do primeiro grau."
+author: "Fernando da Silva Batista"
+updated: "2026-10-17"
+quickAnswer: "Para resolver uma equação do primeiro grau, simplifique os dois lados e use operações equivalentes para isolar a incógnita. Em 2x+7=19, subtraia 7 de ambos os lados e depois divida por 2: x=6. Confira substituindo esse valor na igualdade original."
+sources:
+  - title: "Khan Academy — Revisão das equações de primeiro grau"
+    url: "https://pt.khanacademy.org/math/algebra-home/alg-basic-eq-ineq/alg-one-step-mult-div-equations/a/one-step-equation-review"
+  - title: "OpenStax — Estratégias para resolver equações lineares"
+    url: "https://openstax.org/books/elementary-algebra-2e/pages/2-key-concepts"
 ---
 Resolver uma equação é procurar os valores que tornam uma igualdade verdadeira. Em $2x+7=19$, o símbolo $x$ representa um número que ainda queremos descobrir. A pergunta é: que número, multiplicado por dois e depois somado a sete, resulta em dezenove?
 
@@ -63,3 +80,7 @@ Nessas situações, o coeficiente da incógnita desaparece depois da simplifica�
 3. $2(x+4)=18$.
 
 **Respostas:** $x=6$, $x=4$ e $x=5$. Escolha uma das equações e explique cada operação em voz alta. Se sua justificativa for “fiz a mesma operação nos dois lados”, você está usando a ideia central.
+
+## O que estudar depois de resolver equações?
+
+Resolver $ax+b=0$ também permite encontrar a raiz de uma função de primeiro grau, isto é, a entrada que produz resultado zero. Veja como a mesma ideia aparece em tabelas e gráficos no artigo [Função do primeiro grau: fórmula, gráfico e raiz](/blog/funcao-primeiro-grau/).
