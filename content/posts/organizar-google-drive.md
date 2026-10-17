@@ -9,6 +9,24 @@ date: "2026-10-12"
 published: true
 cmsId: "ddaf2764-12c4-4a4a-af11-5b804c78d33c"
 cmsVersion: 1
+seoTitle: "Google Drive para professores: organize aulas e arquivos"
+seoDescription: "Organize materiais de aula no Google Drive com pastas por assunto e turma, nomes padronizados, atalhos e cuidados de compartilhamento. Passo a passo."
+tags:
+  - "Google Drive para professores"
+  - "organização de arquivos"
+  - "materiais de aula"
+  - "pastas no Google Drive"
+  - "compartilhamento de arquivos"
+author: "Fernando da Silva Batista"
+updated: "2026-10-17"
+quickAnswer: "Para organizar aulas no Google Drive, crie uma área de materiais-base por assunto e outra por turma ou período. Use nomes claros com tema, tipo de arquivo e versão; evite cópias duplicadas quando um atalho resolver. Antes de compartilhar listas e gabaritos, confira o arquivo escolhido e as permissões de acesso."
+sources:
+  - title: "Ajuda do Google Drive — Organizar seus arquivos"
+    url: "https://support.google.com/drive/answer/2375091?hl=pt-BR"
+  - title: "Ajuda do Google Drive — Criar e usar atalhos"
+    url: "https://support.google.com/drive/answer/9700156?hl=pt-BR"
+  - title: "Ajuda do Google Drive — Compartilhar arquivos e pastas com segurança"
+    url: "https://support.google.com/drive/answer/2494822?hl=pt-BR"
 ---
 
 “Lista final”, “lista final nova” e “lista final agora” são nomes que contam a história de uma dificuldade: falta um critério claro para identificar o material certo. A organização de arquivos fica mais útil quando responde a três perguntas: sobre qual assunto é o arquivo, para quem ele serve e qual versão deve ser usada?
@@ -54,3 +72,8 @@ Escolha um único assunto para reorganizar hoje. Identifique o arquivo principal
 Depois de cada aula, reserve alguns minutos para guardar a versão utilizada e anotar o que precisa ser melhorado. A organização passa a servir à preparação do próximo encontro, em vez de virar uma grande tarefa acumulada.
 
 Consulte também a [ajuda do Google sobre organização de arquivos](https://support.google.com/drive/answer/2375091?hl=pt-BR). Use as ferramentas para sustentar um critério que você consiga repetir.
+
+
+## Organize também os arquivos que você produz
+
+Depois de estabelecer um padrão de pastas, você pode guardar nele documentos produzidos em outros programas. Para criar atividades editáveis com numeração consistente, veja [como montar uma lista de exercícios em LaTeX](/blog/lista-exercicios-latex/). Se você também grava explicações, confira [como preparar uma aula gravada no OBS Studio](/blog/obs-primeira-aula/) e reserve uma pasta específica para os vídeos finais e os materiais utilizados.
