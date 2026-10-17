@@ -1,9 +1,14 @@
 import { describe,it,expect } from 'vitest';
 import { renderMarkdown,slugify } from '../src/lib/render.mjs';
-import { getPosts } from '../src/lib/content.mjs';
+import { getPosts, normalizePostDate } from '../src/lib/content.mjs';
 import { postMarkdown } from '../supabase/functions/_shared/publish.ts';
 import matter from 'gray-matter';
 describe('conteúdo público',()=>{
+ it('aceita datas YAML do Pages CMS como texto ou Date',()=>{
+  expect(normalizePostDate('2026-10-12')).toBe('2026-10-12');
+  expect(normalizePostDate(new Date('2026-10-12T00:00:00.000Z'))).toBe('2026-10-12');
+  expect(()=>normalizePostDate('invalid')).toThrow();
+ });
  it('preserva valores em reais sem interpretá-los como fórmulas',()=>{expect(renderMarkdown('O preço era R$ 150 e passou a R$ 120.')).toContain('R$ 150 e passou a R$ 120');});
  it('remove XSS de HTML e links sem perder fórmulas ou código',()=>{const html=renderMarkdown('<script>alert(1)</script>\n\n<img src="x" onerror="alert(1)">\n\n[x](javascript:alert(1))\n\n$\\frac{1}{2}$\n\n```html\n<script>x</script>\n```');expect(html).not.toMatch(/onerror|href="javascript:|<script/);expect(html).toContain('katex');expect(html).toContain('&lt;script&gt;');});
  it('mantém todos os artigos válidos e únicos',()=>{const posts=getPosts();expect(posts.length).toBeGreaterThanOrEqual(10);expect(new Set(posts.map(p=>p.slug)).size).toBe(posts.length);for(const post of posts){expect(post.slug).toBe(slugify(post.slug));expect(post.description.length).toBeGreaterThan(30);expect(post.body.trim().length).toBeGreaterThanOrEqual(300);expect(post.html).not.toContain('<iframe');expect(post.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);}});
