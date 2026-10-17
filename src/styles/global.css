@@ -4,3 +4,13 @@
 
 :root{--serif:'Lora',Georgia,serif;--sans:'DM Sans',sans-serif}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+
+/* Cafemática 2.0 — editorial design foundations */
+:root{--paper:#FAF6EF;--white:#FFFFFF;--ink:#1D1B1A;--muted:#625b56;--line:#E3D9CC;--green:#59392B;--rust:#762A35;--sage:#E6E4DC;--sand:#EEE5D9;--lavender:#E3E8EE;--navy:#20364D;--espresso:#34251F;--gold:#B99456}
+.hero-copy h1{max-width:750px;text-wrap:balance;font-size:clamp(2.65rem,5.1vw,5.25rem);line-height:1.13;letter-spacing:-.052em}
+.signature-underline{position:relative;white-space:normal;text-decoration:underline;text-decoration-color:var(--rust);text-decoration-thickness:.055em;text-underline-offset:.14em;text-decoration-skip-ink:auto}
+@supports (background:linear-gradient(red,red)){.signature-underline{text-decoration:none;background-image:linear-gradient(92deg,var(--rust),#9c5554);background-repeat:no-repeat;background-position:0 94%;background-size:0% .075em;animation:cafematica-draw-line 1.25s .35s ease-out forwards}}
+@keyframes cafematica-draw-line{to{background-size:100% .075em}}
+@media(prefers-reduced-motion:reduce){.signature-underline{animation:none!important;background-size:100% .075em!important}*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}}
+@media(max-width:800px){.hero-copy h1{font-size:clamp(2.55rem,8vw,4rem)}}
