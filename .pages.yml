@@ -57,6 +57,24 @@ content:
         options:
           minlength: 30
           maxlength: 300
+      - name: seoTitle
+        label: Título para Google e compartilhamentos (opcional)
+        type: string
+        description: "Use um título claro e específico. Se ficar vazio, utilizaremos o título normal do artigo. Evite repetir palavras."
+        options:
+          maxlength: 75
+      - name: seoDescription
+        label: Descrição para mecanismos de busca (opcional)
+        type: text
+        description: "Explique o benefício real de ler o artigo. Se ficar vazio, usaremos o resumo. Não existe garantia de que o Google exibirá este texto."
+        options:
+          maxlength: 180
+      - name: tags
+        label: Tags / assuntos relacionados
+        type: string
+        list:
+          max: 8
+        description: "Adicione entre 3 e 6 termos pertinentes, um por linha. Ajudam na navegação e na busca interna; não são a antiga meta tag keywords."
       - name: category
         label: Categoria
         type: select
@@ -80,10 +98,30 @@ content:
         options:
           extensions: [jpg, jpeg, png, webp, avif]
           rename: safe
+      - name: coverAlt
+        label: Descrição da imagem de capa (acessibilidade)
+        type: string
+        description: "O que a imagem realmente mostra? Não encha de palavras-chave."
+        options:
+          maxlength: 180
+      - name: author
+        label: Autor do artigo
+        type: string
+        default: "Fernando da Silva Batista"
+        description: "Nome real do responsável pelo conteúdo. Será mostrado ao leitor e informado nos dados estruturados."
+        options:
+          maxlength: 120
       - name: date
         label: Data de publicação
         type: date
         required: true
+        options:
+          format: yyyy-MM-dd
+      - name: updated
+        label: Última revisão significativa (opcional)
+        type: date
+        default: ""
+        description: "Preencha somente quando o conteúdo for realmente atualizado. Não troque a data apenas para parecer recente."
         options:
           format: yyyy-MM-dd
       - name: published
@@ -95,6 +133,30 @@ content:
         label: ID do vídeo YouTube (opcional)
         type: string
         description: "Apenas os 11 caracteres do identificador do vídeo."
+      - name: quickAnswer
+        label: Resposta curta ou principal aprendizado (opcional)
+        type: text
+        description: "Responda à dúvida central em 2 a 4 frases, com informações corretas e úteis. Aparecerá visivelmente no artigo."
+        options:
+          maxlength: 600
+      - name: sources
+        label: Fontes e leituras recomendadas (opcional)
+        type: object
+        list:
+          max: 12
+          collapsible:
+            collapsed: true
+            summary: "{title}"
+        fields:
+          - name: title
+            label: Nome da fonte
+            type: string
+            required: true
+          - name: url
+            label: Link da fonte (https)
+            type: string
+            required: true
+            pattern: "^https://.+"
       - name: body
         label: Conteúdo
         type: rich-text

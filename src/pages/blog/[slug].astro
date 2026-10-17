@@ -1,6 +1,61 @@
 ---
-import Base from '../../layouts/Base.astro';import Icon from '../../components/Icon.astro';import Comments from '../../components/Comments.astro';import PostCard from '../../components/PostCard.astro';import {getPosts,dateLabel} from '../../lib/content.mjs';
-export function getStaticPaths(){return getPosts().map(post=>({params:{slug:post.slug},props:{post}}));}
-const {post}=Astro.props;const related=getPosts().filter(p=>p.category===post.category&&p.slug!==post.slug).slice(0,3);
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import Comments from '../../components/Comments.astro';
+import PostCard from '../../components/PostCard.astro';
+import {getPosts,dateLabel} from '../../lib/content.mjs';
+import {safeCoverPath} from '../../lib/cover.mjs';
+import site from '../../../config/site.json';
+
+export function getStaticPaths(){
+  return getPosts().map(post=>({params:{slug:post.slug},props:{post}}));
+}
+
+const {post}=Astro.props;
+const author=typeof post.author==='string'&&post.author.trim()?post.author.trim():'Fernando da Silva Batista';
+const cover=safeCoverPath(post.cover,site.supabaseUrl);
+const updated=post.updated&&post.updated!==post.date?post.updated:null;
+const tags=post.tags||[];
+const sources=post.sources||[];
+const related=getPosts().filter(other=>other.slug!==post.slug).map(other=>({
+  other,
+  score:(other.category===post.category?2:0)+tags.filter(tag=>other.tags?.some(t=>t.toLocaleLowerCase('pt-BR')===tag.toLocaleLowerCase('pt-BR'))).length*3
+})).filter(item=>item.score>0).sort((a,b)=>b.score-a.score||b.other.date.localeCompare(a.other.date)).slice(0,3).map(item=>item.other);
 ---
-<Base title={post.title} description={post.description} article={post}><article class="container article-shell"><header class="article-head"><div class="breadcrumbs"><a href="/">Início</a><span>/</span><a href={`/${post.category}/`}>{post.categoryInfo.name}</a></div><span class={`eyebrow category-label ${post.category}`}>{post.topic||post.categoryInfo.name}</span><h1>{post.title}</h1><p class="article-summary">{post.description}</p><div class="byline"><img src="/assets/logo-original.png" width="28" height="34" alt=""/><a href="/sobre/">Cafemática</a><span>·</span><time datetime={post.date}>{dateLabel(post.date)}</time><span>·</span><span>{post.minutes} min de leitura</span></div></header><div class="article-layout"><div><div class="prose" set:html={post.html}/>{post.youtube&&/^[\w-]{11}$/.test(post.youtube)&&<div class="video-placeholder" data-video={post.youtube}><p>Este vídeo é carregado pelo YouTube somente após sua autorização.</p><button class="button secondary" data-load-video>Permitir e assistir ao vídeo</button></div>}<div class="article-foot"><p><strong>Aprender é um processo.</strong> Encontrou um erro ou ficou com uma dúvida? <a href="/contato/">Fale com o Cafemática</a>.</p><p>Conteúdo preparado com apoio de inteligência artificial. As publicações podem ser corrigidas e ampliadas. Consulte as referências indicadas nos tutoriais.</p></div><Comments slug={post.slug}/></div><aside class="article-aside"><h2>Aprenda no seu ritmo</h2><p>Leia, experimente os exemplos e volte quando precisar. Uma ideia de cada vez.</p><a href={`/${post.category}/`}><Icon name="book" size={17}/> Mais sobre {post.categoryInfo.name}</a><a href="#comentarios">Conversar sobre este artigo ↓</a><button class="text-button" data-copy-link style="font-size:12px">Copiar link do artigo</button></aside></div></article>{related.length>0&&<section class="container section"><div class="section-heading"><div><span class="eyebrow">Continue sua descoberta</span><h2>Uma ideia puxa outra</h2></div></div><div class="post-grid">{related.map(post=><PostCard post={post}/>)}</div></section>}</Base>
+<Base title={post.title} description={post.description} article={post}>
+  <article class="container article-shell">
+    <header class="article-head">
+      <div class="breadcrumbs"><a href="/">Início</a><span>/</span><a href={`/${post.category}/`}>{post.categoryInfo.name}</a></div>
+      <span class={`eyebrow category-label ${post.category}`}>{post.topic||post.categoryInfo.name}</span>
+      <h1>{post.title}</h1>
+      <p class="article-summary">{post.description}</p>
+      <div class="byline">
+        <img src="/assets/logo-original.png" width="28" height="34" alt=""/>
+        {author==='Fernando da Silva Batista'?<a href="/sobre/">{author}</a>:<span>{author}</span>}
+        <span>·</span><time datetime={post.date}>{dateLabel(post.date)}</time>
+        <span>·</span><span>{post.minutes} min de leitura</span>
+      </div>
+      {updated&&<p class="article-edited">Revisado em <time datetime={updated}>{dateLabel(updated)}</time></p>}
+    </header>
+    {cover&&<figure class="article-cover"><img src={cover} alt={post.coverAlt||''} width="1600" height="1000" decoding="async"/>{post.coverAlt&&<figcaption>{post.coverAlt}</figcaption>}</figure>}
+    <div class="article-layout">
+      <div>
+        {post.quickAnswer&&<section class="article-quick-answer" aria-labelledby="quick-answer-title"><h2 id="quick-answer-title">Em poucas palavras</h2><p>{post.quickAnswer}</p></section>}
+        <div class="prose" set:html={post.html}/>
+        {tags.length>0&&<nav class="article-tags" aria-label="Assuntos relacionados"><h2>Assuntos deste artigo</h2><div>{tags.map(tag=><a href={`/blog/?q=${encodeURIComponent(tag)}#busca`}>{tag}</a>)}</div></nav>}
+        {sources.length>0&&<section class="article-references" aria-labelledby="references-title"><h2 id="references-title">Fontes e leituras recomendadas</h2><ul>{sources.map(source=><li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title} <span aria-hidden="true">↗</span></a></li>)}</ul></section>}
+        {post.youtube&&/^[\w-]{11}$/.test(post.youtube)&&<div class="video-placeholder" data-video={post.youtube}><p>Este vídeo é carregado pelo YouTube somente após sua autorização.</p><button class="button secondary" data-load-video>Permitir e assistir ao vídeo</button></div>}
+        <div class="article-foot"><p><strong>Aprender é um processo.</strong> Encontrou um erro ou ficou com uma dúvida? <a href="/contato/">Fale com o Cafemática</a>.</p><p>Conteúdo preparado com apoio de inteligência artificial. As publicações podem ser corrigidas e ampliadas. Consulte as referências indicadas nos tutoriais.</p></div>
+        <Comments slug={post.slug}/>
+      </div>
+      <aside class="article-aside">
+        <h2>Aprenda no seu ritmo</h2>
+        <p>Leia, experimente os exemplos e volte quando precisar. Uma ideia de cada vez.</p>
+        <a href={`/${post.category}/`}><Icon name="book" size={17}/> Mais sobre {post.categoryInfo.name}</a>
+        <a href="#comentarios">Conversar sobre este artigo ↓</a>
+        <button class="text-button" data-copy-link style="font-size:12px">Copiar link do artigo</button>
+      </aside>
+    </div>
+  </article>
+  {related.length>0&&<section class="container section"><div class="section-heading"><div><span class="eyebrow">Continue sua descoberta</span><h2>Uma ideia puxa outra</h2></div></div><div class="post-grid">{related.map(relatedPost=><PostCard post={relatedPost}/>)}</div></section>}
+</Base>
