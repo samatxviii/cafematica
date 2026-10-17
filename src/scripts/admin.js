@@ -13,10 +13,10 @@ function edited(){dirty=true;$('post-state').textContent='Alterações não salv
 function fill(post=null){current=post;form.reset();delete form.elements.slug.dataset.manual;for(const key of ['title','slug','category','description','body','youtube','cover'])if(post)form.elements[key].value=post[key]||'';form.elements.slug.readOnly=!!post?.published_at;dirty=false;$('editor-title').textContent=post?'Editar artigo':'Novo artigo';$('post-state').textContent=post?.publication_status==='queued'?'Enviado ao site':'Rascunho';$('publish-status').textContent=post?.publication_status==='queued'?'Enviado ao GitHub. A atualização do site pode levar alguns minutos.':'Salve e revise antes de publicar.';$('publish-post').disabled=!post;$('word-count').textContent=`${form.elements.body.value.trim().split(/\s+/).filter(Boolean).length} palavras`;showCover(post?.cover||'');document.querySelectorAll('.post-list-item').forEach(b=>b.classList.toggle('active',b.dataset.id===post?.id));}
 function validCover(url){
  if(!url)return true;
- if(/^\\/(?!\\/)[a-zA-Z0-9/_.,-]+\\.(?:avif|webp|png|jpe?g)$/i.test(url))return true;
+ if(/^\/(?!\/)[a-zA-Z0-9/_.,-]+\.(?:avif|webp|png|jpe?g)$/i.test(url))return true;
  try{
   const image=new URL(url),backend=new URL(config.supabaseUrl);
-  return image.origin===backend.origin && /^\\/storage\\/v1\\/object\\/public\\/article-images\\/[a-zA-Z0-9/._-]+$/i.test(image.pathname);
+  return image.origin===backend.origin && /^\/storage\/v1\/object\/public\/article-images\/[a-zA-Z0-9/._-]+$/i.test(image.pathname);
  }catch{return false;}
 }
 function showCover(url){
