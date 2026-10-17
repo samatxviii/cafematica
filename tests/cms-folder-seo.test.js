@@ -4,8 +4,6 @@ import os from 'node:os';
 import path from 'node:path';
 import {getPosts,listPostFiles} from '../src/lib/content.mjs';
 import {moveArticle,planArticleMove} from '../scripts/move-post.mjs';
-import {auditPosts,describeSeoChecklist} from '../scripts/seo-score.mjs';
-import matter from 'gray-matter';
 
 const cms=fs.readFileSync('.pages.yml','utf8');
 const article=fs.readFileSync('content/posts/equacao-primeiro-grau.md','utf8');
@@ -69,86 +67,37 @@ describe('Pastas no Pages CMS e URLs estáveis',()=>{
  });
 });
 
-describe('Checklist editorial SEO de zero a dez',()=>{
- it('mostra nota e pendência lado a lado antes da categoria na tabela',()=>{
-  expect(cms).toContain('fields: [title, seoScore, seoSummary, category, published, date]');
-  expect(cms).toContain('name: seoSummary');
-  expect(cms).toContain('name: seoChecklist');
-  expect(cms).toContain('label: Diagnóstico completo de SEO — 10 critérios e como corrigir');
-  expect(cms).toContain('name: seoScore');
-  expect(cms).toContain('label: Checklist SEO (0-10)');
-  expect(cms).toContain('readonly: true');
- });
- it('audita artigos de verdade e explica cada ponto sem alegar ranking',()=>{
-  const results=auditPosts();
-  expect(results.length).toBeGreaterThanOrEqual(10);
-  for(const result of results){
-   expect(result.checks).toHaveLength(10);
-   expect(result.score).toBeGreaterThanOrEqual(0);
-   expect(result.score).toBeLessThanOrEqual(10);
-   expect(result.score).toBe(result.checks.filter(c=>c.ok).length);
-   expect(new Set(result.checks.map(c=>c.id)).size).toBe(10);
-  }
-  const documentation=fs.readFileSync('docs/PASTAS-E-CHECKLIST-SEO.md','utf8');
-  expect(documentation).toMatch(/não.*(nota do Google|classificação do Google)|nota.*não.*Google/i);
- });
- it('diferencia notas 10, 9, 7 e 5 pelos itens exatos ausentes',()=>{
-  const results=auditPosts();
-  const complete=results.find(x=>x.score===10);
-  const missingImage=results.find(x=>x.file==='formulas-latex.md');
-  expect(complete).toBeDefined();
-  expect(complete.summary).toMatch(/Tudo preenchido/);
-  expect(complete.report).toContain('10 CRITÉRIOS VERIFICADOS');
-  expect(missingImage.score).toBe(9);
-  expect(missingImage.summary).toContain('capa e descrição da imagem');
-  expect(missingImage.report).toContain('Adicione uma imagem de capa');
-  expect(missingImage.report.match(/✗ \d+\./g)).toHaveLength(1);
-  expect(missingImage.report.match(/✓ \d+\./g)).toHaveLength(9);
-  const ids=['title','description','headline','url','sections','internal','sources','quickAnswer','author','image'];
-  for(const missingCount of [3,5]){
-    const checks=ids.map((id,i)=>({id,label:'Critério '+(i+1),ok:i>=missingCount}));
-    const explained=describeSeoChecklist({score:10-missingCount,total:10,checks});
-    expect(explained.report.match(/✗ \d+\./g)).toHaveLength(missingCount);
-    expect(explained.report.match(/✓ \d+\./g)).toHaveLength(10-missingCount);
-    expect(explained.summary).toContain('e mais '+(missingCount-2));
+describe('Editor simplificado sem notas ou explicações automáticas',()=>{
+ it('mostra apenas título, categoria, publicação e data na tabela',()=>{
+  expect(cms).toContain('fields: [title, category, published, date]');
+  for(const key of ['seoScore','seoSummary','seoChecklist']){
+   expect(cms).not.toContain(key);
   }
  });
- it('grava o campo seoScore no frontmatter e é idempotente',()=>{
-  const root=fs.mkdtempSync(path.join(os.tmpdir(),'cafematica-seo-'));
-  try{
-   fs.writeFileSync(path.join(root,'equacao-primeiro-grau.md'),article);
-   const [first]=auditPosts(root,{write:true});
-   const changed=fs.readFileSync(path.join(root,'equacao-primeiro-grau.md'),'utf8');
-   expect(changed).toMatch(/^seoScore: [0-9]+$/m);
-   expect(changed).toMatch(/^seoSummary:/m);
-   expect(changed).toMatch(/^seoChecklist:/m);
-   expect(matter(changed).data.seoChecklist).toContain('10 CRITÉRIOS VERIFICADOS');
-   expect(first.score).toBeGreaterThanOrEqual(0);
-   const [second]=auditPosts(root,{write:true});
-   expect(second.score).toBe(first.score);
-   expect(fs.readFileSync(path.join(root,'equacao-primeiro-grau.md'),'utf8')).toBe(changed);
-  } finally {fs.rmSync(root,{recursive:true,force:true});}
+ it('mantém todos os campos úteis de publicação e SEO',()=>{
+  const essential=['title','slug','description','seoTitle','seoDescription','tags','category','topic','cover','coverAlt','author','date','updated','published','youtube','quickAnswer','sources','body'];
+  for(const field of essential){
+   expect(cms).toContain('name: '+field);
+  }
+  expect(cms).toContain('label: Mover artigo para pasta');
  });
- it('substitui relatório antigo mesmo se salvo pelo CMS como bloco YAML multilinha',()=>{
-  const root=fs.mkdtempSync(path.join(os.tmpdir(),'cafematica-seo-yaml-'));
-  try{
-   const file=path.join(root,'post.md');
-   const existing=article.replace(/\nseoScore: 10\n/,`\nseoScore: 10\nseoSummary: "Informação desatualizada"\nseoChecklist: |\n  Um comentário antigo.\n  Outra linha antiga.\n`);
-   fs.writeFileSync(file,existing);
-   auditPosts(root,{write:true});
-   const updated=fs.readFileSync(file,'utf8');
-   const metadata=matter(updated).data;
-   expect(metadata.seoSummary).not.toContain('desatualizada');
-   expect(metadata.seoChecklist).toContain('10 CRITÉRIOS VERIFICADOS');
-   expect(updated).not.toContain('Outra linha antiga');
-  }finally{fs.rmSync(root,{recursive:true,force:true})}
+ it('limpa notas e diagnósticos antigos de todos os artigos, sem perder dados editoriais',()=>{
+  const files=listPostFiles('content/posts');
+  expect(files.length).toBeGreaterThanOrEqual(10);
+  for(const file of files){
+   const source=fs.readFileSync(file,'utf8');
+   const metadata=source.split('\n---',2)[0];
+   for(const key of ['seoScore','seoSummary','seoChecklist']){
+    expect(metadata).not.toMatch(new RegExp('^'+key+':','m'));
+   }
+   for(const key of ['seoTitle','seoDescription','tags','quickAnswer','sources']){
+    expect(metadata).toMatch(new RegExp('^'+key+':','m'));
+   }
+  }
  });
- it('atualiza após salvar e não dispara commits quando a nota não mudou',()=>{
-  const seoWorkflow=fs.readFileSync('.github/workflows/seo-checklist.yml','utf8');
-  const moveWorkflow=fs.readFileSync('.github/workflows/pages-cms-move-post.yml','utf8');
-  expect(seoWorkflow).toContain('node scripts/seo-score.mjs --write');
-  expect(seoWorkflow).toContain('if git diff --cached --quiet; then');
-  expect(moveWorkflow).toContain('node scripts/move-post.mjs');
-  expect(moveWorkflow).toContain('workflow_dispatch:');
+ it('não recria notas através do GitHub Actions',()=>{
+  expect(fs.existsSync('.github/workflows/seo-checklist.yml')).toBe(false);
+  expect(fs.existsSync('scripts/seo-score.mjs')).toBe(false);
+  expect(fs.existsSync('.github/workflows/pages-cms-move-post.yml')).toBe(true);
  });
 });
