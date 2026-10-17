@@ -138,3 +138,12 @@ h1,h2,h3{font-family:'Lora',Georgia,serif;letter-spacing:-.045em}
 .post-art.editorial-cover .cover-placeholder:before{width:42%;height:83%;top:11%;left:30%;border-radius:50%}
 .post-art.editorial-cover .cover-placeholder:after{width:56%;height:40%;top:33%;left:23%;border-radius:50%}
 .post-art.editorial-cover.has-cover .cover-placeholder{display:none}
+
+/* Capa de destaque: imagem real em vez de símbolos e legendas sobrepostos. */
+.atelier-feature-art{position:relative;display:block;overflow:hidden;background:linear-gradient(135deg,#e9e2d5,#e5ebe4);border-radius:0}
+.atelier-feature-art img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .45s ease}
+.atelier-feature:hover .atelier-feature-art img{transform:scale(1.035)}
+.atelier-feature-placeholder{position:absolute;inset:0;display:block;background:radial-gradient(circle at 34% 42%,#c5d0c9 0 22%,transparent 22.5%),radial-gradient(circle at 66% 56%,#d9c4b1 0 19%,transparent 19.5%),linear-gradient(145deg,#f1eadf,#dce3dc)}
+.atelier-feature-placeholder:before,.atelier-feature-placeholder:after{content:'';position:absolute;width:53%;height:82%;top:9%;left:24%;border:1px solid #63716555;border-radius:50%;transform:rotate(20deg)}
+.atelier-feature-placeholder:after{width:72%;height:55%;top:23%;left:14%;transform:rotate(-28deg)}
+@media(prefers-reduced-motion:reduce){.atelier-feature-art img{transition:none!important;transform:none!important}}
