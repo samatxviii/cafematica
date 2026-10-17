@@ -10,7 +10,7 @@ Você pode ler os artigos e pesquisar no blog sem aceitar cookies de publicidade
 
 O site pode guardar no seu navegador a escolha de permitir ou não vídeos externos, usando armazenamento local. A preferência não é enviada a um serviço de publicidade. Caso o navegador bloqueie esse armazenamento, a escolha poderá precisar ser feita novamente.
 
-O serviço de autenticação do painel administrativo pode guardar dados de sessão no navegador para manter você conectado. Esses dados são necessários ao recurso solicitado e não servem, por si, como autorização para publicidade.
+O editor externo Pages CMS e o GitHub podem usar cookies ou armazenamento de sessão em seus próprios domínios para autenticar e manter a pessoa conectada. A navegação pública pelo Cafemática não exige esse login. Esses dados são necessários ao recurso solicitado e não servem, por si, como autorização para publicidade.
 
 ## Vídeos do YouTube
 
