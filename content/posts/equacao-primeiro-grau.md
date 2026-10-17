@@ -1,16 +1,17 @@
 ---
-slug: "equacao-primeiro-grau"
+slug: equacao-primeiro-grau
 title: "Equação do primeiro grau: resolva mantendo o equilíbrio"
-description: "Entenda o que acontece em cada transformação da equação e aprenda a conferir sua resposta."
-category: "matematica"
-topic: "Álgebra sem pressa"
-art: "x = ?"
-date: "2026-10-12"
+description: Entenda o que acontece em cada transformação da equação e aprenda a
+  conferir sua resposta.
+category: matematica
+topic: Álgebra sem pressa
+art: x = ?
+date: 2026-10-12
 published: true
-cmsId: "448a58d9-c844-4c45-ab31-ed15ce88157f"
+cmsId: 448a58d9-c844-4c45-ab31-ed15ce88157f
 cmsVersion: 1
+cover: /imagens/blog/83996284-0789-4e03-bc18-e500ef891254.png
 ---
-
 Resolver uma equação é procurar os valores que tornam uma igualdade verdadeira. Em $2x+7=19$, o símbolo $x$ representa um número que ainda queremos descobrir. A pergunta é: que número, multiplicado por dois e depois somado a sete, resulta em dezenove?
 
 Uma equação do primeiro grau com uma incógnita pode ser escrita como $ax+b=0$, com $a\ne0$. A incógnita aparece elevada à primeira potência. É comum que ela esteja inicialmente em ambos os lados ou dentro de parênteses; organizar a expressão ajuda a reconhecer a forma.
