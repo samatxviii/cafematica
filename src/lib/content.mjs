@@ -12,7 +12,7 @@ export function getPosts() {
   return fs.readdirSync(dir).filter(f=>f.endsWith('.md')).map(file=>{
     const { data, content }=matter(fs.readFileSync(path.join(dir,file),'utf8'));
     if(!data.slug || !categories[data.category]) throw new Error(`Metadados inválidos: ${file}`);
-    const firstImage=content.match(/!\\[[^\\]]*\\]\\((\\/[^)\\s]+\\.(?:png|jpe?g|webp|avif))\\)/i)?.[1]||'';
+    const firstImage=content.match(/!\[[^\]]*\]\((\/[^)\s]+\.(?:png|jpe?g|webp|avif))\)/i)?.[1]||'';
     return {...data, cover:data.cover||data.image||firstImage, date: String(data.date), body:content, html:renderMarkdown(content), minutes:Math.max(2,Math.ceil(content.split(/\s+/).length/180)), categoryInfo:categories[data.category]};
   }).filter(p=>p.published===true).sort((a,b)=>b.date.localeCompare(a.date)||a.title.localeCompare(b.title));
 }
