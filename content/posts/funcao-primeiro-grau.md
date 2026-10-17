@@ -9,6 +9,22 @@ date: "2026-10-12"
 published: true
 cmsId: "0a7af0e4-dedd-4efa-a3e2-f118a00fdf9b"
 cmsVersion: 1
+seoTitle: "Função do 1º grau: gráfico, coeficientes e raiz"
+seoDescription: "Entenda a função afim f(x)=ax+b: veja como criar uma tabela, traçar o gráfico, interpretar os coeficientes e encontrar a raiz com exemplos."
+tags:
+  - "função do primeiro grau"
+  - "função afim"
+  - "gráfico de função afim"
+  - "coeficiente angular"
+  - "raiz da função"
+author: "Fernando da Silva Batista"
+updated: "2026-10-17"
+quickAnswer: "Uma função do primeiro grau tem a forma f(x)=ax+b, com a diferente de zero. Seu gráfico é uma reta: a indica a variação por unidade de x e b é o valor da função em x=0. Para encontrar a raiz, resolva ax+b=0; a função é crescente quando a>0 e decrescente quando a<0."
+sources:
+  - title: "Khan Academy — Introdução à função afim"
+    url: "https://pt.khanacademy.org/math/9-ano-mat-pr/xc330d75a48d4d1d9%3A3-trimestre/xc330d75a48d4d1d9%3Asemana-1-nocoes-de-funcoes-e-situacoes-problema-envolvendo-funcao-afim/a/introducao-a-funcao-afim"
+  - title: "OpenStax — Gráficos de equações lineares"
+    url: "https://openstax.org/books/elementary-algebra-2e/pages/4-2-graph-linear-equations-in-two-variables"
 ---
 
 Uma função associa cada elemento de um conjunto de partida a um único resultado no conjunto de chegada. Para começar, imagine uma regra que recebe um número, multiplica por dois e soma um. A entrada 0 produz 1; a entrada 3 produz 7. Podemos representar essa regra por $f(x)=2x+1$.
@@ -59,3 +75,8 @@ No contexto da entrega, distâncias negativas não fazem sentido. Mesmo que a ex
 Considere $h(x)=-2x+8$. Identifique os coeficientes, calcule $h(3)$ e encontre a raiz. Depois, diga se a função é crescente ou decrescente.
 
 **Conferência:** $a=-2$ e $b=8$; $h(3)=2$; a raiz é 4; a função é decrescente. No gráfico completo, ela passa por $(0,8)$ e $(4,0)$. Usar fórmula, tabela e gráfico em conjunto ajuda a perceber que são três maneiras de descrever a mesma relação.
+
+
+## Explore a função no GeoGebra
+
+Depois de identificar os coeficientes, é útil variar os valores de $a$ e $b$ e observar o que muda na reta. A experiência ajuda a distinguir a taxa de variação do valor inicial. Para experimentar com ferramentas digitais, acompanhe o tutorial [Como visualizar uma função no GeoGebra](/blog/geogebra-funcao/). Se a dificuldade estiver em encontrar a raiz, revise antes [como resolver equações do primeiro grau](/blog/equacao-primeiro-grau/).
