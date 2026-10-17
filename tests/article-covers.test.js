@@ -4,6 +4,8 @@ const backend='https://bgzxqfslersfmsluuszs.supabase.co';
 describe('Capas de artigos',()=>{
  it('aceita arquivos locais e imagens do bucket dedicado',()=>{
   expect(safeCoverPath('/imagens/capa.webp',backend)).toBe('/imagens/capa.webp');
+  expect(safeCoverPath('/imagens/blog/equação-de-primeiro-grau.png',backend)).toBe('/imagens/blog/equação-de-primeiro-grau.png');
+  expect(safeCoverPath('/imagens/blog/../private/hidden.png',backend)).toBe('');
   const src=backend+'/storage/v1/object/public/article-images/uuid/cover.jpg';
   expect(safeCoverPath(src,backend)).toBe(src);
  });
