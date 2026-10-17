@@ -6,17 +6,44 @@ const $=id=>document.getElementById(id), form=$('editor');
 const slugify=value=>String(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,90);
 let current=null,dirty=false,client,posts=[],busy=false,messageTimer;
 function message(text,error=false){$('admin-message').textContent=text;$('admin-message').hidden=false;$('admin-message').classList.toggle('error',error);clearTimeout(messageTimer);messageTimer=setTimeout(()=>$('admin-message').hidden=true,error?14000:7000);}
-function show(id){for(const part of ['setup-state','login-state','password-state','dashboard'])$(part).hidden=part!==id;}
+function show(id){for(const part of ['setup-state','login-state','email-sent-state','unauthorized-state','dashboard'])$(part).hidden=part!==id;}
 function values(){return Object.fromEntries(new FormData(form));}
 function setBusy(value){busy=value;form.querySelectorAll('button').forEach(b=>b.disabled=value);$('publish-post').disabled=value||!current||dirty;}
 function edited(){dirty=true;$('post-state').textContent='Alterações não salvas';$('publish-post').disabled=true;$('word-count').textContent=`${form.elements.body.value.trim().split(/\s+/).filter(Boolean).length} palavras`;}
 function fill(post=null){current=post;form.reset();delete form.elements.slug.dataset.manual;for(const key of ['title','slug','category','description','body','youtube'])if(post)form.elements[key].value=post[key]||'';form.elements.slug.readOnly=!!post?.published_at;dirty=false;$('editor-title').textContent=post?'Editar artigo':'Novo artigo';$('post-state').textContent=post?.publication_status==='queued'?'Enviado ao site':'Rascunho';$('publish-status').textContent=post?.publication_status==='queued'?'Enviado ao GitHub. A atualização do site pode levar alguns minutos.':'Salve e revise antes de publicar.';$('publish-post').disabled=!post;$('word-count').textContent=`${form.elements.body.value.trim().split(/\s+/).filter(Boolean).length} palavras`;document.querySelectorAll('.post-list-item').forEach(b=>b.classList.toggle('active',b.dataset.id===post?.id));}
 async function loadPosts(){const {data,error}=await client.from('cms_posts').select('*').order('updated_at',{ascending:false});if(error)throw error;posts=data||[];$('post-list').replaceChildren();if(!posts.length){const p=document.createElement('p');p.className='empty-state';p.textContent='Seu próximo artigo começa aqui.';$('post-list').append(p);}for(const post of posts){const b=document.createElement('button');b.className='post-list-item';b.dataset.id=post.id;const title=document.createElement('strong');title.textContent=post.title;const meta=document.createElement('small');meta.textContent=`${post.publication_status==='queued'?'Enviado':'Rascunho'} · ${new Date(post.updated_at).toLocaleDateString('pt-BR')}`;b.append(title,meta);b.onclick=()=>{if(dirty&&!confirm('Descartar as alterações que ainda não foram salvas?'))return;fill(post);};$('post-list').append(b);}}
-async function enter(){const {data:{user},error}=await client.auth.getUser();if(error||!user){show('login-state');return;}const {data:admin,error:permissionError}=await client.rpc('is_admin');if(permissionError||!admin){await client.auth.signOut();show('login-state');message('Esta conta não tem acesso administrativo.',true);return;}show('dashboard');await loadPosts();fill();}
-$('login-form').onsubmit=async e=>{e.preventDefault();const button=e.submitter;button.disabled=true;try{const fields=new FormData(e.target);const {error}=await client.auth.signInWithPassword({email:fields.get('email').trim(),password:fields.get('password')});if(error)throw Error('Não foi possível entrar. Confira e-mail e senha.');e.target.reset();await enter();}catch(e){message(e.message,true);}finally{button.disabled=false;}};
-$('forgot-password').onclick=async()=>{const email=$('login-form').elements.email.value.trim();if(!email){message('Preencha seu e-mail para receber o link de recuperação.',true);return;}const {error}=await client.auth.resetPasswordForEmail(email,{redirectTo:new URL('/admin/',location.origin).href});message(error?'Não foi possível solicitar a recuperação. Tente mais tarde.':'Se houver uma conta com esse e-mail, você receberá o link de recuperação.',!!error);};
-$('password-form').onsubmit=async e=>{e.preventDefault();const fields=new FormData(e.target);if(fields.get('password')!==fields.get('confirmation')){message('As senhas precisam ser iguais.',true);return;}e.submitter.disabled=true;const {error}=await client.auth.updateUser({password:fields.get('password')});e.submitter.disabled=false;if(error){message('Não foi possível alterar a senha. Solicite um novo link.',true);return;}e.target.reset();message('Senha atualizada.');await enter();};
-$('signout').onclick=async()=>{if(dirty&&!confirm('Sair e descartar as alterações não salvas?'))return;await client.auth.signOut();posts=[];fill();show('login-state');};
+async function enter(){
+ const {data:{user},error}=await client.auth.getUser();
+ if(error||!user){show('login-state');return;}
+ const {data:admin,error:permissionError}=await client.rpc('is_admin');
+ if(permissionError||!admin){show('unauthorized-state');return;}
+ show('dashboard');await loadPosts();fill();
+}
+const authRedirect=new URL('/admin/',location.origin).href;
+$('login-google').onclick=async()=>{
+ const button=$('login-google');button.disabled=true;
+ try{const {error}=await client.auth.signInWithOAuth({provider:'google',options:{redirectTo:authRedirect,scopes:'openid email profile'}});
+ if(error)throw error;
+ }catch(e){message('Não foi possível iniciar o login Google. Verifique se o provedor está habilitado no Supabase.',true);button.disabled=false;}
+};
+$('login-email-form').onsubmit=async e=>{
+ e.preventDefault();const button=e.submitter;button.disabled=true;
+ try{
+ const email=new FormData(e.target).get('email')?.trim();
+ const {error}=await client.auth.signInWithOtp({email,options:{emailRedirectTo:authRedirect,shouldCreateUser:true}});
+ if(error)throw error;show('email-sent-state');
+ }catch(e){message('Não foi possível enviar o link. Confira o e-mail e tente novamente.',true);}
+ finally{button.disabled=false;}
+};
+$('back-to-login').onclick=()=>show('login-state');
+async function signout(){
+ if(dirty&&!confirm('Sair e descartar as alterações não salvas?'))return;
+ const {error}=await client.auth.signOut();
+ if(error){message('Não foi possível sair. Tente novamente.',true);return;}
+ posts=[];fill();show('login-state');
+}
+$('signout').onclick=signout;
+$('unauthorized-signout').onclick=signout;
 $('new-post').onclick=()=>{if(dirty&&!confirm('Descartar as alterações não salvas?'))return;fill();form.elements.title.focus();};
 form.addEventListener('input',e=>{if(e.target.name==='title'&&!current&&!form.elements.slug.dataset.manual)form.elements.slug.value=slugify(e.target.value);if(e.target.name==='slug')form.elements.slug.dataset.manual='true';edited();});
 form.onsubmit=async e=>{e.preventDefault();if(busy)return;setBusy(true);try{const v=values();const {data,error}=await client.rpc('save_post',{p_id:current?.id||null,p_version:current?.version||0,p_slug:v.slug,p_title:v.title,p_description:v.description,p_category:v.category,p_body:v.body,p_youtube:v.youtube||''});if(error)throw error;dirty=false;await loadPosts();fill(data);message('Rascunho salvo.');}catch(e){message(e.message||'Não foi possível salvar.',true);}finally{setBusy(false);}};
@@ -31,12 +58,11 @@ for(const name of ['posts','comments'])$('tab-'+name).onclick=async()=>{for(cons
 $('comments-filter').onchange=()=>loadComments().catch(()=>message('Não foi possível carregar os comentários.',true));
 window.addEventListener('beforeunload',e=>{if(dirty){e.preventDefault();e.returnValue='';}});
 async function init(){
- // Password entry is intentionally restricted to a separately hosted admin origin.
- let adminOrigin;try{adminOrigin=new URL(config.adminUrl).origin;}catch{return;}
- if(location.origin!==adminOrigin||adminOrigin===new URL(config.url).origin||adminOrigin.endsWith('.github.io'))return;
- client=getClient();if(!client)return;
- let recovering=false;
- client.auth.onAuthStateChange(event=>{if(event==='PASSWORD_RECOVERY'){recovering=true;show('password-state');}if(event==='SIGNED_OUT')show('login-state');});
- await client.auth.getSession();if(!recovering)await enter();
+ client=getClient();
+ if(!client){show('setup-state');return;}
+ show('login-state');
+ client.auth.onAuthStateChange(event=>{if(event==='SIGNED_OUT')show('login-state');});
+ // A sessão é verificada pelo servidor a cada entrada; jamais pela presença de um token local.
+ await enter();
 }
-init().catch(()=>message('Não foi possível abrir o painel. Verifique sua conexão e tente novamente.',true));
+init().catch(()=>{show('login-state');message('Não foi possível abrir o painel. Verifique sua conexão e tente novamente.',true);});
