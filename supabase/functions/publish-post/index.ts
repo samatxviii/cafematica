@@ -3,7 +3,7 @@ import { postMarkdown } from '../_shared/publish.ts';
 const get = (key: string) => { const value=Deno.env.get(key); if(!value) throw new Error(`Configuração ausente: ${key}`); return value; };
 Deno.serve(async (req: Request) => {
  const origin=req.headers.get('origin')||'';
- const allowed=(Deno.env.get('ADMIN_ORIGINS')||'').split(',').map(x=>x.trim()).filter(Boolean);
+ const allowed=(Deno.env.get('ADMIN_ORIGINS')||'https://www.cafematica.com.br').split(',').map(x=>x.trim()).filter(Boolean);
  const headers={'Access-Control-Allow-Origin':allowed.includes(origin)?origin:'null','Access-Control-Allow-Headers':'authorization, apikey, content-type, x-client-info','Access-Control-Allow-Methods':'POST, OPTIONS','Vary':'Origin','Content-Type':'application/json','Cache-Control':'no-store'};
  const reply=(status:number,data:any)=>new Response(JSON.stringify(data),{status,headers});
  if(!allowed.includes(origin))return reply(403,{error:'Origem não autorizada.'});
@@ -24,7 +24,7 @@ Deno.serve(async (req: Request) => {
   const {data:post,error:claimError}=await service.rpc('claim_publication',{p_id:id,p_version:payload.version,p_token:token});
   if(claimError)throw new Error('O artigo mudou ou está sendo publicado. Reabra e tente novamente.');
   const now=new Date().toISOString(); const content=postMarkdown(post,now);
-  const repo=get('GITHUB_REPOSITORY'); const branch=get('GITHUB_BRANCH');
+  const repo=Deno.env.get('GITHUB_REPOSITORY')||'samatxviii/cafematica'; const branch=Deno.env.get('GITHUB_BRANCH')||'main';
   if(!/^[\w.-]+\/[\w.-]+$/.test(repo))throw new Error('Repositório inválido.');
   const github=async(path:string,method='GET',body?:any)=>{
    const response=await fetch(`https://api.github.com/repos/${repo}/${path}`,{method,headers:{Authorization:`Bearer ${get('GITHUB_TOKEN')}`,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Content-Type':'application/json'},body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(25000)});
