@@ -7,9 +7,21 @@ import {moveArticle,planArticleMove} from '../scripts/move-post.mjs';
 
 const cms=fs.readFileSync('.pages.yml','utf8');
 // Read the article by filename no matter which CMS subfolder it currently occupies.
-const articlePath=listPostFiles('content/posts').find(file=>path.basename(file)==='equacao-primeiro-grau.md');
-if(!articlePath)throw new Error('Artigo de referência de equações não encontrado.');
-const article=fs.readFileSync(articlePath,'utf8');
+// Fixtures are independent of the actual posts: editing/unpublishing content must not break the build.
+const article=[
+ '---',
+ 'slug: equacao-primeiro-grau',
+ 'title: "Artigo fictício para testar o movimento"',
+ 'description: "Esta descrição permite testar a reorganização das pastas sem depender das publicações reais."',
+ 'category: matematica',
+ 'date: 2026-10-12',
+ 'published: true',
+ '---',
+ '## Primeiro passo',
+ 'Um conteúdo de teste para a estrutura editorial.',
+ '## Segundo passo',
+ 'A URL permanece baseada no slug após mover o arquivo.'
+].join('\\n');
 const payload=(file,folder)=>({
  source:'pages-cms',
  action:{name:'move-post-folder'},
