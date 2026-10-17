@@ -50,7 +50,7 @@ Deno.serve(async (req: Request) => {
   return reply(202,{queued:true,sha:commit.sha,url:`https://www.cafematica.com.br/blog/${post.slug}/`});
  } catch(error) {
   // Preserve state after a successful GitHub commit; a retry must not falsely claim nothing happened.
-  if(service&&id&&publishToken&&!commitCreated)await service.from('cms_posts').update({publish_lock_until:null,publish_token:null}).eq('id',id).eq('publish_token',token);
+  if(service&&id&&publishToken&&!commitCreated)await service.from('cms_posts').update({publish_lock_until:null,publish_token:null}).eq('id',id).eq('publish_token',publishToken);
   const message=error instanceof Error?error.message:'Falha na publicação.';
   return reply(400,{error:message});
  }
