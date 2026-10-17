@@ -1,0 +1,42 @@
+name: Pages CMS — mover artigo de pasta
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: Payload JSON da ação de artigo do Pages CMS
+        required: true
+        type: string
+permissions:
+  contents: write
+concurrency:
+  group: cafematica-editorial-writes
+  cancel-in-progress: false
+jobs:
+  move:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci
+      - name: Validar a origem e mover o artigo sem alterar o slug
+        env:
+          PAGES_CMS_ACTION_PAYLOAD: ${{ inputs.payload }}
+        run: node scripts/move-post.mjs
+      - name: Registrar mudança no GitHub
+        run: |
+          git add -A -- content/posts
+          if git diff --cached --quiet; then
+            echo "Nada para mover."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "content: organizar artigo em pasta sem mudar URL"
+          git pull --rebase origin main
+          git push origin HEAD:main

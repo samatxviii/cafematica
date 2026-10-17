@@ -13,13 +13,26 @@ export function normalizePostDate(value) {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) throw new Error('Data de publicação inválida. Use AAAA-MM-DD.');
   return date;
 }
-export function getPosts() {
-  const dir = path.join(process.cwd(),'content/posts');
-  return fs.readdirSync(dir).filter(f=>f.endsWith('.md')).map(file=>{
-    const { data, content }=matter(fs.readFileSync(path.join(dir,file),'utf8'));
+/** A pasta física é apenas organização editorial; a URL pública usa o slug. */
+export function listPostFiles(directory) {
+  return fs.readdirSync(directory,{withFileTypes:true}).flatMap(item=>{
+    const full=path.join(directory,item.name);
+    return item.isDirectory() ? listPostFiles(full) : item.isFile() && item.name.endsWith('.md') ? [full] : [];
+  }).sort((a,b)=>a.localeCompare(b));
+}
+export function getPosts(directory=path.join(process.cwd(),'content/posts')) {
+  const dir = directory;
+  const posts=listPostFiles(dir).map(file=>{
+    const { data, content }=matter(fs.readFileSync(file,'utf8'));
     if(!data.slug || !categories[data.category]) throw new Error(`Metadados inválidos: ${file}`);
     const firstImage=content.match(/!\[[^\]]*\]\((\/[^)\s]+\.(?:png|jpe?g|webp|avif))\)/i)?.[1]||'';
     return {...data, cover:data.cover||data.image||firstImage, tags:normalizeTags(data.tags), sources:normalizeSources(data.sources), updated:data.updated?normalizePostDate(data.updated):undefined, date: normalizePostDate(data.date), body:content, html:renderMarkdown(content), minutes:Math.max(2,Math.ceil(content.split(/\s+/).length/180)), categoryInfo:categories[data.category]};
-  }).filter(p=>p.published===true).sort((a,b)=>b.date.localeCompare(a.date)||a.title.localeCompare(b.title));
+  });
+  const slugs=new Set();
+  for(const post of posts){
+    if(slugs.has(post.slug))throw new Error('Slug duplicado em pastas diferentes: '+post.slug);
+    slugs.add(post.slug);
+  }
+  return posts.filter(p=>p.published===true).sort((a,b)=>b.date.localeCompare(a.date)||a.title.localeCompare(b.title));
 }
 export const dateLabel = value => new Date(`${String(value).slice(0,10)}T12:00:00-03:00`).toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'});
