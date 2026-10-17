@@ -4,13 +4,13 @@ title: Cookies e preferências
 description: Controle o carregamento de vídeos externos e entenda o armazenamento necessário ao site.
 ---
 
-Você pode ler os artigos e pesquisar no blog sem aceitar cookies de publicidade. Nesta versão não há anúncios nem ferramentas de análise de audiência carregadas pelo Cafemática.
+Você pode ler os artigos e pesquisar no blog sem aceitar cookies de publicidade. Nesta versão não há anúncios. O Google Analytics só é carregado mediante seu consentimento específico nas preferências de privacidade.
 
 ## O que é armazenado
 
 O site pode guardar no seu navegador a escolha de permitir ou não vídeos externos, usando armazenamento local. A preferência não é enviada a um serviço de publicidade. Caso o navegador bloqueie esse armazenamento, a escolha poderá precisar ser feita novamente.
 
-Quando o login for ativado, o serviço de autenticação poderá guardar dados de sessão no navegador para manter você conectado. Esses dados são necessários ao recurso solicitado e não servem, por si, como autorização para publicidade.
+O serviço de autenticação do painel administrativo pode guardar dados de sessão no navegador para manter você conectado. Esses dados são necessários ao recurso solicitado e não servem, por si, como autorização para publicidade.
 
 ## Vídeos do YouTube
 
