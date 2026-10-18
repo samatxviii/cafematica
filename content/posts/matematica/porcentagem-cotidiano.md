@@ -21,11 +21,18 @@ tags:
   - variação percentual
   - porcentagens sucessivas
 author: Fernando da Silva Batista
-updated: 2026-10-17
+updated: 2026-10-18
 quickAnswer: Para calcular uma porcentagem de um valor, multiplique-o pela taxa
   dividida por 100. Em um desconto de 20%, multiplique o preço por 0,80; em um
   aumento de 20%, por 1,20. Um aumento seguido de um desconto de 20% não devolve
   o preço original, porque as bases de cálculo são diferentes.
+faq:
+  - question: Como calcular o preço após um desconto de 20%?
+    answer: Multiplique o preço original por 0,80. Por exemplo, um produto de R$ 150 passa a custar R$ 120, porque 80% do valor permanece após o desconto.
+  - question: Dois descontos consecutivos de 10% equivalem a 20%?
+    answer: Não. Como o segundo desconto incide sobre o valor já reduzido, o preço final é 81% do original. Portanto, os dois descontos correspondem a uma redução total de 19%.
+  - question: Qual é a diferença entre porcentagem e ponto percentual?
+    answer: Pontos percentuais medem a diferença entre duas taxas. Uma taxa de 20% que sobe para 25% aumenta cinco pontos percentuais, o que equivale a um aumento relativo de 25%.
 sources:
   - title: OpenStax — Aplicações de porcentagem e variação percentual
     url: https://openstax.org/books/prealgebra-2e/pages/6-2-solve-general-applications-of-percent
