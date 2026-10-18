@@ -55,7 +55,7 @@ Se encontrar dificuldades com cálculos fundamentais, vale revisar [frações e 
 
 ## Laboratório interativo de Matemática — ENEM 2020
 
-O painel a seguir permite navegar entre as 45 questões do caderno azul e encontrar os **15 vídeos individuais que já conseguimos identificar com segurança**. As demais continuam disponíveis para estudo pelo caderno e gabarito oficiais, mas não recebem um link de resolução específica sem confirmação.
+O painel interativo no início desta página permite navegar entre as 45 questões do caderno azul e encontrar os **15 vídeos individuais que já conseguimos identificar com segurança**. As demais continuam disponíveis para estudo pelo caderno e gabarito oficiais, mas não recebem um link de resolução específica sem confirmação.
 
 Se você fez outra cor de caderno, atenção: a **ordem das questões muda**. Nesta versão, a numeração é exclusivamente a do caderno azul de 2020.
 
