@@ -1,181 +1,279 @@
 ---
-const nums=Array.from({length:45},(_,i)=>136+i);
-const playlist='PLF6ZF9NW0WmpozXgc91XZArdgW_-EIj2X';
+const numbers=Array.from({length:45},(_,i)=>i+136);
+const videos={
+  140:'XY-sA3GoerU',
+  142:'dp2QwCsMfYU',
+  143:'v-XtVryokyo',
+  145:'GXJC_qnGaCY',
+  147:'2-GHafuUYgE',
+  152:'jfobIHXhofo',
+  153:'W8RkFE24Yd8',
+  154:'S5ZPZ2p-1iw',
+  158:'dtMYeXyA77A',
+  161:'94OF7LX-KjM',
+  166:'M6Ntry20ul0',
+  168:'j2v9ajbWgBU',
+  171:'Jj0NKIYGHrk',
+  173:'kADFTs6HzcU',
+  180:'_DGLr6ofSQ8'
+};
+const publicVideos=JSON.stringify(videos);
+const playlist='https://www.youtube.com/playlist?list=PLF6ZF9NW0WmpozXgc91XZArdgW_-EIj2X';
+const prova='https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_impresso_D2_CD7.pdf';
+const gabarito='https://download.inep.gov.br/enem/provas_e_gabaritos/2020_GB_impresso_D2_CD7.pdf';
 ---
-<section class="enx" id="enem-explorer" aria-labelledby="enx-heading" data-playlist={playlist}>
-  <header class="enx-hero">
-    <div><p class="enx-overline">Cafemática · Laboratório de questões</p><h2 id="enx-heading">Sua próxima questão começa aqui.</h2><p>Escolha o caderno e a questão, consulte o Inep e acompanhe as resoluções do Prof. Fernando.</p></div>
-    <span aria-hidden="true" class="enx-pi">π</span>
-  </header>
-  <div class="enx-filters">
-    <label>Ano do ENEM<select id="enx-year"><option value="2025">2025</option><option value="2024" selected>2024</option></select></label>
-    <label>Caderno do 2º dia<select id="enx-book"><option value="5" selected>5 · Amarelo</option><option value="6">6 · Cinza</option><option value="7">7 · Azul</option><option value="8">8 · Verde</option></select></label>
-    <label>Número da questão<input id="enx-number" type="number" min="136" max="180" step="1" value="136"/></label>
-  </div>
-  <div class="enx-layout">
-    <div class="enx-picker">
-      <div class="enx-subhead"><h3>Questões 136–180</h3><span id="enx-progress">0 de 45 estudadas</span></div>
-      <p>Escolha um número. Os pontos verdes indicam questões que você marcou como estudadas neste navegador.</p>
-      <div class="enx-grid" role="group" aria-label="Escolher questão">
-        {nums.map(n=><button type="button" data-question={n} aria-pressed={n===136?'true':'false'} aria-label={'Selecionar questão '+n}>{n}</button>)}
-      </div>
-      <div class="enx-between"><button id="enx-prev" type="button">← Anterior</button><button id="enx-next" type="button">Próxima →</button></div>
+<section class="enex" id="explorador-enem-2020" aria-labelledby="enex-title">
+  <div class="enex-hero">
+    <div class="enex-hero-content">
+      <p class="enex-eyebrow">Cafemática · ENEM 2020 · Matemática</p>
+      <h2 id="enex-title">Escolha uma questão. Entenda a solução.</h2>
+      <p>Navegue pelo caderno azul oficial, descubra quais questões têm vídeo do Prof. Fernando e organize seus estudos sem cadastro.</p>
+      <div class="enex-counts"><strong>45 questões oficiais</strong><span aria-hidden="true">·</span><strong>15 vídeos localizados</strong></div>
     </div>
-    <div class="enx-detail">
-      <p class="enx-overline">Questão selecionada</p>
-      <h3 id="enx-current" tabindex="-1">Questão 136</h3>
-      <p id="enx-context" class="enx-context" aria-live="polite">ENEM 2024 · Amarelo · caderno 5 · aplicação regular</p>
-      <div class="enx-step">
-        <span class="enx-bubble" aria-hidden="true">1</span><div>
-          <h4>Leia o enunciado original</h4>
-          <p>Abra a prova oficial. Para localizar a questão, use a busca do PDF (Ctrl+F) e procure <strong id="enx-find">QUESTÃO 136</strong>.</p>
-          <div class="enx-links">
-            <a id="enx-prova" class="enx-primary" href="https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD5.pdf" target="_blank" rel="noopener noreferrer">Abrir prova ↗</a>
-            <a id="enx-gabarito" href="https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_impresso_D2_CD5.pdf" target="_blank" rel="noopener noreferrer">Gabarito oficial ↗</a>
-            <button id="enx-view" type="button" aria-expanded="false" aria-controls="enx-pdf-box">Ver PDF aqui</button>
+    <div class="enex-symbol" aria-hidden="true">π</div>
+  </div>
+
+  <div class="enex-controls">
+    <label for="enex-select">Ir para a questão
+      <input type="number" id="enex-select" inputmode="numeric" min="136" max="180" value="140" step="1"/>
+    </label>
+    <label for="enex-filter">Mostrar questões
+      <select id="enex-filter">
+        <option value="all">Todas (136 a 180)</option>
+        <option value="video">Somente com vídeo localizado</option>
+        <option value="pending">Ainda sem vídeo localizado</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="enex-panels">
+    <div class="enex-list">
+      <div class="enex-list-head">
+        <h3>Questões do caderno 7</h3>
+        <p id="enex-progress">0 de 45 estudadas</p>
+      </div>
+      <div class="enex-legend">
+        <span><i class="enex-dot enex-dot-video" aria-hidden="true"></i> Vídeo localizado</span>
+        <span><i class="enex-dot enex-dot-studied" aria-hidden="true"></i> Estudada</span>
+      </div>
+      <div class="enex-grid" role="group" aria-label="Selecionar uma questão">
+        {numbers.map(n=><button type="button" data-num={n} class:list={[{'enex-available':Boolean(videos[n])}]} aria-pressed={n===140?'true':'false'} aria-label={'Selecionar questão '+n+(videos[n]?', com resolução em vídeo':'')}>{n}</button>)}
+      </div>
+      <div class="enex-moving">
+        <button id="enex-previous" type="button">← Anterior</button>
+        <button id="enex-next" type="button">Próxima →</button>
+      </div>
+      <p class="enex-note">Círculo vinho: questão com vídeo identificado. O pequeno ponto verde indica que você já a marcou como estudada.</p>
+    </div>
+
+    <div class="enex-detail">
+      <p class="enex-eyebrow">ENEM 2020 · Prova azul · Aplicação regular</p>
+      <h3 id="enex-heading">Questão 140</h3>
+      <p id="enex-availability" aria-live="polite" class="enex-availability">Resolução em vídeo disponível</p>
+
+      <div class="enex-step">
+        <div class="enex-step-number" aria-hidden="true">1</div>
+        <div class="enex-step-content">
+          <h4>Leia o enunciado</h4>
+          <p>Consulte o documento original do Inep. Pesquise por <strong id="enex-search-text">QUESTÃO 140</strong> no leitor de PDF, se necessário.</p>
+          <div class="enex-buttons">
+            <a class="enex-button" id="enex-pdf-link" href={prova+'#search=QUEST%C3%83O%20140'} target="_blank" rel="noopener noreferrer">Abrir prova oficial <span aria-hidden="true">↗</span></a>
+            <button id="enex-pdf-toggle" type="button" aria-expanded="false" aria-controls="enex-pdf-box">Visualizar PDF aqui</button>
+            <a href={gabarito} target="_blank" rel="noopener noreferrer">Gabarito oficial ↗</a>
           </div>
-          <div id="enx-pdf-box" hidden><iframe id="enx-pdf" title="Caderno oficial da prova do ENEM em PDF" loading="lazy"></iframe><p class="enx-hint">Se o PDF não carregar ou não localizar a questão automaticamente, abra a prova em outra aba e utilize a busca do leitor.</p></div>
+          <div id="enex-pdf-box" hidden>
+            <iframe id="enex-pdf-frame" title="Prova azul do ENEM 2020, caderno 7, segundo dia, em PDF" loading="lazy" referrerpolicy="no-referrer"></iframe>
+            <p class="enex-note">A pesquisa automática dentro do PDF depende do navegador. Se não encontrar a questão, use o comando de busca no PDF aberto.</p>
+          </div>
         </div>
       </div>
-      <div class="enx-step">
-        <span class="enx-bubble" aria-hidden="true">2</span><div>
-          <h4>Confira a resolução em vídeo</h4>
-          <p id="enx-video-desc">A playlist reúne questões de diferentes anos e cadernos. Ainda não foi possível confirmar um vídeo individual para esta questão: confira os títulos antes de assistir.</p>
-          <div class="enx-links">
-            <a id="enx-video-link" class="enx-primary" href="https://www.youtube.com/playlist?list=PLF6ZF9NW0WmpozXgc91XZArdgW_-EIj2X" target="_blank" rel="noopener noreferrer">Abrir playlist ↗</a>
-            <button id="enx-watch" type="button" aria-expanded="false" aria-controls="enx-video-box">Ver playlist aqui</button>
+
+      <div class="enex-step">
+        <div class="enex-step-number" aria-hidden="true">2</div>
+        <div class="enex-step-content">
+          <h4>Assista à resolução</h4>
+          <p id="enex-video-message">Esta questão tem uma resolução individual identificada no canal Cafemática.</p>
+          <div class="enex-buttons">
+            <a id="enex-watch-link" href="https://www.youtube.com/watch?v=XY-sA3GoerU" class="enex-button" target="_blank" rel="noopener noreferrer">Assistir ao vídeo <span aria-hidden="true">↗</span></a>
+            <button id="enex-player-toggle" type="button" aria-controls="enex-player-box" aria-expanded="false">Assistir aqui</button>
+            <a href={playlist} target="_blank" rel="noopener noreferrer">Playlist do canal ↗</a>
           </div>
-          <div id="enx-video-box" hidden><iframe id="enx-player" title="Playlist de Matemática do Cafemática no YouTube" loading="lazy" allow="encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe><p class="enx-hint">O YouTube só é carregado após clicar em “Ver playlist aqui”.</p></div>
+          <div id="enex-player-box" hidden>
+            <iframe id="enex-player" loading="lazy" title="Resolução em vídeo do Cafemática" allow="encrypted-media; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+            <p class="enex-note">O vídeo só é carregado ao clicar em “Assistir aqui”.</p>
+          </div>
         </div>
       </div>
-      <div class="enx-actions">
-        <label><input type="checkbox" id="enx-done"/> Já estudei esta questão</label>
-        <button id="enx-copy" type="button">Copiar link da questão</button>
+
+      <div class="enex-check">
+        <label><input id="enex-studied" type="checkbox"/> Já estudei esta questão</label>
+        <button id="enex-share" type="button">Copiar link desta questão</button>
       </div>
-      <p class="enx-hint">Material independente, sem afiliação com Inep ou MEC. Os números mudam de um caderno para outro. As provas e gabaritos são documentos oficiais do Inep.</p>
-      <p id="enx-status" role="status" aria-live="polite" class="enx-status"></p>
+      <p id="enex-feedback" role="status" aria-live="polite" class="enex-feedback"></p>
     </div>
   </div>
-  <noscript><p>Para navegar sem JavaScript: consulte <a href="https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos">as provas e os gabaritos do Inep</a> e <a href="https://www.youtube.com/playlist?list=PLF6ZF9NW0WmpozXgc91XZArdgW_-EIj2X">a playlist do Cafemática</a>.</p></noscript>
+  <p class="enex-footer">Material independente, sem vínculo institucional com o Inep ou o MEC. Os vídeos são do Cafemática; provas e gabaritos são disponibilizados pelo Inep. A lista de vídeos foi conferida publicamente e pode ser ampliada. Caderno de referência: **2º dia, caderno 7, azul, aplicação regular de 2020**.</p>
+  <script id="enex-data" type="application/json" set:html={publicVideos}/>
+  <noscript><p>A ferramenta interativa requer JavaScript. Você ainda pode consultar a <a href={prova}>prova oficial</a>, o <a href={gabarito}>gabarito</a> e a <a href={playlist}>playlist de resoluções</a>.</p></noscript>
 </section>
+
 <script>
-  const root=document.querySelector('#enem-explorer');
+  const root=document.getElementById('explorador-enem-2020');
   if(root){
     const el=id=>root.querySelector('#'+id);
-    const years=el('enx-year'),books=el('enx-book'),number=el('enx-number');
-    const names={'5':'Amarelo','6':'Cinza','7':'Azul','8':'Verde'};
-    const playlist=root.dataset.playlist;
-    const playlistUrl='https://www.youtube.com/playlist?list='+playlist;
-    const directVideos={}; // Registrar apenas IDs verificados, chave: ANO-CADERNO-NÚMERO.
-    const storedKey='cafematica:enem:questoes-estudadas:v1';
-    let done={};
-    try{done=JSON.parse(localStorage.getItem(storedKey)||'{}')||{};}catch{done={};}
+    const videoMap=JSON.parse(el('enex-data')?.textContent||'{}');
+    const buttons=[...root.querySelectorAll('[data-num]')];
+    const numbers=Array.from({length:45},(_,i)=>i+136);
+    const prova='https://download.inep.gov.br/enem/provas_e_gabaritos/2020_PV_impresso_D2_CD7.pdf';
+    const progressKey='cafematica:enem2020:azul:estudadas:v1';
+    let progress={};
+    try{progress=JSON.parse(localStorage.getItem(progressKey)||'{}')||{};}catch{progress={};}
     const params=new URLSearchParams(location.search);
-    if(['2024','2025'].includes(params.get('ano')))years.value=params.get('ano');
-    if(['5','6','7','8'].includes(params.get('caderno')))books.value=params.get('caderno');
     const initial=Number(params.get('questao'));
-    let current=Number.isInteger(initial)&&initial>=136&&initial<=180?initial:136;
-    let pdfShown=false,videoShown=false;
-    const prefix=()=>years.value+'-'+books.value+'-';
-    const source=type=>'https://download.inep.gov.br/enem/provas_e_gabaritos/'+years.value+'_'+type+'_impresso_D2_CD'+books.value+'.pdf';
-    const selected=()=>prefix()+current;
-    function pdf(open){
-      pdfShown=open;el('enx-pdf-box').hidden=!open;
-      el('enx-view').setAttribute('aria-expanded',String(open));
-      el('enx-view').textContent=open?'Ocultar PDF':'Ver PDF aqui';
-      if(open)el('enx-pdf').src=source('PV')+'#search='+encodeURIComponent('QUESTÃO '+current);
-      else el('enx-pdf').removeAttribute('src');
+    let chosen=Number.isInteger(initial)&&initial>=136&&initial<=180?initial:140;
+    let pdfOpen=false, playerOpen=false;
+
+    function isAvailable(n){return typeof videoMap[String(n)]==='string'&&/^[\w-]{11}$/.test(videoMap[String(n)]);}
+    function pdfUrl(){return prova+'#search='+encodeURIComponent('QUESTÃO '+chosen);}
+    function closePlayer(){
+      playerOpen=false;
+      el('enex-player-box').hidden=true;
+      el('enex-player-toggle').setAttribute('aria-expanded','false');
+      el('enex-player-toggle').textContent='Assistir aqui';
+      el('enex-player').removeAttribute('src');
     }
-    function video(open){
-      videoShown=open;el('enx-video-box').hidden=!open;
-      el('enx-watch').setAttribute('aria-expanded',String(open));
-      el('enx-watch').textContent=open?'Ocultar playlist':'Ver playlist aqui';
-      if(open)el('enx-player').src='https://www.youtube-nocookie.com/embed/videoseries?list='+playlist;
-      else el('enx-player').removeAttribute('src');
+    function updatePdf(){
+      if(pdfOpen)el('enex-pdf-frame').src=pdfUrl();
     }
     function update(){
-      number.value=current;
-      root.querySelectorAll('[data-question]').forEach(button=>{
-        const q=Number(button.dataset.question);
-        button.setAttribute('aria-pressed',String(q===current));
-        button.classList.toggle('enx-studied',!!done[prefix()+q]);
+      el('enex-select').value=String(chosen);
+      el('enex-heading').textContent='Questão '+chosen;
+      el('enex-search-text').textContent='QUESTÃO '+chosen;
+      el('enex-pdf-link').href=pdfUrl();
+      el('enex-studied').checked=progress[String(chosen)]===true;
+      el('enex-progress').textContent=numbers.filter(n=>progress[String(n)]===true).length+' de 45 estudadas';
+      const available=isAvailable(chosen);
+      el('enex-availability').textContent=available?'Resolução em vídeo localizada':'Vídeo individual ainda não localizado';
+      el('enex-availability').classList.toggle('enex-pending',!available);
+      el('enex-video-message').textContent=available
+        ? 'Resolução individual desta questão identificada no canal Cafemática. Assista à explicação antes de conferir o gabarito, se preferir.'
+        : 'Ainda não encontramos uma resolução individual confirmada desta questão. Isso não significa que ela não exista no canal; você pode consultar a playlist geral.';
+      el('enex-watch-link').hidden=!available;
+      el('enex-player-toggle').hidden=!available;
+      if(available)el('enex-watch-link').href='https://www.youtube.com/watch?v='+videoMap[String(chosen)];
+      buttons.forEach(b=>{
+        const n=Number(b.dataset.num);
+        b.setAttribute('aria-pressed',String(n===chosen));
+        b.classList.toggle('enex-done',progress[String(n)]===true);
       });
-      el('enx-current').textContent='Questão '+current;
-      el('enx-context').textContent='ENEM '+years.value+' · '+names[books.value]+' · caderno '+books.value+' · aplicação regular';
-      el('enx-find').textContent='QUESTÃO '+current;
-      el('enx-prova').href=source('PV')+'#search='+encodeURIComponent('QUESTÃO '+current);
-      el('enx-gabarito').href=source('GB');
-      el('enx-prev').disabled=current===136;el('enx-next').disabled=current===180;
-      el('enx-done').checked=!!done[selected()];
-      const count=Array.from({length:45},(_,i)=>136+i).filter(i=>done[prefix()+i]).length;
-      el('enx-progress').textContent=count+' de 45 estudadas';
-      const vid=directVideos[selected()];
-      el('enx-video-link').href=vid?'https://www.youtube.com/watch?v='+vid+'&list='+playlist:playlistUrl;
-      el('enx-video-link').textContent=vid?'Assistir à resolução ↗':'Abrir playlist ↗';
-      el('enx-video-desc').textContent=vid?'Vídeo correspondente a esta questão identificado na playlist.':'A playlist reúne questões de diferentes anos e cadernos. Ainda não foi possível confirmar um vídeo individual para esta questão: confira os títulos antes de assistir.';
-      if(pdfShown)pdf(true);
+      el('enex-previous').disabled=chosen===136;
+      el('enex-next').disabled=chosen===180;
+      closePlayer();
+      updatePdf();
       const url=new URL(location.href);
-      url.searchParams.set('ano',years.value);url.searchParams.set('caderno',books.value);url.searchParams.set('questao',String(current));
+      url.searchParams.set('questao',String(chosen));
       history.replaceState(null,'',url.pathname+url.search+url.hash);
+      el('enex-feedback').textContent='';
     }
-    function choose(value){
-      if(!Number.isInteger(value)||value<136||value>180){el('enx-status').textContent='Escolha um número entre 136 e 180.';return;}
-      current=value;el('enx-status').textContent='';update();
+
+    function choose(n){
+      if(!Number.isInteger(n)||n<136||n>180){
+        el('enex-feedback').textContent='Escolha uma questão entre 136 e 180.';
+        el('enex-select').value=String(chosen);
+        return;
+      }
+      chosen=n;update();
     }
-    root.querySelectorAll('[data-question]').forEach(button=>button.addEventListener('click',()=>choose(Number(button.dataset.question))));
-    number.addEventListener('change',()=>choose(Number(number.value)));
-    years.addEventListener('change',update);books.addEventListener('change',update);
-    el('enx-prev').addEventListener('click',()=>choose(current-1));
-    el('enx-next').addEventListener('click',()=>choose(current+1));
-    el('enx-view').addEventListener('click',()=>pdf(!pdfShown));
-    el('enx-watch').addEventListener('click',()=>video(!videoShown));
-    el('enx-done').addEventListener('change',event=>{
-      if(event.target.checked)done[selected()]=true;else delete done[selected()];
-      try{localStorage.setItem(storedKey,JSON.stringify(done));}catch{}
+    function filter(){
+      const f=el('enex-filter').value;
+      buttons.forEach(b=>{
+        const available=isAvailable(Number(b.dataset.num));
+        b.hidden=f==='video'&&!available||f==='pending'&&available;
+      });
+    }
+    buttons.forEach(b=>b.addEventListener('click',()=>choose(Number(b.dataset.num))));
+    el('enex-select').addEventListener('change',()=>choose(Number(el('enex-select').value)));
+    el('enex-filter').addEventListener('change',filter);
+    el('enex-previous').addEventListener('click',()=>choose(chosen-1));
+    el('enex-next').addEventListener('click',()=>choose(chosen+1));
+    el('enex-pdf-toggle').addEventListener('click',()=>{
+      pdfOpen=!pdfOpen;
+      el('enex-pdf-box').hidden=!pdfOpen;
+      el('enex-pdf-toggle').setAttribute('aria-expanded',String(pdfOpen));
+      el('enex-pdf-toggle').textContent=pdfOpen?'Ocultar PDF':'Visualizar PDF aqui';
+      if(pdfOpen)updatePdf();else el('enex-pdf-frame').removeAttribute('src');
+    });
+    el('enex-player-toggle').addEventListener('click',()=>{
+      if(playerOpen){closePlayer();return;}
+      if(!isAvailable(chosen))return;
+      playerOpen=true;
+      el('enex-player-box').hidden=false;
+      el('enex-player-toggle').textContent='Ocultar vídeo';
+      el('enex-player-toggle').setAttribute('aria-expanded','true');
+      el('enex-player').src='https://www.youtube-nocookie.com/embed/'+videoMap[String(chosen)];
+    });
+    el('enex-studied').addEventListener('change',e=>{
+      if(e.target.checked)progress[String(chosen)]=true;else delete progress[String(chosen)];
+      try{localStorage.setItem(progressKey,JSON.stringify(progress));}catch{}
       update();
     });
-    el('enx-copy').addEventListener('click',async()=>{
-      try{await navigator.clipboard.writeText(location.href);el('enx-status').textContent='Link da questão copiado.';}
-      catch{el('enx-status').textContent='Copie o endereço na barra do navegador.';}
+    el('enex-share').addEventListener('click',async()=>{
+      try{await navigator.clipboard.writeText(location.href);el('enex-feedback').textContent='Link da questão copiado!';}
+      catch{el('enex-feedback').textContent='Copie o endereço da página na barra do navegador.';}
     });
-    update();
+    update();filter();
   }
 </script>
+
 <style>
-  .enx{border:1px solid #d9c7ab;border-radius:22px;overflow:hidden;background:#fffcf8;color:#34261d;margin:30px 0 42px;box-shadow:0 12px 35px rgba(57,35,17,.06)}
-  .enx [hidden]{display:none!important}
-  .enx-hero{display:flex;align-items:center;justify-content:space-between;gap:20px;background:#37271f;color:#fff;padding:26px 29px}
-  .enx-hero h2{font:700 clamp(1.35rem,3vw,1.9rem)/1.23 inherit;color:#fff;margin:0 0 10px}
-  .enx-hero p{color:#ead8c4;margin:0;line-height:1.5}.enx .enx-overline{color:#ba8247;text-transform:uppercase;letter-spacing:.09em;font-weight:800;font-size:.72rem;margin:0 0 9px}
-  .enx-hero .enx-overline{color:#f3c58b}.enx-pi{color:#f4c48b;border:2px solid #dfae76;border-radius:50%;width:68px;height:68px;display:grid;place-items:center;font-size:2.2rem;flex:none}
-  .enx-filters{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:14px;background:#f7f1e7;padding:19px 22px}
-  .enx-filters label{font-size:.8rem;font-weight:700;color:#534434;display:flex;flex-direction:column;gap:7px}
-  .enx-filters :is(select,input){font:inherit;background:white;color:#30251c;border:1px solid #bda990;border-radius:9px;padding:10px;width:100%;min-height:43px}
-  .enx-layout{display:grid;grid-template-columns:minmax(200px,.92fr) minmax(0,1.6fr)}
-  .enx-picker{padding:22px 18px;border-right:1px solid #e7d9c8}
-  .enx-subhead{display:flex;flex-wrap:wrap;align-items:center;gap:7px;justify-content:space-between}
-  .enx-subhead h3{font-size:.97rem;margin:0}.enx-subhead span{font-size:.73rem;color:#866142}
-  .enx-picker>p,.enx-detail p{font-size:.86rem;line-height:1.6;color:#675747}
-  .enx-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:16px 0}
-  .enx-grid button{background:#fff;border:1px solid #d9c6b1;border-radius:9px;min-height:39px;color:#4c3524;position:relative;font-weight:650;cursor:pointer}
-  .enx-grid button[aria-pressed="true"]{background:#773c31;color:#fff;border-color:#773c31;box-shadow:0 0 0 2px #edd5ba}
-  .enx-grid .enx-studied::after{content:"";position:absolute;top:4px;right:4px;background:#49a27a;width:6px;height:6px;border-radius:50%}
-  .enx-between,.enx-links,.enx-actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center;justify-content:space-between}
-  .enx button,.enx-links a{font:inherit;font-size:.8rem;cursor:pointer}
-  .enx-between button,.enx-links button,.enx-actions button{background:#fff;border:1px solid #c9ad94;color:#673c30;border-radius:9px;padding:9px 11px}
-  .enx-detail{padding:24px}.enx-detail>h3{font-size:2rem;margin:0 0 4px}
-  .enx-detail .enx-context{margin:0 0 18px;font-size:.8rem}
-  .enx-step{display:flex;gap:13px;border-top:1px solid #e6d9c9;padding:20px 0}.enx-step>div{min-width:0;flex:1}
-  .enx-bubble{border-radius:50%;background:#f1e1ce;color:#773c31;width:28px;height:28px;display:grid;place-items:center;font-weight:800;flex:none}
-  .enx-step h4{font-size:1.04rem;margin:2px 0 7px}.enx-step p{margin:0 0 12px}
-  .enx-links{justify-content:flex-start}.enx-links a{text-decoration:none!important;font-weight:700;padding:9px 0}
-  .enx-links .enx-primary{background:#773c31;color:white!important;border-radius:9px;padding:10px 13px}
-  .enx-links a:not(.enx-primary){color:#773c31}.enx a:focus-visible,.enx button:focus-visible,.enx input:focus-visible,.enx select:focus-visible{outline:3px solid #c6934d;outline-offset:2px}
-  .enx iframe{width:100%;height:420px;max-width:100%;margin-top:15px;border:1px solid #dfd2bf;border-radius:9px}
-  #enx-player{height:auto;aspect-ratio:16/9;border:0}
-  .enx-actions{border-top:1px solid #e6d9c9;padding-top:16px}.enx-actions label{display:flex;align-items:center;gap:8px;font-size:.83rem;font-weight:700}.enx-actions input{accent-color:#773c31;width:18px;height:18px}
-  .enx-detail .enx-hint{font-size:.74rem;color:#7b6b59;margin:15px 0 0}.enx-detail .enx-status{color:#317354;min-height:1.2em;font-size:.8rem}
-  .enx button:disabled{opacity:.4;cursor:not-allowed}
-  @media(max-width:840px){.enx-layout{grid-template-columns:1fr}.enx-picker{border-right:0;border-bottom:1px solid #e7d9c8}.enx-grid{grid-template-columns:repeat(9,minmax(0,1fr))}}
-  @media(max-width:520px){.enx-hero{padding:22px}.enx-pi{display:none}.enx-filters{grid-template-columns:1fr 1fr;padding:15px}.enx-filters label:last-child{grid-column:span 2}.enx-picker,.enx-detail{padding:18px}.enx-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.enx iframe{height:360px}}
+  .enex{margin:32px 0 44px;color:#34291f;background:#fffcf8;border:1px solid #dbcbb8;border-radius:22px;overflow:hidden;box-shadow:0 12px 32px #3823190a}
+  .enex [hidden]{display:none!important}
+  .enex-hero{display:flex;align-items:center;justify-content:space-between;gap:16px;background:#36271f;color:white;padding:26px 28px}
+  .enex-hero h2{font-family:inherit;color:#fff;font-size:clamp(1.35rem,3vw,1.95rem);line-height:1.2;margin:0 0 9px}
+  .enex-hero p{color:#e6d8c9;font-size:.9rem;line-height:1.6;margin:0}
+  .enex .enex-eyebrow{color:#b4793e;font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;font-weight:800;margin:0 0 10px}
+  .enex-hero .enex-eyebrow{color:#ecc38e}
+  .enex-symbol{border:2px solid #d5a775;color:#f0c28b;width:66px;height:66px;flex:none;display:grid;place-items:center;border-radius:50%;font-size:2.35rem}
+  .enex-counts{display:flex;gap:9px;align-items:center;margin-top:14px;font-size:.78rem;color:#efd5b0}
+  .enex-controls{display:grid;grid-template-columns:1fr 1.5fr;gap:14px;padding:18px 23px;background:#f6efe4;border-bottom:1px solid #e9dccb}
+  .enex-controls label{display:flex;flex-direction:column;gap:7px;font-size:.8rem;font-weight:750}
+  .enex-controls :is(input,select){width:100%;font:inherit;font-size:.9rem;min-height:43px;color:#30261d;background:#fff;padding:10px 12px;border:1px solid #bba78d;border-radius:10px}
+  .enex-panels{display:grid;grid-template-columns:minmax(180px,.88fr) minmax(0,1.55fr)}
+  .enex-list{padding:23px 18px;border-right:1px solid #e8dccb}
+  .enex-list-head{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+  .enex-list-head h3{font-size:.99rem;margin:0}.enex-list-head p{font-size:.73rem;color:#795f4e;margin:0}
+  .enex-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:.68rem;margin:16px 0;color:#776250}
+  .enex-dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:4px}
+  .enex-dot-video{background:#773e35}.enex-dot-studied{background:#44966b}
+  .enex-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+  .enex-grid button{position:relative;border:1px solid #d9c6b2;color:#503e32;background:white;min-height:41px;border-radius:10px;font-size:.8rem;font-weight:750;cursor:pointer}
+  .enex-grid button.enex-available{border-color:#aa806e;background:#f5e9e2;color:#74372f}
+  .enex-grid button[aria-pressed=true]{background:#773e35!important;color:white!important;border-color:#773e35;box-shadow:0 0 0 2px #d7b49f}
+  .enex-grid button.enex-done:after{content:'';width:7px;height:7px;position:absolute;right:4px;top:4px;border-radius:50%;background:#44966b}
+  .enex-moving{display:flex;justify-content:space-between;gap:10px;margin:15px 0}
+  .enex button:not([data-num]){border:1px solid #c5ab96;border-radius:9px;padding:9px 10px;background:white;color:#673a2e;cursor:pointer;font-weight:700;font-size:.78rem}
+  .enex .enex-note{font-size:.73rem;color:#7a6859;line-height:1.6;margin:13px 0 0}
+  .enex-detail{padding:25px}
+  .enex-detail h3{font-size:clamp(1.65rem,3vw,2.1rem);margin:0 0 8px}
+  .enex-availability{color:#286c4a;background:#e8f3eb;border-radius:20px;padding:5px 11px;font-size:.76rem;font-weight:800;display:inline-block;margin:0 0 13px}
+  .enex-availability.enex-pending{background:#f4ede0;color:#7e5c34}
+  .enex-step{border-top:1px solid #e8dbcc;padding:21px 0;display:flex;gap:13px}
+  .enex-step-number{width:27px;height:27px;background:#f1e4d5;color:#723a30;border-radius:50%;flex:none;display:grid;place-items:center;font-weight:800;font-size:.83rem}
+  .enex-step-content{min-width:0;flex:1}
+  .enex-step h4{font-size:1rem;margin:2px 0 6px}
+  .enex-step p{font-size:.86rem;color:#655749;line-height:1.65;margin:0 0 13px}
+  .enex-buttons{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  .enex-buttons a{font-size:.79rem;text-decoration:none!important;color:#713e30;font-weight:700}
+  .enex-buttons .enex-button{padding:10px 12px;background:#773e35;border-radius:10px;color:white}
+  .enex :is(a,button,input,select):focus-visible{outline:3px solid #bd8b46;outline-offset:3px}
+  .enex :is(button):disabled{opacity:.45;cursor:not-allowed}
+  .enex iframe{width:100%;height:430px;border:1px solid #decdb9;border-radius:10px;margin:14px 0 3px}
+  .enex #enex-player{height:auto;aspect-ratio:16/9;border:0}
+  .enex-check{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;border-top:1px solid #e8dbcc;padding-top:17px}
+  .enex-check label{font-size:.84rem;font-weight:800;display:flex;gap:8px;align-items:center}
+  .enex-check input{width:18px;height:18px;accent-color:#773e35}
+  .enex .enex-feedback{font-size:.78rem;color:#367850;margin:8px 0 0;min-height:1em}
+  .enex .enex-footer{font-size:.74rem;color:#695a4e;background:#f8f2e9;line-height:1.65;padding:14px 24px;margin:0;border-top:1px solid #e7daca}
+  @media(max-width:840px){.enex-panels{grid-template-columns:1fr}.enex-list{border-right:0;border-bottom:1px solid #e8dccb}.enex-grid{grid-template-columns:repeat(9,minmax(0,1fr))}}
+  @media(max-width:520px){.enex-hero{padding:21px}.enex-symbol{display:none}.enex-controls{padding:15px}.enex-list,.enex-detail{padding:18px}.enex-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.enex iframe{height:360px}}
 </style>
