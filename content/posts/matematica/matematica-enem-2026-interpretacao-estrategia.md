@@ -37,6 +37,7 @@ sources:
   - title: Inep — Provas e gabaritos de edições anteriores
     url: https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos
 cover: /imagens/blog/matematica-enem-2026-interpretacao-estrategia.png
+coverAlt: moça estudando para se preparar para o ENEM
 ---
 Você já resolveu uma questão de Matemática, fez todas as contas corretamente e, mesmo assim, marcou a alternativa errada? Isso pode acontecer por um motivo comum: **o problema não estava no cálculo, mas na interpretação do enunciado**.
 
