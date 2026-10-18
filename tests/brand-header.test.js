@@ -3,6 +3,7 @@ import fs from 'node:fs';
 
 const html=fs.readFileSync('src/layouts/Base.astro','utf8');
 const css=fs.readFileSync('src/styles/atelier.css','utf8');
+const home=fs.readFileSync('src/pages/index.astro','utf8');
 const logoDesktop='public/assets/cafematica-logo-desktop.png';
 const logoMobile='public/assets/cafematica-logo-mobile.png';
 const size=buffer=>({width:buffer.readUInt32BE(16),height:buffer.readUInt32BE(20)});
@@ -28,12 +29,29 @@ describe('Identidade aprovada do Cafemática no cabeçalho',()=>{
   expect(html).toContain('google-site-verification');
   expect(html).toContain('<script type="application/ld+json"');
  });
- it('não afeta o rodapé nem os menus e adapta a marca a telas pequenas',()=>{
+ it('preserva os menus e adapta a marca a telas pequenas',()=>{
   expect(html).toContain('class="footer-brand"');
   expect(html).toContain('id="main-nav"');
   expect(css).toContain('.site-header .brand-graphic img');
   expect(css).toContain('@media (max-width:800px)');
   expect(css).toContain('@media (max-width:520px)');
   expect(css).toContain('@media (max-width:350px)');
+ });
+ it('substitui somente as três estrelas decorativas da home por café',()=>{
+  for(const className of ['atelier-kicker-mark','atelier-asterisk','atelier-ending-mark']){
+   expect(home).toContain('class="'+className+'" aria-hidden="true">☕</span>');
+  }
+  expect(home).not.toMatch(/aria-hidden="true">✳<\/span>/);
+ });
+ it('repete no rodapé os mesmos PNGs aprovados do cabeçalho e mantém link e SEO',()=>{
+  expect(html).toContain('class="brand brand-graphic footer-brand-graphic" href="/" aria-label="Cafemática, início"');
+  const footer=html.slice(html.indexOf('<footer class="site-footer">'));
+  expect(footer).toContain('src="/assets/cafematica-logo-desktop.png"');
+  expect(footer).toContain('srcset="/assets/cafematica-logo-mobile.png"');
+  expect(footer).toContain('alt="Cafemática"');
+  expect(footer).not.toContain('class="brand-v3-symbol"');
+  expect(css).toContain('.site-footer .footer-brand-graphic img');
+  expect(html).toContain('google-site-verification');
+  expect(html).toContain('rel="canonical"');
  });
 });
