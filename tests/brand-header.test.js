@@ -22,7 +22,7 @@ describe('Identidade aprovada do Cafemática no cabeçalho',()=>{
   expect(html).toContain('src="/assets/cafematica-logo-desktop.png"');
   expect(html).toContain('srcset="/assets/cafematica-logo-mobile.png"');
   expect(html).toContain('alt="Cafemática"');
-  expect(html).toContain('width="700" height="132"');
+  expect(html).toContain('width="600" height="113"');
   expect(html).toContain('fetchpriority="high"');
   expect(html).toContain('<link rel="canonical" href={url}/>');
   expect(html).toContain('google-site-verification');
