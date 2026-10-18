@@ -85,15 +85,15 @@ content:
           minlength: 30
           maxlength: 300
       - name: seoTitle
-        label: Título para Google e compartilhamentos (opcional)
+        label: SEO — título para buscadores (opcional)
         type: string
-        description: "Use um título claro e específico. Se ficar vazio, utilizaremos o título normal do artigo. Evite repetir palavras."
+        description: "Título sugerido para a aba, o Google e prévias sociais. Deixe vazio para gerar automaticamente a partir do título do artigo. O Google pode escolher outro texto."
         options:
           maxlength: 75
       - name: seoDescription
-        label: Descrição para mecanismos de busca (opcional)
+        label: SEO — descrição para buscadores (opcional)
         type: text
-        description: "Explique o benefício real de ler o artigo. Se ficar vazio, usaremos o resumo. Não existe garantia de que o Google exibirá este texto."
+        description: "Explique o que o leitor aprenderá. Se ficar vazio, o site usa o resumo automaticamente. O Google pode gerar outro trecho conforme a pesquisa."
         options:
           maxlength: 180
       - name: tags
@@ -101,7 +101,7 @@ content:
         type: string
         list:
           max: 8
-        description: "Adicione entre 3 e 6 termos pertinentes, um por linha. Ajudam na navegação e na busca interna; não são a antiga meta tag keywords."
+        description: "Use de 3 a 6 assuntos específicos, um por linha, sem repetições. Alimentam a navegação, a busca interna e os dados do artigo, não a antiga meta tag keywords (ignorada pelo Google)."
       - name: category
         label: Categoria
         type: select
@@ -118,7 +118,7 @@ content:
       - name: topic
         label: Assunto específico
         type: string
-        description: "Exemplo: Educação financeira, Álgebra ou Tutoriais."
+        description: "Assunto principal mais específico que a categoria. Ex.: Álgebra, Educação financeira, Funções, Documentos acadêmicos. Ajuda o leitor a filtrar os artigos."
       - name: cover
         label: Imagem de capa
         type: image
@@ -163,9 +163,33 @@ content:
       - name: quickAnswer
         label: Resposta curta ou principal aprendizado (opcional)
         type: text
-        description: "Responda à dúvida central em 2 a 4 frases, com informações corretas e úteis. Aparecerá visivelmente no artigo."
+        description: "Resposta direta e original à principal dúvida do leitor (2 a 4 frases). Aparece no artigo, não é conteúdo escondido para robôs."
         options:
           maxlength: 600
+      - name: faq
+        label: Perguntas e respostas do artigo (opcional)
+        type: object
+        description: "Somente perguntas realmente respondidas neste artigo, com respostas originais e úteis. O site as mostra ao leitor; não prometemos destaque especial no Google."
+        list:
+          max: 5
+          collapsible:
+            collapsed: true
+            summary: "{question}"
+        fields:
+          - name: question
+            label: Pergunta
+            type: string
+            required: true
+            options:
+              minlength: 8
+              maxlength: 180
+          - name: answer
+            label: Resposta
+            type: text
+            required: true
+            options:
+              minlength: 20
+              maxlength: 900
       - name: sources
         label: Fontes e leituras recomendadas (opcional)
         type: object
