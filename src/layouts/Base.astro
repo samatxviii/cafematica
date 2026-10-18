@@ -34,6 +34,7 @@ const nav=[['/','Início'],['/matematica/','Matemática'],['/latex/','LaTeX'],['
 <meta name="twitter:title" content={seo.title}/><meta name="twitter:description" content={seo.description}/>
 {site.adsensePublisherId&&/^ca-pub-\d{16}$/.test(site.adsensePublisherId)&&<meta name="google-adsense-account" content={site.adsensePublisherId}/>}
 <script type="application/ld+json" set:html={JSON.stringify(schema).replace(/</g, String.fromCharCode(92)+'u003c')}/>
+{seo.breadcrumbSchema&&<script type="application/ld+json" set:html={JSON.stringify(seo.breadcrumbSchema).replace(/</g, String.fromCharCode(92)+'u003c')}/>}
 </head><body>
 <a class="skip-link" href="#principal">Pular para o conteúdo</a>
 <header class="site-header"><div class="container header-inner">
