@@ -1,0 +1,181 @@
+---
+const nums=Array.from({length:45},(_,i)=>136+i);
+const playlist='PLF6ZF9NW0WmpozXgc91XZArdgW_-EIj2X';
+---
+<section class="enx" id="enem-explorer" aria-labelledby="enx-heading" data-playlist={playlist}>
+  <header class="enx-hero">
+    <div><p class="enx-overline">Cafemática · Laboratório de questões</p><h2 id="enx-heading">Sua próxima questão começa aqui.</h2><p>Escolha o caderno e a questão, consulte o Inep e acompanhe as resoluções do Prof. Fernando.</p></div>
+    <span aria-hidden="true" class="enx-pi">π</span>
+  </header>
+  <div class="enx-filters">
+    <label>Ano do ENEM<select id="enx-year"><option value="2025">2025</option><option value="2024" selected>2024</option></select></label>
+    <label>Caderno do 2º dia<select id="enx-book"><option value="5" selected>5 · Amarelo</option><option value="6">6 · Cinza</option><option value="7">7 · Azul</option><option value="8">8 · Verde</option></select></label>
+    <label>Número da questão<input id="enx-number" type="number" min="136" max="180" step="1" value="136"/></label>
+  </div>
+  <div class="enx-layout">
+    <div class="enx-picker">
+      <div class="enx-subhead"><h3>Questões 136–180</h3><span id="enx-progress">0 de 45 estudadas</span></div>
+      <p>Escolha um número. Os pontos verdes indicam questões que você marcou como estudadas neste navegador.</p>
+      <div class="enx-grid" role="group" aria-label="Escolher questão">
+        {nums.map(n=><button type="button" data-question={n} aria-pressed={n===136?'true':'false'} aria-label={'Selecionar questão '+n}>{n}</button>)}
+      </div>
+      <div class="enx-between"><button id="enx-prev" type="button">← Anterior</button><button id="enx-next" type="button">Próxima →</button></div>
+    </div>
+    <div class="enx-detail">
+      <p class="enx-overline">Questão selecionada</p>
+      <h3 id="enx-current" tabindex="-1">Questão 136</h3>
+      <p id="enx-context" class="enx-context" aria-live="polite">ENEM 2024 · Amarelo · caderno 5 · aplicação regular</p>
+      <div class="enx-step">
+        <span class="enx-bubble" aria-hidden="true">1</span><div>
+          <h4>Leia o enunciado original</h4>
+          <p>Abra a prova oficial. Para localizar a questão, use a busca do PDF (Ctrl+F) e procure <strong id="enx-find">QUESTÃO 136</strong>.</p>
+          <div class="enx-links">
+            <a id="enx-prova" class="enx-primary" href="https://download.inep.gov.br/enem/provas_e_gabaritos/2024_PV_impresso_D2_CD5.pdf" target="_blank" rel="noopener noreferrer">Abrir prova ↗</a>
+            <a id="enx-gabarito" href="https://download.inep.gov.br/enem/provas_e_gabaritos/2024_GB_impresso_D2_CD5.pdf" target="_blank" rel="noopener noreferrer">Gabarito oficial ↗</a>
+            <button id="enx-view" type="button" aria-expanded="false" aria-controls="enx-pdf-box">Ver PDF aqui</button>
+          </div>
+          <div id="enx-pdf-box" hidden><iframe id="enx-pdf" title="Caderno oficial da prova do ENEM em PDF" loading="lazy"></iframe><p class="enx-hint">Se o PDF não carregar ou não localizar a questão automaticamente, abra a prova em outra aba e utilize a busca do leitor.</p></div>
+        </div>
+      </div>
+      <div class="enx-step">
+        <span class="enx-bubble" aria-hidden="true">2</span><div>
+          <h4>Confira a resolução em vídeo</h4>
+          <p id="enx-video-desc">A playlist reúne questões de diferentes anos e cadernos. Ainda não foi possível confirmar um vídeo individual para esta questão: confira os títulos antes de assistir.</p>
+          <div class="enx-links">
+            <a id="enx-video-link" class="enx-primary" href="https://www.youtube.com/playlist?list=PLF6ZF9NW0WmpozXgc91XZArdgW_-EIj2X" target="_blank" rel="noopener noreferrer">Abrir playlist ↗</a>
+            <button id="enx-watch" type="button" aria-expanded="false" aria-controls="enx-video-box">Ver playlist aqui</button>
+          </div>
+          <div id="enx-video-box" hidden><iframe id="enx-player" title="Playlist de Matemática do Cafemática no YouTube" loading="lazy" allow="encrypted-media; picture-in-picture; web-share" allowfullscreen></iframe><p class="enx-hint">O YouTube só é carregado após clicar em “Ver playlist aqui”.</p></div>
+        </div>
+      </div>
+      <div class="enx-actions">
+        <label><input type="checkbox" id="enx-done"/> Já estudei esta questão</label>
+        <button id="enx-copy" type="button">Copiar link da questão</button>
+      </div>
+      <p class="enx-hint">Material independente, sem afiliação com Inep ou MEC. Os números mudam de um caderno para outro. As provas e gabaritos são documentos oficiais do Inep.</p>
+      <p id="enx-status" role="status" aria-live="polite" class="enx-status"></p>
+    </div>
+  </div>
+  <noscript><p>Para navegar sem JavaScript: consulte <a href="https://www.gov.br/inep/pt-br/areas-de-atuacao/avaliacao-e-exames-educacionais/enem/provas-e-gabaritos">as provas e os gabaritos do Inep</a> e <a href="https://www.youtube.com/playlist?list=PLF6ZF9NW0WmpozXgc91XZArdgW_-EIj2X">a playlist do Cafemática</a>.</p></noscript>
+</section>
+<script>
+  const root=document.querySelector('#enem-explorer');
+  if(root){
+    const el=id=>root.querySelector('#'+id);
+    const years=el('enx-year'),books=el('enx-book'),number=el('enx-number');
+    const names={'5':'Amarelo','6':'Cinza','7':'Azul','8':'Verde'};
+    const playlist=root.dataset.playlist;
+    const playlistUrl='https://www.youtube.com/playlist?list='+playlist;
+    const directVideos={}; // Registrar apenas IDs verificados, chave: ANO-CADERNO-NÚMERO.
+    const storedKey='cafematica:enem:questoes-estudadas:v1';
+    let done={};
+    try{done=JSON.parse(localStorage.getItem(storedKey)||'{}')||{};}catch{done={};}
+    const params=new URLSearchParams(location.search);
+    if(['2024','2025'].includes(params.get('ano')))years.value=params.get('ano');
+    if(['5','6','7','8'].includes(params.get('caderno')))books.value=params.get('caderno');
+    const initial=Number(params.get('questao'));
+    let current=Number.isInteger(initial)&&initial>=136&&initial<=180?initial:136;
+    let pdfShown=false,videoShown=false;
+    const prefix=()=>years.value+'-'+books.value+'-';
+    const source=type=>'https://download.inep.gov.br/enem/provas_e_gabaritos/'+years.value+'_'+type+'_impresso_D2_CD'+books.value+'.pdf';
+    const selected=()=>prefix()+current;
+    function pdf(open){
+      pdfShown=open;el('enx-pdf-box').hidden=!open;
+      el('enx-view').setAttribute('aria-expanded',String(open));
+      el('enx-view').textContent=open?'Ocultar PDF':'Ver PDF aqui';
+      if(open)el('enx-pdf').src=source('PV')+'#search='+encodeURIComponent('QUESTÃO '+current);
+      else el('enx-pdf').removeAttribute('src');
+    }
+    function video(open){
+      videoShown=open;el('enx-video-box').hidden=!open;
+      el('enx-watch').setAttribute('aria-expanded',String(open));
+      el('enx-watch').textContent=open?'Ocultar playlist':'Ver playlist aqui';
+      if(open)el('enx-player').src='https://www.youtube-nocookie.com/embed/videoseries?list='+playlist;
+      else el('enx-player').removeAttribute('src');
+    }
+    function update(){
+      number.value=current;
+      root.querySelectorAll('[data-question]').forEach(button=>{
+        const q=Number(button.dataset.question);
+        button.setAttribute('aria-pressed',String(q===current));
+        button.classList.toggle('enx-studied',!!done[prefix()+q]);
+      });
+      el('enx-current').textContent='Questão '+current;
+      el('enx-context').textContent='ENEM '+years.value+' · '+names[books.value]+' · caderno '+books.value+' · aplicação regular';
+      el('enx-find').textContent='QUESTÃO '+current;
+      el('enx-prova').href=source('PV')+'#search='+encodeURIComponent('QUESTÃO '+current);
+      el('enx-gabarito').href=source('GB');
+      el('enx-prev').disabled=current===136;el('enx-next').disabled=current===180;
+      el('enx-done').checked=!!done[selected()];
+      const count=Array.from({length:45},(_,i)=>136+i).filter(i=>done[prefix()+i]).length;
+      el('enx-progress').textContent=count+' de 45 estudadas';
+      const vid=directVideos[selected()];
+      el('enx-video-link').href=vid?'https://www.youtube.com/watch?v='+vid+'&list='+playlist:playlistUrl;
+      el('enx-video-link').textContent=vid?'Assistir à resolução ↗':'Abrir playlist ↗';
+      el('enx-video-desc').textContent=vid?'Vídeo correspondente a esta questão identificado na playlist.':'A playlist reúne questões de diferentes anos e cadernos. Ainda não foi possível confirmar um vídeo individual para esta questão: confira os títulos antes de assistir.';
+      if(pdfShown)pdf(true);
+      const url=new URL(location.href);
+      url.searchParams.set('ano',years.value);url.searchParams.set('caderno',books.value);url.searchParams.set('questao',String(current));
+      history.replaceState(null,'',url.pathname+url.search+url.hash);
+    }
+    function choose(value){
+      if(!Number.isInteger(value)||value<136||value>180){el('enx-status').textContent='Escolha um número entre 136 e 180.';return;}
+      current=value;el('enx-status').textContent='';update();
+    }
+    root.querySelectorAll('[data-question]').forEach(button=>button.addEventListener('click',()=>choose(Number(button.dataset.question))));
+    number.addEventListener('change',()=>choose(Number(number.value)));
+    years.addEventListener('change',update);books.addEventListener('change',update);
+    el('enx-prev').addEventListener('click',()=>choose(current-1));
+    el('enx-next').addEventListener('click',()=>choose(current+1));
+    el('enx-view').addEventListener('click',()=>pdf(!pdfShown));
+    el('enx-watch').addEventListener('click',()=>video(!videoShown));
+    el('enx-done').addEventListener('change',event=>{
+      if(event.target.checked)done[selected()]=true;else delete done[selected()];
+      try{localStorage.setItem(storedKey,JSON.stringify(done));}catch{}
+      update();
+    });
+    el('enx-copy').addEventListener('click',async()=>{
+      try{await navigator.clipboard.writeText(location.href);el('enx-status').textContent='Link da questão copiado.';}
+      catch{el('enx-status').textContent='Copie o endereço na barra do navegador.';}
+    });
+    update();
+  }
+</script>
+<style>
+  .enx{border:1px solid #d9c7ab;border-radius:22px;overflow:hidden;background:#fffcf8;color:#34261d;margin:30px 0 42px;box-shadow:0 12px 35px rgba(57,35,17,.06)}
+  .enx [hidden]{display:none!important}
+  .enx-hero{display:flex;align-items:center;justify-content:space-between;gap:20px;background:#37271f;color:#fff;padding:26px 29px}
+  .enx-hero h2{font:700 clamp(1.35rem,3vw,1.9rem)/1.23 inherit;color:#fff;margin:0 0 10px}
+  .enx-hero p{color:#ead8c4;margin:0;line-height:1.5}.enx .enx-overline{color:#ba8247;text-transform:uppercase;letter-spacing:.09em;font-weight:800;font-size:.72rem;margin:0 0 9px}
+  .enx-hero .enx-overline{color:#f3c58b}.enx-pi{color:#f4c48b;border:2px solid #dfae76;border-radius:50%;width:68px;height:68px;display:grid;place-items:center;font-size:2.2rem;flex:none}
+  .enx-filters{display:grid;grid-template-columns:1fr 1.3fr 1fr;gap:14px;background:#f7f1e7;padding:19px 22px}
+  .enx-filters label{font-size:.8rem;font-weight:700;color:#534434;display:flex;flex-direction:column;gap:7px}
+  .enx-filters :is(select,input){font:inherit;background:white;color:#30251c;border:1px solid #bda990;border-radius:9px;padding:10px;width:100%;min-height:43px}
+  .enx-layout{display:grid;grid-template-columns:minmax(200px,.92fr) minmax(0,1.6fr)}
+  .enx-picker{padding:22px 18px;border-right:1px solid #e7d9c8}
+  .enx-subhead{display:flex;flex-wrap:wrap;align-items:center;gap:7px;justify-content:space-between}
+  .enx-subhead h3{font-size:.97rem;margin:0}.enx-subhead span{font-size:.73rem;color:#866142}
+  .enx-picker>p,.enx-detail p{font-size:.86rem;line-height:1.6;color:#675747}
+  .enx-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;margin:16px 0}
+  .enx-grid button{background:#fff;border:1px solid #d9c6b1;border-radius:9px;min-height:39px;color:#4c3524;position:relative;font-weight:650;cursor:pointer}
+  .enx-grid button[aria-pressed="true"]{background:#773c31;color:#fff;border-color:#773c31;box-shadow:0 0 0 2px #edd5ba}
+  .enx-grid .enx-studied::after{content:"";position:absolute;top:4px;right:4px;background:#49a27a;width:6px;height:6px;border-radius:50%}
+  .enx-between,.enx-links,.enx-actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+  .enx button,.enx-links a{font:inherit;font-size:.8rem;cursor:pointer}
+  .enx-between button,.enx-links button,.enx-actions button{background:#fff;border:1px solid #c9ad94;color:#673c30;border-radius:9px;padding:9px 11px}
+  .enx-detail{padding:24px}.enx-detail>h3{font-size:2rem;margin:0 0 4px}
+  .enx-detail .enx-context{margin:0 0 18px;font-size:.8rem}
+  .enx-step{display:flex;gap:13px;border-top:1px solid #e6d9c9;padding:20px 0}.enx-step>div{min-width:0;flex:1}
+  .enx-bubble{border-radius:50%;background:#f1e1ce;color:#773c31;width:28px;height:28px;display:grid;place-items:center;font-weight:800;flex:none}
+  .enx-step h4{font-size:1.04rem;margin:2px 0 7px}.enx-step p{margin:0 0 12px}
+  .enx-links{justify-content:flex-start}.enx-links a{text-decoration:none!important;font-weight:700;padding:9px 0}
+  .enx-links .enx-primary{background:#773c31;color:white!important;border-radius:9px;padding:10px 13px}
+  .enx-links a:not(.enx-primary){color:#773c31}.enx a:focus-visible,.enx button:focus-visible,.enx input:focus-visible,.enx select:focus-visible{outline:3px solid #c6934d;outline-offset:2px}
+  .enx iframe{width:100%;height:420px;max-width:100%;margin-top:15px;border:1px solid #dfd2bf;border-radius:9px}
+  #enx-player{height:auto;aspect-ratio:16/9;border:0}
+  .enx-actions{border-top:1px solid #e6d9c9;padding-top:16px}.enx-actions label{display:flex;align-items:center;gap:8px;font-size:.83rem;font-weight:700}.enx-actions input{accent-color:#773c31;width:18px;height:18px}
+  .enx-detail .enx-hint{font-size:.74rem;color:#7b6b59;margin:15px 0 0}.enx-detail .enx-status{color:#317354;min-height:1.2em;font-size:.8rem}
+  .enx button:disabled{opacity:.4;cursor:not-allowed}
+  @media(max-width:840px){.enx-layout{grid-template-columns:1fr}.enx-picker{border-right:0;border-bottom:1px solid #e7d9c8}.enx-grid{grid-template-columns:repeat(9,minmax(0,1fr))}}
+  @media(max-width:520px){.enx-hero{padding:22px}.enx-pi{display:none}.enx-filters{grid-template-columns:1fr 1fr;padding:15px}.enx-filters label:last-child{grid-column:span 2}.enx-picker,.enx-detail{padding:18px}.enx-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.enx iframe{height:360px}}
+</style>
