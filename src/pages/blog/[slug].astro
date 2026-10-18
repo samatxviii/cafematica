@@ -39,11 +39,11 @@ const related=getPosts().filter(other=>other.slug!==post.slug).map(other=>({
       {updated&&<p class="article-edited">Revisado em <time datetime={updated}>{dateLabel(updated)}</time></p>}
     </header>
     {cover&&<figure class="article-cover"><img src={cover} alt={post.coverAlt||''} width="1600" height="1000" decoding="async"/>{post.coverAlt&&<figcaption>{post.coverAlt}</figcaption>}</figure>}
+    {post.slug==='enem-2020-explorador-questoes-matematica'&&<EnemQuestionExplorer/>}
     <div class="article-layout">
       <div>
         {post.quickAnswer&&<section class="article-quick-answer" aria-labelledby="quick-answer-title"><h2 id="quick-answer-title">Em poucas palavras</h2><p>{post.quickAnswer}</p></section>}
         <div class="prose" set:html={post.html}/>
-        {post.slug==='enem-2020-explorador-questoes-matematica'&&<EnemQuestionExplorer/>}
         {post.faq?.length>0&&<section class="article-faq prose" aria-labelledby="article-faq-title"><h2 id="article-faq-title">Perguntas frequentes sobre o assunto</h2>{post.faq.map(item=><div class="article-faq-item"><h3>{item.question}</h3><p>{item.answer}</p></div>)}</section>}
         {tags.length>0&&<nav class="article-tags" aria-label="Assuntos relacionados"><h2>Assuntos deste artigo</h2><div>{tags.map(tag=><a href={`/blog/?q=${encodeURIComponent(tag)}#busca`}>{tag}</a>)}</div></nav>}
         {sources.length>0&&<section class="article-references" aria-labelledby="references-title"><h2 id="references-title">Fontes e leituras recomendadas</h2><ul>{sources.map(source=><li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title} <span aria-hidden="true">↗</span></a></li>)}</ul></section>}
