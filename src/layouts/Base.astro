@@ -38,7 +38,7 @@ const nav=[['/','Início'],['/matematica/','Matemática'],['/latex/','LaTeX'],['
 <a class="brand brand-graphic" href="/" aria-label="Cafemática, início">
   <picture>
     <source media="(max-width: 700px)" srcset="/assets/cafematica-logo-mobile.png"/>
-    <img src="/assets/cafematica-logo-desktop.png" alt="Cafemática" width="700" height="132" fetchpriority="high" decoding="async"/>
+    <img src="/assets/cafematica-logo-desktop.png" alt="Cafemática" width="600" height="113" fetchpriority="high" decoding="async"/>
   </picture>
 </a>
 <nav class="main-nav" id="main-nav" aria-label="Menu principal">{nav.map(([href,label])=><a href={href} aria-current={(href==='/'?Astro.url.pathname==='/':Astro.url.pathname.startsWith(href))?'page':undefined}>{label}</a>)}<a class="nav-contact" href="/contato/">Vamos conversar <Icon size={16}/></a></nav>
