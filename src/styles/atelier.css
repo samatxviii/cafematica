@@ -200,3 +200,18 @@ h1,h2,h3{font-family:'Lora',Georgia,serif;letter-spacing:-.045em}
 @media (max-width:700px){
   .site-footer .footer-brand-graphic img{width:210px}
 }
+
+/* Retrato editorial /sobre/: formato real 4:5, sem recorte oval. */
+.about-grid .about-image{
+  display:block;
+  width:100%;
+  height:auto;
+  aspect-ratio:4 / 5;
+  object-fit:cover;
+  object-position:center;
+  border-radius:12px;
+  filter:none;
+}
+@media (max-width:800px){
+  .about-grid .about-image{max-width:min(340px,100%);}
+}
