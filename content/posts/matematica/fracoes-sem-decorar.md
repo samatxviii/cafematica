@@ -21,6 +21,7 @@ tags:
   - simplificação de frações
   - mínimo múltiplo comum
   - MMC
+  - Fração
 author: Fernando da Silva Batista
 updated: 2026-10-17
 quickAnswer: Para somar frações com denominadores diferentes, transforme-as em
