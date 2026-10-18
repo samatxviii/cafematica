@@ -167,3 +167,23 @@ h1,h2,h3{font-family:'Lora',Georgia,serif;letter-spacing:-.045em}
 .article-references a{color:var(--rust);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;overflow-wrap:anywhere}
 @media(max-width:700px){.article-cover{margin-bottom:35px}.article-quick-answer{padding:22px 20px}.article-tags{margin-top:34px}}
 @media(prefers-reduced-motion:reduce){.article-tags a{transition:none!important}}
+
+/* Marca aprovada do Cafemática: PNGs transparentes e responsivos no cabeçalho. */
+.site-header .brand-graphic{display:inline-flex;align-items:center;flex:0 0 auto;min-width:0;gap:0;line-height:0}
+.site-header .brand-graphic picture{display:block;line-height:0;flex:0 0 auto}
+.site-header .brand-graphic img{display:block;width:clamp(190px,21vw,260px);height:auto;max-width:100%;max-height:none;object-fit:contain}
+@media (min-width:801px) and (max-width:1160px){
+ .site-header .brand-graphic img{width:clamp(182px,18vw,215px)}
+}
+@media (max-width:800px){
+ .site-header .brand-graphic img{width:204px}
+ .site-header .header-edition{display:none}
+}
+@media (max-width:520px){
+ .site-header .brand-graphic img{width:clamp(156px,45vw,185px)}
+ .site-header .header-inner{gap:6px}
+ .site-header .header-actions{padding-left:0}
+}
+@media (max-width:350px){
+ .site-header .brand-graphic img{width:142px}
+}
