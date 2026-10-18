@@ -35,7 +35,12 @@ const nav=[['/','Início'],['/matematica/','Matemática'],['/latex/','LaTeX'],['
 </head><body>
 <a class="skip-link" href="#principal">Pular para o conteúdo</a>
 <header class="site-header"><div class="container header-inner">
-<a class="brand brand-v3" href="/" aria-label="Cafemática, início"><span class="brand-v3-symbol" aria-hidden="true">C<span>∕</span></span><span class="brand-v3-word">cafe<span>mática</span><span class="brand-dot">.</span></span></a>
+<a class="brand brand-graphic" href="/" aria-label="Cafemática, início">
+  <picture>
+    <source media="(max-width: 700px)" srcset="/assets/cafematica-logo-mobile.png"/>
+    <img src="/assets/cafematica-logo-desktop.png" alt="Cafemática" width="700" height="132" fetchpriority="high" decoding="async"/>
+  </picture>
+</a>
 <nav class="main-nav" id="main-nav" aria-label="Menu principal">{nav.map(([href,label])=><a href={href} aria-current={(href==='/'?Astro.url.pathname==='/':Astro.url.pathname.startsWith(href))?'page':undefined}>{label}</a>)}<a class="nav-contact" href="/contato/">Vamos conversar <Icon size={16}/></a></nav>
 <div class="header-actions"><span class="header-edition" aria-hidden="true">Um espaço para ideias</span><a class="icon-button" href="/blog/#busca" aria-label="Pesquisar artigos"><Icon name="search"/></a><a class="icon-button admin-link" href={site.adminUrl} aria-label="Área administrativa" title="Área administrativa"><Icon name="lock" size={17}/></a><button class="icon-button menu-toggle" aria-controls="main-nav" aria-expanded="false" aria-label="Abrir menu"><Icon name="menu"/></button></div>
 </div></header>
