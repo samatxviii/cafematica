@@ -12,18 +12,20 @@ for(const file of html){const {document}=parseHTML(fs.readFileSync(file,'utf8'))
  for(const el of document.querySelectorAll('a[href],img[src],script[src],link[href]')){const ref=el.getAttribute('href')||el.getAttribute('src');if(!ref.startsWith('/')||ref.startsWith('//'))continue;const clean=decodeURI(ref.split(/[?#]/)[0]);const dest=path.join(root,clean);if(!fs.existsSync(dest)||fs.statSync(dest).isDirectory()&&!fs.existsSync(path.join(dest,'index.html')))errors.push(`Link ausente ${ref} em ${path.relative(root,file)}`);}
  const schemas=[];
  for(const script of document.querySelectorAll('script[type="application/ld+json"]')){try{schemas.push(JSON.parse(script.textContent));}catch{errors.push(`JSON-LD inválido: ${file}`);}}
- if(/^blog\\/[^/]+\\/index\\.html$/.test(path.relative(root,file).replaceAll('\\\\','/'))){
+ if(/^blog\/[^/]+\/index\.html$/.test(path.relative(root,file).split(path.sep).join('/'))){
    if(!schemas.some(schema=>schema['@type']==='BlogPosting'))errors.push(`Artigo sem BlogPosting: ${file}`);
    if(!schemas.some(schema=>schema['@type']==='BreadcrumbList'&&schema.itemListElement?.length===3))errors.push(`Artigo sem BreadcrumbList: ${file}`);
    if(document.querySelector('meta[name="keywords"]'))errors.push(`Meta keywords obsoleta: ${file}`);
  }
  if(document.querySelector('script[src*="pagead2"]'))errors.push('Publicidade não deve ser ativada nesta entrega.');
 }
-const sitemaps=fs.readdirSync(root).filter(name=>/^sitemap-\\d+\\.xml$/.test(name)).map(name=>fs.readFileSync(path.join(root,name),'utf8')).join('\\n');
+const sitemapEntries=fs.readdirSync(root)
+ .filter(name=>/^sitemap-\d+\.xml$/.test(name))
+ .flatMap(name=>fs.readFileSync(path.join(root,name),'utf8').match(/<url>[\s\S]*?<\/url>/g)||[]);
 for(const post of getPosts()){
  const lastmod=post.updated&&post.updated>=post.date?post.updated:post.date;
  const loc=site.url+'/blog/'+post.slug+'/';
- const entry=sitemaps.match(new RegExp('<url>[^]*?<loc>'+loc.replace(/[.*+?^${}()|[\\]\\\\]/g,'\\\\for(const directory of ['src','content','supabase','membros','node_modules','.git'])')+'<\\/loc>[^]*?<\\/url>'))?.[0];
+ const entry=sitemapEntries.find(item=>item.includes('<loc>'+loc+'</loc>'));
  if(!entry||!entry.includes('<lastmod>'+lastmod+'</lastmod>'))errors.push('Sitemap sem atualização editorial: '+post.slug);
 }
 for(const directory of ['src','content','supabase','membros','node_modules','.git'])if(fs.existsSync(path.join(root,directory)))errors.push(`Código interno no pacote público: ${directory}`);
