@@ -7,6 +7,7 @@ topic: "Tecnologia para ensinar"
 art: "REC •"
 date: "2026-10-12"
 published: true
+publicationStatus: published
 cmsId: "7cadeccd-5bee-453f-a1a9-782dc4cfc4c1"
 cmsVersion: 1
 seoTitle: "OBS Studio para professores: grave sua primeira aula"

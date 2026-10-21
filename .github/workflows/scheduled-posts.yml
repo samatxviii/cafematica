@@ -1,0 +1,28 @@
+name: Conferir publicações agendadas
+on:
+  schedule:
+    # Evita o pico da hora cheia. O horário de publicação é validado em UTC−4.
+    - cron: '2-57/5 * * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: write
+concurrency:
+  group: cafematica-scheduling-check
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Comparar programação e site público
+        id: publication
+        run: node scripts/check-scheduled-posts.mjs
+      - name: Recompilar e implantar quando houver diferença
+        if: steps.publication.outputs.deploy == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run portal.yml --ref main

@@ -8,6 +8,7 @@ topic: Matemática Básica
 art: 20%
 date: 2026-10-12
 published: true
+publicationStatus: published
 cmsId: 0983ee68-7ad3-4c4e-af68-25ac1b169771
 cmsVersion: 1
 seoTitle: "Porcentagem: como calcular descontos e aumentos"

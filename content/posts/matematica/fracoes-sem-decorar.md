@@ -8,6 +8,7 @@ topic: Matemática Básica
 art: ½ + ⅓
 date: 2026-10-12
 published: true
+publicationStatus: published
 cmsId: 75c674fb-f0c2-41e9-ab5a-bb62b0a840bc
 cmsVersion: 1
 seoTitle: "Frações: como somar, simplificar e entender o MMC"

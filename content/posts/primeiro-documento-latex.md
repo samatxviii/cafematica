@@ -8,6 +8,7 @@ topic: Comece aqui
 art: .tex
 date: 2026-10-12
 published: true
+publicationStatus: published
 cmsId: 2a2591c2-0053-4ef2-a1eb-3433190ddc68
 cmsVersion: 1
 seoTitle: "Como começar no LaTeX: crie seu primeiro documento PDF"

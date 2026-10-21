@@ -7,6 +7,7 @@ topic: Matemática para o ENEM
 art: "ENEM 2020"
 date: 2026-10-18
 published: true
+publicationStatus: published
 seoTitle: "ENEM 2020: questões de Matemática com vídeos de resolução"
 seoDescription: "Explore as 45 questões de Matemática do ENEM 2020, abra a prova e o gabarito oficiais e assista às resoluções em vídeo do Prof. Fernando."
 tags:

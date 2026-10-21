@@ -7,6 +7,7 @@ topic: "Escrita matemática"
 art: "√x"
 date: "2026-10-12"
 published: true
+publicationStatus: published
 cmsId: "682e5df5-e186-4a28-af98-03f39dbe20b4"
 cmsVersion: 1
 seoTitle: "Fórmulas em LaTeX: frações, raízes e potências"

@@ -7,6 +7,7 @@ topic: "Materiais para ensinar"
 art: "1. 2. 3."
 date: "2026-10-12"
 published: true
+publicationStatus: published
 cmsId: "07b7a7d8-488d-419a-acf6-ff54388bf2ee"
 cmsVersion: 1
 seoTitle: "Lista de exercícios em LaTeX: modelo com gabarito"
