@@ -8,6 +8,7 @@ topic: Álgebra sem pressa
 art: x = ?
 date: 2026-10-12
 published: true
+publicationStatus: published
 cmsId: 448a58d9-c844-4c45-ab31-ed15ce88157f
 cmsVersion: 1
 cover: /imagens/blog/equação-de-primeiro-grau.png

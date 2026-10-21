@@ -7,6 +7,7 @@ topic: "Matemática e tecnologia"
 art: "f(x)"
 date: "2026-10-12"
 published: true
+publicationStatus: published
 cmsId: "b07ccf4a-7226-4404-a3a2-d8aa5ab0f874"
 cmsVersion: 1
 seoTitle: "GeoGebra: como fazer o gráfico da função afim"

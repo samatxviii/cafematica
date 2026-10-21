@@ -7,6 +7,7 @@ topic: Educação financeira
 art: "R$"
 date: 2026-10-19
 published: true
+publicationStatus: published
 seoTitle: "Educação financeira: mininegócios no Ensino Fundamental"
 seoDescription: "Veja projetos reais e quatro ideias de mininegócios escolares para ensinar custos, preços, lucro e cooperação do 1º ao 9º ano, com roteiro para professores."
 tags:
