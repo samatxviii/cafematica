@@ -9,6 +9,7 @@ topic: Matemática para o ENEM
 art: ENEM
 date: 2026-10-17
 published: true
+publicationStatus: published
 seoTitle: "Matemática no ENEM 2026: interpretação e estratégia"
 seoDescription: Veja como interpretar questões de Matemática do ENEM 2026,
   revisar conteúdos básicos e organizar o tempo com exemplos resolvidos e dicas

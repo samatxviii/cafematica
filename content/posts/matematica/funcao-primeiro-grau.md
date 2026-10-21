@@ -8,6 +8,7 @@ topic: Funções
 art: ax + b
 date: 2026-10-12
 published: true
+publicationStatus: published
 cmsId: 0a7af0e4-dedd-4efa-a3e2-f118a00fdf9b
 cmsVersion: 1
 seoTitle: "Função do 1º grau: gráfico, coeficientes e raiz"

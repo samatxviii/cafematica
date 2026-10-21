@@ -7,6 +7,7 @@ topic: "Organização digital"
 art: "01 / 02"
 date: "2026-10-12"
 published: true
+publicationStatus: published
 cmsId: "ddaf2764-12c4-4a4a-af11-5b804c78d33c"
 cmsVersion: 1
 seoTitle: "Google Drive para professores: organize aulas e arquivos"
