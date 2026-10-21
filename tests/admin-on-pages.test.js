@@ -18,7 +18,7 @@ describe('Editor simples de artigos no GitHub',()=>{
     expect(config).toContain('format: yaml-frontmatter');
     expect(config).toContain('merge: true');
     expect(config).toContain('"{fields.slug}.md"');
-    for(const field of ['title','slug','description','category','topic','cover','date','published','body']){
+    for(const field of ['title','slug','description','category','topic','cover','date','publicationStatus','publishAt','body']){
       expect(config).toContain('name: '+field);
     }
     expect(Array.isArray(getPosts())).toBe(true);

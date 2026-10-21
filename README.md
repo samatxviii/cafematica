@@ -20,7 +20,7 @@ O workflow `.github/workflows/portal.yml` valida e publica `dist/` no GitHub Pag
 
 ## Conteúdo
 
-Edite `content/posts/*.md` ou utilize o painel depois da configuração do Supabase. Cada artigo tem título, resumo, categoria, slug, data e texto Markdown. Fórmulas usam `$...$` e `$$...$$`. HTML é sanitizado durante a geração. Apenas artigos com `published: true` entram no site. Não envie rascunhos privados ao repositório público.
+Edite `content/posts/*.md` ou utilize o painel depois da configuração do Supabase. Cada artigo tem título, resumo, categoria, slug, data e texto Markdown. Fórmulas usam `$...$` e `$$...$$`. HTML é sanitizado durante a geração. O site publica artigos com `publicationStatus: published` ou `publicationStatus: scheduled` quando `publishAt` é alcançado (UTC−4). O legado `published: true` continua aceito quando ainda não existe `publicationStatus`. Rascunhos e agendamentos futuros não geram páginas, cartões, RSS nem URLs no sitemap. Não envie rascunhos privados ao repositório público.
 
 As páginas institucionais estão em `src/pages/`; os textos de privacidade, cookies e termos estão em `content/pages/`. A configuração pública fica em `config/site.json`. Nunca coloque senhas, tokens privados ou chaves `service_role` nesse arquivo.
 
@@ -34,7 +34,7 @@ As páginas institucionais estão em `src/pages/`; os textos de privacidade, coo
 4. Escolha a categoria, a imagem de capa e o texto. Para fórmulas em LaTeX, alterne para **Source** no editor de conteúdo.
 5. Salve. O Pages CMS grava em `content/posts/*.md`, e o GitHub Actions recompila automaticamente o site. Aguarde a execução terminar.
 
-A configuração do editor está em `.pages.yml`, com diretório de imagens `public/imagens/blog` e URL `/imagens/blog`. Os slugs antigos são mantidos; não altere o campo de endereço dos artigos publicados. Ative **Publicado no site** para exibir o artigo. Como este repositório é público, rascunhos salvos no GitHub também poderão ser visualizados por quem examinar seu código.
+A configuração do editor está em `.pages.yml`, com diretório de imagens `public/imagens/blog` e URL `/imagens/blog`. Os slugs antigos são mantidos; não altere o campo de endereço dos artigos publicados. No **Modo de publicação**, escolha **Rascunho — não publicar**, **Publicar imediatamente** ou **Agendar publicação**. Para agendar, preencha **Data e horário programados (UTC−4)**; por exemplo, 25/10/2026 às 18h equivale a 22h UTC. Se um artigo já publicado for reagendado, ele sairá do site na próxima implantação e voltará quando o horário chegar. O campo **Data de publicação** é uma data editorial separada. A conferência automática executa a cada 5 minutos em `.github/workflows/scheduled-posts.yml`, compara os artigos esperados com o manifesto `/publication.json` e solicita implantação somente quando houver divergência. Pode haver atrasos do GitHub Actions e do deploy. Como este repositório é público, rascunhos salvos no GitHub também poderão ser visualizados por quem examinar seu código.
 
 O antigo painel Supabase foi substituído como método de edição, **sem apagar artigos nem banco**. O projeto Supabase fica reservado para uma eventual abertura de comentários com Google; `commentsEnabled` permanece desativado. Não precisamos configurar SMTP, Google OAuth ou um token secreto GitHub só para publicar o blog.
 

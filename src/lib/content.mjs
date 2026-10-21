@@ -3,6 +3,7 @@ import path from 'node:path';
 import matter from 'gray-matter';
 import { renderMarkdown } from './render.mjs';
 import {normalizeTags,normalizeSources,normalizeFaq} from './seo.mjs';
+import {isPostPublic,publicationMode} from './publication.mjs';
 export const categories = {
   matematica: { name: 'Matemática', symbol: 'π', color: 'sage', description: 'Entenda o raciocínio. Ganhe confiança para resolver.', intro: 'Da base aos problemas de prova: explicações, exemplos resolvidos e exercícios para você construir conhecimento, uma ideia de cada vez.' },
   latex: { name: 'LaTeX', symbol: '{ }', color: 'sand', description: 'Dê forma às suas ideias, com precisão.', intro: 'Aprenda a escrever fórmulas, organizar documentos e criar materiais didáticos com exemplos que você pode adaptar.' },
@@ -20,19 +21,19 @@ export function listPostFiles(directory) {
     return item.isDirectory() ? listPostFiles(full) : item.isFile() && item.name.endsWith('.md') ? [full] : [];
   }).sort((a,b)=>a.localeCompare(b));
 }
-export function getPosts(directory=path.join(process.cwd(),'content/posts')) {
+export function getPosts(directory=path.join(process.cwd(),'content/posts'),now=new Date()) {
   const dir = directory;
   const posts=listPostFiles(dir).map(file=>{
     const { data, content }=matter(fs.readFileSync(file,'utf8'));
     if(!data.slug || !categories[data.category]) throw new Error(`Metadados inválidos: ${file}`);
     const firstImage=content.match(/!\[[^\]]*\]\((\/[^)\s]+\.(?:png|jpe?g|webp|avif))\)/i)?.[1]||'';
-    return {...data, cover:data.cover||data.image||firstImage, tags:normalizeTags(data.tags), sources:normalizeSources(data.sources), faq:normalizeFaq(data.faq), updated:data.updated?normalizePostDate(data.updated):undefined, date: normalizePostDate(data.date), body:content, html:renderMarkdown(content), minutes:Math.max(2,Math.ceil(content.split(/\s+/).length/180)), categoryInfo:categories[data.category]};
+    return {...data, publicationStatus:publicationMode(data), cover:data.cover||data.image||firstImage, tags:normalizeTags(data.tags), sources:normalizeSources(data.sources), faq:normalizeFaq(data.faq), updated:data.updated?normalizePostDate(data.updated):undefined, date: normalizePostDate(data.date), body:content, html:renderMarkdown(content), minutes:Math.max(2,Math.ceil(content.split(/\s+/).length/180)), categoryInfo:categories[data.category]};
   });
   const slugs=new Set();
   for(const post of posts){
     if(slugs.has(post.slug))throw new Error('Slug duplicado em pastas diferentes: '+post.slug);
     slugs.add(post.slug);
   }
-  return posts.filter(p=>p.published===true).sort((a,b)=>b.date.localeCompare(a.date)||a.title.localeCompare(b.title));
+  return posts.filter(p=>isPostPublic(p,now)).sort((a,b)=>b.date.localeCompare(a.date)||a.title.localeCompare(b.title));
 }
 export const dateLabel = value => new Date(`${String(value).slice(0,10)}T12:00:00-03:00`).toLocaleDateString('pt-BR',{day:'numeric',month:'long',year:'numeric'});

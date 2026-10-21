@@ -26,7 +26,7 @@ content:
       field: false
     view:
       primary: title
-      fields: [title, category, published, date]
+      fields: [title, category, publicationStatus, publishAt, date]
       layout: tree
       sort: [date, title]
       default:
@@ -151,11 +151,28 @@ content:
         description: "Preencha somente quando o conteúdo for realmente atualizado. Não troque a data apenas para parecer recente."
         options:
           format: yyyy-MM-dd
-      - name: published
-        label: Publicado no site
-        type: boolean
-        default: true
-        description: "Ativado = o artigo aparece no site após o GitHub Actions concluir a publicação."
+      - name: publicationStatus
+        label: Modo de publicação
+        type: select
+        required: true
+        default: draft
+        description: "Rascunho não aparece no site. Publicar imediatamente libera após o deploy. Agendar oculta um artigo já publicado até o horário escolhido."
+        options:
+          values:
+            - name: draft
+              label: Rascunho — não publicar
+            - name: published
+              label: Publicar imediatamente
+            - name: scheduled
+              label: Agendar publicação
+      - name: publishAt
+        label: Data e horário programados (UTC−4)
+        type: date
+        default: ""
+        description: "Use este campo ao selecionar Agendar publicação. Informe a data e hora de Mato Grosso do Sul (UTC−4 fixo), sem conversão automática. O artigo fica fora do site até esse horário; a conferência acontece a cada cinco minutos e a implantação pode demorar."
+        options:
+          time: true
+          format: "yyyy-MM-dd'T'HH:mm"
       - name: youtube
         label: ID do vídeo YouTube (opcional)
         type: string

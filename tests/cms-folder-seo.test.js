@@ -83,13 +83,13 @@ describe('Pastas no Pages CMS e URLs estáveis',()=>{
 
 describe('Editor simplificado sem notas ou explicações automáticas',()=>{
  it('mostra apenas título, categoria, publicação e data na tabela',()=>{
-  expect(cms).toContain('fields: [title, category, published, date]');
+  expect(cms).toContain('fields: [title, category, publicationStatus, publishAt, date]');
   for(const key of ['seoScore','seoSummary','seoChecklist']){
    expect(cms).not.toContain(key);
   }
  });
  it('mantém todos os campos úteis de publicação e SEO',()=>{
-  const essential=['title','slug','description','seoTitle','seoDescription','tags','category','topic','cover','coverAlt','author','date','updated','published','youtube','quickAnswer','sources','body'];
+  const essential=['title','slug','description','seoTitle','seoDescription','tags','category','topic','cover','coverAlt','author','date','updated','publicationStatus','publishAt','youtube','quickAnswer','sources','body'];
   for(const field of essential){
    expect(cms).toContain('name: '+field);
   }
