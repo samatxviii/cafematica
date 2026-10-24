@@ -1,17 +1,20 @@
 import {describe,it,expect} from 'vitest';
 import {getPosts,listPostFiles,normalizePostDate} from '../src/lib/content.mjs';
 import {articleSeoMetadata} from '../src/lib/seo.mjs';
+import {isPostPublic} from '../src/lib/publication.mjs';
 import site from '../config/site.json';
 import fs from 'node:fs';
 import matter from 'gray-matter';
 
-const posts=getPosts();
+// Preserve o mesmo instante de referência para a leitura e para a contagem esperada.
+const snapshotTime=new Date();
+const posts=getPosts(undefined,snapshotTime);
 const files=listPostFiles('content/posts');
 describe('Publicação dinâmica: os artigos são editáveis pelo Pages CMS',()=>{
  it('permite qualquer quantidade de artigos publicados, inclusive novos posts e rascunhos',()=>{
   const all=files.map(file=>matter(fs.readFileSync(file,'utf8')).data);
   expect(new Set(all.map(p=>p.slug)).size).toBe(all.length);
-  expect(posts.length).toBe(all.filter(p=>p.published===true).length);
+  expect(posts.length).toBe(all.filter(p=>isPostPublic(p,snapshotTime)).length);
   for(const post of posts){
    expect(post.slug).toMatch(/^[a-z0-9]+(?:-[a-z0-9]+)*$/);
    expect(post.date).toMatch(/^\d{4}-\d{2}-\d{2}$/);
