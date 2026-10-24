@@ -67,18 +67,3 @@ jobs:
       - name: Publicar
         id: deployment
         uses: actions/deploy-pages@v5
-      - name: Ajustar origem do GitHub Pages para Actions
-        # O projeto usa Astro. A origem antiga por branch dispara Jekyll sobre
-        # arquivos .astro e gera uma falha paralela desnecessária a cada push.
-        # Esta atualização é idempotente e ocorre somente após deploy bem-sucedido.
-        continue-on-error: true
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          mode=$(gh api "repos/$GITHUB_REPOSITORY/pages" --jq '.build_type')
-          if [ "$mode" = "legacy" ]; then
-            echo "Migrando origem do Pages de Jekyll (branch) para GitHub Actions..."
-            gh api -X PUT "repos/$GITHUB_REPOSITORY/pages" -f build_type=workflow
-          else
-            echo "GitHub Pages já usa o fluxo de publicação: $mode"
-          fi
