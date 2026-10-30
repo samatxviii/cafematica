@@ -18,7 +18,7 @@ for (const name of fs.readdirSync(out).filter(file => /^sitemap-\d+\.xml$/.test(
   fs.writeFileSync(file, addArticleLastmod(fs.readFileSync(file, 'utf8'), posts, config.url));
 }
 fs.writeFileSync(path.join(out,'feed.xml'),`<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Cafemática</title><link>${config.url}</link><description>Matemática, LaTeX e tecnologia.</description><language>pt-BR</language>${posts.map(p=>`<item><title>${xml(p.title)}</title><link>${config.url}/blog/${p.slug}/</link><guid>${config.url}/blog/${p.slug}/</guid><description>${xml(p.description)}</description><pubDate>${new Date(p.date+'T12:00:00-03:00').toUTCString()}</pubDate></item>`).join('')}</channel></rss>`);
-fs.writeFileSync(path.join(out,'robots.txt'),`User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /membros/\nDisallow: /blog/2026-05/\nDisallow: /content/\nDisallow: /src/\nDisallow: /supabase/\nDisallow: /tests/\nSitemap: ${config.url}/sitemap-index.xml\n`);
+fs.writeFileSync(path.join(out,'robots.txt'),`User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /membros/\nDisallow: /content/\nDisallow: /src/\nDisallow: /supabase/\nDisallow: /tests/\nSitemap: ${config.url}/sitemap-index.xml\n`);
 if(config.adsensePublisherId){if(!/^ca-pub-\d{16}$/.test(config.adsensePublisherId))throw Error('ID do AdSense inválido.');fs.writeFileSync(path.join(out,'ads.txt'),`google.com, ${config.adsensePublisherId.replace('ca-','')}, DIRECT, f08c47fec0942fa0\n`);}
 fs.writeFileSync(path.join(out,'publication.json'),JSON.stringify({articles:posts.map(p=>({slug:p.slug,version:p.cmsVersion||null,id:p.cmsId||null})),builtAt:new Date().toISOString()},null,2)+'\n');
 console.log(`Conteúdo estático pronto: ${posts.length} artigos; URLs anteriores preservadas.`);
