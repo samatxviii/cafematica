@@ -215,3 +215,6 @@ h1,h2,h3{font-family:'Lora',Georgia,serif;letter-spacing:-.045em}
 @media (max-width:800px){
   .about-grid .about-image{max-width:min(340px,100%);}
 }
+
+/* Leitura rápida vem antes da imagem de capa; mantém largura confortável em celulares e desktop. */
+.article-quick-before-cover{max-width:740px;margin:0 0 30px}
