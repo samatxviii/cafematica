@@ -1,0 +1,86 @@
+---
+import Base from '../../layouts/Base.astro';
+import questions from '../../data/enem2026.json';
+import katex from 'katex';
+import '../../styles/enem2026.css';
+
+export function getStaticPaths() {
+  return questions.map((question,index)=>({params:{slug:question.slug},props:{question,index}}));
+}
+const {question,index}=Astro.props;
+const previous=index>0?questions[index-1]:null;
+const next=index<questions.length-1?questions[index+1]:null;
+const letters=['A','B','C','D','E'];
+const pageUrl=`https://www.cafematica.com.br/enem2026/${question.slug}/`;
+const structuredData={
+  '@context':'https://schema.org',
+  '@type':'LearningResource',
+  name:`Questão ${question.amarela} de Matemática do ENEM 2026`,
+  url:pageUrl,
+  inLanguage:'pt-BR',
+  learningResourceType:'Exercício',
+  educationalLevel:'Ensino Médio',
+  isAccessibleForFree:true,
+  about:{'@type':'Thing',name:'Matemática do ENEM 2026'},
+  provider:{'@type':'Organization',name:'Cafemática',url:'https://www.cafematica.com.br'}
+};
+const breadcrumbs={
+  '@context':'https://schema.org',
+  '@type':'BreadcrumbList',
+  itemListElement:[
+    {'@type':'ListItem',position:1,name:'Início',item:'https://www.cafematica.com.br/'},
+    {'@type':'ListItem',position:2,name:'ENEM 2026',item:'https://www.cafematica.com.br/enem2026/'},
+    {'@type':'ListItem',position:3,name:`Questão ${question.amarela}`,item:pageUrl}
+  ]
+};
+function renderMath(src=''){
+  return src.replace(/<span class="math (inline|display)">([\s\S]*?)<\/span>/g,(_match,kind,raw)=>{
+    const latex=raw.replace(/^\\\(|\\\)$/g,'').replace(/^\\\[|\\\]$/g,'')
+       .replaceAll('&lt;','<').replaceAll('&gt;','>').replaceAll('&amp;','&');
+    try {return katex.renderToString(latex,{displayMode:kind==='display',throwOnError:false,strict:'ignore',output:'htmlAndMathml'});}catch{return `<code>${raw}</code>`;}
+  });
+}
+---
+<Base title={`Questão ${question.amarela} do ENEM 2026: amarelo ${question.amarela}, cinza ${question.cinza}, azul ${question.azul}, verde ${question.verde}`} description={`Questão ${question.amarela} de Matemática do ENEM 2026, com texto, figuras, fórmulas e alternativas. Correspondência: amarelo ${question.amarela}, cinza ${question.cinza}, azul ${question.azul}, verde ${question.verde}.`}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData).replace(/</g,'\\u003c')}/>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs).replace(/</g,'\\u003c')}/>
+  <div class="enem-root enem-detail-root">
+    <div class="enem-container">
+      <nav class="enem-crumbs enem-detail-crumbs" aria-label="Navegação hierárquica"><a href="/">Início</a><span aria-hidden="true">/</span><a href="/enem2026/">ENEM 2026</a><span aria-hidden="true">/</span><span>Questão {question.amarela}</span></nav>
+      <article class="enem-detail" aria-labelledby="enem-question-title">
+        <div class="enem-detail-top">
+          <div class="enem-identity"><span class="enem-eyebrow">ENEM 2026 · MATEMÁTICA E SUAS TECNOLOGIAS</span><h1 id="enem-question-title">Questão {question.amarela}</h1><p>Mesmo enunciado nas quatro cores de caderno.</p></div>
+          <a class="enem-back" href="/enem2026/">Todas as questões <span aria-hidden="true">↗</span></a>
+        </div>
+        <div class="enem-number-strip enem-number-strip-detail" aria-label="Numeração da questão nas provas">
+          <div class="enem-yellow"><small>AMARELO</small><strong>{question.amarela}</strong></div>
+          <div class="enem-gray"><small>CINZA</small><strong>{question.cinza}</strong></div>
+          <div class="enem-blue"><small>AZUL</small><strong>{question.azul}</strong></div>
+          <div class="enem-green"><small>VERDE</small><strong>{question.verde}</strong></div>
+          <a href="/enem2026/" class="enem-ribbon-brand" aria-label="Cafemática, coleção ENEM 2026"><span>www.cafematica.com.br/enem2026</span><img src="/assets/logo-original.png" alt="" width="32" height="32"/></a>
+        </div>
+        <div class="enem-paper">
+          <div class="enem-statement" set:html={renderMath(question.bodyHtml)} />
+          <section class="enem-answer-section" aria-label="Alternativas de resposta">
+            <p class="enem-answer-label">Alternativas</p>
+            <fieldset class:list={['enem-answer-grid',`enem-grid-${question.cols}`,{'enem-image-options':question.options.some(opt=>opt.kind==='image')}]}>
+              <legend class="enem-sr-only">Selecione uma alternativa da questão {question.amarela} para marcar sua escolha</legend>
+              {question.options.map((opt,i)=><label class="enem-answer-option">
+                <input type="radio" name={`answer-${question.amarela}`} value={letters[i]} aria-label={`Alternativa ${letters[i]}`}/>
+                <span class="enem-answer-letter" aria-hidden="true">{letters[i]}</span>
+                {opt.kind==='image'?<span class="enem-option-graphic"><img src={opt.src} alt={opt.alt} loading="lazy" decoding="async"/></span>:<span class="enem-answer-text" set:html={renderMath(opt.html)} />}
+              </label>)}
+            </fieldset>
+            <p class="enem-answer-hint">Você pode marcar uma alternativa para acompanhar seu estudo. Nenhuma resposta é enviada ou salva.</p>
+          </section>
+        </div>
+      </article>
+      <nav class="enem-pagination" aria-label="Navegar entre questões">
+        {previous?<a href={`/enem2026/${previous.slug}/`}><span class="enem-page-overline">← Questão anterior</span><strong>Amarela {previous.amarela}</strong></a>:<span class="enem-page-empty"/>}
+        <a class="enem-page-all" href="/enem2026/">Ver as 45 questões</a>
+        {next?<a href={`/enem2026/${next.slug}/`}><span class="enem-page-overline">Próxima questão →</span><strong>Amarela {next.amarela}</strong></a>:<span class="enem-page-empty"/>}
+      </nav>
+      <p class="enem-source-note">Questão do ENEM 2026 (2º dia). Enunciado adaptado para leitura na web, mantendo as informações do material fornecido; as figuras são provenientes do caderno verde. A marcação de alternativas é apenas para estudo e não indica gabarito. Clique nas figuras do enunciado para ampliá-las.</p>
+    </div>
+  </div>
+</Base>

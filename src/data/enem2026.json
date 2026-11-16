@@ -1,0 +1,1452 @@
+[
+ {
+  "amarela": 136,
+  "cinza": 148,
+  "azul": 144,
+  "verde": 140,
+  "slug": "amarela-136-cinza-148-azul-144-verde-140",
+  "summary": "O comprimento de escala de um violão é dado pela distância, em polegada, entre o rastilho e a pestana, conforme figura. A representação decimal desse número é…",
+  "bodyHtml": "<p>O comprimento de escala de um violão é dado pela distância, em polegada, entre o rastilho e a pestana, conforme figura. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/136-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 136, arquivo 136-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/136-1.png\"/></a></figure><p> A representação decimal desse número é</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>25,40.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>22,75.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>21,25.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>16,50.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>6,25.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 137,
+  "cinza": 149,
+  "azul": 145,
+  "verde": 141,
+  "slug": "amarela-137-cinza-149-azul-145-verde-141",
+  "summary": "O preço de venda \\(V\\) de um produto, em real, é dado pela expressão \\(V=(M+F)\\times(1+L)\\) , em que \\(M\\) e \\(F\\) são, respectivamente, os custos dos insumos utilizados e os custos de fabricação, cuja soma representa o custo tota…",
+  "bodyHtml": "<p>O preço de venda <span class=\"math inline\">\\(V\\)</span> de um produto, em real, é dado pela expressão <span class=\"math inline\">\\(V=(M+F)\\times(1+L)\\)</span>, em que <span class=\"math inline\">\\(M\\)</span> e <span class=\"math inline\">\\(F\\)</span> são, respectivamente, os custos dos insumos utilizados e os custos de fabricação, cuja soma representa o custo total do produto, em real, e <span class=\"math inline\">\\(L\\)</span> é o percentual de lucro sobre o custo total com a venda desse produto.</p>\n<p>Durante o último ano, <span class=\"math inline\">\\(M\\)</span> foi 50% superior a <span class=\"math inline\">\\(F\\)</span>. Para o ano atual, <span class=\"math inline\">\\(M\\)</span> teve uma redução de 30% e <span class=\"math inline\">\\(F\\)</span>, um acréscimo de 45%, ambos em relação ao último ano.</p>\n<p>Para que o preço de venda <span class=\"math inline\">\\(V\\)</span> permaneça inalterado, o percentual de lucro no ano atual, em relação ao do último ano, deverá</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>aumentar 15%.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>aumentar 7,5%.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>diminuir 7,5%.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>diminuir 15%.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>manter-se inalterado.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 138,
+  "cinza": 150,
+  "azul": 146,
+  "verde": 142,
+  "slug": "amarela-138-cinza-150-azul-146-verde-142",
+  "summary": "A imagem representa o cupom fiscal fornecido por um supermercado a um cliente após a realização de sua compra. Para cada produto, o valor relativo ao imposto é calculado aplicando-se o percentual indicado no cupom sobre o preço po…",
+  "bodyHtml": "<p>A imagem representa o cupom fiscal fornecido por um supermercado a um cliente após a realização de sua compra. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/138-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 138, arquivo 138-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/138-1.png\"/></a></figure><p> Para cada produto, o valor relativo ao imposto é calculado aplicando-se o percentual indicado no cupom sobre o preço por ele cobrado.</p>\n<p>Qual é o valor total, em real, correspondente aos impostos pagos nessa compra?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>2,70</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>3,15</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>4,50</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>5,30</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>5,40</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 139,
+  "cinza": 151,
+  "azul": 147,
+  "verde": 143,
+  "slug": "amarela-139-cinza-151-azul-147-verde-143",
+  "summary": "Uma cafeteria vende cápsulas de café nas intensidades tradicional, suave, forte e extraforte. Ela comercializa essas cápsulas em kits com 12 unidades, contendo: pelo menos duas cápsulas de café na intensidade tradicional e pelo me…",
+  "bodyHtml": "<p>Uma cafeteria vende cápsulas de café nas intensidades tradicional, suave, forte e extraforte. Ela comercializa essas cápsulas em kits com 12 unidades, contendo:</p>\n<ul>\n<li><p>pelo menos duas cápsulas de café na intensidade tradicional e pelo menos uma cápsula de cada uma das demais intensidades;</p></li>\n<li><p>quantidades iguais de cápsulas de café nas intensidades suave e forte.</p></li>\n</ul>\n<p>Quantos kits diferentes podem ser formados?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>20</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>25</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>36</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>286</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>455</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 140,
+  "cinza": 144,
+  "azul": 148,
+  "verde": 136,
+  "slug": "amarela-140-cinza-144-azul-148-verde-136",
+  "summary": "O conceito de grupo sanguíneo se baseia na presença ou ausência de um ou dois antígenos (A e B) na membrana dos glóbulos vermelhos. Com relação a esses dois antígenos, há quatro grupos sanguíneos. A: apenas o antígeno A está prese…",
+  "bodyHtml": "<p>O conceito de grupo sanguíneo se baseia na presença ou ausência de um ou dois antígenos (A e B) na membrana dos glóbulos vermelhos. Com relação a esses dois antígenos, há quatro grupos sanguíneos.</p>\n<ul>\n<li><p>A: apenas o antígeno A está presente;</p></li>\n<li><p>B: apenas o antígeno B está presente;</p></li>\n<li><p>AB: ambos os antígenos estão presentes;</p></li>\n<li><p>O: nenhum dos antígenos está presente.</p></li>\n</ul>\n<p>Além dos antígenos A e B, há outro antígeno envolvido, chamado fator Rh, indicado com o sinal “+” quando está presente, ou com o sinal “–” quando está ausente. Dessa forma, o grupo sanguíneo de uma pessoa é descrito usando-se letras e o sinal indicador do fator Rh, por exemplo: O<span class=\"math inline\">\\(^+\\)</span>, A<span class=\"math inline\">\\(^+\\)</span>, AB<span class=\"math inline\">\\(^-\\)</span>. Há dois grupos sanguíneos que se destacam: AB<span class=\"math inline\">\\(^+\\)</span>, denominado “receptor universal”, que em uma transfusão de sangue a pessoa pode receber sangue de qualquer tipo; e O<span class=\"math inline\">\\(^-\\)</span>, denominado “doador universal”, cujo sangue pode ser recebido por qualquer pessoa.</p>\n<div class=\"flushright\">\n<p>Disponível em: http://saude.hsw.uol.com.br.<br/>\nAcesso em: 2 mar. 2012 (adaptado).</p>\n</div>\n<p>Em uma cidade, foi realizado um levantamento dos grupos sanguíneos de todos os moradores, constatando-se que 25% da população apresenta apenas o antígeno tipo A; 25%, apenas o tipo B e 30%, o tipo AB. Além disso, em cada grupo sanguíneo, a ocorrência do fator Rh<span class=\"math inline\">\\(^+\\)</span> é de 60%.</p>\n<p>A probabilidade de uma pessoa dessa cidade, escolhida ao acaso, ser receptora universal ou doadora universal é</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>0,3.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>0,26.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>0,06.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>0,036.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>0,0144.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 141,
+  "cinza": 145,
+  "azul": 149,
+  "verde": 137,
+  "slug": "amarela-141-cinza-145-azul-149-verde-137",
+  "summary": "Um usuário de telefonia móvel quer contratar um serviço de dados 5G e foi informado de que a taxa média de transferência de dados ofertada nesse serviço é 436 Mb/s. Como ele não conhecia essa unidade de medida, pesquisou e verific…",
+  "bodyHtml": "<p>Um usuário de telefonia móvel quer contratar um serviço de dados 5G e foi informado de que a taxa média de transferência de dados ofertada nesse serviço é 436 Mb/s. Como ele não conhecia essa unidade de medida, pesquisou e verificou que ela relaciona duas grandezas.</p>\n<p>Qual razão entre as grandezas fornece a taxa média de transferência de dados?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(\\dfrac{\\text{volume de dados}}{\\text{tempo}}\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(\\dfrac{\\text{distância}}{\\text{volume de dados}}\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(\\dfrac{\\text{tempo}}{\\text{volume de dados}}\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(\\dfrac{\\text{velocidade}}{\\text{distância}}\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(\\dfrac{\\text{distância}}{\\text{tempo}}\\)</span></p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 142,
+  "cinza": 146,
+  "azul": 150,
+  "verde": 138,
+  "slug": "amarela-142-cinza-146-azul-150-verde-138",
+  "summary": "Um artesão confeccionará um pingente conectando uma pirâmide a um prisma, formando um novo poliedro. Para isso, utiliza uma pirâmide com 10 arestas, cuja base é congruente às bases do prisma. Esses dois poliedros serão colados um …",
+  "bodyHtml": "<p>Um artesão confeccionará um pingente conectando uma pirâmide a um prisma, formando um novo poliedro. Para isso, utiliza uma pirâmide com 10 arestas, cuja base é congruente às bases do prisma. Esses dois poliedros serão colados um ao outro, de forma a coincidirem as arestas da base da pirâmide com as arestas de uma das bases do prisma.</p>\n<p>Quantas faces terá esse pingente?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>11</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>13</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>19</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>21</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>23</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 143,
+  "cinza": 147,
+  "azul": 151,
+  "verde": 139,
+  "slug": "amarela-143-cinza-147-azul-151-verde-139",
+  "summary": "Um jardim, cuja vista superior é o quadrado \\(ABCD\\) , será reformado para dar lugar a um novo jardim cuja vista superior seja a de um círculo. O jardim circular deverá conter a região do jardim original e ter a menor área possíve…",
+  "bodyHtml": "<p>Um jardim, cuja vista superior é o quadrado <span class=\"math inline\">\\(ABCD\\)</span>, será reformado para dar lugar a um novo jardim cuja vista superior seja a de um círculo. O jardim circular deverá conter a região do jardim original e ter a menor área possível.</p>\n<p>Para viabilizar o projeto, foi feita a representação no plano cartesiano do jardim original, em que os eixos foram orientados nas direções sul-norte e oeste-leste e graduados em metro. Os pontos que correspondem aos vértices <span class=\"math inline\">\\(C\\)</span> e <span class=\"math inline\">\\(D\\)</span> do jardim original estão com suas coordenadas explicitadas, conforme figura. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/143-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 143, arquivo 143-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/143-1.png\"/></a></figure><p> Qual é a equação da circunferência que delimitará a região do novo jardim?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(x^2+y^2-10=0\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(x^2+y^2-8x-8y+22=0\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(x^2+y^2-16x-12y+90=0\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(x^2+y^2-12x-10y+56=0\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(x^2+y^2+8x+8y+32-\\sqrt{10}=0\\)</span></p>"
+   }
+  ],
+  "cols": 2
+ },
+ {
+  "amarela": 144,
+  "cinza": 136,
+  "azul": 140,
+  "verde": 148,
+  "slug": "amarela-144-cinza-136-azul-140-verde-148",
+  "summary": "O dono de uma loja de importados realizou o balanço das vendas realizadas no primeiro semestre deste ano. A tabela apresenta a quantidade de tablets de um modelo vendido em cada mês desse período. Mês Quantidade de tablets vendido…",
+  "bodyHtml": "<p>O dono de uma loja de importados realizou o balanço das vendas realizadas no primeiro semestre deste ano. A tabela apresenta a quantidade de tablets de um modelo vendido em cada mês desse período.</p>\n<div class=\"center\">\n<div aria-label=\"Tabela da questão 144; deslize horizontalmente para ver todas as colunas\" class=\"enem-table-wrap\" role=\"region\" tabindex=\"0\"><table class=\"enem-table\">\n<thead>\n<tr class=\"header\">\n<th style=\"text-align: left;\"><strong>Mês</strong></th>\n<th style=\"text-align: right;\"><strong>Quantidade de tablets vendidos</strong></th>\n</tr>\n</thead>\n<tbody>\n<tr class=\"odd\">\n<td style=\"text-align: left;\">Janeiro</td>\n<td style=\"text-align: right;\">44</td>\n</tr>\n<tr class=\"even\">\n<td style=\"text-align: left;\">Fevereiro</td>\n<td style=\"text-align: right;\">56</td>\n</tr>\n<tr class=\"odd\">\n<td style=\"text-align: left;\">Março</td>\n<td style=\"text-align: right;\">44</td>\n</tr>\n<tr class=\"even\">\n<td style=\"text-align: left;\">Abril</td>\n<td style=\"text-align: right;\">48</td>\n</tr>\n<tr class=\"odd\">\n<td style=\"text-align: left;\">Maio</td>\n<td style=\"text-align: right;\">62</td>\n</tr>\n<tr class=\"even\">\n<td style=\"text-align: left;\">Junho</td>\n<td style=\"text-align: right;\">52</td>\n</tr>\n</tbody>\n</table></div>\n</div>\n<p>A mediana das quantidades mensais de tablets desse modelo vendidos no primeiro semestre é</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>44.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>46.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>50.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>51.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>52.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 145,
+  "cinza": 137,
+  "azul": 141,
+  "verde": 149,
+  "slug": "amarela-145-cinza-137-azul-141-verde-149",
+  "summary": "A bancada na cozinha de um imóvel tem um fogão cooktop e uma pia com torneira, conforme a figura. O proprietário do imóvel decidiu aumentar a distância, que é de 5 cm, entre o bojo da pia e o fogão para ampliar a área do…",
+  "bodyHtml": "<p>A bancada na cozinha de um imóvel tem um fogão cooktop e uma pia com torneira, conforme a figura. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/145-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 145, arquivo 145-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/145-1.png\"/></a></figure><p> O proprietário do imóvel decidiu aumentar a distância, que é de 5 cm, entre o bojo da pia e o fogão para ampliar a área do retângulo sombreado, de modo que este passe a ocupar 35% da área total da bancada. Para isso, colocará um bojo menor na pia.</p>\n<p>A distância entre o fogão e o bojo da pia deverá ser aumentada em quantos centímetros?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>21</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>44</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>49</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>65</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>70</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 146,
+  "cinza": 138,
+  "azul": 142,
+  "verde": 150,
+  "slug": "amarela-146-cinza-138-azul-142-verde-150",
+  "summary": "O gráfico apresenta a evolução das temperaturas máxima ( \\(T_{\\text{máx}}\\) ) e mínima ( \\(T_{\\text{mín}}\\) ) em uma cidade ao longo dos primeiros 15 dias de um mês. Os dias em que ocorreram a maior temperatura máxima e a menor te…",
+  "bodyHtml": "<p>O gráfico apresenta a evolução das temperaturas máxima (<span class=\"math inline\">\\(T_{\\text{máx}}\\)</span>) e mínima (<span class=\"math inline\">\\(T_{\\text{mín}}\\)</span>) em uma cidade ao longo dos primeiros 15 dias de um mês. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/146-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 146, arquivo 146-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/146-1.png\"/></a></figure><p> Os dias em que ocorreram a maior temperatura máxima e a menor temperatura mínima foram, respectivamente,</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>10 e 5.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>10 e 2.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>5 e 15.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>4 e 5.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>4 e 2.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 147,
+  "cinza": 139,
+  "azul": 143,
+  "verde": 151,
+  "slug": "amarela-147-cinza-139-azul-143-verde-151",
+  "summary": "Um adolescente, tendo em vista uma alimentação saudável, consome diariamente 7,5 dL de leite durante 1 mês (30 dias). Sabe-se que o preço de um litro de leite é R$ 1,98. Disponível em: www.infopedia.pt. Acesso em: 13 jun. 2012 (ad…",
+  "bodyHtml": "<p>Um adolescente, tendo em vista uma alimentação saudável, consome diariamente 7,5 dL de leite durante 1 mês (30 dias). Sabe-se que o preço de um litro de leite é R$ 1,98.</p>\n<div class=\"flushright\">\n<p>Disponível em: www.infopedia.pt.<br/>\nAcesso em: 13 jun. 2012 (adaptado).</p>\n</div>\n<p>Nessas condições, o custo mensal com o consumo de leite desse adolescente é de</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>R$ 14,85.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>R$ 22,50.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>R$ 44,55.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>R$ 148,50.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>R$ 445,50.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 148,
+  "cinza": 140,
+  "azul": 136,
+  "verde": 144,
+  "slug": "amarela-148-cinza-140-azul-136-verde-144",
+  "summary": "Em um jogo, o participante deve arremessar um disco sobre um tabuleiro. Esse tabuleiro é formado por 4 círculos de raio 10 cm, que se tangenciam, e a região de cor verde delimitada por eles, conforme figura. Os círculos estão disp…",
+  "bodyHtml": "<p>Em um jogo, o participante deve arremessar um disco sobre um tabuleiro. Esse tabuleiro é formado por 4 círculos de raio 10 cm, que se tangenciam, e a região de cor verde delimitada por eles, conforme figura. Os círculos estão dispostos de maneira que seus centros possam ser vértices de um quadrado. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/148-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 148, arquivo 148-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/148-1.png\"/></a></figure><p> Uma jogada é considerada válida somente se o centro do disco cair sobre o tabuleiro. O participante vence apenas se o disco cair inteiramente sobre um dos círculos.</p>\n<p>O criador desse jogo escolherá um valor inteiro para a medida <span class=\"math inline\">\\(r\\)</span> do raio do disco, de maneira que a probabilidade de vitória em uma jogada válida seja inferior a 60%.</p>\n<p>Utilize 3 como aproximação para <span class=\"math inline\">\\(\\pi\\)</span>.</p>\n<p>A medida mínima de <span class=\"math inline\">\\(r\\)</span>, em centímetro, a ser escolhida é</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>2.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>4.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>5.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>6.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>8.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 149,
+  "cinza": 141,
+  "azul": 137,
+  "verde": 145,
+  "slug": "amarela-149-cinza-141-azul-137-verde-145",
+  "summary": "Para diminuir custos com transporte, uma pessoa venderá seu carro à combustão para comprar um carro elétrico, entre dois modelos disponíveis. As especificações de consumo de energia de cada um desses modelos são: carro I: consumo …",
+  "bodyHtml": "<p>Para diminuir custos com transporte, uma pessoa venderá seu carro à combustão para comprar um carro elétrico, entre dois modelos disponíveis. As especificações de consumo de energia de cada um desses modelos são:</p>\n<ul>\n<li><p>carro I: consumo de 20 MJ (megajoules) para percorrer 48 km na cidade ou 32 km na estrada;</p></li>\n<li><p>carro II: consumo de 25 MJ (megajoules) para percorrer 50 km na cidade ou 45 km na estrada.</p></li>\n</ul>\n<p>Ela comprará o carro que apresentar menor consumo de energia para percorrer 3 000 km, sendo 1 200 km percorridos em trechos de cidade e 1 800 km em trechos de estrada.</p>\n<p>Ela comprará o carro</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>I, pois o consumo de energia será de 81,25 MJ.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>I, pois o consumo de energia será de 600 MJ.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>I, pois o consumo de energia será de 1 625 MJ.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>II, pois o consumo de energia será de 64 MJ.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>II, pois o consumo de energia será de 1 600 MJ.</p>"
+   }
+  ],
+  "cols": 2
+ },
+ {
+  "amarela": 150,
+  "cinza": 142,
+  "azul": 138,
+  "verde": 146,
+  "slug": "amarela-150-cinza-142-azul-138-verde-146",
+  "summary": "O deslocamento de carro entre duas cidades pode ser feito por dois trajetos, cujos comprimentos e velocidades médias nesses trajetos são: I: 100 km e 50 km/h; II: 120 km e 80 km/h. Uma pessoa se deslocará de carro entre essas cida…",
+  "bodyHtml": "<p>O deslocamento de carro entre duas cidades pode ser feito por dois trajetos, cujos comprimentos e velocidades médias nesses trajetos são:</p>\n<ul>\n<li><p>I: 100 km e 50 km/h;</p></li>\n<li><p>II: 120 km e 80 km/h.</p></li>\n</ul>\n<p>Uma pessoa se deslocará de carro entre essas cidades e escolherá o trajeto que pode ser percorrido no menor tempo ao adotar a respectiva velocidade média.</p>\n<p>Essa pessoa escolherá o trajeto</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>I, pois é o trajeto que apresenta o menor comprimento.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>I, pois precisará de 30 minutos para realizar esse deslocamento.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>I, pois é o trajeto que apresenta a menor soma entre comprimento e velocidade.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>II, pois é o trajeto que apresenta a menor diferença entre comprimento e velocidade.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>II, pois precisará de 90 minutos para realizar esse deslocamento.</p>"
+   }
+  ],
+  "cols": 1
+ },
+ {
+  "amarela": 151,
+  "cinza": 143,
+  "azul": 139,
+  "verde": 147,
+  "slug": "amarela-151-cinza-143-azul-139-verde-147",
+  "summary": "Uma empresa foi fundada por 3 sócios, que combinaram que iriam distribuir o lucro obtido ao final de 18 meses. Essa distribuição será feita em partes diretamente proporcionais ao investimento feito por sócio e ao tempo em que cada…",
+  "bodyHtml": "<p>Uma empresa foi fundada por 3 sócios, que combinaram que iriam distribuir o lucro obtido ao final de 18 meses. Essa distribuição será feita em partes diretamente proporcionais ao investimento feito por sócio e ao tempo em que cada um deles permanecer como sócio. Passados 6 meses da criação dessa empresa, o sócio que havia investido R$ 5 000,00 saiu da sociedade. Os outros dois sócios, um que investiu R$ 4 000,00 e o outro que investiu R$ 6 000,00, permaneceram os 18 meses. Ao final desse período, o lucro total de R$ 21 000,00 foi distribuído.</p>\n<p>A parte do lucro, em real, destinada ao sócio que saiu da sociedade foi</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>1 000,00.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>2 333,33.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>3 000,00.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>3 620,70.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>7 000,00.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 152,
+  "cinza": 163,
+  "azul": 158,
+  "verde": 157,
+  "slug": "amarela-152-cinza-163-azul-158-verde-157",
+  "summary": "Uma empresa que produz sinalizadores realiza um teste de segurança de seus produtos. Esse teste consiste em registrar em um plano cartesiano, com os eixos graduados em metro, a trajetória parabólica do projétil lançado pelo sinali…",
+  "bodyHtml": "<p>Uma empresa que produz sinalizadores realiza um teste de segurança de seus produtos. Esse teste consiste em registrar em um plano cartesiano, com os eixos graduados em metro, a trajetória parabólica do projétil lançado pelo sinalizador, e calcular os valores de dois parâmetros, <span class=\"math inline\">\\(D_1\\)</span> (distância entre o ponto de lançamento e o ponto de altura máxima, em metro) e <span class=\"math inline\">\\(D_2\\)</span> (distância entre o ponto de lançamento e o ponto de explosão, em metro), conforme representado na figura. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/152-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 152, arquivo 152-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/152-1.png\"/></a></figure><p> O nível de segurança do sinalizador é classificado de 1 (nível mínimo) a 5 (nível máximo), segundo os valores apurados para <span class=\"math inline\">\\(D_1\\)</span> e <span class=\"math inline\">\\(D_2\\)</span>, conforme os critérios apresentados na tabela.</p>\n<div class=\"center\">\n<div aria-label=\"Tabela da questão 152; deslize horizontalmente para ver todas as colunas\" class=\"enem-table-wrap\" role=\"region\" tabindex=\"0\"><table class=\"enem-table\">\n<thead>\n<tr class=\"header\">\n<th style=\"text-align: center;\"><strong>Nível de segurança</strong></th>\n<th style=\"text-align: center;\"><strong><span class=\"math inline\">\\(D_1\\)</span></strong></th>\n<th style=\"text-align: center;\"><strong><span class=\"math inline\">\\(D_2\\)</span></strong></th>\n</tr>\n</thead>\n<tbody>\n<tr class=\"odd\">\n<td style=\"text-align: center;\">1</td>\n<td style=\"text-align: center;\"><span class=\"math inline\">\\(D_1&lt;23\\)</span></td>\n<td style=\"text-align: center;\"><span class=\"math inline\">\\(D_2&lt;23\\)</span></td>\n</tr>\n<tr class=\"even\">\n<td style=\"text-align: center;\">2</td>\n<td style=\"text-align: center;\"><span class=\"math inline\">\\(23\\le D_1&lt;25\\)</span></td>\n<td style=\"text-align: center;\"><span class=\"math inline\">\\(D_2&lt;23\\)</span></td>\n</tr>\n<tr class=\"odd\">\n<td style=\"text-align: center;\">3</td>\n<td style=\"text-align: center;\"><span class=\"math inline\">\\(23\\le D_1&lt;25\\)</span></td>\n<td style=\"text-align: center;\"><span class=\"math inline\">\\(23\\le D_2&lt;25\\)</span></td>\n</tr>\n<tr class=\"even\">\n<td style=\"text-align: center;\">4</td>\n<td style=\"text-align: center;\"><span class=\"math inline\">\\(D_1\\ge 25\\)</span></td>\n<td style=\"text-align: center;\"><span class=\"math inline\">\\(23\\le D_2&lt;25\\)</span></td>\n</tr>\n<tr class=\"odd\">\n<td style=\"text-align: center;\">5</td>\n<td style=\"text-align: center;\"><span class=\"math inline\">\\(D_1\\ge 25\\)</span></td>\n<td style=\"text-align: center;\"><span class=\"math inline\">\\(D_2\\ge 25\\)</span></td>\n</tr>\n</tbody>\n</table></div>\n</div>\n<p>Em um teste de segurança, a trajetória do projétil lançado por um sinalizador foi modelada pela função <span class=\"math inline\">\\(y=-0{,}24x^2+4{,}8x\\)</span> e apurou-se que <span class=\"math inline\">\\(k=15\\)</span>.</p>\n<p>De acordo com essa classificação, o nível de segurança desse sinalizador foi</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>1.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>2.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>3.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>4.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>5.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 153,
+  "cinza": 164,
+  "azul": 159,
+  "verde": 158,
+  "slug": "amarela-153-cinza-164-azul-159-verde-158",
+  "summary": "O quadro apresenta a classificação final dos 6 times que disputaram um campeonato de futebol, com as informações parciais das quantidades de gols marcados e sofridos por esses times. Posição Time Gols marcados Gols sofridos 1ª I 3…",
+  "bodyHtml": "<p>O quadro apresenta a classificação final dos 6 times que disputaram um campeonato de futebol, com as informações parciais das quantidades de gols marcados e sofridos por esses times.</p>\n<div class=\"center\">\n<div aria-label=\"Tabela da questão 153; deslize horizontalmente para ver todas as colunas\" class=\"enem-table-wrap\" role=\"region\" tabindex=\"0\"><table class=\"enem-table\">\n<thead>\n<tr class=\"header\">\n<th style=\"text-align: center;\"><strong>Posição</strong></th>\n<th style=\"text-align: center;\"><strong>Time</strong></th>\n<th style=\"text-align: center;\"><strong>Gols marcados</strong></th>\n<th style=\"text-align: center;\"><strong>Gols sofridos</strong></th>\n</tr>\n</thead>\n<tbody>\n<tr class=\"odd\">\n<td style=\"text-align: center;\">1ª</td>\n<td style=\"text-align: center;\">I</td>\n<td style=\"text-align: center;\">31</td>\n<td style=\"text-align: center;\">23</td>\n</tr>\n<tr class=\"even\">\n<td style=\"text-align: center;\">2ª</td>\n<td style=\"text-align: center;\">II</td>\n<td style=\"text-align: center;\">27</td>\n<td style=\"text-align: center;\">21</td>\n</tr>\n<tr class=\"odd\">\n<td style=\"text-align: center;\">3ª</td>\n<td style=\"text-align: center;\">III</td>\n<td style=\"text-align: center;\">34</td>\n<td style=\"text-align: center;\"><span class=\"math inline\">\\(y\\)</span></td>\n</tr>\n<tr class=\"even\">\n<td style=\"text-align: center;\">4ª</td>\n<td style=\"text-align: center;\">IV</td>\n<td style=\"text-align: center;\">22</td>\n<td style=\"text-align: center;\">26</td>\n</tr>\n<tr class=\"odd\">\n<td style=\"text-align: center;\">5ª</td>\n<td style=\"text-align: center;\">V</td>\n<td style=\"text-align: center;\">26</td>\n<td style=\"text-align: center;\">22</td>\n</tr>\n<tr class=\"even\">\n<td style=\"text-align: center;\">6ª</td>\n<td style=\"text-align: center;\">VI</td>\n<td style=\"text-align: center;\"><span class=\"math inline\">\\(x\\)</span></td>\n<td style=\"text-align: center;\">28</td>\n</tr>\n</tbody>\n</table></div>\n</div>\n<p>A média de gols marcados por time nesse campeonato foi 25 e a mediana de gols sofridos foi 24.</p>\n<p>A soma <span class=\"math inline\">\\(x+y\\)</span> é igual a</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>32.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>34.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>35.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>42.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>47.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 154,
+  "cinza": 165,
+  "azul": 160,
+  "verde": 159,
+  "slug": "amarela-154-cinza-165-azul-160-verde-159",
+  "summary": "Marcos possui recursos em uma aplicação que rende 1% ao mês a juros compostos. Quando o saldo dessa aplicação alcançar R$ 90 000,00, ele comprará um carro, cujas duas opções de pagamento são: R$ 89 000,00, à vista, no ato da compr…",
+  "bodyHtml": "<p>Marcos possui recursos em uma aplicação que rende 1% ao mês a juros compostos. Quando o saldo dessa aplicação alcançar R$ 90 000,00, ele comprará um carro, cujas duas opções de pagamento são:</p>\n<ul>\n<li><p>R$ 89 000,00, à vista, no ato da compra;</p></li>\n<li><p>3 parcelas mensais iguais, no valor de R$ 30 000,00 cada, sendo a primeira paga no ato da compra.</p></li>\n</ul>\n<p>O pagamento por esse carro será feito utilizando somente recursos provenientes dessa aplicação, que serão resgatados nos momentos apropriados e nas quantias necessárias. Ele escolherá a opção de pagamento na qual, 2 meses após a compra do carro, o saldo de sua aplicação seja o maior.</p>\n<p>Ao final desses 2 meses, o saldo, em real, da aplicação de Marcos será</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>1 000,00.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>1 010,00.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>1 020,10.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>1 509,00.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>1 824,09.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 155,
+  "cinza": 158,
+  "azul": 161,
+  "verde": 152,
+  "slug": "amarela-155-cinza-158-azul-161-verde-152",
+  "summary": "Depreciação é o processo de desvalorização de um bem patrimonial decorrente do uso ou desgaste natural ao longo do tempo. Um carro zero quilômetro é vendido por R$ 80 000,00 e, imediatamente após a venda, ao sair da concessionária…",
+  "bodyHtml": "<p>Depreciação é o processo de desvalorização de um bem patrimonial decorrente do uso ou desgaste natural ao longo do tempo. Um carro zero quilômetro é vendido por R$ 80 000,00 e, imediatamente após a venda, ao sair da concessionária, já desvaloriza 10%. A partir daí, há uma depreciação anual de 12%.</p>\n<p>Qual expressão algébrica relaciona o valor <span class=\"math inline\">\\(V\\)</span> desse carro, em real, com o tempo de uso <span class=\"math inline\">\\(t\\)</span>, em ano?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(V=72\\,000\\cdot 0{,}88^t\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(V=72\\,000\\cdot 0{,}12^t\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(V=80\\,000\\cdot 0{,}78^t\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(V=80\\,000\\cdot 0{,}22^t\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(V=80\\,000\\cdot 0{,}12^t\\)</span></p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 156,
+  "cinza": 159,
+  "azul": 162,
+  "verde": 153,
+  "slug": "amarela-156-cinza-159-azul-162-verde-153",
+  "summary": "Um estudante de biologia aprendeu que o diâmetro médio da mitocôndria, organela responsável pela respiração celular, mede 0,75 micrômetro (1 micrômetro equivale à milionésima parte de um metro). Disponível em: https://brasilescola…",
+  "bodyHtml": "<p>Um estudante de biologia aprendeu que o diâmetro médio da mitocôndria, organela responsável pela respiração celular, mede 0,75 micrômetro (1 micrômetro equivale à milionésima parte de um metro).</p>\n<div class=\"flushright\">\n<p>Disponível em: https://brasilescola.uol.com.br.<br/>\nAcesso em: 9 nov. 2022 (adaptado).</p>\n</div>\n<p>Para ter uma ideia do quão pequena é a mitocôndria, o estudante converteu a medida desse diâmetro para a unidade milímetro.</p>\n<p>A medida do diâmetro médio da mitocôndria, em milímetro, é</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(7{,}5\\times10^{-1}\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(7{,}5\\times10^{-2}\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(7{,}5\\times10^{-4}\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(7{,}5\\times10^{-5}\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(7{,}5\\times10^{-7}\\)</span></p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 157,
+  "cinza": 160,
+  "azul": 163,
+  "verde": 154,
+  "slug": "amarela-157-cinza-160-azul-163-verde-154",
+  "summary": "No momento do Big Bang, o Universo passou por um crescimento enorme que durou menos de um trilionésimo de segundo. Para se ter uma ideia desse tempo, um trilionésimo é um número que pode ser representado por uma fração em que o nu…",
+  "bodyHtml": "<p>No momento do Big Bang, o Universo passou por um crescimento enorme que durou menos de um trilionésimo de segundo. Para se ter uma ideia desse tempo, um trilionésimo é um número que pode ser representado por uma fração em que o numerador é 1 e o denominador é um número inteiro iniciado por 1 seguido apenas de zeros.</p>\n<div class=\"flushright\">\n<p>Disponível em: http://super.abril.com.br.<br/>\nAcesso em: 16 out. 2015.</p>\n</div>\n<p>Representando um trilionésimo por uma fração, quantos zeros após o 1 do denominador existem nessa fração?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>9</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>11</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>12</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>14</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>15</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 158,
+  "cinza": 161,
+  "azul": 164,
+  "verde": 155,
+  "slug": "amarela-158-cinza-161-azul-164-verde-155",
+  "summary": "Cinco candidatos, \\(C_1\\) , \\(C_2\\) , \\(C_3\\) , \\(C_4\\) e \\(C_5\\) , foram selecionados para ocupar vagas para estagiários em uma empresa. Cada um deles foi entrevistado pelos diretores \\(D_1\\) , \\(D_2\\) , \\(D_3\\) , \\(D_4\\) e \\(D_5…",
+  "bodyHtml": "<p>Cinco candidatos, <span class=\"math inline\">\\(C_1\\)</span>, <span class=\"math inline\">\\(C_2\\)</span>, <span class=\"math inline\">\\(C_3\\)</span>, <span class=\"math inline\">\\(C_4\\)</span> e <span class=\"math inline\">\\(C_5\\)</span>, foram selecionados para ocupar vagas para estagiários em uma empresa. Cada um deles foi entrevistado pelos diretores <span class=\"math inline\">\\(D_1\\)</span>, <span class=\"math inline\">\\(D_2\\)</span>, <span class=\"math inline\">\\(D_3\\)</span>, <span class=\"math inline\">\\(D_4\\)</span> e <span class=\"math inline\">\\(D_5\\)</span>, dos cinco departamentos em que serão alocados. Nas entrevistas, os diretores atribuíram notas de 0 a 5 a cada entrevistado. As notas nessas entrevistas estão dispostas em linhas e colunas, conforme a imagem, na qual a nota posicionada na linha <span class=\"math inline\">\\(i\\)</span> e na coluna <span class=\"math inline\">\\(j\\)</span> representa a nota recebida pelo candidato <span class=\"math inline\">\\(C_i\\)</span>, atribuída pelo diretor <span class=\"math inline\">\\(D_j\\)</span>. Por exemplo, a nota 4 circulada, que está na segunda linha e na quarta coluna, corresponde à nota atribuída ao candidato <span class=\"math inline\">\\(C_2\\)</span> pelo diretor <span class=\"math inline\">\\(D_4\\)</span>. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/158-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 158, arquivo 158-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/158-1.png\"/></a></figure><p> Ao final das entrevistas, o diretor <span class=\"math inline\">\\(D_1\\)</span> escolherá como estagiário o candidato a quem atribuiu a maior nota; em seguida, o diretor <span class=\"math inline\">\\(D_2\\)</span> escolherá como estagiário, dentre os restantes, aquele a quem atribuiu a maior nota; e assim sucessivamente.</p>\n<p>O candidato a ser escolhido pelo diretor <span class=\"math inline\">\\(D_5\\)</span> é o</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(C_1\\)</span>.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(C_2\\)</span>.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(C_3\\)</span>.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(C_4\\)</span>.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(C_5\\)</span>.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 159,
+  "cinza": 162,
+  "azul": 165,
+  "verde": 156,
+  "slug": "amarela-159-cinza-162-azul-165-verde-156",
+  "summary": "Uma loja de roupas femininas vende apenas blusas e vestidos. O lucro é de R$ 10,00 em cada blusa e de R$ 30,00 em cada vestido, se estes forem comprados com dinheiro em espécie. Contudo, o lucro é 10% menor em cada peça que for…",
+  "bodyHtml": "<p>Uma loja de roupas femininas vende apenas blusas e vestidos. O lucro é de R$ 10,00 em cada blusa e de R$ 30,00 em cada vestido, se estes forem comprados com dinheiro em espécie. Contudo, o lucro é 10% menor em cada peça que for comprada utilizando-se um cartão de crédito para o pagamento. Neste mês a loja conseguiu vender um total de 1 800 peças, sendo que todas as blusas e apenas um terço dos vestidos vendidos foram pagos com dinheiro.</p>\n<p>Se <span class=\"math inline\">\\(x\\)</span> é a quantidade de blusas vendidas, a expressão que representa o lucro total obtido com as vendas do referido mês é</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(21\\,600-2x\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(48\\,600-18x\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(50\\,400-18x\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(52\\,200-19x\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(54\\,000-20x\\)</span></p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 160,
+  "cinza": 152,
+  "azul": 155,
+  "verde": 163,
+  "slug": "amarela-160-cinza-152-azul-155-verde-163",
+  "summary": "Um agricultor possui um terreno plano formado por 4 canteiros, 3 em formato retangular, semelhantes entre si, e 1 em formato triangular, delimitado pelos 3 primeiros, conforme figura. Os maiores lados dos canteiros I e II medem 10…",
+  "bodyHtml": "<p>Um agricultor possui um terreno plano formado por 4 canteiros, 3 em formato retangular, semelhantes entre si, e 1 em formato triangular, delimitado pelos 3 primeiros, conforme figura. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/160-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 160, arquivo 160-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/160-1.png\"/></a></figure><p> Os maiores lados dos canteiros I e II medem 10 m e 8 m, respectivamente, e a área do canteiro I mede 80 m<span class=\"math inline\">\\(^2\\)</span>.</p>\n<p>Qual é a diferença entre as medidas das áreas, em metro quadrado, dos canteiros II e III?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>16,00</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>17,92</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>20,00</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>22,40</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>28,00</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 161,
+  "cinza": 153,
+  "azul": 156,
+  "verde": 164,
+  "slug": "amarela-161-cinza-153-azul-156-verde-164",
+  "summary": "A diretora de uma creche coletou, das cadernetas de vacinação de cinco crianças, a informação sobre o número de doses de vacinas aplicadas nos primeiros quatro semestres de vida. A seguir são apresentadas as sequências das quantid…",
+  "bodyHtml": "<p>A diretora de uma creche coletou, das cadernetas de vacinação de cinco crianças, a informação sobre o número de doses de vacinas aplicadas nos primeiros quatro semestres de vida. A seguir são apresentadas as sequências das quantidades de doses que cada criança recebeu no 1º, 2º, 3º e 4º semestres, respectivamente:</p>\n<ul>\n<li><p>criança I: 10, 5, 5, 5;</p></li>\n<li><p>criança II: 12, 3, 5, 5;</p></li>\n<li><p>criança III: 13, 4, 5, 4;</p></li>\n<li><p>criança IV: 11, 5, 5, 3;</p></li>\n<li><p>criança V: 13, 3, 7, 3.</p></li>\n</ul>\n<p>A diretora fará uma reunião com os pais das crianças dessa creche com o objetivo de conscientizá-los da importância de completarem as doses de vacinas que faltam. Para ilustrar a importância desse assunto, ela escolherá os dados de uma dessas cinco cadernetas para apresentar na reunião. Serão escolhidos os dados da caderneta de vacinação que apresentar a menor média semestral das quantidades de doses de vacinas aplicadas nos primeiros quatro semestres de vida dessas crianças.</p>\n<p>A caderneta que contém os dados a serem escolhidos pela diretora para a reunião é a da criança</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>I.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>II.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>III.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>IV.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>V.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 162,
+  "cinza": 154,
+  "azul": 157,
+  "verde": 165,
+  "slug": "amarela-162-cinza-154-azul-157-verde-165",
+  "summary": "A Carga Tributária Bruta (CTB) é um índice utilizado por agências de pesquisas econômicas para orientar possíveis investidores. O gráfico ilustra os valores percentuais da CTB de um país em função do tempo \\(t\\) , em ano, sendo qu…",
+  "bodyHtml": "<p>A Carga Tributária Bruta (CTB) é um índice utilizado por agências de pesquisas econômicas para orientar possíveis investidores. O gráfico ilustra os valores percentuais da CTB de um país em função do tempo <span class=\"math inline\">\\(t\\)</span>, em ano, sendo que <span class=\"math inline\">\\(t=0\\)</span> corresponde a 2021, <span class=\"math inline\">\\(t=1\\)</span> a 2022, <span class=\"math inline\">\\(t=2\\)</span> a 2023, e assim sucessivamente. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/162-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 162, arquivo 162-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/162-1.png\"/></a></figure><p> Com base nesses dados, uma agência fez uma extrapolação para estimar o valor percentual da CTB para 2026, considerando que esse índice varia segundo uma função quadrática.</p>\n<p>O valor percentual da CTB estimado para 2026, obtido por essa agência, foi</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>25,5.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>27,5.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>30,0.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>33,5.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>35,0.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 163,
+  "cinza": 155,
+  "azul": 152,
+  "verde": 160,
+  "slug": "amarela-163-cinza-155-azul-152-verde-160",
+  "summary": "Uma padaria vende pizzas de calabresa e de frango. Há 3 funcionários nessa padaria: Ana, Carla e José. No sábado, Ana vendeu 6 pizzas de calabresa e 15 de frango, tendo recebido 780 reais por essas vendas; Carla vendeu 5 pizzas de…",
+  "bodyHtml": "<p>Uma padaria vende pizzas de calabresa e de frango. Há 3 funcionários nessa padaria: Ana, Carla e José. No sábado, Ana vendeu 6 pizzas de calabresa e 15 de frango, tendo recebido 780 reais por essas vendas; Carla vendeu 5 pizzas de calabresa e 8 de frango, pelas quais recebeu 470 reais; e José vendeu 4 pizzas de calabresa, porém não anotou a quantidade de pizzas de frango que vendeu, mas sabe que recebeu um total de 520 reais pela venda de pizzas.</p>\n<p>Qual a quantidade total de pizzas que José vendeu nesse sábado?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>4</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>5</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>13</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>14</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>18</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 164,
+  "cinza": 156,
+  "azul": 153,
+  "verde": 161,
+  "slug": "amarela-164-cinza-156-azul-153-verde-161",
+  "summary": "Em um tipo de mesa de bilhar, sem caçapas, cujo tampo tem o formato de um quadrado com 206 cm de lado e as bolas têm 3 cm de raio, um jogador precisa dar uma tacada na bola branca e fazê-la acertar a bola amarela,…",
+  "bodyHtml": "<p>Em um tipo de mesa de bilhar, sem caçapas, cujo tampo tem o formato de um quadrado com 206 cm de lado e as bolas têm 3 cm de raio, um jogador precisa dar uma tacada na bola branca e fazê-la acertar a bola amarela, sem tocar em outra bola. Para isso, ele considerou uma trajetória poligonal que a bola branca poderia percorrer, rebatendo em três lados distintos da mesa, antes de acertar a bola amarela, conforme indicado na figura, apresentada fora de escala. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/164-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 164, arquivo 164-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/164-1.png\"/></a></figure><p> Qual deve ser a distância <span class=\"math inline\">\\(d\\)</span>, em centímetro, indicada na figura, para que a bola branca consiga acertar a bola amarela ao percorrer a trajetória considerada pelo jogador?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>40</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>55</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>58</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>61</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>70</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 165,
+  "cinza": 157,
+  "azul": 154,
+  "verde": 162,
+  "slug": "amarela-165-cinza-157-azul-154-verde-162",
+  "summary": "Uma equipe de estudantes de engenharia decidiu construir um modelo experimental de um foguete. Esse modelo tem internamente um compartimento na forma de cilindro circular reto, que deve ser protegido externamente com uma manta, fo…",
+  "bodyHtml": "<p>Uma equipe de estudantes de engenharia decidiu construir um modelo experimental de um foguete. Esse modelo tem internamente um compartimento na forma de cilindro circular reto, que deve ser protegido externamente com uma manta, formando um novo cilindro circular reto com mesma altura, como indicado na figura. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/165-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 165, arquivo 165-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/165-1.png\"/></a></figure><p> Essa equipe tem duas opções de material para a manta, cujas espessuras e preços estão apresentados no quadro.</p>\n<div class=\"center\">\n<div aria-label=\"Tabela da questão 165; deslize horizontalmente para ver todas as colunas\" class=\"enem-table-wrap\" role=\"region\" tabindex=\"0\"><table class=\"enem-table\">\n<thead>\n<tr class=\"header\">\n<th style=\"text-align: center;\"><strong>Material</strong></th>\n<th style=\"text-align: center;\"><strong>Espessura da manta (cm)</strong></th>\n<th style=\"text-align: center;\"><strong>Preço (a cada 1 000 cm<span class=\"math inline\">\\(^3\\)</span>)</strong></th>\n</tr>\n</thead>\n<tbody>\n<tr class=\"odd\">\n<td style=\"text-align: center;\">I</td>\n<td style=\"text-align: center;\">1,0</td>\n<td style=\"text-align: center;\">R$ 26,00</td>\n</tr>\n<tr class=\"even\">\n<td style=\"text-align: center;\">II</td>\n<td style=\"text-align: center;\">2,0</td>\n<td style=\"text-align: center;\">R$ 12,00</td>\n</tr>\n</tbody>\n</table></div>\n</div>\n<p>Utilize 3 como aproximação para <span class=\"math inline\">\\(\\pi\\)</span>.</p>\n<p>A equipe terá menor custo na compra da manta cilíndrica se optar pelo material</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>I, apenas por apresentar a menor espessura.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>I, pois apresenta um custo inferior ao do material II em R$ 6,60.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>II, apenas por apresentar o menor preço por centímetro cúbico.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>II, pois apresenta um custo inferior ao do material I em R$ 2,00.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>II, pois apresenta um custo inferior ao do material I em R$ 5,40.</p>"
+   }
+  ],
+  "cols": 2
+ },
+ {
+  "amarela": 166,
+  "cinza": 172,
+  "azul": 170,
+  "verde": 168,
+  "slug": "amarela-166-cinza-172-azul-170-verde-168",
+  "summary": "Uma arquiteta elaborou um projeto para a construção de uma escola, cuja planta baixa está apresentada sobre uma malha quadriculada, conforme figura. Por questões orçamentárias, a direção dessa escola solicitou que o projeto fosse …",
+  "bodyHtml": "<p>Uma arquiteta elaborou um projeto para a construção de uma escola, cuja planta baixa está apresentada sobre uma malha quadriculada, conforme figura. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/166-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 166, arquivo 166-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/166-1.png\"/></a></figure><p> Por questões orçamentárias, a direção dessa escola solicitou que o projeto fosse modificado, reduzindo em 25% a área real do refeitório, que se encontra em destaque, de cor amarela, na figura.</p>\n<p>Após a reelaboração do projeto, a medida da área real do refeitório, em metro quadrado, será</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>160.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>150.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>120.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>96.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>72.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 167,
+  "cinza": 173,
+  "azul": 171,
+  "verde": 169,
+  "slug": "amarela-167-cinza-173-azul-171-verde-169",
+  "summary": "No Brasil, datas são registradas no formato DD/MM, em que os primeiros dois dígitos codificam o dia do mês, e os dois seguintes, o mês do ano. Em alguns países, esses registros se dão no formato MM/DD, no qual se indica primeiro o…",
+  "bodyHtml": "<p>No Brasil, datas são registradas no formato DD/MM, em que os primeiros dois dígitos codificam o dia do mês, e os dois seguintes, o mês do ano. Em alguns países, esses registros se dão no formato MM/DD, no qual se indica primeiro o mês do ano e depois o dia do mês. Por exemplo, a data 9 de maio é registrada, no Brasil, no formato 09/05, enquanto em alguns países, essa mesma data é registrada no formato 05/09.</p>\n<p>Um aplicativo gerará aleatoriamente uma data (dia e mês) de um ano não bissexto.</p>\n<p>Qual é a probabilidade de que a data gerada tenha o mesmo registro nos dois formatos considerados?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(\\dfrac{12}{365}\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(\\dfrac{30}{365}\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(\\dfrac{144}{365}\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(\\dfrac{1}{12}\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(\\dfrac{12}{30}\\)</span></p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 168,
+  "cinza": 170,
+  "azul": 172,
+  "verde": 166,
+  "slug": "amarela-168-cinza-170-azul-172-verde-166",
+  "summary": "Um jogo envolve blocos retangulares congruentes empilhados. A figura representa a configuração do empilhamento em uma etapa do jogo, de forma que uma das faces de cada bloco está paralela ao plano \\(\\alpha\\) , que é perpendicular …",
+  "bodyHtml": "<p>Um jogo envolve blocos retangulares congruentes empilhados. A figura representa a configuração do empilhamento em uma etapa do jogo, de forma que uma das faces de cada bloco está paralela ao plano <span class=\"math inline\">\\(\\alpha\\)</span>, que é perpendicular ao plano <span class=\"math inline\">\\(\\beta\\)</span> da base. Faces verticais de mesma cor estão em um mesmo plano. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/168-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 168, arquivo 168-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/168-1.png\"/></a></figure><p> A figura que representa a projeção ortogonal desse empilhamento sobre o plano <span class=\"math inline\">\\(\\alpha\\)</span> é</p>",
+  "options": [
+   {
+    "kind": "image",
+    "src": "/imagens/enem2026/168-2.png",
+    "alt": "Alternativa A da questão 168"
+   },
+   {
+    "kind": "image",
+    "src": "/imagens/enem2026/168-3.png",
+    "alt": "Alternativa B da questão 168"
+   },
+   {
+    "kind": "image",
+    "src": "/imagens/enem2026/168-4.png",
+    "alt": "Alternativa C da questão 168"
+   },
+   {
+    "kind": "image",
+    "src": "/imagens/enem2026/168-5.png",
+    "alt": "Alternativa D da questão 168"
+   },
+   {
+    "kind": "image",
+    "src": "/imagens/enem2026/168-6.png",
+    "alt": "Alternativa E da questão 168"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 169,
+  "cinza": 171,
+  "azul": 173,
+  "verde": 167,
+  "slug": "amarela-169-cinza-171-azul-173-verde-167",
+  "summary": "Um teste, composto por 5 questões de múltipla escolha, com 5 alternativas de resposta por questão, valendo 1 ponto cada questão, foi aplicado a candidatos de um concurso. Esses candidatos foram classificados em 6 grupos, de acordo…",
+  "bodyHtml": "<p>Um teste, composto por 5 questões de múltipla escolha, com 5 alternativas de resposta por questão, valendo 1 ponto cada questão, foi aplicado a candidatos de um concurso. Esses candidatos foram classificados em 6 grupos, de acordo com suas notas nesse teste.</p>\n<ul>\n<li><p>N0: candidatos com nota 0.</p></li>\n<li><p>N1: candidatos com nota 1.</p></li>\n<li><p>N2: candidatos com nota 2.</p></li>\n<li><p>N3: candidatos com nota 3.</p></li>\n<li><p>N4: candidatos com nota 4.</p></li>\n<li><p>N5: candidatos com nota 5.</p></li>\n</ul>\n<p>Todos os candidatos marcaram uma única alternativa de resposta em cada questão.</p>\n<p>No Gráfico 1, estão descritas as porcentagens com que cada grupo marcou cada alternativa de resposta na questão 1, ficando ausentes as informações dos percentuais dos grupos N4 e N5, que marcaram a alternativa D.</p>\n<figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/169-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 169, arquivo 169-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/169-1.png\"/></a></figure>\n<p>No Gráfico 2, está apresentada a distribuição dos candidatos por grupo.</p>\n<figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/169-2.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 169, arquivo 169-2.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/169-2.png\"/></a></figure><p> Qual é o percentual de candidatos que acertou a questão 1?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>10%</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>12%</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>16%</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>25%</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>28%</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 170,
+  "cinza": 166,
+  "azul": 169,
+  "verde": 173,
+  "slug": "amarela-170-cinza-166-azul-169-verde-173",
+  "summary": "A matemática britânica Hannah Fry explica o falso paradoxo de pessoas com a mesma nota média de atratividade em sites de relacionamento terem diferentes graus de popularidade. Segundo Fry, a popularidade de um usuário desse tipo d…",
+  "bodyHtml": "<p>A matemática britânica Hannah Fry explica o falso paradoxo de pessoas com a mesma nota média de atratividade em sites de relacionamento terem diferentes graus de popularidade. Segundo Fry, a popularidade de um usuário desse tipo de site não está relacionada apenas à sua nota média de atratividade, mas também à dispersão das notas. Quanto maior o desvio padrão de suas notas, maior é a sua popularidade. Essas notas podem ser:</p>\n<div class=\"center\">\n<div aria-label=\"Tabela da questão 170; deslize horizontalmente para ver todas as colunas\" class=\"enem-table-wrap\" role=\"region\" tabindex=\"0\"><table class=\"enem-table\">\n<thead>\n<tr class=\"header\">\n<th style=\"text-align: center;\"><span class=\"math inline\">\\(-1\\)</span></th>\n<th style=\"text-align: center;\"><span class=\"math inline\">\\(-0{,}5\\)</span></th>\n<th style=\"text-align: center;\"><span class=\"math inline\">\\(0\\)</span></th>\n<th style=\"text-align: center;\"><span class=\"math inline\">\\(0{,}5\\)</span></th>\n<th style=\"text-align: center;\"><span class=\"math inline\">\\(1\\)</span></th>\n</tr>\n</thead>\n<tbody>\n</tbody>\n</table></div>\n</div>\n<figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/170-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 170, arquivo 170-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/170-1.png\"/></a></figure>\n<div class=\"flushright\">\n<p>Disponível em: www.ted.com. Acesso em: 16 maio 2015 (adaptado).</p>\n</div>\n<p>Os gráficos a seguir apresentam as frequências relativas (variando de 0 a 1) de notas de atratividade dadas a 5 usuários de um site de relacionamento. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/170-2.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 170, arquivo 170-2.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/170-2.png\"/></a></figure><p> Segundo o critério apresentado por Hannah Fry, o usuário com maior popularidade é o</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>1.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>2.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>3.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>4.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>5.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 171,
+  "cinza": 174,
+  "azul": 176,
+  "verde": 178,
+  "slug": "amarela-171-cinza-174-azul-176-verde-178",
+  "summary": "O tampo de uma mesa tem o formato da região de cor amarela na figura. Essa região é obtida pela intersecção de três círculos com centros nos pontos \\(A\\) , \\(B\\) e \\(C\\) , respectivamente, e raios de medidas iguais a 1,20 m. Para …",
+  "bodyHtml": "<p>O tampo de uma mesa tem o formato da região de cor amarela na figura. Essa região é obtida pela intersecção de três círculos com centros nos pontos <span class=\"math inline\">\\(A\\)</span>, <span class=\"math inline\">\\(B\\)</span> e <span class=\"math inline\">\\(C\\)</span>, respectivamente, e raios de medidas iguais a 1,20 m. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/171-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 171, arquivo 171-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/171-1.png\"/></a></figure><p> Para cobrir essa mesa, pretende-se comprar uma toalha, com a menor área possível, que cubra o tampo e o exceda em pelo menos 20 cm ao longo de todo o seu contorno.</p>\n<p>Em uma loja há cinco modelos de toalhas:</p>\n<ol>\n<li><p>círculo com diâmetro de medida 1,60 m;</p></li>\n<li><p>círculo com diâmetro de medida 1,76 m;</p></li>\n<li><p>quadrado com lados de medida 1,60 m;</p></li>\n<li><p>quadrado com lados de medida 1,76 m;</p></li>\n<li><p>triângulo equilátero com lados de medida 1,60 m.</p></li>\n</ol>\n<p>Utilize 1,7 como aproximação para <span class=\"math inline\">\\(\\sqrt{3}\\)</span>.</p>\n<p>O modelo a ser comprado é o</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>I.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>II.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>III.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>IV.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>V.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 172,
+  "cinza": 175,
+  "azul": 177,
+  "verde": 179,
+  "slug": "amarela-172-cinza-175-azul-177-verde-179",
+  "summary": "O volume de água armazenado em um reservatório é dado pela soma do volume útil com o volume de reserva técnica. O volume de reserva técnica só pode ser utilizado após a água do volume útil acabar. Disponível em: www2.sabesp.com.br…",
+  "bodyHtml": "<p>O volume de água armazenado em um reservatório é dado pela soma do volume útil com o volume de reserva técnica. O volume de reserva técnica só pode ser utilizado após a água do volume útil acabar.</p>\n<div class=\"flushright\">\n<p>Disponível em: www2.sabesp.com.br.<br/>\nAcesso em: 2 dez. 2017 (adaptado).</p>\n</div>\n<p>Em determinado momento, o reservatório de uma cidade conta com um volume útil de 480 milhões de metros cúbicos e um volume de reserva técnica de 30 milhões de metros cúbicos. Ao se calcular o consumo médio diário de água, concluiu-se que, em um cenário em que o reservatório não seja reabastecido, todo o volume de água armazenado no reservatório seria utilizado em um período de 30 dias. Considerando-se esse cenário, estabeleceu-se a necessidade de redução do volume médio diário de água fornecida atualmente de modo que, ao final desse período de 30 dias, ainda restasse 25% do volume útil no reservatório, além do volume de reserva técnica.</p>\n<p>Qual deve ser a redução do volume médio diário de água fornecida, em milhão de metros cúbicos, para atender ao que foi estabelecido?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>5,25</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>5,00</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>4,25</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>4,00</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>3,00</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 173,
+  "cinza": 176,
+  "azul": 178,
+  "verde": 180,
+  "slug": "amarela-173-cinza-176-azul-178-verde-180",
+  "summary": "Um pai pretende pintar as quatro paredes e o teto do quarto de sua filha, o qual tem a forma de paralelepípedo reto retângulo, com uma porta e duas janelas de formato retangular. A porta tem dimensões de 1 m por 2,20 m; e as…",
+  "bodyHtml": "<p>Um pai pretende pintar as quatro paredes e o teto do quarto de sua filha, o qual tem a forma de paralelepípedo reto retângulo, com uma porta e duas janelas de formato retangular. A porta tem dimensões de 1 m por 2,20 m; e as janelas, de 1,5 m por 1 m cada. Ele contrata um pintor e informa que a área a ser pintada mede 41,7 m<span class=\"math inline\">\\(^2\\)</span>. O pintor pede detalhes do quarto, e o pai informa as medidas da porta e das janelas, que não serão pintadas. Quanto às dimensões do quarto, a medida da altura é 2,8 m e a da largura é 3 m, mas o pai não se recorda da medida do comprimento do quarto.</p>\n<p>A medida do comprimento do quarto, em metro, é</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>2,8.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>3,5.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>4,4.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>5,1.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>5,3.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 174,
+  "cinza": 180,
+  "azul": 179,
+  "verde": 175,
+  "slug": "amarela-174-cinza-180-azul-179-verde-175",
+  "summary": "O gráfico registra, sobre uma malha quadriculada, as quantidades de unidades habitacionais vendidas em um município, nos dois primeiros meses do ano, e a curva que fornece a estimativa \\(E\\) da quantidade de unidades vendidas ness…",
+  "bodyHtml": "<p>O gráfico registra, sobre uma malha quadriculada, as quantidades de unidades habitacionais vendidas em um município, nos dois primeiros meses do ano, e a curva que fornece a estimativa <span class=\"math inline\">\\(E\\)</span> da quantidade de unidades vendidas nesse município, para o segundo semestre do mesmo ano, descrita pela função <span class=\"math display\">\\[E(n)=1\\,500+2\\,000\\times\\log_{10}(1+n),\\quad\\text{com }6\\le n\\le12,\\]</span> sendo <span class=\"math inline\">\\(n\\)</span> o número que identifica o mês. Por exemplo, a estimativa da quantidade de unidades vendidas ao longo do mês de agosto é <span class=\"math inline\">\\(E(8)=1\\,500+2\\,000\\times\\log_{10}(1+8)\\)</span>. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/174-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 174, arquivo 174-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/174-1.png\"/></a></figure><p> Ao final do primeiro bimestre, calculou-se a média mensal de unidades vendidas nesse período e, para projetar o crescimento das vendas nesse ano, estimou-se a média mensal de unidades habitacionais que serão vendidas no último bimestre desse ano comparando-se essas duas médias.</p>\n<p>Utilize <span class=\"math inline\">\\(\\log_{10}12=1{,}079\\)</span> e <span class=\"math inline\">\\(\\log_{10}13=1{,}114\\)</span>.</p>\n<p>Em quantas unidades a média de vendas estimada para o último bimestre superou a média calculada do primeiro bimestre?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>1 079</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>1 193</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>3 688</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>10 000</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>20 000</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 175,
+  "cinza": 179,
+  "azul": 180,
+  "verde": 174,
+  "slug": "amarela-175-cinza-179-azul-180-verde-174",
+  "summary": "Uma câmera \\(P\\) , com ângulo de visão de 90º, leva 30 segundos para se deslocar do ponto \\(M\\) ao ponto \\(N\\) , no sentido horário e em velocidade angular constante, sobre um trilho em formato de um quarto de circunferência, com …",
+  "bodyHtml": "<p>Uma câmera <span class=\"math inline\">\\(P\\)</span>, com ângulo de visão de 90º, leva 30 segundos para se deslocar do ponto <span class=\"math inline\">\\(M\\)</span> ao ponto <span class=\"math inline\">\\(N\\)</span>, no sentido horário e em velocidade angular constante, sobre um trilho em formato de um quarto de circunferência, com 2 m de raio e centro no ponto <span class=\"math inline\">\\(O\\)</span>. Ao iniciar o movimento, ela é ligada e inicia a captura da imagem do segmento <span class=\"math inline\">\\(OT\\)</span>, que é parte da semirreta <span class=\"math inline\">\\(s\\)</span>, que tem origem no ponto <span class=\"math inline\">\\(O\\)</span> e é perpendicular ao segmento <span class=\"math inline\">\\(OM\\)</span>, conforme os esquemas. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/175-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 175, arquivo 175-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/175-1.png\"/></a></figure><p> A câmera é desligada no instante em que chega ao ponto <span class=\"math inline\">\\(N\\)</span>.</p>\n<p>O gráfico que descreve a relação entre o comprimento <span class=\"math inline\">\\(c\\)</span>, em metro, do segmento <span class=\"math inline\">\\(OT\\)</span>, e o tempo <span class=\"math inline\">\\(t\\)</span>, em segundo, durante o período em que a câmera fica ligada é</p>",
+  "options": [
+   {
+    "kind": "image",
+    "src": "/imagens/enem2026/175-2.png",
+    "alt": "Alternativa A da questão 175"
+   },
+   {
+    "kind": "image",
+    "src": "/imagens/enem2026/175-3.png",
+    "alt": "Alternativa B da questão 175"
+   },
+   {
+    "kind": "image",
+    "src": "/imagens/enem2026/175-4.png",
+    "alt": "Alternativa C da questão 175"
+   },
+   {
+    "kind": "image",
+    "src": "/imagens/enem2026/175-5.png",
+    "alt": "Alternativa D da questão 175"
+   },
+   {
+    "kind": "image",
+    "src": "/imagens/enem2026/175-6.png",
+    "alt": "Alternativa E da questão 175"
+   }
+  ],
+  "cols": 5
+ },
+ {
+  "amarela": 176,
+  "cinza": 167,
+  "azul": 166,
+  "verde": 170,
+  "slug": "amarela-176-cinza-167-azul-166-verde-170",
+  "summary": "A Figura 1 mostra a vista superior de um mobiliário de cozinha, que não pode ser desmembrado, montado na casa de um engenheiro. Ele mudará para um apartamento, cujo esboço de planta baixa está dado na Figura 2, onde pretende insta…",
+  "bodyHtml": "<p>A Figura 1 mostra a vista superior de um mobiliário de cozinha, que não pode ser desmembrado, montado na casa de um engenheiro. Ele mudará para um apartamento, cujo esboço de planta baixa está dado na Figura 2, onde pretende instalar o mobiliário na nova cozinha.</p>\n<div class=\"center enem-side-figures\">\n<figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/176-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 176, arquivo 176-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/176-1.png\"/></a></figure><p> </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/176-2.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 176, arquivo 176-2.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/176-2.png\"/></a></figure>\n</div>\n<p>Como a cozinha do apartamento é muito pequena, decidiu ampliá-la, avançando-a sobre as áreas da sala e do quarto, de modo a manter os formatos retangulares tanto da cozinha quanto do quarto, apenas o necessário para caber o mobiliário da Figura 1 na nova cozinha.</p>\n<p>Após essa reforma, as medidas das áreas, em metro quadrado, da sala e do quarto, serão</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>9,75 e 37,50.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>9,75 e 16,00.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>19,00 e 10,75.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>19,75 e 10,00.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>2,00 e 3,75.</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 177,
+  "cinza": 168,
+  "azul": 167,
+  "verde": 171,
+  "slug": "amarela-177-cinza-168-azul-167-verde-171",
+  "summary": "Na história da arte brasileira, não há obra tão valiosa quanto o Abaporu , criada em 1928 por Tarsila do Amaral. A figura apresenta essa obra e suas dimensões originais. AMARAL, Tarsila do. Abaporu . Óleo sobre tela, 85 cm \\(\\time…",
+  "bodyHtml": "<p>Na história da arte brasileira, não há obra tão valiosa quanto o <em>Abaporu</em>, criada em 1928 por Tarsila do Amaral. A figura apresenta essa obra e suas dimensões originais. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/177-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 177, arquivo 177-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/177-1.png\"/></a></figure>\n<div class=\"flushright\">\n<p>AMARAL, Tarsila do. <em>Abaporu</em>. Óleo sobre tela, 85 cm <span class=\"math inline\">\\(\\times\\)</span> 73 cm. Museu de Arte Latino-Americana de Buenos Aires, Buenos Aires, 1928.</p>\n</div>\n<p>Uma editora pretende lançar um álbum de figurinhas com as obras de arte brasileira mais famosas e, entre elas, está essa obra de Tarsila do Amaral. O álbum tem um espaço destinado para colar a figurinha da obra <em>Abaporu</em>, em formato retangular, cuja área mede 62,05 cm<span class=\"math inline\">\\(^2\\)</span> e com dimensões proporcionais às da obra de arte original. Após a colagem, essa figurinha deve preencher totalmente o espaço a ela destinado.</p>\n<p>Essa obra será representada pela figurinha na escala</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(1:2{,}5\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(1:3{,}9\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(1:5\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(1:10\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(1:100\\)</span></p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 178,
+  "cinza": 169,
+  "azul": 168,
+  "verde": 172,
+  "slug": "amarela-178-cinza-169-azul-168-verde-172",
+  "summary": "Uma motocicleta tem duas rodas de tamanhos diferentes: a dianteira, com diâmetro externo medindo 0,8 m, e a traseira, cujo diâmetro externo mede 0,6 m. Essa motocicleta foi conduzida por um percurso retilíneo de 3 600 m. Utilize 3…",
+  "bodyHtml": "<p>Uma motocicleta tem duas rodas de tamanhos diferentes: a dianteira, com diâmetro externo medindo 0,8 m, e a traseira, cujo diâmetro externo mede 0,6 m. Essa motocicleta foi conduzida por um percurso retilíneo de 3 600 m.</p>\n<p>Utilize 3 como aproximação para <span class=\"math inline\">\\(\\pi\\)</span>.</p>\n<p>Quantos giros completos a roda traseira deu a mais que a dianteira quando a motocicleta concluiu esse percurso?</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>500</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>1 000</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>1 500</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>2 917</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>5 833</p>"
+   }
+  ],
+  "cols": 3
+ },
+ {
+  "amarela": 179,
+  "cinza": 177,
+  "azul": 174,
+  "verde": 176,
+  "slug": "amarela-179-cinza-177-azul-174-verde-176",
+  "summary": "No esquema estão representadas cinco cidades, P, Q, R, S e T, e todas as estradas que conectam as cidades P a Q e S a T. As estradas que conectam as cidades Q a R e R a S foram omitidas no esquema, porém…",
+  "bodyHtml": "<p>No esquema estão representadas cinco cidades, P, Q, R, S e T, e todas as estradas que conectam as cidades P a Q e S a T. As estradas que conectam as cidades Q a R e R a S foram omitidas no esquema, porém sabe-se que há mais estradas conectando Q a R do que R a S. </p><figure class=\"enem-figure\"><a aria-label=\"Abrir figura ampliada em outra aba\" href=\"/imagens/enem2026/179-1.png\" rel=\"noopener\" target=\"_blank\"><img alt=\"Figura da questão 179, arquivo 179-1.png\" class=\"enem-figure-img\" decoding=\"async\" loading=\"lazy\" src=\"/imagens/enem2026/179-1.png\"/></a></figure><p> Será realizada uma viagem saindo da cidade P até a cidade T, passando pelas cidades Q, R e S, nessa ordem. Há um total de 30 possíveis rotas para fazer essa viagem.</p>\n<p>A quantidade de estradas que conectam a cidade Q à cidade R é</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(\\dfrac{30}{3\\times2}\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(\\dfrac{30}{3+2}\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(\\dfrac{30}{2}\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(30-(3\\times2)\\)</span></p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p><span class=\"math inline\">\\(30-(3+2)\\)</span></p>"
+   }
+  ],
+  "cols": 2
+ },
+ {
+  "amarela": 180,
+  "cinza": 178,
+  "azul": 175,
+  "verde": 177,
+  "slug": "amarela-180-cinza-178-azul-175-verde-177",
+  "summary": "Um colchão deve ser adequado ao biotipo de cada pessoa, sendo confortável e ao mesmo tempo capaz de suportar o peso do corpo. O quadro apresenta as opções recomendadas da densidade (D) do colchão para diversos biotipos, considerad…",
+  "bodyHtml": "<p>Um colchão deve ser adequado ao biotipo de cada pessoa, sendo confortável e ao mesmo tempo capaz de suportar o peso do corpo. O quadro apresenta as opções recomendadas da densidade (D) do colchão para diversos biotipos, consideradas a massa e a altura da pessoa. Caso existam duas opções de densidade recomendadas para um mesmo biotipo, a apresentada em negrito indica a que é mais adequada.</p>\n<div class=\"center\">\n<div aria-label=\"Tabela da questão 180; deslize horizontalmente para ver todas as colunas\" class=\"enem-table-wrap\" role=\"region\" tabindex=\"0\"><table class=\"enem-table\">\n<thead>\n<tr class=\"header\">\n<th style=\"text-align: left;\"><strong>Massa (quilograma)</strong></th>\n<th colspan=\"6\" style=\"text-align: center;\"><strong>Altura (metro)</strong></th>\n</tr>\n</thead>\n<tbody>\n<tr class=\"odd\">\n<td style=\"text-align: left;\"></td>\n<td style=\"text-align: center;\"><strong>Até 1,50</strong></td>\n<td style=\"text-align: center;\"><strong>1,51 a 1,60</strong></td>\n<td style=\"text-align: center;\"><strong>1,61 a 1,70</strong></td>\n<td style=\"text-align: center;\"><strong>1,71 a 1,80</strong></td>\n<td style=\"text-align: center;\"><strong>1,81 a 1,90</strong></td>\n<td style=\"text-align: center;\"><strong>Acima de 1,90</strong></td>\n</tr>\n<tr class=\"even\">\n<td style=\"text-align: left;\">Até 50</td>\n<td style=\"text-align: center;\">D-20</td>\n<td style=\"text-align: center;\">D-23</td>\n<td style=\"text-align: center;\">D-23</td>\n<td style=\"text-align: center;\">–</td>\n<td style=\"text-align: center;\">–</td>\n<td style=\"text-align: center;\">–</td>\n</tr>\n<tr class=\"odd\">\n<td style=\"text-align: left;\">51 a 60</td>\n<td style=\"text-align: center;\">D-23</td>\n<td style=\"text-align: center;\"><strong>D-23</strong> ou D-26</td>\n<td style=\"text-align: center;\"><strong>D-26</strong> ou D-28</td>\n<td style=\"text-align: center;\">D-28</td>\n<td style=\"text-align: center;\">–</td>\n<td style=\"text-align: center;\">–</td>\n</tr>\n<tr class=\"even\">\n<td style=\"text-align: left;\">61 a 70</td>\n<td style=\"text-align: center;\">D-26</td>\n<td style=\"text-align: center;\"><strong>D-26</strong> ou D-28</td>\n<td style=\"text-align: center;\"><strong>D-26</strong> ou D-28</td>\n<td style=\"text-align: center;\"><strong>D-28</strong> ou D-30</td>\n<td style=\"text-align: center;\">D-30</td>\n<td style=\"text-align: center;\">–</td>\n</tr>\n<tr class=\"odd\">\n<td style=\"text-align: left;\">71 a 80</td>\n<td style=\"text-align: center;\">–</td>\n<td style=\"text-align: center;\">D-28</td>\n<td style=\"text-align: center;\"><strong>D-28</strong> ou D-30</td>\n<td style=\"text-align: center;\"><strong>D-30</strong> ou D-33</td>\n<td style=\"text-align: center;\"><strong>D-30</strong> ou D-33</td>\n<td style=\"text-align: center;\">D-33</td>\n</tr>\n<tr class=\"even\">\n<td style=\"text-align: left;\">81 a 90</td>\n<td style=\"text-align: center;\">–</td>\n<td style=\"text-align: center;\">–</td>\n<td style=\"text-align: center;\">D-30</td>\n<td style=\"text-align: center;\"><strong>D-30</strong> ou D-33</td>\n<td style=\"text-align: center;\"><strong>D-30</strong> ou D-33</td>\n<td style=\"text-align: center;\"><strong>D-33</strong> ou D-36</td>\n</tr>\n<tr class=\"odd\">\n<td style=\"text-align: left;\">91 a 100</td>\n<td style=\"text-align: center;\">–</td>\n<td style=\"text-align: center;\">–</td>\n<td style=\"text-align: center;\">D-33</td>\n<td style=\"text-align: center;\">D-33</td>\n<td style=\"text-align: center;\">D-33</td>\n<td style=\"text-align: center;\">D-36</td>\n</tr>\n</tbody>\n</table></div>\n</div>\n<div class=\"flushright\">\n<p>Disponível em: www.inmetro.gov.br. Acesso em: 28 fev. 2012 (adaptado).</p>\n</div>\n<p>Uma pessoa com 71 kg de massa e 1,71 m de altura precisa adquirir um novo colchão.</p>\n<p>A densidade mais adequada de um colchão para essa pessoa é</p>",
+  "options": [
+   {
+    "kind": "html",
+    "html": "<p>D-26.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>D-28.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>D-30.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>D-33.</p>"
+   },
+   {
+    "kind": "html",
+    "html": "<p>D-36.</p>"
+   }
+  ],
+  "cols": 3
+ }
+]

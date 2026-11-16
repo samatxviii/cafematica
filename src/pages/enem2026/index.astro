@@ -1,0 +1,68 @@
+---
+import Base from '../../layouts/Base.astro';
+import questions from '../../data/enem2026.json';
+import '../../styles/enem2026.css';
+const counts=questions.length;
+// A visualização do resumo não deve expor delimitadores LaTeX brutos.
+const excerpt=s=>String(s).replace(/\\\(|\\\)/g,'').replace(/\\times/g,'×').replace(/\\alpha/g,'α').replace(/\\text\{([^}]+)\}/g,'$1').replace(/([A-Za-z])_(\d)/g,'$1$2').replace(/\s+,/g,',');
+---
+<Base title="ENEM 2026: 45 questões de Matemática" description="Leia as 45 questões de Matemática do ENEM 2026 com enunciados, figuras e fórmulas, e encontre sua questão pela numeração dos cadernos amarelo, cinza, azul ou verde.">
+  <div class="enem-root">
+    <section class="enem-landing-hero" aria-labelledby="enem-landing-title">
+      <div class="enem-container">
+        <div class="enem-crumbs"><a href="/">Início</a><span aria-hidden="true">/</span><a href="/matematica/">Matemática</a><span aria-hidden="true">/</span><span>ENEM 2026</span></div>
+        <div class="enem-hero-grid">
+          <div>
+            <p class="enem-eyebrow">CAFEMÁTICA · CADERNOS DO 2º DIA</p>
+            <h1 id="enem-landing-title">Matemática do <em>ENEM 2026.</em></h1>
+            <p class="enem-hero-description">As 45 questões em páginas próprias, com fórmulas, figuras e numeração correspondente às quatro cores de caderno. Escolha uma questão e estude no seu ritmo.</p>
+          </div>
+          <div class="enem-hero-mark" aria-label="45 questões de Matemática"><span>45</span><small>QUESTÕES</small></div>
+        </div>
+      </div>
+    </section>
+    <div class="enem-container">
+      <section class="enem-list-section" aria-labelledby="enem-list-title">
+        <div class="enem-list-heading"><div><p class="enem-eyebrow">NAVEGUE PELOS CADERNOS</p><h2 id="enem-list-title">Escolha sua questão</h2></div><p class="enem-list-count" id="enem-count" aria-live="polite">{counts} questões disponíveis</p></div>
+        <div class="enem-filter-box">
+          <div class="enem-filter-grid">
+            <div><label for="enem-color">Cor do caderno</label><select id="enem-color" aria-describedby="enem-filter-help"><option value="amarela">Amarelo</option><option value="cinza">Cinza</option><option value="azul">Azul</option><option value="verde">Verde</option></select></div>
+            <div><label for="enem-search">Número da questão ou assunto</label><div class="enem-search-wrap"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m16 16 5 5"/></svg><input id="enem-search" type="search" inputmode="search" placeholder="Ex.: 136 ou porcentagem" autocomplete="off"/></div></div>
+          </div><p class="enem-help" id="enem-filter-help">Um mesmo número representa questões diferentes em cadernos de cores diferentes. Escolha a cor antes de pesquisar. A sequência das faixas é: <strong>amarelo · cinza · azul · verde</strong>.</p></div>
+        <div class="enem-cards" id="enem-cards">
+          {questions.map(q=><a class="enem-question-card" href={`/enem2026/${q.slug}/`} data-enem-card data-amarela={q.amarela} data-cinza={q.cinza} data-azul={q.azul} data-verde={q.verde} data-search={`${q.amarela} ${q.cinza} ${q.azul} ${q.verde} ${q.summary.toLocaleLowerCase('pt-BR')}`} aria-label={`Abrir questão ${q.amarela} do caderno amarelo; cinza ${q.cinza}, azul ${q.azul}, verde ${q.verde}`}>
+            <div class="enem-number-strip" aria-label="Números da questão por caderno"><span class="enem-yellow" title="Amarelo">{q.amarela}</span><span class="enem-gray" title="Cinza">{q.cinza}</span><span class="enem-blue" title="Azul">{q.azul}</span><span class="enem-green" title="Verde">{q.verde}</span></div>
+            <div class="enem-card-content"><span class="enem-card-eyebrow">Questão {q.amarela} · Matemática</span><h3>Questão {q.amarela}</h3><p>{excerpt(q.summary)}</p><span class="enem-card-link">Ver enunciado e alternativas <span aria-hidden="true">↗</span></span></div>
+          </a>)}
+        </div>
+        <p class="enem-empty" id="enem-empty" hidden>Nenhuma questão encontrada. Experimente outro número ou palavra.</p>
+      </section>
+      <p class="enem-source-note">Questões transcritas dos cadernos do ENEM 2026, 2º dia. A sequência principal segue o caderno amarelo; os números dos demais cadernos aparecem em cada faixa.</p>
+    </div>
+  </div>
+</Base>
+<script>
+  const input=document.querySelector<HTMLInputElement>('#enem-search');
+  const color=document.querySelector<HTMLSelectElement>('#enem-color');
+  const cards=Array.from(document.querySelectorAll<HTMLElement>('[data-enem-card]'));
+  const count=document.querySelector<HTMLElement>('#enem-count');
+  const empty=document.querySelector<HTMLElement>('#enem-empty');
+  const norm=(s:string)=>s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLocaleLowerCase('pt-BR').trim();
+  const applyFilter=()=>{
+    const term=norm(input?.value||'');
+    const selected=color?.value||'amarela';
+    const numeric=/^\d{3}$/.test(term);
+    let shown=0;
+    for(const card of cards){
+      // O número 136 pode existir em todos os cadernos, mas representa
+      // questões diferentes: busca numérica respeita a cor escolhida.
+      const ok=!term||(numeric?card.dataset[selected]===term:norm(card.dataset.search||'').includes(term));
+      card.hidden=!ok;
+      if(ok)shown++;
+    }
+    if(count)count.textContent=`${shown} ${shown===1?'questão disponível':'questões disponíveis'}`;
+    if(empty)empty.hidden=shown!==0;
+  };
+  input?.addEventListener('input',applyFilter);
+  color?.addEventListener('change',applyFilter);
+</script>
