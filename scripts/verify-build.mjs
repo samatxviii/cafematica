@@ -33,5 +33,31 @@ for(const post of getPosts()){
  const entry=sitemapEntries.find(item=>item.includes('<loc>'+loc+'</loc>'));
  if(!entry||!entry.includes('<lastmod>'+lastmod+'</lastmod>'))errors.push('Sitemap sem atualização editorial: '+post.slug);
 }
+// A coleção ENEM 2026 deve estar publicada e descoberta pelo sitemap.
+const enem=JSON.parse(fs.readFileSync('src/data/enem2026.json','utf8'));
+for(const uri of ['/enem2026/',...enem.map(q=>'/enem2026/'+q.slug+'/')]){
+  const filepath=path.join(root,uri.slice(1),'index.html');
+  const canonical=site.url+uri;
+  if(!fs.existsSync(filepath)){errors.push('Página ENEM ausente: '+uri);continue;}
+  const {document}=parseHTML(fs.readFileSync(filepath,'utf8'));
+  if(document.querySelector('link[rel="canonical"]')?.getAttribute('href')!==canonical)errors.push('Canonical ENEM incorreta: '+uri);
+  if(!sitemapEntries.some(entry=>entry.includes('<loc>'+canonical+'</loc>')))errors.push('URL ENEM ausente do sitemap: '+uri);
+}
+const robots=fs.readFileSync(path.join(root,'robots.txt'),'utf8');
+if(!robots.includes('Sitemap: '+site.url+'/sitemap-index.xml'))errors.push('Sitemap não referenciado no robots.txt');
+if(!robots.includes('Disallow: /admin/'))errors.push('Admin não protegida contra rastreamento');
+for(const [oldRoute,targetRoute] of [
+  ['blog/matematica/equacao-de-1-grau','/blog/equacao-primeiro-grau/'],
+  ['os-3-canais','/sobre/']
+]){
+  const filepath=path.join(root,oldRoute,'index.html');
+  if(!fs.existsSync(filepath)){errors.push('Rota legada ausente: '+oldRoute);continue;}
+  const {document}=parseHTML(fs.readFileSync(filepath,'utf8'));
+  const target=site.url+targetRoute;
+  if(document.querySelector('meta[http-equiv="refresh"]')?.getAttribute('content')!=='0; url='+target)errors.push('Redirecionamento antigo inválido: '+oldRoute);
+  if(document.querySelector('link[rel="canonical"]')?.getAttribute('href')!==target)errors.push('Canonical antiga incorreta: '+oldRoute);
+  if(sitemapEntries.some(entry=>entry.includes('<loc>'+site.url+'/'+oldRoute+'/</loc>')))errors.push('Rota legada não deve constar no sitemap: '+oldRoute);
+}
+
 for(const directory of ['src','content','supabase','membros','node_modules','.git'])if(fs.existsSync(path.join(root,directory)))errors.push(`Código interno no pacote público: ${directory}`);
 if(errors.length){console.error([...new Set(errors)].join('\n'));process.exit(1);}console.log(`${html.length} páginas verificadas: títulos, links locais, metadados e separação do código interno.`);
