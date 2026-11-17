@@ -19,6 +19,32 @@ for (const name of fs.readdirSync(out).filter(file => /^sitemap-\d+\.xml$/.test(
 }
 fs.writeFileSync(path.join(out,'feed.xml'),`<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"><channel><title>Cafemática</title><link>${config.url}</link><description>Matemática, LaTeX e tecnologia.</description><language>pt-BR</language>${posts.map(p=>`<item><title>${xml(p.title)}</title><link>${config.url}/blog/${p.slug}/</link><guid>${config.url}/blog/${p.slug}/</guid><description>${xml(p.description)}</description><pubDate>${new Date(p.date+'T12:00:00-03:00').toUTCString()}</pubDate></item>`).join('')}</channel></rss>`);
 fs.writeFileSync(path.join(out,'robots.txt'),`User-agent: *\nAllow: /\nDisallow: /admin/\nDisallow: /membros/\nDisallow: /content/\nDisallow: /src/\nDisallow: /supabase/\nDisallow: /tests/\nSitemap: ${config.url}/sitemap-index.xml\n`);
+// GitHub Pages não oferece redirecionamentos HTTP 301 personalizados.
+// Um refresh imediato permite recuperar URLs antigas com equivalência editorial
+// sem enviá-las ao sitemap nem apontar indiscriminadamente para a página inicial.
+const legacyRedirects = [
+  { from: 'blog/matematica/equacao-de-1-grau', to: '/blog/equacao-primeiro-grau/', title: 'Equação do primeiro grau' },
+  { from: 'os-3-canais', to: '/sobre/', title: 'Os canais do Cafemática' }
+];
+for (const redirect of legacyRedirects) {
+  const destination = new URL(redirect.to, config.url).href;
+  const file = path.join(out, redirect.from, 'index.html');
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  const html = [
+    '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8">',
+    '<meta name="viewport" content="width=device-width, initial-scale=1">',
+    '<title>' + redirect.title + ' | Cafemática</title>',
+    '<meta name="description" content="Este conteúdo mudou de endereço.">',
+    '<meta name="robots" content="noindex, follow">',
+    '<link rel="canonical" href="' + destination + '">',
+    '<meta http-equiv="refresh" content="0; url=' + destination + '">',
+    '</head><body><main><h1>' + redirect.title + '</h1>',
+    '<p>Este conteúdo mudou. <a href="' + destination + '">Acesse a página atual</a>.</p>',
+    '</main></body></html>'
+  ].join('');
+  fs.writeFileSync(file, html);
+}
+
 if(config.adsensePublisherId){if(!/^ca-pub-\d{16}$/.test(config.adsensePublisherId))throw Error('ID do AdSense inválido.');fs.writeFileSync(path.join(out,'ads.txt'),`google.com, ${config.adsensePublisherId.replace('ca-','')}, DIRECT, f08c47fec0942fa0\n`);}
 fs.writeFileSync(path.join(out,'publication.json'),JSON.stringify({articles:posts.map(p=>({slug:p.slug,version:p.cmsVersion||null,id:p.cmsId||null})),builtAt:new Date().toISOString()},null,2)+'\n');
 console.log(`Conteúdo estático pronto: ${posts.length} artigos; URLs anteriores preservadas.`);
