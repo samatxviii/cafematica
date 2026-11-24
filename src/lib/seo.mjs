@@ -33,7 +33,7 @@ export function normalizeFaq(input) {
       if (!item.question || !item.answer || seen.has(key)) return false;
       seen.add(key);
       return true;
-    }).slice(0, 5);
+    }).slice(0, 13);
 }
 
 export function normalizeSources(input) {
@@ -58,7 +58,8 @@ export function articleSeoMetadata({ title, description, article = null, siteUrl
   const displayTitle = textOrFallback(article?.seoTitle, title);
   const displayDescription = textOrFallback(article?.seoDescription, description);
   const cover = safeCoverPath(article?.cover, supabaseUrl);
-  const image = cover ? new URL(cover, siteUrl).href : new URL('/og-cafematica.png', siteUrl).href;
+  const socialCover = safeCoverPath(article?.socialCover, supabaseUrl);
+  const image = new URL(socialCover || cover || '/og-cafematica.png', siteUrl).href;
   const published = article?.date || null;
   const updated = article?.updated || published;
   const authorUrl = new URL('/sobre/', siteUrl).href;
@@ -92,13 +93,13 @@ export function articleSeoMetadata({ title, description, article = null, siteUrl
     author: {
       '@type': 'Person',
       name: authorName,
-      ...(authorName === 'Fernando da Silva Batista' ? {url: authorUrl} : {})
+      ...(authorName === 'Fernando da Silva Batista' || authorName === 'Fernando Batista' ? {url: authorUrl, jobTitle: 'Professor de Matemática'} : {})
     },
     publisher,
     articleSection: categoryName || undefined,
     isPartOf: { '@type': 'Blog', '@id': new URL('/blog/', siteUrl).href, name: 'Artigos do Cafemática' },
     ...(article.topic ? { about: { '@type': 'Thing', name: String(article.topic).trim().slice(0, 100) } } : {}),
-    ...(cover ? {image: [image]} : {}),
+    ...(cover ? {image: [new URL(cover, siteUrl).href]} : {}),
     ...(tags.length ? {keywords: tags.join(', ')} : {}),
     ...(normalizeSources(article?.sources).length ? {citation: normalizeSources(article.sources).map(source => source.url)} : {})
   } : {

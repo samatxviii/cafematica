@@ -2,7 +2,11 @@ import sanitizeHtml from 'sanitize-html';
 import { rawMarkdown } from './markdown.mjs';
 
 export function renderMarkdown(source = '') {
-  return sanitizeHtml(rawMarkdown(source), {
+  return sanitizeMarkdownHtml(rawMarkdown(source));
+}
+
+export function sanitizeMarkdownHtml(html) {
+  return sanitizeHtml(html, {
     allowedTags: [...sanitizeHtml.defaults.allowedTags, 'img', 'span', 'div', 'sup', 'sub', 'math', 'semantics', 'annotation', 'mrow', 'mi', 'mn', 'mo', 'mfrac', 'msup', 'msub', 'msubsup', 'mover', 'munder', 'munderover', 'msqrt', 'mroot', 'mtable', 'mtr', 'mtd', 'mtext', 'mspace', 'mpadded', 'menclose', 'mmultiscripts', 'mprescripts', 'none'],
     allowedAttributes: { '*': ['class','aria-hidden','mathvariant','stretchy','fence','separator','accent','accentunder','columnalign','rowspacing','columnspacing','linethickness','scriptlevel'], math:['xmlns','display'], annotation:['encoding'], a: ['href','title','rel'], img: ['src','alt','title','width','height','loading'], span: ['class','style','aria-hidden'], div: ['class','style'], code: ['class'] },
     allowedSchemes: ['https','http','mailto'], allowedSchemesByTag: { img: ['https'] }, allowProtocolRelative: false,

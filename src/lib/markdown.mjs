@@ -8,3 +8,5 @@ markdown.use({ extensions: [
 ] });
 
 export const rawMarkdown = (source) => markdown.parse(String(source));
+export const lexMarkdown = (source) => markdown.lexer(source);
+export const parseMarkdownTokens = (tokens) => markdown.parser(tokens);

@@ -3,9 +3,11 @@ import Base from '../../layouts/Base.astro';
 import Icon from '../../components/Icon.astro';
 import Comments from '../../components/Comments.astro';
 import EnemQuestionExplorer from '../../components/EnemQuestionExplorer.astro';
+import ThirteenthSalary from '../../components/ThirteenthSalary.astro';
 import PostCard from '../../components/PostCard.astro';
 import {getPosts,dateLabel} from '../../lib/content.mjs';
 import {safeCoverPath} from '../../lib/cover.mjs';
+import {splitArticleBody} from '../../lib/article-widgets.mjs';
 import site from '../../../config/site.json';
 
 export function getStaticPaths(){
@@ -13,9 +15,13 @@ export function getStaticPaths(){
 }
 
 const {post}=Astro.props;
+const parts=splitArticleBody(post.body,post.html);
+const hasCalculator=parts.some(part=>part.widget==='calculadora-decimo-terceiro');
+const url=new URL(Astro.url.pathname,site.url).href;
 const author=typeof post.author==='string'&&post.author.trim()?post.author.trim():'Fernando da Silva Batista';
 const cover=safeCoverPath(post.cover,site.supabaseUrl);
 const updated=post.updated&&post.updated!==post.date?post.updated:null;
+const authorIsFernando=author==='Fernando da Silva Batista'||author==='Fernando Batista';
 const tags=post.tags||[];
 const sources=post.sources||[];
 const related=getPosts().filter(other=>other.slug!==post.slug).map(other=>({
@@ -23,28 +29,38 @@ const related=getPosts().filter(other=>other.slug!==post.slug).map(other=>({
   score:(other.category===post.category?2:0)+tags.filter(tag=>other.tags?.some(t=>t.toLocaleLowerCase('pt-BR')===tag.toLocaleLowerCase('pt-BR'))).length*3
 })).filter(item=>item.score>0).sort((a,b)=>b.score-a.score||b.other.date.localeCompare(a.other.date)).slice(0,3).map(item=>item.other);
 ---
-<Base title={post.title} description={post.description} article={post}>
-  <article class="container article-shell">
+<Base title={post.title} description={post.description} article={post} webApplication={hasCalculator ? {
+  '@context':'https://schema.org', '@type':'WebApplication', '@id':url+'#calculadora',
+  name:'Calculadora de 13º salário do Cafemática', url:url+'#calculadora', inLanguage:'pt-BR',
+  applicationCategory:'FinanceApplication', operatingSystem:'Qualquer sistema com navegador e JavaScript',
+  isAccessibleForFree:true, offers:{'@type':'Offer',price:0,priceCurrency:'BRL'},
+  isPartOf:{'@id':url+'#article'}
+} : null}>
+  <article class="container article-shell" data-calculator-article={hasCalculator ? '' : undefined}>
     <header class="article-head">
-      <div class="breadcrumbs"><a href="/">Início</a><span>/</span><a href={`/${post.category}/`}>{post.categoryInfo.name}</a></div>
+      <nav class="breadcrumbs" aria-label="Caminho da página"><a href="/">Início</a><span aria-hidden="true">/</span><a href={`/${post.category}/`}>{post.categoryInfo.name}</a></nav>
       <span class={`eyebrow category-label ${post.category}`}>{post.topic||post.categoryInfo.name}</span>
       <h1>{post.title}</h1>
       <p class="article-summary">{post.description}</p>
       <div class="byline">
         <img src="/assets/logo-original.png" width="28" height="34" alt=""/>
-        {author==='Fernando da Silva Batista'?<a href="/sobre/">{author}</a>:<span>{author}</span>}
+        {authorIsFernando?<a href="/sobre/">{author}{author==='Fernando Batista'&&' — Professor de Matemática'}</a>:<span>{author}</span>}
         <span>·</span><time datetime={post.date}>{dateLabel(post.date)}</time>
         <span>·</span><span>{post.minutes} min de leitura</span>
       </div>
       {updated&&<p class="article-edited">Revisado em <time datetime={updated}>{dateLabel(updated)}</time></p>}
     </header>
     {post.quickAnswer&&<section class="article-quick-answer article-quick-before-cover" aria-labelledby="quick-answer-title"><h2 id="quick-answer-title">Em poucas palavras</h2><p>{post.quickAnswer}</p></section>}
-    {cover&&<figure class="article-cover"><img src={cover} alt={post.coverAlt||''} width="1600" height="1000" decoding="async"/>{post.coverAlt&&<figcaption>{post.coverAlt}</figcaption>}</figure>}
+    {cover&&!hasCalculator&&<figure class="article-cover"><img src={cover} alt={post.coverAlt||''} width="1600" height="1000" decoding="async"/>{post.coverAlt&&<figcaption>{post.coverAlt}</figcaption>}</figure>}
     {post.slug==='enem-2020-explorador-questoes-matematica'&&<EnemQuestionExplorer/>}
     <div class="article-layout">
       <div>
 
-        <div class="prose" set:html={post.html}/>
+        <div class="prose" data-editorial-body>
+          {parts.map(part=>part.widget==='calculadora-decimo-terceiro'
+            ? <Fragment><ThirteenthSalary url={url}/>{cover&&<figure class="article-cover"><img src={cover} alt={post.coverAlt||''} width="1600" height="1000" loading="lazy" decoding="async"/></figure>}</Fragment>
+            : <Fragment set:html={part.html}/>)}
+        </div>
         {post.faq?.length>0&&<section class="article-faq prose" aria-labelledby="article-faq-title"><h2 id="article-faq-title">Perguntas frequentes sobre o assunto</h2>{post.faq.map(item=><div class="article-faq-item"><h3>{item.question}</h3><p>{item.answer}</p></div>)}</section>}
         {tags.length>0&&<nav class="article-tags" aria-label="Assuntos relacionados"><h2>Assuntos deste artigo</h2><div>{tags.map(tag=><a href={`/blog/?q=${encodeURIComponent(tag)}#busca`}>{tag}</a>)}</div></nav>}
         {sources.length>0&&<section class="article-references" aria-labelledby="references-title"><h2 id="references-title">Fontes e leituras recomendadas</h2><ul>{sources.map(source=><li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.title} <span aria-hidden="true">↗</span></a></li>)}</ul></section>}
@@ -63,3 +79,6 @@ const related=getPosts().filter(other=>other.slug!==post.slug).map(other=>({
   </article>
   {related.length>0&&<section class="container section"><div class="section-heading"><div><span class="eyebrow">Continue sua descoberta</span><h2>Uma ideia puxa outra</h2></div></div><div class="post-grid">{related.map(relatedPost=><PostCard post={relatedPost}/>)}</div></section>}
 </Base>
+<style>
+  [data-calculator-article] .article-layout > div { min-width: 0; }
+</style>

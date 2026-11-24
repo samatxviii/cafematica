@@ -131,6 +131,13 @@ content:
         description: "O que a imagem realmente mostra? Não encha de palavras-chave."
         options:
           maxlength: 180
+      - name: socialCover
+        label: Imagem para redes sociais
+        type: image
+        description: "Opcional. Use a proporção de 1200 × 630 pixels."
+        options:
+          extensions: [jpg, jpeg, png, webp, avif]
+          rename: safe
       - name: author
         label: Autor do artigo
         type: string
@@ -188,7 +195,7 @@ content:
         type: object
         description: "Somente perguntas realmente respondidas neste artigo, com respostas originais e úteis. O site as mostra ao leitor; não prometemos destaque especial no Google."
         list:
-          max: 5
+          max: 13
           collapsible:
             collapsed: true
             summary: "{question}"
@@ -228,6 +235,7 @@ content:
       - name: body
         label: Conteúdo
         type: rich-text
+        description: "Para incorporar a calculadora de 13º, mantenha [[calculadora-decimo-terceiro]] sozinho em um parágrafo, no modo Source."
         required: true
         options:
           format: markdown

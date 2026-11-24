@@ -1,0 +1,92 @@
+---
+import { payroll2026 } from '../data/payroll-2026.mjs';
+const { url } = Astro.props;
+const labels = {
+  gross: '13º bruto', first: 'Primeira parcela', inss: 'INSS',
+  irrf: 'IRRF', second: 'Segunda parcela (saldo)', net: 'Líquido total'
+};
+---
+<section id="calculadora" class="salary-calculator" aria-labelledby="salary-title" data-url={url}>
+  <h2 id="salary-title">Calcule seu décimo terceiro de {payroll2026.year}</h2>
+  <noscript><p>Ative o JavaScript para simular. As fórmulas e os exemplos abaixo podem ser consultados sem a calculadora.</p></noscript>
+  <form hidden>
+    <div class="salary-grid">
+      <label>Salário bruto mensal (R$)
+        <input type="text" inputmode="decimal" data-field="salary" placeholder="Ex.: 2.000,00" autocomplete="off" required />
+      </label>
+      <label>Contar os meses de 2026 por
+        <select data-field="mode"><option value="months">Meses com direito</option><option value="date">Data de admissão</option></select>
+      </label>
+      <label data-mode="months">Meses com direito ao 13º
+        <input type="number" data-field="months" min="0" max="12" step="1" value="12" required />
+      </label>
+      <label data-mode="date" hidden>Data de admissão
+        <input type="date" data-field="date" min="1900-01-01" max={payroll2026.year + '-12-31'} disabled aria-describedby="salary-date-hint" />
+        <small id="salary-date-hint">A projeção considera vínculo ativo até 31 de dezembro, sem afastamentos que reduzam os meses.</small>
+      </label>
+    </div>
+    <details>
+      <summary>Opções avançadas</summary>
+      <div class="salary-grid">
+        <label>Dependentes para IRRF
+          <input type="number" data-field="dependents" min="0" max="99" step="1" placeholder="0" />
+        </label>
+        <label>Média mensal de comissões, horas extras e adicionais (R$)
+          <input type="text" inputmode="decimal" data-field="variable" placeholder="0,00" autocomplete="off" />
+        </label>
+        <label>Primeira parcela já recebida (R$)
+          <input type="text" inputmode="decimal" data-field="advance" placeholder="Vazio = estimar 50%" autocomplete="off" />
+        </label>
+      </div>
+    </details>
+    <p data-error role="status"></p>
+    <div data-results hidden>
+      <h3>Resultado estimado</h3>
+      <dl class="salary-grid">
+        {Object.entries(labels).map(([key, label]) => <div><dt>{label}</dt><dd data-value={key}></dd></div>)}
+      </dl>
+      <figure>
+        <figcaption>Distribuição do 13º bruto</figcaption>
+        <div class="salary-bars">
+          {['Líquido', 'INSS', 'IRRF'].map((label, i) => <label>{label}<meter data-meter={i} min="0" max="100" value="0"></meter><span data-percent={i}></span></label>)}
+        </div>
+      </figure>
+      <details>
+        <summary>Memória de cálculo</summary>
+        <ol data-memory></ol>
+      </details>
+    </div>
+    <div class="button-row">
+      <button class="button secondary" type="reset">Limpar dados</button>
+      <button class="button secondary" type="button" data-action="copy" disabled>Copiar resultados</button>
+      <a class="button secondary" href={`https://wa.me/?text=${encodeURIComponent(url)}`} target="_blank" rel="noopener noreferrer" data-action="whatsapp">Compartilhar no WhatsApp</a>
+      <button class="button secondary" type="button" data-action="link">Compartilhar link</button>
+    </div>
+    <p class="small" data-feedback role="status"></p>
+  </form>
+  <p class="small">Estimativa para um vínculo empregatício. Os valores são calculados no seu navegador. Os botões de compartilhamento enviam apenas o endereço do artigo.</p>
+</section>
+<script>
+  import '../scripts/thirteenth-salary.js';
+</script>
+<style>
+  .salary-calculator { padding: clamp(1rem, 4vw, 1.75rem); margin: 1.5rem 0 2rem; border: 1px solid var(--line); background: var(--paper); border-radius: 12px; }
+  .salary-calculator h2 { margin: 0 0 1rem; }
+  .salary-calculator p { margin: .75rem 0 0; }
+  .salary-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem 1rem; }
+  input, select { display: block; width: 100%; min-width: 0; min-height: 44px; padding: .55rem; color: var(--ink); background: var(--white); border: 1px solid #9c9e92; border-radius: 6px; margin-top: .25rem; }
+  small { display: block; }
+  details { margin-block: .75rem; }
+  summary { cursor: pointer; font-weight: 600; padding-block: .35rem; }
+  details .salary-grid { margin-top: .65rem; }
+  dl > div { border: 1px solid var(--line); border-radius: 6px; padding: .65rem; }
+  dt { font-size: .85rem; }
+  dd { margin: 0; font-size: 1.15rem; font-weight: 700; }
+  figure { margin: 1rem 0; }
+  figcaption { font-weight: 600; }
+  .salary-bars label { display: grid; grid-template-columns: 3rem minmax(0, 1fr) 4rem; gap: .5rem; align-items: center; }
+  meter { width: 100%; accent-color: var(--green); }
+  [data-error] { color: #8d3f2b; }
+  a.button { text-decoration: none; color: var(--green); }
+  @media (max-width: 530px) { .salary-grid { grid-template-columns: minmax(0, 1fr); } }
+</style>

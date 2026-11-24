@@ -109,3 +109,5 @@ Observe que usamos 25 no denominador, pois queremos comparar o aumento com o val
 ## Para continuar: a relação entre porcentagens e frações
 
 Uma porcentagem é uma fração de denominador 100. Se ainda parecer difícil decidir qual valor representa o todo, comece por [entender frações e partes de um inteiro](/blog/fracoes-sem-decorar/). Essa interpretação ajuda a explicar descontos e aumentos sem decorar regras isoladas.
+
+Veja a porcentagem em outra situação do dia a dia com a [calculadora de décimo terceiro salário](/blog/calculadora-decimo-terceiro/).

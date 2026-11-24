@@ -69,6 +69,17 @@ function startAnalytics(){
   script.src=`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaId)}`;
   document.head.append(script);
 }
+const calculatorEvents = new Set(['calculator_use','calculator_copy','calculator_share','calculator_related_click']);
+function trackCalculator(name){
+  if(calculatorEvents.has(name)&&gaEnabled&&getPreferences().analytics&&window.__cafematicaGaStarted){
+    window.gtag('event',name);
+  }
+}
+document.addEventListener('cafematica:calculator',event=>trackCalculator(event.detail));
+document.querySelector('[data-calculator-article] [data-editorial-body]')?.addEventListener('click',event=>{
+  const link=event.target.closest('a[href^="/blog/"],a[href="/matematica/"]');
+  if(link)trackCalculator('calculator_related_click');
+});
 function savePreferences(allowMedia,allowAnalytics=getPreferences().analytics){
   const previous=getPreferences();
   try{
